@@ -1,0 +1,2360 @@
+[
+  {
+    "@timestamp": "2025-11-29T10:00:00Z",
+    "log_id": "log-0001",
+    "service": "order-service",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/search",
+      "status_code": 204,
+      "response_time_ms": 86
+    },
+    "client": {
+      "ip": "192.168.154.82",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-54930",
+      "span_id": "span-6182"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T10:05:00Z",
+    "log_id": "log-0002",
+    "service": "order-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/products",
+      "status_code": 200,
+      "response_time_ms": 76
+    },
+    "client": {
+      "ip": "192.168.40.76",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-85311",
+      "span_id": "span-9330"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T10:10:00Z",
+    "log_id": "log-0003",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/reports",
+      "status_code": 201,
+      "response_time_ms": 180
+    },
+    "client": {
+      "ip": "192.168.49.210",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-93339",
+      "span_id": "span-8533"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T10:15:00Z",
+    "log_id": "log-0004",
+    "service": "product-service",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/search",
+      "status_code": 204,
+      "response_time_ms": 68
+    },
+    "client": {
+      "ip": "192.168.158.95",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-59581",
+      "span_id": "span-7699"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T10:20:00Z",
+    "log_id": "log-0005",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 204,
+      "response_time_ms": 70
+    },
+    "client": {
+      "ip": "192.168.251.235",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-49532",
+      "span_id": "span-5056"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T10:25:00Z",
+    "log_id": "log-0006",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/products",
+      "status_code": 201,
+      "response_time_ms": 71
+    },
+    "client": {
+      "ip": "192.168.231.169",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-93124",
+      "span_id": "span-5060"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T10:30:00Z",
+    "log_id": "log-0007",
+    "service": "user-service",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/users",
+      "status_code": 200,
+      "response_time_ms": 10527
+    },
+    "client": {
+      "ip": "192.168.142.227",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-30161",
+      "span_id": "span-6673"
+    },
+    "level": "WARN",
+    "message": "Disk I/O latency spike",
+    "performance": {
+      "read_latency_ms": 267,
+      "write_latency_ms": 515,
+      "iops": 164
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T10:35:00Z",
+    "log_id": "log-0008",
+    "service": "product-service",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 403,
+      "response_time_ms": 191
+    },
+    "client": {
+      "ip": "192.168.189.24",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-63537",
+      "span_id": "span-2852"
+    },
+    "level": "WARN",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "security": {
+      "event_type": "RATE_LIMIT_EXCEEDED",
+      "requests_per_minute": 150
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T10:40:00Z",
+    "log_id": "log-0009",
+    "service": "security-monitor",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/users",
+      "status_code": 204,
+      "response_time_ms": 93
+    },
+    "client": {
+      "ip": "192.168.85.229",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-81809",
+      "span_id": "span-3544"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T10:45:00Z",
+    "log_id": "log-0010",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 201,
+      "response_time_ms": 193
+    },
+    "client": {
+      "ip": "192.168.144.231",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-20277",
+      "span_id": "span-7981"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T10:50:00Z",
+    "log_id": "log-0011",
+    "service": "product-service",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/checkout",
+      "status_code": 401,
+      "response_time_ms": 426
+    },
+    "client": {
+      "ip": "192.168.127.22",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-84580",
+      "span_id": "span-3282"
+    },
+    "level": "WARN",
+    "message": "Rate limit exceeded for IP",
+    "security": {
+      "event_type": "RATE_LIMIT_EXCEEDED",
+      "requests_per_minute": 150
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T10:55:00Z",
+    "log_id": "log-0012",
+    "service": "security-monitor",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/reports",
+      "status_code": 201,
+      "response_time_ms": 168
+    },
+    "client": {
+      "ip": "192.168.165.169",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-56866",
+      "span_id": "span-2119"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T11:00:00Z",
+    "log_id": "log-0013",
+    "service": "security-monitor",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/products",
+      "status_code": 502,
+      "response_time_ms": 14644
+    },
+    "client": {
+      "ip": "192.168.133.8",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-99336",
+      "span_id": "span-1500"
+    },
+    "level": "ERROR",
+    "message": "Request timeout: upstream service unavailable",
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:497)",
+      "correlation_id": "err-95027"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T11:05:00Z",
+    "log_id": "log-0014",
+    "service": "security-monitor",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/reports",
+      "status_code": 200,
+      "response_time_ms": 67
+    },
+    "client": {
+      "ip": "10.0.0.99",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-53859",
+      "span_id": "span-8054"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T11:10:00Z",
+    "log_id": "log-0015",
+    "service": "order-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/products",
+      "status_code": 200,
+      "response_time_ms": 67
+    },
+    "client": {
+      "ip": "192.168.89.27",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-84441",
+      "span_id": "span-3030"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T11:15:00Z",
+    "log_id": "log-0016",
+    "service": "order-service",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 201,
+      "response_time_ms": 95
+    },
+    "client": {
+      "ip": "192.168.111.110",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-92065",
+      "span_id": "span-6933"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T11:20:00Z",
+    "log_id": "log-0017",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/checkout",
+      "status_code": 200,
+      "response_time_ms": 13090
+    },
+    "client": {
+      "ip": "192.168.150.58",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-14505",
+      "span_id": "span-6240"
+    },
+    "level": "WARN",
+    "message": "Disk I/O latency spike",
+    "performance": {
+      "read_latency_ms": 494,
+      "write_latency_ms": 252,
+      "iops": 174
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T11:25:00Z",
+    "log_id": "log-0018",
+    "service": "security-monitor",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 403,
+      "response_time_ms": 393
+    },
+    "client": {
+      "ip": "192.168.242.44",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-96108",
+      "span_id": "span-1296"
+    },
+    "level": "WARN",
+    "message": "Rate limit exceeded for IP",
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T11:30:00Z",
+    "log_id": "log-0019",
+    "service": "user-service",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/health",
+      "status_code": 401,
+      "response_time_ms": 100
+    },
+    "client": {
+      "ip": "192.168.158.198",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-75981",
+      "span_id": "span-7316"
+    },
+    "level": "WARN",
+    "message": "Unauthorized access attempt to admin endpoint",
+    "security": {
+      "event_type": "UNAUTHORIZED_ACCESS",
+      "target_resource": "/admin/users"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T11:35:00Z",
+    "log_id": "log-0020",
+    "service": "security-monitor",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/search",
+      "status_code": 504,
+      "response_time_ms": 23008
+    },
+    "client": {
+      "ip": "45.33.32.156",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-26004",
+      "span_id": "span-2509"
+    },
+    "level": "ERROR",
+    "message": "Internal server error: database connection pool exhausted",
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:255)",
+      "correlation_id": "err-22444"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T11:40:00Z",
+    "log_id": "log-0021",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 200,
+      "response_time_ms": 138
+    },
+    "client": {
+      "ip": "192.168.179.9",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-67990",
+      "span_id": "span-6549"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T11:45:00Z",
+    "log_id": "log-0022",
+    "service": "product-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 200,
+      "response_time_ms": 193
+    },
+    "client": {
+      "ip": "192.168.29.122",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-66404",
+      "span_id": "span-4072"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T11:50:00Z",
+    "log_id": "log-0023",
+    "service": "security-monitor",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 70
+    },
+    "client": {
+      "ip": "192.168.70.240",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-97886",
+      "span_id": "span-3093"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T11:55:00Z",
+    "log_id": "log-0024",
+    "service": "user-service",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 133
+    },
+    "client": {
+      "ip": "192.168.22.152",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-87070",
+      "span_id": "span-3419"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T12:00:00Z",
+    "log_id": "log-0025",
+    "service": "security-monitor",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 201,
+      "response_time_ms": 107
+    },
+    "client": {
+      "ip": "192.168.251.202",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-76631",
+      "span_id": "span-2607"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T12:05:00Z",
+    "log_id": "log-0026",
+    "service": "cache-service",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/checkout",
+      "status_code": 200,
+      "response_time_ms": 182
+    },
+    "client": {
+      "ip": "45.33.32.156",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-11199",
+      "span_id": "span-7612"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T12:10:00Z",
+    "log_id": "log-0027",
+    "service": "product-service",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 401,
+      "response_time_ms": 364
+    },
+    "client": {
+      "ip": "192.168.116.149",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-82894",
+      "span_id": "span-6274"
+    },
+    "level": "WARN",
+    "message": "Rate limit exceeded for IP",
+    "security": {
+      "event_type": "UNAUTHORIZED_ACCESS",
+      "target_resource": "/admin/users"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T12:15:00Z",
+    "log_id": "log-0028",
+    "service": "product-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/reports",
+      "status_code": 200,
+      "response_time_ms": 5721
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-88848",
+      "span_id": "span-1247"
+    },
+    "level": "WARN",
+    "message": "Slow database query detected",
+    "performance": {
+      "read_latency_ms": 253,
+      "write_latency_ms": 268,
+      "iops": 148
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T12:20:00Z",
+    "log_id": "log-0029",
+    "service": "cache-service",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 201,
+      "response_time_ms": 172
+    },
+    "client": {
+      "ip": "192.168.217.49",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-78490",
+      "span_id": "span-6170"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T12:25:00Z",
+    "log_id": "log-0030",
+    "service": "user-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 204,
+      "response_time_ms": 84
+    },
+    "client": {
+      "ip": "192.168.2.34",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-32363",
+      "span_id": "span-9887"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T12:30:00Z",
+    "log_id": "log-0031",
+    "service": "security-monitor",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/reports",
+      "status_code": 201,
+      "response_time_ms": 155
+    },
+    "client": {
+      "ip": "192.168.173.148",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-23412",
+      "span_id": "span-7031"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T12:35:00Z",
+    "log_id": "log-0032",
+    "service": "user-service",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 201,
+      "response_time_ms": 87
+    },
+    "client": {
+      "ip": "192.168.147.222",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-68522",
+      "span_id": "span-9577"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T12:40:00Z",
+    "log_id": "log-0033",
+    "service": "cache-service",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/checkout",
+      "status_code": 201,
+      "response_time_ms": 51
+    },
+    "client": {
+      "ip": "192.168.165.106",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-98590",
+      "span_id": "span-5492"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T12:45:00Z",
+    "log_id": "log-0034",
+    "service": "order-service",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/health",
+      "status_code": 204,
+      "response_time_ms": 101
+    },
+    "client": {
+      "ip": "192.168.238.96",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-64475",
+      "span_id": "span-8299"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T12:50:00Z",
+    "log_id": "log-0035",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/products",
+      "status_code": 403,
+      "response_time_ms": 277
+    },
+    "client": {
+      "ip": "192.168.234.234",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-93491",
+      "span_id": "span-2266"
+    },
+    "level": "WARN",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "security": {
+      "event_type": "UNAUTHORIZED_ACCESS",
+      "target_resource": "/admin/users"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T12:55:00Z",
+    "log_id": "log-0036",
+    "service": "security-monitor",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/users",
+      "status_code": 204,
+      "response_time_ms": 114
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-35082",
+      "span_id": "span-7319"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T13:00:00Z",
+    "log_id": "log-0037",
+    "service": "order-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/health",
+      "status_code": 201,
+      "response_time_ms": 140
+    },
+    "client": {
+      "ip": "192.168.69.105",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-81781",
+      "span_id": "span-6654"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T13:05:00Z",
+    "log_id": "log-0038",
+    "service": "order-service",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/orders",
+      "status_code": 502,
+      "response_time_ms": 27561
+    },
+    "client": {
+      "ip": "192.168.84.70",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-32217",
+      "span_id": "span-5558"
+    },
+    "level": "ERROR",
+    "message": "Internal server error: database connection pool exhausted",
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:296)",
+      "correlation_id": "err-89957"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T13:10:00Z",
+    "log_id": "log-0039",
+    "service": "order-service",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/orders",
+      "status_code": 500,
+      "response_time_ms": 15652
+    },
+    "client": {
+      "ip": "192.168.209.32",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-31157",
+      "span_id": "span-5005"
+    },
+    "level": "ERROR",
+    "message": "Request timeout: upstream service unavailable",
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:407)",
+      "correlation_id": "err-82187"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T13:15:00Z",
+    "log_id": "log-0040",
+    "service": "order-service",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/reports",
+      "status_code": 200,
+      "response_time_ms": 14298
+    },
+    "client": {
+      "ip": "192.168.19.115",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-61042",
+      "span_id": "span-9962"
+    },
+    "level": "WARN",
+    "message": "High memory usage detected",
+    "performance": {
+      "read_latency_ms": 488,
+      "write_latency_ms": 252,
+      "iops": 169
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T13:20:00Z",
+    "log_id": "log-0041",
+    "service": "order-service",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/health",
+      "status_code": 403,
+      "response_time_ms": 382
+    },
+    "client": {
+      "ip": "192.168.170.144",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-52270",
+      "span_id": "span-5918"
+    },
+    "level": "WARN",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "security": {
+      "event_type": "UNAUTHORIZED_ACCESS",
+      "target_resource": "/admin/users"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T13:25:00Z",
+    "log_id": "log-0042",
+    "service": "order-service",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/checkout",
+      "status_code": 201,
+      "response_time_ms": 94
+    },
+    "client": {
+      "ip": "192.168.28.55",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-16456",
+      "span_id": "span-2098"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T13:30:00Z",
+    "log_id": "log-0043",
+    "service": "order-service",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 204,
+      "response_time_ms": 158
+    },
+    "client": {
+      "ip": "192.168.200.200",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-33189",
+      "span_id": "span-4618"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T13:35:00Z",
+    "log_id": "log-0044",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/checkout",
+      "status_code": 200,
+      "response_time_ms": 157
+    },
+    "client": {
+      "ip": "192.168.172.29",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-42344",
+      "span_id": "span-9410"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T13:40:00Z",
+    "log_id": "log-0045",
+    "service": "product-service",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 201,
+      "response_time_ms": 168
+    },
+    "client": {
+      "ip": "192.168.229.151",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-48686",
+      "span_id": "span-2470"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T13:45:00Z",
+    "log_id": "log-0046",
+    "service": "user-service",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 200,
+      "response_time_ms": 12452
+    },
+    "client": {
+      "ip": "192.168.191.24",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-35475",
+      "span_id": "span-1474"
+    },
+    "level": "WARN",
+    "message": "Disk I/O latency spike",
+    "performance": {
+      "read_latency_ms": 134,
+      "write_latency_ms": 633,
+      "iops": 156
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T13:50:00Z",
+    "log_id": "log-0047",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/reports",
+      "status_code": 504,
+      "response_time_ms": 12194
+    },
+    "client": {
+      "ip": "192.168.252.31",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-97826",
+      "span_id": "span-6803"
+    },
+    "level": "ERROR",
+    "message": "Internal server error: database connection pool exhausted",
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:259)",
+      "correlation_id": "err-62742"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T13:55:00Z",
+    "log_id": "log-0048",
+    "service": "product-service",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 503,
+      "response_time_ms": 15896
+    },
+    "client": {
+      "ip": "192.168.142.138",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-66397",
+      "span_id": "span-2929"
+    },
+    "level": "ERROR",
+    "message": "Request timeout: upstream service unavailable",
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:117)",
+      "correlation_id": "err-29168"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T14:00:00Z",
+    "log_id": "log-0049",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/reports",
+      "status_code": 204,
+      "response_time_ms": 88
+    },
+    "client": {
+      "ip": "192.168.201.12",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-78885",
+      "span_id": "span-8707"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T14:05:00Z",
+    "log_id": "log-0050",
+    "service": "product-service",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/orders",
+      "status_code": 201,
+      "response_time_ms": 57
+    },
+    "client": {
+      "ip": "192.168.70.48",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-50307",
+      "span_id": "span-4404"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T14:10:00Z",
+    "log_id": "log-0051",
+    "service": "cache-service",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 201,
+      "response_time_ms": 197
+    },
+    "client": {
+      "ip": "192.168.61.13",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-41630",
+      "span_id": "span-7843"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T14:15:00Z",
+    "log_id": "log-0052",
+    "service": "cache-service",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/search",
+      "status_code": 201,
+      "response_time_ms": 144
+    },
+    "client": {
+      "ip": "192.168.233.7",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-52638",
+      "span_id": "span-1942"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T14:20:00Z",
+    "log_id": "log-0053",
+    "service": "cache-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/health",
+      "status_code": 201,
+      "response_time_ms": 105
+    },
+    "client": {
+      "ip": "192.168.211.166",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-32138",
+      "span_id": "span-2553"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T14:25:00Z",
+    "log_id": "log-0054",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/checkout",
+      "status_code": 403,
+      "response_time_ms": 252
+    },
+    "client": {
+      "ip": "192.168.18.89",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-42942",
+      "span_id": "span-6108"
+    },
+    "level": "WARN",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "security": {
+      "event_type": "UNAUTHORIZED_ACCESS",
+      "target_resource": "/admin/users"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T14:30:00Z",
+    "log_id": "log-0055",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/products",
+      "status_code": 204,
+      "response_time_ms": 181
+    },
+    "client": {
+      "ip": "192.168.145.253",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-35577",
+      "span_id": "span-2114"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T14:35:00Z",
+    "log_id": "log-0056",
+    "service": "order-service",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 503,
+      "response_time_ms": 22108
+    },
+    "client": {
+      "ip": "192.168.251.184",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-93894",
+      "span_id": "span-9222"
+    },
+    "level": "ERROR",
+    "message": "Internal server error: database connection pool exhausted",
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:215)",
+      "correlation_id": "err-41618"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T14:40:00Z",
+    "log_id": "log-0057",
+    "service": "security-monitor",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/reports",
+      "status_code": 503,
+      "response_time_ms": 29435
+    },
+    "client": {
+      "ip": "192.168.69.63",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-36040",
+      "span_id": "span-9652"
+    },
+    "level": "ERROR",
+    "message": "Internal server error: out of memory exception",
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:220)",
+      "correlation_id": "err-86976"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T14:45:00Z",
+    "log_id": "log-0058",
+    "service": "order-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/checkout",
+      "status_code": 200,
+      "response_time_ms": 192
+    },
+    "client": {
+      "ip": "192.168.101.128",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-81727",
+      "span_id": "span-1013"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T14:50:00Z",
+    "log_id": "log-0059",
+    "service": "cache-service",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/products",
+      "status_code": 503,
+      "response_time_ms": 18462
+    },
+    "client": {
+      "ip": "192.168.199.100",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-39081",
+      "span_id": "span-8180"
+    },
+    "level": "ERROR",
+    "message": "Connection refused: service unreachable",
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:267)",
+      "correlation_id": "err-69720"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T14:55:00Z",
+    "log_id": "log-0060",
+    "service": "product-service",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 503,
+      "response_time_ms": 21802
+    },
+    "client": {
+      "ip": "192.168.220.118",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-75525",
+      "span_id": "span-4833"
+    },
+    "level": "ERROR",
+    "message": "Connection refused: service unreachable",
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:298)",
+      "correlation_id": "err-69278"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T15:00:00Z",
+    "log_id": "log-0061",
+    "service": "user-service",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/reports",
+      "status_code": 401,
+      "response_time_ms": 282
+    },
+    "client": {
+      "ip": "192.168.41.19",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-36318",
+      "span_id": "span-8910"
+    },
+    "level": "WARN",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "security": {
+      "event_type": "RATE_LIMIT_EXCEEDED",
+      "requests_per_minute": 150
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T15:05:00Z",
+    "log_id": "log-0062",
+    "service": "product-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 200,
+      "response_time_ms": 11031
+    },
+    "client": {
+      "ip": "192.168.85.67",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-17368",
+      "span_id": "span-2310"
+    },
+    "level": "WARN",
+    "message": "Slow database query detected",
+    "performance": {
+      "read_latency_ms": 234,
+      "write_latency_ms": 765,
+      "iops": 127
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T15:10:00Z",
+    "log_id": "log-0063",
+    "service": "cache-service",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/products",
+      "status_code": 429,
+      "response_time_ms": 315
+    },
+    "client": {
+      "ip": "192.168.53.217",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-47901",
+      "span_id": "span-1392"
+    },
+    "level": "WARN",
+    "message": "Rate limit exceeded for IP",
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T15:15:00Z",
+    "log_id": "log-0064",
+    "service": "security-monitor",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 403,
+      "response_time_ms": 337
+    },
+    "client": {
+      "ip": "192.168.125.242",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-74548",
+      "span_id": "span-7924"
+    },
+    "level": "WARN",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "security": {
+      "event_type": "RATE_LIMIT_EXCEEDED",
+      "requests_per_minute": 150
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T15:20:00Z",
+    "log_id": "log-0065",
+    "service": "product-service",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/products",
+      "status_code": 201,
+      "response_time_ms": 127
+    },
+    "client": {
+      "ip": "192.168.85.188",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-98565",
+      "span_id": "span-9807"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T15:25:00Z",
+    "log_id": "log-0066",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 123
+    },
+    "client": {
+      "ip": "192.168.4.88",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-32818",
+      "span_id": "span-8478"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T15:30:00Z",
+    "log_id": "log-0067",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/health",
+      "status_code": 204,
+      "response_time_ms": 95
+    },
+    "client": {
+      "ip": "192.168.72.174",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-91658",
+      "span_id": "span-6814"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T15:35:00Z",
+    "log_id": "log-0068",
+    "service": "security-monitor",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/reports",
+      "status_code": 401,
+      "response_time_ms": 486
+    },
+    "client": {
+      "ip": "192.168.212.147",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-83719",
+      "span_id": "span-2859"
+    },
+    "level": "WARN",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T15:40:00Z",
+    "log_id": "log-0069",
+    "service": "security-monitor",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/health",
+      "status_code": 204,
+      "response_time_ms": 186
+    },
+    "client": {
+      "ip": "192.168.195.193",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-97304",
+      "span_id": "span-1984"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T15:45:00Z",
+    "log_id": "log-0070",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 204,
+      "response_time_ms": 169
+    },
+    "client": {
+      "ip": "192.168.3.227",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-92962",
+      "span_id": "span-6764"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T15:50:00Z",
+    "log_id": "log-0071",
+    "service": "security-monitor",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 201,
+      "response_time_ms": 55
+    },
+    "client": {
+      "ip": "192.168.212.168",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-31780",
+      "span_id": "span-1138"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T15:55:00Z",
+    "log_id": "log-0072",
+    "service": "user-service",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 201,
+      "response_time_ms": 107
+    },
+    "client": {
+      "ip": "192.168.249.12",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-31537",
+      "span_id": "span-9613"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T16:00:00Z",
+    "log_id": "log-0073",
+    "service": "product-service",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 204,
+      "response_time_ms": 117
+    },
+    "client": {
+      "ip": "192.168.228.230",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-22157",
+      "span_id": "span-5583"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T16:05:00Z",
+    "log_id": "log-0074",
+    "service": "order-service",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 189
+    },
+    "client": {
+      "ip": "192.168.186.27",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-41447",
+      "span_id": "span-1047"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T16:10:00Z",
+    "log_id": "log-0075",
+    "service": "cache-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/health",
+      "status_code": 204,
+      "response_time_ms": 182
+    },
+    "client": {
+      "ip": "192.168.123.75",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-69052",
+      "span_id": "span-1879"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T16:15:00Z",
+    "log_id": "log-0076",
+    "service": "product-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/checkout",
+      "status_code": 200,
+      "response_time_ms": 196
+    },
+    "client": {
+      "ip": "192.168.215.181",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-29233",
+      "span_id": "span-8026"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T16:20:00Z",
+    "log_id": "log-0077",
+    "service": "security-monitor",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/reports",
+      "status_code": 201,
+      "response_time_ms": 170
+    },
+    "client": {
+      "ip": "192.168.42.47",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-89507",
+      "span_id": "span-4222"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T16:25:00Z",
+    "log_id": "log-0078",
+    "service": "product-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 429,
+      "response_time_ms": 320
+    },
+    "client": {
+      "ip": "192.168.253.162",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-45079",
+      "span_id": "span-4607"
+    },
+    "level": "WARN",
+    "message": "Unauthorized access attempt to admin endpoint",
+    "security": {
+      "event_type": "UNAUTHORIZED_ACCESS",
+      "target_resource": "/admin/users"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T16:30:00Z",
+    "log_id": "log-0079",
+    "service": "cache-service",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 204,
+      "response_time_ms": 187
+    },
+    "client": {
+      "ip": "192.168.172.42",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-38341",
+      "span_id": "span-4414"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T16:35:00Z",
+    "log_id": "log-0080",
+    "service": "user-service",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/reports",
+      "status_code": 201,
+      "response_time_ms": 78
+    },
+    "client": {
+      "ip": "192.168.184.24",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-20139",
+      "span_id": "span-8504"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T16:40:00Z",
+    "log_id": "log-0081",
+    "service": "user-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 87
+    },
+    "client": {
+      "ip": "192.168.9.205",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-46138",
+      "span_id": "span-6888"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T16:45:00Z",
+    "log_id": "log-0082",
+    "service": "product-service",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/search",
+      "status_code": 429,
+      "response_time_ms": 416
+    },
+    "client": {
+      "ip": "192.168.115.23",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-76366",
+      "span_id": "span-6191"
+    },
+    "level": "WARN",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "security": {
+      "event_type": "RATE_LIMIT_EXCEEDED",
+      "requests_per_minute": 150
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T16:50:00Z",
+    "log_id": "log-0083",
+    "service": "security-monitor",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/products",
+      "status_code": 401,
+      "response_time_ms": 359
+    },
+    "client": {
+      "ip": "192.168.219.110",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-72701",
+      "span_id": "span-4173"
+    },
+    "level": "WARN",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "security": {
+      "event_type": "RATE_LIMIT_EXCEEDED",
+      "requests_per_minute": 150
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T16:55:00Z",
+    "log_id": "log-0084",
+    "service": "product-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/reports",
+      "status_code": 201,
+      "response_time_ms": 114
+    },
+    "client": {
+      "ip": "192.168.253.232",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-17275",
+      "span_id": "span-5194"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T17:00:00Z",
+    "log_id": "log-0085",
+    "service": "order-service",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/products",
+      "status_code": 201,
+      "response_time_ms": 182
+    },
+    "client": {
+      "ip": "192.168.102.53",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-57535",
+      "span_id": "span-9129"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T17:05:00Z",
+    "log_id": "log-0086",
+    "service": "security-monitor",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 204,
+      "response_time_ms": 101
+    },
+    "client": {
+      "ip": "192.168.201.73",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-77059",
+      "span_id": "span-8646"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T17:10:00Z",
+    "log_id": "log-0087",
+    "service": "product-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/reports",
+      "status_code": 201,
+      "response_time_ms": 140
+    },
+    "client": {
+      "ip": "192.168.181.93",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-42125",
+      "span_id": "span-4510"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T17:15:00Z",
+    "log_id": "log-0088",
+    "service": "security-monitor",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/products",
+      "status_code": 429,
+      "response_time_ms": 484
+    },
+    "client": {
+      "ip": "192.168.95.99",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-20824",
+      "span_id": "span-4944"
+    },
+    "level": "WARN",
+    "message": "Rate limit exceeded for IP",
+    "security": {
+      "event_type": "UNAUTHORIZED_ACCESS",
+      "target_resource": "/admin/users"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T17:20:00Z",
+    "log_id": "log-0089",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/health",
+      "status_code": 201,
+      "response_time_ms": 183
+    },
+    "client": {
+      "ip": "192.168.121.61",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-90067",
+      "span_id": "span-2585"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T17:25:00Z",
+    "log_id": "log-0090",
+    "service": "cache-service",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 96
+    },
+    "client": {
+      "ip": "192.168.207.209",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-74717",
+      "span_id": "span-6381"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T17:30:00Z",
+    "log_id": "log-0091",
+    "service": "product-service",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/health",
+      "status_code": 200,
+      "response_time_ms": 115
+    },
+    "client": {
+      "ip": "192.168.109.25",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-43078",
+      "span_id": "span-9970"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T17:35:00Z",
+    "log_id": "log-0092",
+    "service": "order-service",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/users",
+      "status_code": 204,
+      "response_time_ms": 94
+    },
+    "client": {
+      "ip": "192.168.213.37",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-72054",
+      "span_id": "span-6535"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T17:40:00Z",
+    "log_id": "log-0093",
+    "service": "product-service",
+    "host": "server-1.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/products",
+      "status_code": 200,
+      "response_time_ms": 69
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-12785",
+      "span_id": "span-5923"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T17:45:00Z",
+    "log_id": "log-0094",
+    "service": "security-monitor",
+    "host": "server-4.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 201,
+      "response_time_ms": 158
+    },
+    "client": {
+      "ip": "192.168.119.159",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-78982",
+      "span_id": "span-7505"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T17:50:00Z",
+    "log_id": "log-0095",
+    "service": "product-service",
+    "host": "server-2.example.com",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/health",
+      "status_code": 200,
+      "response_time_ms": 89
+    },
+    "client": {
+      "ip": "192.168.232.33",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-50496",
+      "span_id": "span-8653"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T17:55:00Z",
+    "log_id": "log-0096",
+    "service": "product-service",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 135
+    },
+    "client": {
+      "ip": "192.168.228.48",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-22227",
+      "span_id": "span-8373"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T18:00:00Z",
+    "log_id": "log-0097",
+    "service": "cache-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/health",
+      "status_code": 503,
+      "response_time_ms": 20547
+    },
+    "client": {
+      "ip": "192.168.85.255",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-74159",
+      "span_id": "span-3525"
+    },
+    "level": "ERROR",
+    "message": "Internal server error: out of memory exception",
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:288)",
+      "correlation_id": "err-16476"
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T18:05:00Z",
+    "log_id": "log-0098",
+    "service": "user-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 201,
+      "response_time_ms": 63
+    },
+    "client": {
+      "ip": "192.168.19.27",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-84191",
+      "span_id": "span-5800"
+    },
+    "level": "INFO",
+    "message": "Request completed successfully"
+  },
+  {
+    "@timestamp": "2025-11-29T18:10:00Z",
+    "log_id": "log-0099",
+    "service": "security-monitor",
+    "host": "server-3.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 200,
+      "response_time_ms": 5611
+    },
+    "client": {
+      "ip": "192.168.7.11",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-11441",
+      "span_id": "span-1146"
+    },
+    "level": "WARN",
+    "message": "Slow database query detected",
+    "performance": {
+      "read_latency_ms": 233,
+      "write_latency_ms": 294,
+      "iops": 72
+    }
+  },
+  {
+    "@timestamp": "2025-11-29T18:15:00Z",
+    "log_id": "log-0100",
+    "service": "user-service",
+    "host": "server-5.example.com",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 403,
+      "response_time_ms": 168
+    },
+    "client": {
+      "ip": "192.168.219.102",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-79515",
+      "span_id": "span-5018"
+    },
+    "level": "WARN",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
+    }
+  }
+]

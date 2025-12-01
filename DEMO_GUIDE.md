@@ -1,260 +1,311 @@
 # Elastic Logs Analysis Demo Guide
 
-This guide provides comprehensive instructions for running the Elastic Logs analysis demonstration using Devin's API and GitHub Actions. The demo includes two main use cases: Elastic Log analysis and Docker code scanning.
+This guide demonstrates how to automate log analysis with Devin. The demo walks through setting up API keys, running analysis from the IDE, automating analysis with GitHub Actions, and creating playbooks for repeatable workflows.
 
 ## Table of Contents
 
 1. [Overview](#overview)
 2. [Prerequisites](#prerequisites)
-3. [Repository Structure](#repository-structure)
-4. [Setup Instructions](#setup-instructions)
-5. [Use Case 1: Elastic Log Analysis](#use-case-1-elastic-log-analysis)
-6. [Use Case 2: Docker Code Scanning](#use-case-2-docker-code-scanning)
-7. [GitHub Actions Integration](#github-actions-integration)
-8. [Playbook Usage](#playbook-usage)
-9. [Troubleshooting](#troubleshooting)
+3. [Demo Steps](#demo-steps)
+   - [Step 1: API Key Generation](#step-1-api-key-generation)
+   - [Step 2: GitHub Secrets Configuration](#step-2-github-secrets-configuration)
+   - [Step 3: IDE Analysis](#step-3-ide-analysis)
+   - [Step 4: Log Analysis Script](#step-4-log-analysis-script)
+   - [Step 5: Automate Analysis on New Files](#step-5-automate-analysis-on-new-files)
+   - [Step 6: Add New Log (First Instance)](#step-6-add-new-log-first-instance)
+   - [Step 7: Playbook Creation](#step-7-playbook-creation)
+   - [Step 8: GitHub Action for Playbook](#step-8-github-action-for-playbook)
+   - [Step 9: Add New Log (Second Instance)](#step-9-add-new-log-second-instance)
+4. [Repository Structure](#repository-structure)
+5. [Troubleshooting](#troubleshooting)
 
 ## Overview
 
-This demonstration showcases how to integrate Devin's API with GitHub Actions to automate code and log analysis. The repository contains sample Elastic Logs with various issues (errors, security threats, performance anomalies) and Docker code with security vulnerabilities that Devin can analyze.
+This demonstration showcases how Devin can be automatically triggered to run analysis on new code and log files. The workflow includes generating API keys, configuring GitHub secrets, running analysis from the IDE, and setting up automated GitHub Actions that trigger Devin to analyze logs whenever new files are added to the repository.
 
 ### Key Features
 
-The demo includes three types of log analysis (error pattern detection, security issue identification, and performance anomaly detection), Docker code security scanning, GitHub Actions workflows for automated analysis, and a playbook-based approach for flexible analysis configuration.
+The demo covers API key generation and management, GitHub Secrets configuration for secure credential storage, IDE-based log analysis sessions, automated log analysis using Python scripts, GitHub Actions for continuous analysis on new file additions, and playbook-based workflows for consistent, repeatable analysis.
 
 ## Prerequisites
 
-Before running the demo, ensure you have Python 3.11 or higher installed, a Devin API key (obtain from your Devin account), Git installed and configured, and access to the GitHub repository.
+Before running the demo, ensure you have access to a Devin account with API capabilities, a GitHub repository with write access, Python 3.11 or higher installed locally, and Git installed and configured.
 
-### Required Python Packages
+## Demo Steps
 
-Install the required packages using pip:
+### Step 1: API Key Generation
+
+Generate a Devin API Key to enable programmatic access to Devin's analysis capabilities.
+
+1. Navigate to your Devin account settings
+2. Go to the API section
+3. Click "Generate New API Key"
+4. Copy the generated API key and store it securely
+
+The API key will be used in subsequent steps to authenticate requests to Devin's API for log analysis.
+
+### Step 2: GitHub Secrets Configuration
+
+Add the generated API Key to GitHub Secrets to enable secure access from GitHub Actions.
+
+1. Navigate to your GitHub repository (joao-cognition/elastic_logs)
+2. Go to **Settings** > **Secrets and variables** > **Actions**
+3. Click **New repository secret**
+4. Name the secret `DEVIN_API_KEY`
+5. Paste your API key as the value
+6. Click **Add secret**
+
+This secret will be available to GitHub Actions workflows for authenticating with Devin's API.
+
+### Step 3: IDE Analysis
+
+Run analysis sessions directly from your IDE to analyze a specific log file.
+
+1. Open the repository in your IDE (VS Code, IntelliJ, etc.)
+2. Navigate to the `logs/` directory
+3. Open the file `logs/elastic_logs_28_11_25.json`
+4. Use Devin's IDE integration to trigger analysis on this file
+5. Devin will analyze the log file for errors, security issues, and performance anomalies
+
+The analysis will identify error patterns, security threats, and performance bottlenecks in the log data.
+
+### Step 4: Log Analysis Script
+
+Run the log analysis script to trigger Devin sessions for comprehensive log analysis.
 
 ```bash
-pip install requests
+python3 script/analyze_logs.py logs/elastic_logs.json
 ```
+
+This script (`script/analyze_logs.py`) triggers three parallel Devin sessions:
+
+1. **Error Analysis**: Counts ERROR level entries, groups by status code/service/message, lists top 10 frequent errors
+2. **Performance Analysis**: Calculates response time statistics (min, max, avg, p95, p99), identifies slow endpoints
+3. **Security Analysis**: Finds 401/403 entries, identifies suspicious IPs, detects SQL/XSS patterns
+
+The script saves session information to the `analysis/` directory and provides URLs to track each analysis session.
+
+### Step 5: Automate Analysis on New Files
+
+Set up a GitHub Action to automatically run log analysis whenever a new file is added to the `logs/` directory.
+
+The GitHub Action configuration is defined in `github_actions/analyze-logs-on-new-file.yml`:
+
+```yaml
+name: Analyze Logs with Devin
+
+on:
+  push:
+    paths:
+      - 'logs/**'
+
+jobs:
+  trigger-devin:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Get changed log file
+        id: changed-file
+        run: |
+          files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^logs/' | head -n1)
+          echo "file=${files}" >> $GITHUB_OUTPUT
+      
+      - name: Create issue for Devin to analyze logs
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const logFile = '${{ steps.changed-file.outputs.file }}';
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Analyze ${logFile}`,
+              body: `@devin Please analyze ${logFile}:
+
+            **Error Analysis:**
+            - Count all entries with level='ERROR'
+            - Group by: status_code, service_name, error_message
+            - List top 10 most frequent errors
+            - Save as error_report_${timestamp}.html in analysis/
+
+            **Performance Analysis:**
+            - Calculate response_time stats: min, max, avg, p95, p99
+            - List slowest 10 endpoints
+            - Identify any response_time > 1000ms
+            - Save as performance_report_${timestamp}.html in analysis/
+
+            **Security Analysis:**
+            - Find status_code=401/403 entries
+            - Find unique IPs with >10 failed requests
+            - Find any SQL/XSS patterns in request_path
+            - Save as security_report_${timestamp}.html in analysis/`,
+              labels: ['devin']
+            });
+```
+
+This workflow automatically creates a GitHub issue that triggers Devin to analyze any new log files added to the repository.
+
+### Step 6: Add New Log (First Instance)
+
+Add a new log file to demonstrate the automated analysis workflow.
+
+1. Move the log file `elastic_logs_29_11_25.json` from the `logs_to_be/` folder to the `logs/` folder
+2. Commit and push the changes:
+
+```bash
+mv logs_to_be/elastic_logs_29_11_25.json logs/
+git add logs/elastic_logs_29_11_25.json
+git commit -m "feat: add elastic logs for November 29, 2025"
+git push origin main
+```
+
+3. Create a Pull Request to trigger the GitHub Action
+4. Observe the GitHub Action running and creating an issue for Devin to analyze the new log file
+
+### Step 7: Playbook Creation
+
+Create a playbook that encapsulates all the analysis steps performed so far. The playbook is saved at `playbook/PLAYBOOK.md`.
+
+The playbook defines a reusable analysis configuration that includes:
+
+1. **Error Pattern Analysis**: Analyzes logs for error patterns, frequency, root causes, and impact assessment
+2. **Security Issue Detection**: Detects authentication issues, suspicious IPs, injection attacks, and access control violations
+3. **Performance Anomaly Analysis**: Identifies response time issues, resource utilization problems, and capacity planning insights
+
+The playbook can be executed via Devin's API or manually using the individual analysis scripts:
+
+```bash
+# Run the playbook
+python script/run_playbook.py --log-file logs/elastic_logs.json --output-dir analysis
+```
+
+See `playbook/PLAYBOOK.md` for the complete playbook definition and execution instructions.
+
+### Step 8: GitHub Action for Playbook
+
+Create a GitHub Action that triggers the playbook for automated analysis. The action is defined in `github_actions/analyze-logs-playbook.yml`:
+
+```yaml
+name: Analyze Logs with Devin Playbook
+
+on:
+  push:
+    paths:
+      - 'logs/**'
+
+jobs:
+  trigger-playbook:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Get changed log file
+        id: changed-file
+        run: |
+          files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^logs/' | head -n1)
+          echo "file=${files}" >> $GITHUB_OUTPUT
+      
+      - name: Trigger Devin playbook
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          python3 << 'EOF'
+          import json
+          import os
+          from urllib.request import Request, urlopen
+          
+          api_key = os.environ.get("DEVIN_API_KEY")
+          log_file = "${{ steps.changed-file.outputs.file }}"
+          
+          # Trigger playbook with log file as input
+          payload = {
+              "prompt": f"Run playbook !logs_analysis on {log_file}",
+              "playbook_id": "logs_analysis"
+          }
+          
+          data = json.dumps(payload).encode('utf-8')
+          request = Request(
+              "https://api.devin.ai/v1/sessions",
+              data=data,
+              headers={
+                  "Authorization": f"Bearer {api_key}",
+                  "Content-Type": "application/json",
+              },
+              method="POST"
+          )
+          
+          with urlopen(request, timeout=30) as response:
+              result = json.loads(response.read().decode('utf-8'))
+              print(f"Playbook session created")
+              print(f"  Session ID: {result['session_id']}")
+              print(f"  Session URL: {result['url']}")
+          EOF
+```
+
+This workflow triggers the Devin playbook whenever new log files are added, providing a consistent and automated analysis process.
+
+### Step 9: Add New Log (Second Instance)
+
+Add another log file to verify the playbook-based automation is working correctly.
+
+1. Move the log file `elastic_logs_30_11_25.json` from the `logs_to_be/` folder to the `logs/` folder
+2. Commit and push the changes:
+
+```bash
+mv logs_to_be/elastic_logs_30_11_25.json logs/
+git add logs/elastic_logs_30_11_25.json
+git commit -m "feat: add elastic logs for November 30, 2025"
+git push origin main
+```
+
+3. Create a Pull Request
+4. Observe both GitHub Actions (analyze-logs-on-new-file and analyze-logs-playbook) triggering
+5. Verify that Devin receives the analysis request and begins processing
 
 ## Repository Structure
 
 ```
 elastic_logs/
-├── logs/                           # Generated Elastic Logs
-│   └── elastic_logs.json          # 100 sample log entries
-├── script/                         # API scripts
-│   ├── devin_api.py               # Devin API client module
-│   ├── generate_logs.py           # Log generation script
-│   ├── analyze_errors.py          # Error pattern analysis
-│   ├── analyze_security.py        # Security issue detection
-│   ├── analyze_performance.py     # Performance anomaly analysis
-│   ├── run_all_analyses.py        # Unified analysis script
-│   ├── run_playbook.py            # Playbook execution script
-│   └── scan_docker.py             # Docker code scanning
-├── docker_code/                    # Sample Docker code with issues
-│   ├── Dockerfile.api             # API service Dockerfile
-│   ├── Dockerfile.web             # Web frontend Dockerfile
-│   ├── Dockerfile.database        # Database Dockerfile
-│   ├── docker-compose.yml         # Docker Compose configuration
-│   ├── app.py                     # Sample application code
-│   └── init-scripts/              # Database init scripts
-├── analysis/                       # Analysis results (generated)
-├── .github/workflows/              # GitHub Actions
-│   ├── analyze-logs.yml           # Individual analysis workflow
-│   ├── analyze-logs-playbook.yml  # Playbook-based workflow
-│   └── scan-docker.yml            # Docker scanning workflow
-├── playbook.yaml                   # Analysis playbook definition
-└── DEMO_GUIDE.md                  # This guide
+├── logs/                                    # Log files for analysis
+│   └── elastic_logs_28_11_25.json          # Sample logs (November 28, 2025)
+├── logs_to_be/                              # Staging folder for new log files
+│   ├── elastic_logs_29_11_25.json          # Sample logs (November 29, 2025)
+│   └── elastic_logs_30_11_25.json          # Sample logs (November 30, 2025)
+├── script/                                  # Analysis scripts
+│   └── analyze_logs.py                     # Main log analysis script
+├── playbook/                                # Playbook definitions
+│   └── PLAYBOOK.md                         # Log analysis playbook
+├── github_actions/                          # GitHub Action configurations
+│   ├── analyze-logs-on-new-file.yml        # Trigger on new log files
+│   └── analyze-logs-playbook.yml           # Trigger playbook on new logs
+├── analysis/                                # Generated analysis reports
+└── DEMO_GUIDE.md                           # This guide
 ```
-
-## Setup Instructions
-
-### Step 1: Clone the Repository
-
-```bash
-git clone https://github.com/joao-cognition/elastic_logs.git
-cd elastic_logs
-```
-
-### Step 2: Set Up Environment Variables
-
-Export your Devin API key:
-
-```bash
-export DEVIN_API_KEY="your-api-key-here"
-```
-
-For GitHub Actions, add the `DEVIN_API_KEY` as a repository secret by navigating to Settings > Secrets and variables > Actions > New repository secret.
-
-### Step 3: Generate Sample Logs (Optional)
-
-The repository includes pre-generated logs, but you can regenerate them:
-
-```bash
-python script/generate_logs.py
-```
-
-This creates 100 log entries with a mix of normal logs (60%), error logs (15%), security-related logs (15%), and performance anomaly logs (10%).
-
-## Use Case 1: Elastic Log Analysis
-
-### Running Individual Analyses
-
-You can run each analysis type separately using the individual scripts.
-
-**Error Pattern Analysis** identifies 500 errors, timeouts, connection failures, and error cascades:
-
-```bash
-python script/analyze_errors.py --log-file logs/elastic_logs.json
-```
-
-**Security Issue Detection** finds failed authentication attempts, SQL injection attempts, suspicious IPs, and rate limit violations:
-
-```bash
-python script/analyze_security.py --log-file logs/elastic_logs.json
-```
-
-**Performance Anomaly Analysis** detects slow response times, high memory usage, database performance issues, and resource exhaustion:
-
-```bash
-python script/analyze_performance.py --log-file logs/elastic_logs.json
-```
-
-### Running All Analyses Together
-
-Use the unified script to run all three analyses:
-
-```bash
-python script/run_all_analyses.py --log-file logs/elastic_logs.json
-```
-
-You can also specify which analyses to run:
-
-```bash
-python script/run_all_analyses.py --analyses error security
-```
-
-### Understanding the Results
-
-Each analysis creates a JSON file in the `analysis/` folder containing the session ID and URL for tracking, the prompt used for analysis, the timestamp of when the analysis was initiated, and the current status.
-
-Visit the session URL to view detailed analysis results in Devin's interface.
-
-## Use Case 2: Docker Code Scanning
-
-### Sample Docker Code Issues
-
-The `docker_code/` directory contains intentionally vulnerable Docker configurations for demonstration purposes.
-
-**Dockerfile Issues** include using `latest` tags instead of specific versions, running containers as root, hardcoded secrets in environment variables, installing unnecessary packages, and overly permissive file permissions.
-
-**Docker Compose Issues** include privileged container mode, mounting sensitive host directories (like Docker socket), exposing unnecessary ports, missing resource limits, and no health checks defined.
-
-**Application Code Issues** include SQL injection vulnerabilities, command injection vulnerabilities, path traversal vulnerabilities, hardcoded credentials, and debug endpoints exposing sensitive data.
-
-### Running Docker Code Scan
-
-```bash
-python script/scan_docker.py --docker-dir docker_code
-```
-
-The scan analyzes all Dockerfiles, docker-compose files, and application code in the specified directory.
-
-### Scan Output
-
-The scan produces a detailed report covering Dockerfile security analysis, Docker Compose security analysis, application code security review, and best practices compliance check.
-
-## GitHub Actions Integration
-
-### Available Workflows
-
-**analyze-logs.yml** triggers on push to `logs/` folder and runs all three log analyses individually.
-
-**analyze-logs-playbook.yml** triggers on push to `logs/` folder and uses the playbook for unified analysis.
-
-**scan-docker.yml** triggers on push to `docker_code/` folder and scans Docker code for security issues.
-
-### Graceful Handling of Missing API Key
-
-If `DEVIN_API_KEY` is not configured as a repository secret, the GitHub Actions workflows will gracefully skip the Devin analysis steps and still succeed. This allows CI to pass in environments where the secret is not configured (such as forks or initial setup). The workflow summary will indicate that analysis was skipped and provide instructions for adding the secret.
-
-### Triggering Workflows Manually
-
-All workflows support manual triggering via `workflow_dispatch`. Go to the Actions tab in GitHub, select the workflow, and click "Run workflow".
-
-### Workflow Inputs
-
-**Log Analysis Workflows** accept `log_file` (path to log file, default: `logs/elastic_logs.json`).
-
-**Docker Scan Workflow** accepts `docker_dir` (path to Docker code, default: `docker_code`).
-
-### Viewing Results
-
-Workflow results are available in the GitHub Actions run summary, as downloadable artifacts (retained for 30 days), and in the Devin session (URL provided in logs).
-
-## Playbook Usage
-
-### Understanding the Playbook
-
-The `playbook.yaml` file defines a reusable analysis configuration that encapsulates all three log analysis tasks, can be updated without modifying GitHub Actions, and supports input parameters for flexibility.
-
-### Playbook Structure
-
-```yaml
-name: Elastic Logs Analysis Playbook
-inputs:
-  log_file: logs/elastic_logs.json
-  output_dir: analysis
-tasks:
-  - error_pattern_analysis
-  - security_issue_detection
-  - performance_anomaly_analysis
-```
-
-### Running the Playbook
-
-```bash
-python script/run_playbook.py --log-file logs/elastic_logs.json
-```
-
-With a specific playbook ID (if registered with Devin):
-
-```bash
-python script/run_playbook.py --playbook-id your-playbook-id
-```
-
-### Benefits of Playbook Approach
-
-Using playbooks provides centralized configuration where all analysis tasks are defined in one place, flexibility to update analysis logic without changing workflows, consistency ensuring the same analysis is run every time, and version control to track changes to analysis configuration.
 
 ## Troubleshooting
 
-### Common Issues
+### API Key Issues
 
-**"DEVIN_API_KEY not set"** means you need to export the environment variable:
-```bash
-export DEVIN_API_KEY="your-api-key"
-```
+If you encounter "DEVIN_API_KEY not set" errors, ensure the environment variable is exported locally or the GitHub secret is properly configured. Verify the API key is valid and has not expired.
 
-**"Log file not found"** means you should verify the path exists:
-```bash
-ls -la logs/
-```
+### GitHub Action Not Triggering
 
-**"Session creation failed"** means you should check your API key is valid and you have API access.
+If the GitHub Action does not trigger when adding new log files, verify the file path matches the trigger pattern (`logs/**`), check that the workflow file is valid YAML, and ensure the workflow is enabled in the repository settings.
 
-### GitHub Actions Issues
+### Analysis Session Failures
 
-**Workflow not triggering** - Verify the file path matches the trigger pattern and check that the workflow file is valid YAML.
+If analysis sessions fail to create, check your API key permissions, verify network connectivity to api.devin.ai, and review the error message for specific issues.
 
-**Secret not available** - Ensure `DEVIN_API_KEY` is added as a repository secret and the secret name matches exactly.
+### Log File Format Issues
 
-### Getting Help
-
-For issues with Devin's API, consult the Devin API documentation. For repository-specific issues, open an issue in the GitHub repository. For general questions, contact the repository maintainers.
+Ensure log files are valid JSON format. The analysis scripts expect log entries with specific fields including `@timestamp`, `level`, `service`, `http`, and `client` objects.
 
 ## Next Steps
 
-After running the demo, consider customizing the log generation to match your actual log format, modifying the analysis prompts for your specific use cases, integrating with your CI/CD pipeline, and setting up alerts based on analysis results.
-
-## License
-
-This demonstration code is provided as-is for educational purposes.
+After completing the demo, consider customizing the analysis prompts for your specific use cases, adding additional log sources and formats, integrating analysis results with alerting systems, and expanding the playbook with additional analysis tasks.
