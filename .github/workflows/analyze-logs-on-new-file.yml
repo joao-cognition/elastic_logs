@@ -19,35 +19,40 @@ jobs:
           files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^logs/' | head -n1)
           echo "file=${files}" >> $GITHUB_OUTPUT
       
-      - name: Create issue for Devin to analyze logs
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const logFile = '${{ steps.changed-file.outputs.file }}';
-            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
-            
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `Analyze ${logFile}`,
-              body: `@devin Please analyze ${logFile}:
-
-            **Error Analysis:**
-            - Count all entries with level='ERROR'
-            - Group by: status_code, service_name, error_message
-            - List top 10 most frequent errors
-            - Save as error_report_${timestamp}.html in analysis/
-
-            **Performance Analysis:**
-            - Calculate response_time stats: min, max, avg, p95, p99
-            - List slowest 10 endpoints
-            - Identify any response_time > 1000ms
-            - Save as performance_report_${timestamp}.html in analysis/
-
-            **Security Analysis:**
-            - Find status_code=401/403 entries
-            - Find unique IPs with >10 failed requests
-            - Find any SQL/XSS patterns in request_path
-            - Save as security_report_${timestamp}.html in analysis/`,
-              labels: ['devin']
-            });
+      - name: Trigger 3 Devin sessions
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          python3 << 'EOF'
+          import json
+          import os
+          from urllib.request import Request, urlopen
+          from datetime import datetime
+          
+          api_key = os.environ.get("DEVIN_API_KEY")
+          log_file = "${{ steps.changed-file.outputs.file }}"
+          timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+          
+          prompts = {
+              "error": f"Read {log_file}. Count all entries with level='ERROR'. Group by: status_code, service_name, error_message. List top 10 most frequent errors. Save as error_report_{timestamp}.html in analysis/",
+              "performance": f"Read {log_file}. Calculate response_time stats: min, max, avg, p95, p99. List slowest 10 endpoints. Identify any response_time > 1000ms. Save as performance_report_{timestamp}.html in analysis/",
+              "security": f"Read {log_file}. Find: status_code=401/403 entries, unique IPs with >10 failed requests, any SQL/XSS patterns in request_path. Save as security_report_{timestamp}.html in analysis/"
+          }
+          
+          for name, prompt in prompts.items():
+              payload = {"prompt": prompt}
+              data = json.dumps(payload).encode('utf-8')
+              request = Request(
+                  "https://api.devin.ai/v1/sessions",
+                  data=data,
+                  headers={
+                      "Authorization": f"Bearer {api_key}",
+                      "Content-Type": "application/json",
+                  },
+                  method="POST"
+              )
+              
+              with urlopen(request, timeout=30) as response:
+                  result = json.loads(response.read().decode('utf-8'))
+                  print(f"{name} analysis: {result['url']}")
+          EOF
