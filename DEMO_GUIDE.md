@@ -153,18 +153,18 @@ This workflow automatically creates a GitHub issue that triggers Devin to analyz
 
 Add a new log file to demonstrate the automated analysis workflow.
 
-1. Copy or create a new log file named `elastic_logs_29_11_25.json`
-2. Place it in the `logs/` directory
-3. Commit and push the changes:
+1. Move the log file `elastic_logs_29_11_25.json` from the `logs_to_be/` folder to the `logs/` folder
+2. Commit and push the changes:
 
 ```bash
+mv logs_to_be/elastic_logs_29_11_25.json logs/
 git add logs/elastic_logs_29_11_25.json
 git commit -m "feat: add elastic logs for November 29, 2025"
 git push origin main
 ```
 
-4. Create a Pull Request to trigger the GitHub Action
-5. Observe the GitHub Action running and creating an issue for Devin to analyze the new log file
+3. Create a Pull Request to trigger the GitHub Action
+4. Observe the GitHub Action running and creating an issue for Devin to analyze the new log file
 
 ### Step 7: Playbook Creation
 
@@ -254,26 +254,27 @@ This workflow triggers the Devin playbook whenever new log files are added, prov
 
 Add another log file to verify the playbook-based automation is working correctly.
 
-1. Copy or create a new log file named `elastic_logs_30_11_25.json`
-2. Place it in the `logs/` directory
-3. Commit and push the changes:
+1. Move the log file `elastic_logs_30_11_25.json` from the `logs_to_be/` folder to the `logs/` folder
+2. Commit and push the changes:
 
 ```bash
+mv logs_to_be/elastic_logs_30_11_25.json logs/
 git add logs/elastic_logs_30_11_25.json
 git commit -m "feat: add elastic logs for November 30, 2025"
 git push origin main
 ```
 
-4. Create a Pull Request
-5. Observe both GitHub Actions (analyze-logs-on-new-file and analyze-logs-playbook) triggering
-6. Verify that Devin receives the analysis request and begins processing
+3. Create a Pull Request
+4. Observe both GitHub Actions (analyze-logs-on-new-file and analyze-logs-playbook) triggering
+5. Verify that Devin receives the analysis request and begins processing
 
 ## Repository Structure
 
 ```
 elastic_logs/
 ├── logs/                                    # Log files for analysis
-│   ├── elastic_logs_28_11_25.json          # Sample logs (November 28, 2025)
+│   └── elastic_logs_28_11_25.json          # Sample logs (November 28, 2025)
+├── logs_to_be/                              # Staging folder for new log files
 │   ├── elastic_logs_29_11_25.json          # Sample logs (November 29, 2025)
 │   └── elastic_logs_30_11_25.json          # Sample logs (November 30, 2025)
 ├── script/                                  # Analysis scripts
