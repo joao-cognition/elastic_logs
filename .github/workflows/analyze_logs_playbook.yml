@@ -15,6 +15,7 @@ jobs:
   run-playbook:
     name: Execute Analysis Playbook
     runs-on: ubuntu-latest
+    if: ${{ secrets.DEVIN_API_KEY != '' }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
