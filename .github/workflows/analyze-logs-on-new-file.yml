@@ -20,7 +20,16 @@ jobs:
         run: |
           # Get added or renamed files (not modified or deleted) in logs/
           # A = added, R = renamed
-          added=$(git diff --name-only --diff-filter=AR ${{ github.event.before }} ${{ github.sha }} | grep '^logs/.*\.json$' || echo "")
+          
+          # Handle first push or invalid before ref
+          if [ "${{ github.event.before }}" == "0000000000000000000000000000000000000000" ]; then
+            # First push - check all files in logs/
+            added=$(git ls-files 'logs/*.json' || echo "")
+          else
+            # Normal push - check diff
+            added=$(git diff --name-only --diff-filter=AR ${{ github.event.before }} ${{ github.sha }} | grep '^logs/.*\.json$' || echo "")
+          fi
+          
           if [ -z "$added" ]; then
             echo "No new log files added"
             echo "files=" >> $GITHUB_OUTPUT
