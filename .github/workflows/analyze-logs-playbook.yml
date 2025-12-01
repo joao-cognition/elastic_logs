@@ -1,0 +1,84 @@
+name: Analyze Elastic Logs (Playbook)
+
+on:
+  push:
+    paths:
+      - 'logs/**'
+  workflow_dispatch:
+    inputs:
+      log_file:
+        description: 'Path to the log file to analyze'
+        required: false
+        default: 'logs/elastic_logs.json'
+      playbook_id:
+        description: 'Optional Devin playbook ID'
+        required: false
+        default: ''
+
+jobs:
+  analyze-logs-playbook:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Determine log file to analyze
+        id: log-file
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "log_file=${{ github.event.inputs.log_file }}" >> $GITHUB_OUTPUT
+            echo "playbook_id=${{ github.event.inputs.playbook_id }}" >> $GITHUB_OUTPUT
+          else
+            # Find the most recently modified log file
+            LOG_FILE=$(find logs -name "*.json" -type f -printf '%T@ %p\n' 2>/dev/null | sort -n | tail -1 | cut -d' ' -f2-)
+            if [ -z "$LOG_FILE" ]; then
+              LOG_FILE="logs/elastic_logs.json"
+            fi
+            echo "log_file=$LOG_FILE" >> $GITHUB_OUTPUT
+            echo "playbook_id=" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run Elastic Logs Analysis Playbook
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          cd ${{ github.workspace }}
+          PLAYBOOK_ARGS="--log-file ${{ steps.log-file.outputs.log_file }} --output-dir analysis"
+          if [ -n "${{ steps.log-file.outputs.playbook_id }}" ]; then
+            PLAYBOOK_ARGS="$PLAYBOOK_ARGS --playbook-id ${{ steps.log-file.outputs.playbook_id }}"
+          fi
+          python script/run_playbook.py $PLAYBOOK_ARGS
+
+      - name: Upload analysis results
+        uses: actions/upload-artifact@v4
+        with:
+          name: playbook-analysis-results-${{ github.run_id }}
+          path: analysis/
+          retention-days: 30
+
+      - name: Summary
+        run: |
+          echo "## Elastic Logs Analysis Playbook Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Log File Analyzed:** ${{ steps.log-file.outputs.log_file }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Playbook Tasks Executed:" >> $GITHUB_STEP_SUMMARY
+          echo "1. Error Pattern Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "2. Security Issue Detection" >> $GITHUB_STEP_SUMMARY
+          echo "3. Performance Anomaly Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The playbook encapsulates all three analysis tasks, allowing for flexible updates" >> $GITHUB_STEP_SUMMARY
+          echo "to the analysis logic without modifying this workflow." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Check the Devin session for detailed results." >> $GITHUB_STEP_SUMMARY

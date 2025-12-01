@@ -1,0 +1,89 @@
+name: Analyze Elastic Logs
+
+on:
+  push:
+    paths:
+      - 'logs/**'
+  workflow_dispatch:
+    inputs:
+      log_file:
+        description: 'Path to the log file to analyze'
+        required: false
+        default: 'logs/elastic_logs.json'
+      analyses:
+        description: 'Analyses to run (comma-separated: error,security,performance or all)'
+        required: false
+        default: 'all'
+
+jobs:
+  analyze-logs:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Determine log file to analyze
+        id: log-file
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "log_file=${{ github.event.inputs.log_file }}" >> $GITHUB_OUTPUT
+          else
+            # Find the most recently modified log file
+            LOG_FILE=$(find logs -name "*.json" -type f -printf '%T@ %p\n' 2>/dev/null | sort -n | tail -1 | cut -d' ' -f2-)
+            if [ -z "$LOG_FILE" ]; then
+              LOG_FILE="logs/elastic_logs.json"
+            fi
+            echo "log_file=$LOG_FILE" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run Error Pattern Analysis
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          cd ${{ github.workspace }}
+          python script/analyze_errors.py --log-file "${{ steps.log-file.outputs.log_file }}"
+
+      - name: Run Security Issue Detection
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          cd ${{ github.workspace }}
+          python script/analyze_security.py --log-file "${{ steps.log-file.outputs.log_file }}"
+
+      - name: Run Performance Anomaly Analysis
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          cd ${{ github.workspace }}
+          python script/analyze_performance.py --log-file "${{ steps.log-file.outputs.log_file }}"
+
+      - name: Upload analysis results
+        uses: actions/upload-artifact@v4
+        with:
+          name: analysis-results-${{ github.run_id }}
+          path: analysis/
+          retention-days: 30
+
+      - name: Summary
+        run: |
+          echo "## Log Analysis Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Log File Analyzed:** ${{ steps.log-file.outputs.log_file }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Analyses Initiated:" >> $GITHUB_STEP_SUMMARY
+          echo "- Error Pattern Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "- Security Issue Detection" >> $GITHUB_STEP_SUMMARY
+          echo "- Performance Anomaly Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Check the Devin sessions for detailed results." >> $GITHUB_STEP_SUMMARY
