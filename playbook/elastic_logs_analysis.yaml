@@ -1,0 +1,73 @@
+name: Elastic Logs Analysis Playbook
+description: |
+  A comprehensive playbook for analyzing Elastic Logs using Devin's API.
+  This playbook encapsulates three analysis tasks:
+  1. Application Error Analysis - Identifies error patterns and root causes
+  2. Security Issue Analysis - Detects security threats and vulnerabilities
+  3. Performance Issue Analysis - Finds performance bottlenecks and issues
+
+version: "1.0"
+
+inputs:
+  log_file:
+    description: Path to the Elastic Log file to analyze
+    type: string
+    default: logs/elastic_logs.json
+  output_dir:
+    description: Directory to save analysis results
+    type: string
+    default: analysis
+
+tasks:
+  - name: error_analysis
+    description: Analyze application errors in the logs
+    prompt: |
+      Analyze the Elastic Log file at {{ log_file }} for application errors.
+      
+      Focus on:
+      1. Identifying ERROR level log entries
+      2. Finding common error patterns and their frequency
+      3. Determining which services are most affected
+      4. Identifying potential root causes
+      5. Providing remediation recommendations
+      
+      Save the analysis results to {{ output_dir }}/error_analysis.json
+
+  - name: security_analysis
+    description: Analyze security issues in the logs
+    prompt: |
+      Analyze the Elastic Log file at {{ log_file }} for security issues.
+      
+      Focus on:
+      1. Detecting authentication failures and unauthorized access attempts
+      2. Identifying SQL injection, XSS, and other attack patterns
+      3. Finding suspicious IP addresses and user agents
+      4. Assessing threat severity levels
+      5. Recommending security mitigations
+      
+      Save the analysis results to {{ output_dir }}/security_analysis.json
+
+  - name: performance_analysis
+    description: Analyze performance issues in the logs
+    prompt: |
+      Analyze the Elastic Log file at {{ log_file }} for performance issues.
+      
+      Focus on:
+      1. Identifying high latency requests and timeouts
+      2. Finding memory and CPU utilization issues
+      3. Detecting slow database queries
+      4. Analyzing resource exhaustion patterns
+      5. Providing capacity planning recommendations
+      
+      Save the analysis results to {{ output_dir }}/performance_analysis.json
+
+outputs:
+  error_analysis_file:
+    description: Path to the error analysis results
+    value: "{{ output_dir }}/error_analysis.json"
+  security_analysis_file:
+    description: Path to the security analysis results
+    value: "{{ output_dir }}/security_analysis.json"
+  performance_analysis_file:
+    description: Path to the performance analysis results
+    value: "{{ output_dir }}/performance_analysis.json"
