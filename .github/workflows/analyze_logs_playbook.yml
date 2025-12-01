@@ -1,0 +1,64 @@
+name: Analyze Elastic Logs (Playbook)
+
+on:
+  push:
+    paths:
+      - 'logs/**'
+  workflow_dispatch:
+    inputs:
+      log_file:
+        description: 'Path to the log file to analyze'
+        required: false
+        default: 'logs/elastic_logs.json'
+
+jobs:
+  run-playbook:
+    name: Execute Analysis Playbook
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests pyyaml
+
+      - name: Run analysis playbook
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          python script/trigger_playbook.py \
+            playbook/elastic_logs_analysis.yaml \
+            ${{ github.event.inputs.log_file || 'logs/elastic_logs.json' }} \
+            analysis
+
+      - name: Upload playbook execution results
+        uses: actions/upload-artifact@v4
+        with:
+          name: playbook-execution-results
+          path: analysis/playbook_execution_*.json
+          if-no-files-found: ignore
+
+      - name: Display execution summary
+        run: |
+          echo "## Elastic Log Analysis Playbook Executed"
+          echo ""
+          echo "The playbook has been triggered and Devin is now analyzing the logs."
+          echo ""
+          echo "Analysis tasks:"
+          echo "1. Application Error Analysis"
+          echo "2. Security Issue Analysis"
+          echo "3. Performance Issue Analysis"
+          echo ""
+          echo "Check the Devin session URL in the execution results for detailed analysis."
+          if [ -f analysis/playbook_execution_*.json ]; then
+            echo ""
+            echo "Execution result:"
+            cat analysis/playbook_execution_*.json
+          fi
