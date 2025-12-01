@@ -1,0 +1,1164 @@
+[
+  {
+    "@timestamp": "2025-12-01T04:00:00Z",
+    "log_id": "log-0001",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Potential XSS attack detected in request body",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 429,
+      "response_time_ms": 460
+    },
+    "security": {
+      "event_type": "XSS_ATTEMPT",
+      "payload": "<script>alert('xss')</script>"
+    },
+    "client": {
+      "ip": "10.0.0.99",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-19036",
+      "span_id": "span-6244"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T04:05:00Z",
+    "log_id": "log-0002",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/products",
+      "status_code": 204,
+      "response_time_ms": 85
+    },
+    "client": {
+      "ip": "192.168.136.85",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-22179",
+      "span_id": "span-7520"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T04:10:00Z",
+    "log_id": "log-0003",
+    "level": "WARN",
+    "service": "database-service",
+    "host": "server-2.example.com",
+    "message": "Slow database query detected",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/analytics",
+      "status_code": 200,
+      "response_time_ms": 7149
+    },
+    "performance": {
+      "query_time_ms": 12843,
+      "query": "SELECT * FROM orders WHERE status = 'pending'"
+    },
+    "client": {
+      "ip": "192.168.114.200",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-46053",
+      "span_id": "span-3511"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T04:15:00Z",
+    "log_id": "log-0004",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/search",
+      "status_code": 201,
+      "response_time_ms": 127
+    },
+    "client": {
+      "ip": "192.168.224.104",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-34083",
+      "span_id": "span-7289"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T04:20:00Z",
+    "log_id": "log-0005",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 166
+    },
+    "client": {
+      "ip": "192.168.184.183",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-98700",
+      "span_id": "span-6147"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T04:25:00Z",
+    "log_id": "log-0006",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 56
+    },
+    "client": {
+      "ip": "192.168.94.136",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-96777",
+      "span_id": "span-3810"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T04:30:00Z",
+    "log_id": "log-0007",
+    "level": "ERROR",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "Bad gateway: upstream service unavailable",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 502,
+      "response_time_ms": 29295
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:489)",
+      "correlation_id": "err-54198"
+    },
+    "client": {
+      "ip": "192.168.45.147",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-10132",
+      "span_id": "span-4039"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T04:35:00Z",
+    "log_id": "log-0008",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-1.example.com",
+    "message": "Potential XSS attack detected in request body",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/login",
+      "status_code": 403,
+      "response_time_ms": 93
+    },
+    "security": {
+      "event_type": "XSS_ATTEMPT",
+      "payload": "<script>alert('xss')</script>"
+    },
+    "client": {
+      "ip": "10.0.0.99",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-67761",
+      "span_id": "span-3914"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T04:40:00Z",
+    "log_id": "log-0009",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 201,
+      "response_time_ms": 190
+    },
+    "client": {
+      "ip": "192.168.254.39",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-60253",
+      "span_id": "span-6105"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T04:45:00Z",
+    "log_id": "log-0010",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 200,
+      "response_time_ms": 60
+    },
+    "client": {
+      "ip": "192.168.250.31",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-59496",
+      "span_id": "span-6232"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T04:50:00Z",
+    "log_id": "log-0011",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 201,
+      "response_time_ms": 73
+    },
+    "client": {
+      "ip": "192.168.70.100",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-74942",
+      "span_id": "span-6019"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T04:55:00Z",
+    "log_id": "log-0012",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 204,
+      "response_time_ms": 94
+    },
+    "client": {
+      "ip": "192.168.234.229",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-96638",
+      "span_id": "span-7401"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T05:00:00Z",
+    "log_id": "log-0013",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/users",
+      "status_code": 204,
+      "response_time_ms": 94
+    },
+    "client": {
+      "ip": "192.168.76.164",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-67250",
+      "span_id": "span-9974"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T05:05:00Z",
+    "log_id": "log-0014",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Slow database query detected",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/export",
+      "status_code": 200,
+      "response_time_ms": 8153
+    },
+    "performance": {
+      "query_time_ms": 5223,
+      "query": "SELECT * FROM orders WHERE status = 'pending'"
+    },
+    "client": {
+      "ip": "192.168.184.102",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-21549",
+      "span_id": "span-4768"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T05:10:00Z",
+    "log_id": "log-0015",
+    "level": "ERROR",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Internal server error: database connection pool exhausted",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/checkout",
+      "status_code": 500,
+      "response_time_ms": 26502
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:57)",
+      "correlation_id": "err-63604"
+    },
+    "client": {
+      "ip": "192.168.168.38",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-38042",
+      "span_id": "span-1937"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T05:15:00Z",
+    "log_id": "log-0016",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/orders",
+      "status_code": 201,
+      "response_time_ms": 170
+    },
+    "client": {
+      "ip": "192.168.41.74",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-25587",
+      "span_id": "span-4003"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T05:20:00Z",
+    "log_id": "log-0017",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 201,
+      "response_time_ms": 161
+    },
+    "client": {
+      "ip": "192.168.192.222",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-88667",
+      "span_id": "span-2366"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T05:25:00Z",
+    "log_id": "log-0018",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 169
+    },
+    "client": {
+      "ip": "192.168.233.107",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-73049",
+      "span_id": "span-7969"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T05:30:00Z",
+    "log_id": "log-0019",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "Failed authentication attempt - invalid credentials",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/login",
+      "status_code": 429,
+      "response_time_ms": 82
+    },
+    "security": {
+      "event_type": "AUTH_FAILURE",
+      "attempts": 9
+    },
+    "client": {
+      "ip": "91.121.87.10",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-52117",
+      "span_id": "span-2130"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T05:35:00Z",
+    "log_id": "log-0020",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 43
+    },
+    "client": {
+      "ip": "192.168.201.148",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-36894",
+      "span_id": "span-5569"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T05:40:00Z",
+    "log_id": "log-0021",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/health",
+      "status_code": 200,
+      "response_time_ms": 66
+    },
+    "client": {
+      "ip": "192.168.85.77",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-64906",
+      "span_id": "span-6162"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T05:45:00Z",
+    "log_id": "log-0022",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 10
+    },
+    "client": {
+      "ip": "192.168.243.63",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-99965",
+      "span_id": "span-8739"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T05:50:00Z",
+    "log_id": "log-0023",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 200,
+      "response_time_ms": 82
+    },
+    "client": {
+      "ip": "192.168.24.143",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-69262",
+      "span_id": "span-4863"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T05:55:00Z",
+    "log_id": "log-0024",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/products",
+      "status_code": 200,
+      "response_time_ms": 102
+    },
+    "client": {
+      "ip": "192.168.31.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-41117",
+      "span_id": "span-6395"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T06:00:00Z",
+    "log_id": "log-0025",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/search",
+      "status_code": 204,
+      "response_time_ms": 83
+    },
+    "client": {
+      "ip": "192.168.102.151",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-58182",
+      "span_id": "span-6320"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T06:05:00Z",
+    "log_id": "log-0026",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "Failed authentication attempt - invalid credentials",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/login",
+      "status_code": 401,
+      "response_time_ms": 488
+    },
+    "security": {
+      "event_type": "AUTH_FAILURE",
+      "attempts": 4
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-14251",
+      "span_id": "span-5836"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T06:10:00Z",
+    "log_id": "log-0027",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 200,
+      "response_time_ms": 42
+    },
+    "client": {
+      "ip": "192.168.87.70",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-60379",
+      "span_id": "span-1320"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T06:15:00Z",
+    "log_id": "log-0028",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 106
+    },
+    "client": {
+      "ip": "192.168.240.180",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-61255",
+      "span_id": "span-9394"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T06:20:00Z",
+    "log_id": "log-0029",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 204,
+      "response_time_ms": 83
+    },
+    "client": {
+      "ip": "192.168.65.229",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-15228",
+      "span_id": "span-7399"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T06:25:00Z",
+    "log_id": "log-0030",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "status_code": 200,
+      "response_time_ms": 55
+    },
+    "client": {
+      "ip": "192.168.80.78",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-16026",
+      "span_id": "span-1565"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T06:30:00Z",
+    "log_id": "log-0031",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 92
+    },
+    "client": {
+      "ip": "192.168.93.149",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-28398",
+      "span_id": "span-8090"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T06:35:00Z",
+    "log_id": "log-0032",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/search",
+      "status_code": 204,
+      "response_time_ms": 105
+    },
+    "client": {
+      "ip": "192.168.242.140",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-77325",
+      "span_id": "span-3693"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T06:40:00Z",
+    "log_id": "log-0033",
+    "level": "ERROR",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "Bad gateway: upstream service unavailable",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "status_code": 502,
+      "response_time_ms": 22114
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:418)",
+      "correlation_id": "err-34496"
+    },
+    "client": {
+      "ip": "192.168.83.181",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-63262",
+      "span_id": "span-3879"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T06:45:00Z",
+    "log_id": "log-0034",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 151
+    },
+    "client": {
+      "ip": "192.168.215.121",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-76908",
+      "span_id": "span-7797"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T06:50:00Z",
+    "log_id": "log-0035",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/products",
+      "status_code": 204,
+      "response_time_ms": 23
+    },
+    "client": {
+      "ip": "192.168.185.110",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-74473",
+      "span_id": "span-6903"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T06:55:00Z",
+    "log_id": "log-0036",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-1.example.com",
+    "message": "Potential XSS attack detected in request body",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/admin",
+      "status_code": 429,
+      "response_time_ms": 453
+    },
+    "security": {
+      "event_type": "XSS_ATTEMPT",
+      "payload": "<script>alert('xss')</script>"
+    },
+    "client": {
+      "ip": "91.121.87.10",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-84774",
+      "span_id": "span-7817"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T07:00:00Z",
+    "log_id": "log-0037",
+    "level": "ERROR",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Internal server error: database connection pool exhausted",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 500,
+      "response_time_ms": 27145
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:459)",
+      "correlation_id": "err-66418"
+    },
+    "client": {
+      "ip": "192.168.122.146",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-76439",
+      "span_id": "span-7902"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T07:05:00Z",
+    "log_id": "log-0038",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "CPU spike detected",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 200,
+      "response_time_ms": 9323
+    },
+    "performance": {
+      "cpu_percent": 93,
+      "thread_count": 454
+    },
+    "client": {
+      "ip": "192.168.76.42",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-68830",
+      "span_id": "span-2792"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T07:10:00Z",
+    "log_id": "log-0039",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/orders",
+      "status_code": 201,
+      "response_time_ms": 195
+    },
+    "client": {
+      "ip": "192.168.46.147",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-66502",
+      "span_id": "span-5576"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T07:15:00Z",
+    "log_id": "log-0040",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 200,
+      "response_time_ms": 83
+    },
+    "client": {
+      "ip": "192.168.219.252",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-76849",
+      "span_id": "span-4978"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T07:20:00Z",
+    "log_id": "log-0041",
+    "level": "ERROR",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "Bad gateway: upstream service unavailable",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 502,
+      "response_time_ms": 21323
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:482)",
+      "correlation_id": "err-13490"
+    },
+    "client": {
+      "ip": "192.168.131.120",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-51764",
+      "span_id": "span-1501"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T07:25:00Z",
+    "log_id": "log-0042",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/orders",
+      "status_code": 200,
+      "response_time_ms": 25
+    },
+    "client": {
+      "ip": "192.168.33.208",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-33147",
+      "span_id": "span-8707"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T07:30:00Z",
+    "log_id": "log-0043",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/health",
+      "status_code": 201,
+      "response_time_ms": 87
+    },
+    "client": {
+      "ip": "192.168.20.164",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-49438",
+      "span_id": "span-9134"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T07:35:00Z",
+    "log_id": "log-0044",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/users",
+      "status_code": 201,
+      "response_time_ms": 34
+    },
+    "client": {
+      "ip": "192.168.194.93",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-46209",
+      "span_id": "span-3001"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T07:40:00Z",
+    "log_id": "log-0045",
+    "level": "ERROR",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Internal server error: null pointer exception",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 500,
+      "response_time_ms": 14712
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:432)",
+      "correlation_id": "err-81023"
+    },
+    "client": {
+      "ip": "192.168.65.106",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-17866",
+      "span_id": "span-3159"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T07:45:00Z",
+    "log_id": "log-0046",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/health",
+      "status_code": 204,
+      "response_time_ms": 64
+    },
+    "client": {
+      "ip": "192.168.190.102",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-90523",
+      "span_id": "span-9616"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T07:50:00Z",
+    "log_id": "log-0047",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 204,
+      "response_time_ms": 89
+    },
+    "client": {
+      "ip": "192.168.33.246",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-40837",
+      "span_id": "span-5457"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T07:55:00Z",
+    "log_id": "log-0048",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/products",
+      "status_code": 200,
+      "response_time_ms": 168
+    },
+    "client": {
+      "ip": "192.168.220.11",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-95650",
+      "span_id": "span-8142"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T08:00:00Z",
+    "log_id": "log-0049",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/search",
+      "status_code": 201,
+      "response_time_ms": 141
+    },
+    "client": {
+      "ip": "192.168.163.55",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-20951",
+      "span_id": "span-6234"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T08:05:00Z",
+    "log_id": "log-0050",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 201,
+      "response_time_ms": 14
+    },
+    "client": {
+      "ip": "192.168.62.250",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-16976",
+      "span_id": "span-2494"
+    }
+  }
+]

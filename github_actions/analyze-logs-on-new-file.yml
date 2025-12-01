@@ -1,0 +1,216 @@
+# GitHub Actions Workflow: Analyze Logs on New File
+# This workflow triggers when a new file is added to the logs directory
+# and runs 3 separate Devin sessions for analysis.
+#
+# To use this workflow:
+# 1. Copy this file to .github/workflows/ in your repository
+# 2. Add DEVIN_API_KEY as a repository secret (Settings > Secrets and variables > Actions)
+
+name: Analyze Logs on New File
+
+on:
+  push:
+    paths:
+      - 'logs/**'
+  workflow_dispatch:
+    inputs:
+      log_file:
+        description: 'Path to the log file to analyze'
+        required: false
+        default: ''
+
+jobs:
+  detect-new-file:
+    runs-on: ubuntu-latest
+    outputs:
+      log_file: ${{ steps.find-file.outputs.log_file }}
+      has_file: ${{ steps.find-file.outputs.has_file }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Find new or specified log file
+        id: find-file
+        run: |
+          if [ -n "${{ github.event.inputs.log_file }}" ]; then
+            LOG_FILE="${{ github.event.inputs.log_file }}"
+          else
+            # Find the most recently modified log file
+            LOG_FILE=$(find logs -name "*.json" -type f -printf '%T@ %p\n' 2>/dev/null | sort -n | tail -1 | cut -d' ' -f2-)
+          fi
+          
+          if [ -n "$LOG_FILE" ] && [ -f "$LOG_FILE" ]; then
+            echo "log_file=$LOG_FILE" >> $GITHUB_OUTPUT
+            echo "has_file=true" >> $GITHUB_OUTPUT
+            echo "Found log file: $LOG_FILE"
+          else
+            echo "has_file=false" >> $GITHUB_OUTPUT
+            echo "No log file found"
+          fi
+
+  error-analysis:
+    needs: detect-new-file
+    if: needs.detect-new-file.outputs.has_file == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Check for DEVIN_API_KEY
+        id: check-key
+        run: |
+          if [ -n "${{ secrets.DEVIN_API_KEY }}" ]; then
+            echo "has_key=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_key=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Skip Analysis (no DEVIN_API_KEY)
+        if: steps.check-key.outputs.has_key != 'true'
+        run: |
+          echo "## Error Analysis Skipped" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "DEVIN_API_KEY is not configured. Add it as a repository secret." >> $GITHUB_STEP_SUMMARY
+
+      - name: Run Error Pattern Analysis
+        if: steps.check-key.outputs.has_key == 'true'
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          python script/analyze_errors.py --log-file "${{ needs.detect-new-file.outputs.log_file }}"
+
+      - name: Upload error analysis results
+        if: steps.check-key.outputs.has_key == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: error-analysis-${{ github.run_id }}
+          path: analysis/
+          retention-days: 30
+
+  security-analysis:
+    needs: detect-new-file
+    if: needs.detect-new-file.outputs.has_file == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Check for DEVIN_API_KEY
+        id: check-key
+        run: |
+          if [ -n "${{ secrets.DEVIN_API_KEY }}" ]; then
+            echo "has_key=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_key=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Skip Analysis (no DEVIN_API_KEY)
+        if: steps.check-key.outputs.has_key != 'true'
+        run: |
+          echo "## Security Analysis Skipped" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "DEVIN_API_KEY is not configured. Add it as a repository secret." >> $GITHUB_STEP_SUMMARY
+
+      - name: Run Security Issue Detection
+        if: steps.check-key.outputs.has_key == 'true'
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          python script/analyze_security.py --log-file "${{ needs.detect-new-file.outputs.log_file }}"
+
+      - name: Upload security analysis results
+        if: steps.check-key.outputs.has_key == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-analysis-${{ github.run_id }}
+          path: analysis/
+          retention-days: 30
+
+  performance-analysis:
+    needs: detect-new-file
+    if: needs.detect-new-file.outputs.has_file == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Check for DEVIN_API_KEY
+        id: check-key
+        run: |
+          if [ -n "${{ secrets.DEVIN_API_KEY }}" ]; then
+            echo "has_key=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_key=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Skip Analysis (no DEVIN_API_KEY)
+        if: steps.check-key.outputs.has_key != 'true'
+        run: |
+          echo "## Performance Analysis Skipped" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "DEVIN_API_KEY is not configured. Add it as a repository secret." >> $GITHUB_STEP_SUMMARY
+
+      - name: Run Performance Anomaly Analysis
+        if: steps.check-key.outputs.has_key == 'true'
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          python script/analyze_performance.py --log-file "${{ needs.detect-new-file.outputs.log_file }}"
+
+      - name: Upload performance analysis results
+        if: steps.check-key.outputs.has_key == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-analysis-${{ github.run_id }}
+          path: analysis/
+          retention-days: 30
+
+  summary:
+    needs: [detect-new-file, error-analysis, security-analysis, performance-analysis]
+    if: always() && needs.detect-new-file.outputs.has_file == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Summary
+        run: |
+          echo "## Log Analysis Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Log File Analyzed:** ${{ needs.detect-new-file.outputs.log_file }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Devin Sessions Initiated (3 total):" >> $GITHUB_STEP_SUMMARY
+          echo "1. Error Pattern Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "2. Security Issue Detection" >> $GITHUB_STEP_SUMMARY
+          echo "3. Performance Anomaly Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Check the individual job outputs and Devin sessions for detailed results." >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,1234 @@
+[
+  {
+    "@timestamp": "2025-12-01T17:00:00Z",
+    "log_id": "log-0001",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 15
+    },
+    "client": {
+      "ip": "192.168.175.160",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-11386",
+      "span_id": "span-8945"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:05:00Z",
+    "log_id": "log-0002",
+    "level": "ERROR",
+    "service": "order-service",
+    "host": "server-2.example.com",
+    "message": "Internal server error: null pointer exception",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/checkout",
+      "status_code": 500,
+      "response_time_ms": 16105
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:392)",
+      "correlation_id": "err-33120"
+    },
+    "client": {
+      "ip": "192.168.249.229",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-78921",
+      "span_id": "span-2866"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:10:00Z",
+    "log_id": "log-0003",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 200,
+      "response_time_ms": 59
+    },
+    "client": {
+      "ip": "192.168.192.22",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-83849",
+      "span_id": "span-2438"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:15:00Z",
+    "log_id": "log-0004",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 42
+    },
+    "client": {
+      "ip": "192.168.171.104",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-11706",
+      "span_id": "span-2533"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:20:00Z",
+    "log_id": "log-0005",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-3.example.com",
+    "message": "Brute force attack detected - multiple failed login attempts",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/login",
+      "status_code": 429,
+      "response_time_ms": 357
+    },
+    "security": {
+      "event_type": "BRUTE_FORCE",
+      "attempts": 182
+    },
+    "client": {
+      "ip": "91.121.87.10",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-68976",
+      "span_id": "span-9405"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:25:00Z",
+    "log_id": "log-0006",
+    "level": "ERROR",
+    "service": "order-service",
+    "host": "server-3.example.com",
+    "message": "Internal server error: out of memory exception",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/checkout",
+      "status_code": 500,
+      "response_time_ms": 9773
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:296)",
+      "correlation_id": "err-82370"
+    },
+    "client": {
+      "ip": "192.168.55.63",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-91939",
+      "span_id": "span-8734"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:30:00Z",
+    "log_id": "log-0007",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 104
+    },
+    "client": {
+      "ip": "192.168.216.7",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-51114",
+      "span_id": "span-6887"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:35:00Z",
+    "log_id": "log-0008",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Unauthorized access attempt to admin endpoint",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/login",
+      "status_code": 403,
+      "response_time_ms": 295
+    },
+    "security": {
+      "event_type": "UNAUTHORIZED_ACCESS",
+      "target_resource": "/admin/users"
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-52370",
+      "span_id": "span-9720"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:40:00Z",
+    "log_id": "log-0009",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/orders",
+      "status_code": 201,
+      "response_time_ms": 200
+    },
+    "client": {
+      "ip": "192.168.187.24",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-73570",
+      "span_id": "span-3664"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:45:00Z",
+    "log_id": "log-0010",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "CPU spike detected",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 200,
+      "response_time_ms": 5826
+    },
+    "performance": {
+      "cpu_percent": 94,
+      "thread_count": 260
+    },
+    "client": {
+      "ip": "192.168.12.57",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-91578",
+      "span_id": "span-1569"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:50:00Z",
+    "log_id": "log-0011",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 200,
+      "response_time_ms": 195
+    },
+    "client": {
+      "ip": "192.168.147.181",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-39101",
+      "span_id": "span-1279"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:55:00Z",
+    "log_id": "log-0012",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 57
+    },
+    "client": {
+      "ip": "192.168.59.38",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-23511",
+      "span_id": "span-2086"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:00:00Z",
+    "log_id": "log-0013",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-4.example.com",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 401,
+      "response_time_ms": 208
+    },
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
+    },
+    "client": {
+      "ip": "91.121.87.10",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-11304",
+      "span_id": "span-8666"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:05:00Z",
+    "log_id": "log-0014",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-2.example.com",
+    "message": "Brute force attack detected - multiple failed login attempts",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/admin",
+      "status_code": 403,
+      "response_time_ms": 308
+    },
+    "security": {
+      "event_type": "BRUTE_FORCE",
+      "attempts": 102
+    },
+    "client": {
+      "ip": "91.121.87.10",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-30933",
+      "span_id": "span-3671"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:10:00Z",
+    "log_id": "log-0015",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-4.example.com",
+    "message": "Failed authentication attempt - invalid credentials",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/login",
+      "status_code": 403,
+      "response_time_ms": 344
+    },
+    "security": {
+      "event_type": "AUTH_FAILURE",
+      "attempts": 6
+    },
+    "client": {
+      "ip": "10.0.0.99",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-38972",
+      "span_id": "span-7354"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:15:00Z",
+    "log_id": "log-0016",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-2.example.com",
+    "message": "Potential XSS attack detected in request body",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 403,
+      "response_time_ms": 457
+    },
+    "security": {
+      "event_type": "XSS_ATTEMPT",
+      "payload": "<script>alert('xss')</script>"
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-44779",
+      "span_id": "span-5360"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:20:00Z",
+    "log_id": "log-0017",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-4.example.com",
+    "message": "Potential XSS attack detected in request body",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/admin",
+      "status_code": 401,
+      "response_time_ms": 415
+    },
+    "security": {
+      "event_type": "XSS_ATTEMPT",
+      "payload": "<script>alert('xss')</script>"
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-55200",
+      "span_id": "span-4860"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:25:00Z",
+    "log_id": "log-0018",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-1.example.com",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/login",
+      "status_code": 401,
+      "response_time_ms": 382
+    },
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
+    },
+    "client": {
+      "ip": "10.0.0.99",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-83608",
+      "span_id": "span-8325"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:30:00Z",
+    "log_id": "log-0019",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-5.example.com",
+    "message": "Potential XSS attack detected in request body",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/login",
+      "status_code": 403,
+      "response_time_ms": 251
+    },
+    "security": {
+      "event_type": "XSS_ATTEMPT",
+      "payload": "<script>alert('xss')</script>"
+    },
+    "client": {
+      "ip": "91.121.87.10",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-63702",
+      "span_id": "span-7972"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:35:00Z",
+    "log_id": "log-0020",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/products",
+      "status_code": 201,
+      "response_time_ms": 171
+    },
+    "client": {
+      "ip": "192.168.123.49",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-91567",
+      "span_id": "span-5117"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:40:00Z",
+    "log_id": "log-0021",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/login",
+      "status_code": 403,
+      "response_time_ms": 208
+    },
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
+    },
+    "client": {
+      "ip": "91.121.87.10",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-85347",
+      "span_id": "span-3140"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:45:00Z",
+    "log_id": "log-0022",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-4.example.com",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 403,
+      "response_time_ms": 55
+    },
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
+    },
+    "client": {
+      "ip": "91.121.87.10",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-56183",
+      "span_id": "span-3085"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:50:00Z",
+    "log_id": "log-0023",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/health",
+      "status_code": 204,
+      "response_time_ms": 138
+    },
+    "client": {
+      "ip": "192.168.169.244",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-18829",
+      "span_id": "span-2525"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:55:00Z",
+    "log_id": "log-0024",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Failed authentication attempt - invalid credentials",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/login",
+      "status_code": 401,
+      "response_time_ms": 203
+    },
+    "security": {
+      "event_type": "AUTH_FAILURE",
+      "attempts": 9
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-58730",
+      "span_id": "span-8202"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T19:00:00Z",
+    "log_id": "log-0025",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 113
+    },
+    "client": {
+      "ip": "192.168.79.231",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-30225",
+      "span_id": "span-8006"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T19:05:00Z",
+    "log_id": "log-0026",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-5.example.com",
+    "message": "Potential XSS attack detected in request body",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/login",
+      "status_code": 429,
+      "response_time_ms": 460
+    },
+    "security": {
+      "event_type": "XSS_ATTEMPT",
+      "payload": "<script>alert('xss')</script>"
+    },
+    "client": {
+      "ip": "10.0.0.99",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-92396",
+      "span_id": "span-2277"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T19:10:00Z",
+    "log_id": "log-0027",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Potential XSS attack detected in request body",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 401,
+      "response_time_ms": 299
+    },
+    "security": {
+      "event_type": "XSS_ATTEMPT",
+      "payload": "<script>alert('xss')</script>"
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-47508",
+      "span_id": "span-1795"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T19:15:00Z",
+    "log_id": "log-0028",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-2.example.com",
+    "message": "Brute force attack detected - multiple failed login attempts",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/admin",
+      "status_code": 403,
+      "response_time_ms": 457
+    },
+    "security": {
+      "event_type": "BRUTE_FORCE",
+      "attempts": 117
+    },
+    "client": {
+      "ip": "45.33.32.156",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-84006",
+      "span_id": "span-8909"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T19:20:00Z",
+    "log_id": "log-0029",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-2.example.com",
+    "message": "Rate limit exceeded from suspicious IP",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/login",
+      "status_code": 401,
+      "response_time_ms": 232
+    },
+    "security": {
+      "event_type": "RATE_LIMIT_EXCEEDED",
+      "requests_per_minute": 1483
+    },
+    "client": {
+      "ip": "45.33.32.156",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-71132",
+      "span_id": "span-7338"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T19:25:00Z",
+    "log_id": "log-0030",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "Failed authentication attempt - invalid credentials",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/login",
+      "status_code": 429,
+      "response_time_ms": 241
+    },
+    "security": {
+      "event_type": "AUTH_FAILURE",
+      "attempts": 4
+    },
+    "client": {
+      "ip": "10.0.0.99",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-39669",
+      "span_id": "span-6005"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T19:30:00Z",
+    "log_id": "log-0031",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Rate limit exceeded from suspicious IP",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 401,
+      "response_time_ms": 103
+    },
+    "security": {
+      "event_type": "RATE_LIMIT_EXCEEDED",
+      "requests_per_minute": 1354
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-59933",
+      "span_id": "span-3296"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T19:35:00Z",
+    "log_id": "log-0032",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/search",
+      "status_code": 201,
+      "response_time_ms": 36
+    },
+    "client": {
+      "ip": "192.168.70.64",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-34962",
+      "span_id": "span-9718"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T19:40:00Z",
+    "log_id": "log-0033",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/users",
+      "status_code": 201,
+      "response_time_ms": 81
+    },
+    "client": {
+      "ip": "192.168.236.137",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-35895",
+      "span_id": "span-7716"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T19:45:00Z",
+    "log_id": "log-0034",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/users",
+      "status_code": 201,
+      "response_time_ms": 152
+    },
+    "client": {
+      "ip": "192.168.242.217",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-28927",
+      "span_id": "span-6331"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T19:50:00Z",
+    "log_id": "log-0035",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/products",
+      "status_code": 204,
+      "response_time_ms": 114
+    },
+    "client": {
+      "ip": "192.168.34.128",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-74496",
+      "span_id": "span-7576"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T19:55:00Z",
+    "log_id": "log-0036",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-4.example.com",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/login",
+      "status_code": 401,
+      "response_time_ms": 478
+    },
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
+    },
+    "client": {
+      "ip": "10.0.0.99",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-97350",
+      "span_id": "span-4057"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T20:00:00Z",
+    "log_id": "log-0037",
+    "level": "ERROR",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Bad gateway: upstream service unavailable",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 502,
+      "response_time_ms": 21993
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:387)",
+      "correlation_id": "err-35219"
+    },
+    "client": {
+      "ip": "192.168.88.216",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-39472",
+      "span_id": "span-3112"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T20:05:00Z",
+    "log_id": "log-0038",
+    "level": "ERROR",
+    "service": "user-service",
+    "host": "server-2.example.com",
+    "message": "Gateway timeout: request exceeded 30s limit",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "status_code": 504,
+      "response_time_ms": 27173
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:478)",
+      "correlation_id": "err-29351"
+    },
+    "client": {
+      "ip": "192.168.184.66",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-59078",
+      "span_id": "span-3021"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T20:10:00Z",
+    "log_id": "log-0039",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-4.example.com",
+    "message": "Unauthorized access attempt to admin endpoint",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 429,
+      "response_time_ms": 86
+    },
+    "security": {
+      "event_type": "UNAUTHORIZED_ACCESS",
+      "target_resource": "/admin/users"
+    },
+    "client": {
+      "ip": "45.33.32.156",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-98264",
+      "span_id": "span-3928"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T20:15:00Z",
+    "log_id": "log-0040",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-2.example.com",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/login",
+      "status_code": 401,
+      "response_time_ms": 454
+    },
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
+    },
+    "client": {
+      "ip": "91.121.87.10",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-92429",
+      "span_id": "span-4619"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T20:20:00Z",
+    "log_id": "log-0041",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 201,
+      "response_time_ms": 124
+    },
+    "client": {
+      "ip": "192.168.112.73",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-98059",
+      "span_id": "span-9462"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T20:25:00Z",
+    "log_id": "log-0042",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-5.example.com",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/admin",
+      "status_code": 429,
+      "response_time_ms": 164
+    },
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
+    },
+    "client": {
+      "ip": "10.0.0.99",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-34209",
+      "span_id": "span-2867"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T20:30:00Z",
+    "log_id": "log-0043",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 146
+    },
+    "client": {
+      "ip": "192.168.93.250",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-95630",
+      "span_id": "span-2437"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T20:35:00Z",
+    "log_id": "log-0044",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "Brute force attack detected - multiple failed login attempts",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/admin",
+      "status_code": 403,
+      "response_time_ms": 174
+    },
+    "security": {
+      "event_type": "BRUTE_FORCE",
+      "attempts": 71
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-17084",
+      "span_id": "span-6227"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T20:40:00Z",
+    "log_id": "log-0045",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Rate limit exceeded from suspicious IP",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 403,
+      "response_time_ms": 205
+    },
+    "security": {
+      "event_type": "RATE_LIMIT_EXCEEDED",
+      "requests_per_minute": 1005
+    },
+    "client": {
+      "ip": "91.121.87.10",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-69136",
+      "span_id": "span-4768"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T20:45:00Z",
+    "log_id": "log-0046",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-5.example.com",
+    "message": "Potential XSS attack detected in request body",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 429,
+      "response_time_ms": 301
+    },
+    "security": {
+      "event_type": "XSS_ATTEMPT",
+      "payload": "<script>alert('xss')</script>"
+    },
+    "client": {
+      "ip": "45.33.32.156",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-25424",
+      "span_id": "span-3000"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T20:50:00Z",
+    "log_id": "log-0047",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 152
+    },
+    "client": {
+      "ip": "192.168.220.247",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-17298",
+      "span_id": "span-6246"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T20:55:00Z",
+    "log_id": "log-0048",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-1.example.com",
+    "message": "Rate limit exceeded from suspicious IP",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/admin",
+      "status_code": 429,
+      "response_time_ms": 280
+    },
+    "security": {
+      "event_type": "RATE_LIMIT_EXCEEDED",
+      "requests_per_minute": 847
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-46427",
+      "span_id": "span-2127"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T21:00:00Z",
+    "log_id": "log-0049",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-3.example.com",
+    "message": "Failed authentication attempt - invalid credentials",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/login",
+      "status_code": 401,
+      "response_time_ms": 54
+    },
+    "security": {
+      "event_type": "AUTH_FAILURE",
+      "attempts": 5
+    },
+    "client": {
+      "ip": "45.33.32.156",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-81709",
+      "span_id": "span-5083"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T21:05:00Z",
+    "log_id": "log-0050",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 74
+    },
+    "client": {
+      "ip": "192.168.123.240",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-91078",
+      "span_id": "span-7596"
+    }
+  }
+]
