@@ -74,7 +74,11 @@ The analysis will identify error patterns, security threats, and performance bot
 Run the log analysis script to trigger Devin sessions for comprehensive log analysis.
 
 ```bash
-python3 script/analyze_logs.py logs/elastic_logs.json
+export DEVIN_API_KEY='apk_user_Z29vZ2xlLW9hdXRoMnwxMTAxOTc0MzU5NDQ0ODU2MDMzNDVfb3JnLWE1YTc4MGU4YzcwMDQyNjliN2NhZmMyYzVhNzdhMDM5OjY5YTNmZjViZTFjNTQyMGE4MTA3NGM4MGY4MWNiMGMw'
+```
+
+```bash
+python3 script/analyze_logs.py logs/elastic_logs_28_11_25.json
 ```
 
 This script (`script/analyze_logs.py`) triggers three parallel Devin sessions:
