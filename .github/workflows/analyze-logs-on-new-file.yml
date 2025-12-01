@@ -13,35 +13,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
       
-      - name: Get added log files
-        id: added-files
-        run: |
-          # Get added or renamed files (not modified or deleted) in logs/
-          # A = added, R = renamed
-          
-          # Handle first push or invalid before ref
-          if [ "${{ github.event.before }}" == "0000000000000000000000000000000000000000" ]; then
-            # First push - check all files in logs/
-            added=$(git ls-files 'logs/*.json' || echo "")
-          else
-            # Normal push - check diff
-            added=$(git diff --name-only --diff-filter=AR ${{ github.event.before }} ${{ github.sha }} | grep '^logs/.*\.json$' || echo "")
-          fi
-          
-          if [ -z "$added" ]; then
-            echo "No new log files added"
-            echo "files=" >> $GITHUB_OUTPUT
-          else
-            echo "Added files: $added"
-            # Convert to JSON array
-            files_json=$(echo "$added" | jq -R -s -c 'split("\n") | map(select(length > 0))')
-            echo "files=$files_json" >> $GITHUB_OUTPUT
-          fi
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v41
+        with:
+          files: |
+            logs/*.json
+          diff_relative: true
       
       - name: Trigger Devin sessions for each file
-        if: steps.added-files.outputs.files != ''
+        if: steps.changed-files.outputs.all_changed_files != ''
         env:
           DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
         run: |
@@ -52,13 +35,13 @@ jobs:
           from datetime import datetime
           
           api_key = os.environ.get("DEVIN_API_KEY")
-          files_json = '${{ steps.added-files.outputs.files }}'
+          files_str = '${{ steps.changed-files.outputs.all_changed_files }}'
           
-          if not files_json or files_json == '':
+          if not files_str or files_str == '':
               print("No files to process")
               exit(0)
           
-          log_files = json.loads(files_json)
+          log_files = files_str.split()
           timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
           
           for log_file in log_files:
