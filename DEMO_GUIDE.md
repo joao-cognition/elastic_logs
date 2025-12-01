@@ -172,6 +172,10 @@ The scan produces a detailed report covering Dockerfile security analysis, Docke
 
 **scan-docker.yml** triggers on push to `docker_code/` folder and scans Docker code for security issues.
 
+### Graceful Handling of Missing API Key
+
+If `DEVIN_API_KEY` is not configured as a repository secret, the GitHub Actions workflows will gracefully skip the Devin analysis steps and still succeed. This allows CI to pass in environments where the secret is not configured (such as forks or initial setup). The workflow summary will indicate that analysis was skipped and provide instructions for adding the secret.
+
 ### Triggering Workflows Manually
 
 All workflows support manual triggering via `workflow_dispatch`. Go to the Actions tab in GitHub, select the workflow, and click "Run workflow".

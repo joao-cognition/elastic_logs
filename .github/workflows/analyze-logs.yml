@@ -47,7 +47,27 @@ jobs:
             echo "log_file=$LOG_FILE" >> $GITHUB_OUTPUT
           fi
 
+      - name: Check for DEVIN_API_KEY
+        id: check-key
+        run: |
+          if [ -n "${{ secrets.DEVIN_API_KEY }}" ]; then
+            echo "has_key=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_key=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Skip Analysis (no DEVIN_API_KEY)
+        if: steps.check-key.outputs.has_key != 'true'
+        run: |
+          echo "## Analysis Skipped" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "DEVIN_API_KEY is not configured. Skipping Devin analysis steps." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "To enable analysis, add DEVIN_API_KEY as a repository secret:" >> $GITHUB_STEP_SUMMARY
+          echo "Settings > Secrets and variables > Actions > New repository secret" >> $GITHUB_STEP_SUMMARY
+
       - name: Run Error Pattern Analysis
+        if: steps.check-key.outputs.has_key == 'true'
         env:
           DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
         run: |
@@ -55,6 +75,7 @@ jobs:
           python script/analyze_errors.py --log-file "${{ steps.log-file.outputs.log_file }}"
 
       - name: Run Security Issue Detection
+        if: steps.check-key.outputs.has_key == 'true'
         env:
           DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
         run: |
@@ -62,6 +83,7 @@ jobs:
           python script/analyze_security.py --log-file "${{ steps.log-file.outputs.log_file }}"
 
       - name: Run Performance Anomaly Analysis
+        if: steps.check-key.outputs.has_key == 'true'
         env:
           DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
         run: |
@@ -69,6 +91,7 @@ jobs:
           python script/analyze_performance.py --log-file "${{ steps.log-file.outputs.log_file }}"
 
       - name: Upload analysis results
+        if: steps.check-key.outputs.has_key == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: analysis-results-${{ github.run_id }}
@@ -76,6 +99,7 @@ jobs:
           retention-days: 30
 
       - name: Summary
+        if: steps.check-key.outputs.has_key == 'true'
         run: |
           echo "## Log Analysis Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY

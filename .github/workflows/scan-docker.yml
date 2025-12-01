@@ -46,7 +46,27 @@ jobs:
           echo "Docker files found in ${{ steps.docker-dir.outputs.docker_dir }}:"
           find ${{ steps.docker-dir.outputs.docker_dir }} -type f \( -name "Dockerfile*" -o -name "docker-compose*.yml" -o -name "docker-compose*.yaml" -o -name "*.py" -o -name "*.sh" \) 2>/dev/null || echo "No files found"
 
+      - name: Check for DEVIN_API_KEY
+        id: check-key
+        run: |
+          if [ -n "${{ secrets.DEVIN_API_KEY }}" ]; then
+            echo "has_key=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_key=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Skip Scan (no DEVIN_API_KEY)
+        if: steps.check-key.outputs.has_key != 'true'
+        run: |
+          echo "## Docker Scan Skipped" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "DEVIN_API_KEY is not configured. Skipping Devin scan steps." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "To enable scanning, add DEVIN_API_KEY as a repository secret:" >> $GITHUB_STEP_SUMMARY
+          echo "Settings > Secrets and variables > Actions > New repository secret" >> $GITHUB_STEP_SUMMARY
+
       - name: Run Docker Code Scan
+        if: steps.check-key.outputs.has_key == 'true'
         env:
           DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
         run: |
@@ -54,6 +74,7 @@ jobs:
           python script/scan_docker.py --docker-dir "${{ steps.docker-dir.outputs.docker_dir }}" --output-dir analysis
 
       - name: Upload scan results
+        if: steps.check-key.outputs.has_key == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: docker-scan-results-${{ github.run_id }}
@@ -61,6 +82,7 @@ jobs:
           retention-days: 30
 
       - name: Summary
+        if: steps.check-key.outputs.has_key == 'true'
         run: |
           echo "## Docker Code Scan Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
