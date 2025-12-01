@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Report - 2025-12-01 20:49:38</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #d32f2f;
+            border-bottom: 3px solid #d32f2f;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #1976d2;
+            margin-top: 30px;
+            border-bottom: 2px solid #1976d2;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #388e3c;
+        }
+        .summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .summary-card {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .summary-card .number {
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        .summary-card .label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        th {
+            background-color: #37474f;
+            color: white;
+            font-weight: 600;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .status-401 {
+            background-color: #fff3e0;
+            color: #e65100;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .status-403 {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .ip-card {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #d32f2f;
+        }
+        .ip-card h4 {
+            margin: 0 0 10px 0;
+            color: #d32f2f;
+        }
+        .pattern-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            margin: 2px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+        .pattern-sql {
+            background-color: #ffcdd2;
+            color: #b71c1c;
+        }
+        .pattern-xss {
+            background-color: #f3e5f5;
+            color: #6a1b9a;
+        }
+        .code {
+            font-family: 'Courier New', monospace;
+            background-color: #263238;
+            color: #80cbc4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .meta-info {
+            color: #757575;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .warning {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .critical {
+            background-color: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Security Analysis Report</h1>
+    
+    <div class="meta-info">
+        <strong>Generated:</strong> 2025-12-01 20:49:38 UTC<br>
+        <strong>Log Files Analyzed:</strong> elastic_logs_28_11_25.json, elastic_logs_29_11_25.json, elastic_logs_30_11_25.json
+    </div>
+    
+    <div class="summary">
+        <h2 style="color: white; border: none; margin-top: 0;">Executive Summary</h2>
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="number">35</div>
+                <div class="label">401/403 Auth Failures</div>
+            </div>
+            <div class="summary-card">
+                <div class="number">0</div>
+                <div class="label">Suspicious IPs (&gt;10 failures)</div>
+            </div>
+            <div class="summary-card">
+                <div class="number">14</div>
+                <div class="label">SQL/XSS Patterns Detected</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>1. Authentication Failures (401/403)</h2>
+
+        <div class="warning">
+            <strong>Finding:</strong> 35 authentication failure(s) detected. 
+            These may indicate unauthorized access attempts or misconfigured credentials.
+        </div>
+        <table>
+            <tr>
+                <th>Timestamp</th>
+                <th>Status</th>
+                <th>Service</th>
+                <th>Endpoint</th>
+                <th>Client IP</th>
+                <th>Message</th>
+            </tr>
+
+            <tr>
+                <td>2025-12-01T11:05:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>security-monitor</td>
+                <td><code>/api/users</code></td>
+                <td><code>10.0.0.99</code></td>
+                <td>Suspicious request pattern detected - possible SQL injection</td>
+            </tr>
+
+            <tr>
+                <td>2025-12-01T11:20:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>security-monitor</td>
+                <td><code>/api/users</code></td>
+                <td><code>185.220.101.1</code></td>
+                <td>Unauthorized access attempt to admin endpoint</td>
+            </tr>
+
+            <tr>
+                <td>2025-12-01T12:50:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>api-gateway</td>
+                <td><code>/api/login</code></td>
+                <td><code>45.33.32.156</code></td>
+                <td>Suspicious request pattern detected - possible SQL injection</td>
+            </tr>
+
+            <tr>
+                <td>2025-12-01T13:30:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>security-monitor</td>
+                <td><code>/api/users</code></td>
+                <td><code>10.0.0.99</code></td>
+                <td>Unauthorized access attempt to admin endpoint</td>
+            </tr>
+
+            <tr>
+                <td>2025-12-01T13:45:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>api-gateway</td>
+                <td><code>/api/login</code></td>
+                <td><code>91.121.87.10</code></td>
+                <td>Unauthorized access attempt to admin endpoint</td>
+            </tr>
+
+            <tr>
+                <td>2025-12-01T14:30:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>auth-service</td>
+                <td><code>/api/users</code></td>
+                <td><code>10.0.0.99</code></td>
+                <td>Failed authentication attempt - invalid credentials</td>
+            </tr>
+
+            <tr>
+                <td>2025-12-01T16:00:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>api-gateway</td>
+                <td><code>/api/login</code></td>
+                <td><code>185.220.101.1</code></td>
+                <td>Potential XSS attack detected in request body</td>
+            </tr>
+
+            <tr>
+                <td>2025-12-01T16:10:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>api-gateway</td>
+                <td><code>/api/users</code></td>
+                <td><code>10.0.0.99</code></td>
+                <td>Failed authentication attempt - invalid credentials</td>
+            </tr>
+
+            <tr>
+                <td>2025-12-01T17:10:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>api-gateway</td>
+                <td><code>/api/users</code></td>
+                <td><code>91.121.87.10</code></td>
+                <td>Unauthorized access attempt to admin endpoint</td>
+            </tr>
+
+            <tr>
+                <td>2025-12-01T18:05:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>security-monitor</td>
+                <td><code>/api/login</code></td>
+                <td><code>45.33.32.156</code></td>
+                <td>Suspicious request pattern detected - possible SQL injection</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T10:35:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>product-service</td>
+                <td><code>/api/users</code></td>
+                <td><code>192.168.189.24</code></td>
+                <td>Suspicious request pattern detected - possible SQL injection</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T10:50:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>product-service</td>
+                <td><code>/api/checkout</code></td>
+                <td><code>192.168.127.22</code></td>
+                <td>Rate limit exceeded for IP</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T11:25:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>security-monitor</td>
+                <td><code>/api/users</code></td>
+                <td><code>192.168.242.44</code></td>
+                <td>Rate limit exceeded for IP</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T11:30:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>user-service</td>
+                <td><code>/api/health</code></td>
+                <td><code>192.168.158.198</code></td>
+                <td>Unauthorized access attempt to admin endpoint</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T12:10:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>product-service</td>
+                <td><code>/api/health</code></td>
+                <td><code>192.168.116.149</code></td>
+                <td>Rate limit exceeded for IP</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T12:50:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>api-gateway</td>
+                <td><code>/api/products</code></td>
+                <td><code>192.168.234.234</code></td>
+                <td>Suspicious request pattern detected - possible SQL injection</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T13:20:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>order-service</td>
+                <td><code>/api/health</code></td>
+                <td><code>192.168.170.144</code></td>
+                <td>Suspicious request pattern detected - possible SQL injection</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T14:25:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>api-gateway</td>
+                <td><code>/api/checkout</code></td>
+                <td><code>192.168.18.89</code></td>
+                <td>Suspicious request pattern detected - possible SQL injection</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T15:00:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>user-service</td>
+                <td><code>/api/reports</code></td>
+                <td><code>192.168.41.19</code></td>
+                <td>Suspicious request pattern detected - possible SQL injection</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T15:15:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>security-monitor</td>
+                <td><code>/api/search</code></td>
+                <td><code>192.168.125.242</code></td>
+                <td>Suspicious request pattern detected - possible SQL injection</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T15:35:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>security-monitor</td>
+                <td><code>/api/reports</code></td>
+                <td><code>192.168.212.147</code></td>
+                <td>Suspicious request pattern detected - possible SQL injection</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T16:50:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>security-monitor</td>
+                <td><code>/api/products</code></td>
+                <td><code>192.168.219.110</code></td>
+                <td>Suspicious request pattern detected - possible SQL injection</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T18:15:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>user-service</td>
+                <td><code>/api/search</code></td>
+                <td><code>192.168.219.102</code></td>
+                <td>Suspicious request pattern detected - possible SQL injection</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T10:20:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>user-service</td>
+                <td><code>/api/checkout</code></td>
+                <td><code>192.168.59.194</code></td>
+                <td>Unauthorized access attempt to admin endpoint</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T12:45:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>cache-service</td>
+                <td><code>/api/search</code></td>
+                <td><code>185.220.101.1</code></td>
+                <td>Unauthorized access attempt to admin endpoint</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T12:55:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>cache-service</td>
+                <td><code>/api/checkout</code></td>
+                <td><code>192.168.155.56</code></td>
+                <td>Unauthorized access attempt to admin endpoint</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T13:45:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>order-service</td>
+                <td><code>/api/checkout</code></td>
+                <td><code>185.220.101.1</code></td>
+                <td>Unauthorized access attempt to admin endpoint</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T13:55:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>user-service</td>
+                <td><code>/api/search</code></td>
+                <td><code>45.33.32.156</code></td>
+                <td>Unauthorized access attempt to admin endpoint</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T14:35:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>api-gateway</td>
+                <td><code>/api/checkout</code></td>
+                <td><code>192.168.172.13</code></td>
+                <td>Unauthorized access attempt to admin endpoint</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T15:25:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>cache-service</td>
+                <td><code>/api/orders</code></td>
+                <td><code>192.168.253.42</code></td>
+                <td>Rate limit exceeded for IP</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T16:05:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>api-gateway</td>
+                <td><code>/api/search</code></td>
+                <td><code>192.168.173.34</code></td>
+                <td>Unauthorized access attempt to admin endpoint</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T17:00:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>order-service</td>
+                <td><code>/api/reports</code></td>
+                <td><code>192.168.7.219</code></td>
+                <td>Unauthorized access attempt to admin endpoint</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T17:35:00Z</td>
+                <td><span class="status-401">401</span></td>
+                <td>security-monitor</td>
+                <td><code>/api/health</code></td>
+                <td><code>192.168.32.52</code></td>
+                <td>Unauthorized access attempt to admin endpoint</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T17:40:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>product-service</td>
+                <td><code>/api/users</code></td>
+                <td><code>192.168.201.98</code></td>
+                <td>Rate limit exceeded for IP</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T18:10:00Z</td>
+                <td><span class="status-403">403</span></td>
+                <td>cache-service</td>
+                <td><code>/api/users</code></td>
+                <td><code>192.168.169.112</code></td>
+                <td>Rate limit exceeded for IP</td>
+            </tr>
+</table></div>
+    <div class="section">
+        <h2>2. Suspicious IPs (>10 Failed Requests)</h2>
+<p>No IPs with more than 10 failed requests detected.</p></div>
+    <div class="section">
+        <h2>3. SQL Injection / XSS Patterns</h2>
+
+        <div class="critical">
+            <strong>Critical Finding:</strong> 14 potential injection attack(s) detected.
+            SQL Injection attempts: 14, XSS attempts: 1
+        </div>
+        <table>
+            <tr>
+                <th>Timestamp</th>
+                <th>Type</th>
+                <th>Service</th>
+                <th>Endpoint</th>
+                <th>Client IP</th>
+                <th>Payload/Details</th>
+            </tr>
+
+            <tr>
+                <td>2025-12-01T11:05:00Z</td>
+                <td><span class="pattern-tag pattern-sql">SQL Injection</span><span class="pattern-tag pattern-sql">SQL Injection</span></td>
+                <td>security-monitor</td>
+                <td><code>/api/users</code></td>
+                <td><code>10.0.0.99</code></td>
+                <td>' OR '1'='1</td>
+            </tr>
+
+            <tr>
+                <td>2025-12-01T12:50:00Z</td>
+                <td><span class="pattern-tag pattern-sql">SQL Injection</span><span class="pattern-tag pattern-sql">SQL Injection</span></td>
+                <td>api-gateway</td>
+                <td><code>/api/login</code></td>
+                <td><code>45.33.32.156</code></td>
+                <td>' OR '1'='1</td>
+            </tr>
+
+            <tr>
+                <td>2025-12-01T16:00:00Z</td>
+                <td><span class="pattern-tag pattern-xss">XSS</span><span class="pattern-tag pattern-sql">SQL Injection</span><span class="pattern-tag pattern-xss">XSS</span></td>
+                <td>api-gateway</td>
+                <td><code>/api/login</code></td>
+                <td><code>185.220.101.1</code></td>
+                <td><script>alert('xss')</script></td>
+            </tr>
+
+            <tr>
+                <td>2025-12-01T17:50:00Z</td>
+                <td><span class="pattern-tag pattern-sql">SQL Injection</span><span class="pattern-tag pattern-sql">SQL Injection</span></td>
+                <td>security-monitor</td>
+                <td><code>/api/users</code></td>
+                <td><code>185.220.101.1</code></td>
+                <td>' OR '1'='1</td>
+            </tr>
+
+            <tr>
+                <td>2025-12-01T18:05:00Z</td>
+                <td><span class="pattern-tag pattern-sql">SQL Injection</span><span class="pattern-tag pattern-sql">SQL Injection</span></td>
+                <td>security-monitor</td>
+                <td><code>/api/login</code></td>
+                <td><code>45.33.32.156</code></td>
+                <td>' OR '1'='1</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T11:25:00Z</td>
+                <td><span class="pattern-tag pattern-sql">SQL Injection</span><span class="pattern-tag pattern-sql">SQL Injection</span></td>
+                <td>security-monitor</td>
+                <td><code>/api/users</code></td>
+                <td><code>192.168.242.44</code></td>
+                <td>' OR '1'='1</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T15:10:00Z</td>
+                <td><span class="pattern-tag pattern-sql">SQL Injection</span><span class="pattern-tag pattern-sql">SQL Injection</span></td>
+                <td>cache-service</td>
+                <td><code>/api/products</code></td>
+                <td><code>192.168.53.217</code></td>
+                <td>' OR '1'='1</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T15:35:00Z</td>
+                <td><span class="pattern-tag pattern-sql">SQL Injection</span><span class="pattern-tag pattern-sql">SQL Injection</span></td>
+                <td>security-monitor</td>
+                <td><code>/api/reports</code></td>
+                <td><code>192.168.212.147</code></td>
+                <td>' OR '1'='1</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-29T18:15:00Z</td>
+                <td><span class="pattern-tag pattern-sql">SQL Injection</span><span class="pattern-tag pattern-sql">SQL Injection</span></td>
+                <td>user-service</td>
+                <td><code>/api/search</code></td>
+                <td><code>192.168.219.102</code></td>
+                <td>' OR '1'='1</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T12:45:00Z</td>
+                <td><span class="pattern-tag pattern-sql">SQL Injection</span><span class="pattern-tag pattern-sql">SQL Injection</span></td>
+                <td>cache-service</td>
+                <td><code>/api/search</code></td>
+                <td><code>185.220.101.1</code></td>
+                <td>' OR '1'='1</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T14:35:00Z</td>
+                <td><span class="pattern-tag pattern-sql">SQL Injection</span><span class="pattern-tag pattern-sql">SQL Injection</span></td>
+                <td>api-gateway</td>
+                <td><code>/api/checkout</code></td>
+                <td><code>192.168.172.13</code></td>
+                <td>' OR '1'='1</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T16:15:00Z</td>
+                <td><span class="pattern-tag pattern-sql">SQL Injection</span><span class="pattern-tag pattern-sql">SQL Injection</span></td>
+                <td>product-service</td>
+                <td><code>/api/reports</code></td>
+                <td><code>192.168.63.127</code></td>
+                <td>' OR '1'='1</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T16:20:00Z</td>
+                <td><span class="pattern-tag pattern-sql">SQL Injection</span><span class="pattern-tag pattern-sql">SQL Injection</span></td>
+                <td>cache-service</td>
+                <td><code>/api/health</code></td>
+                <td><code>192.168.19.53</code></td>
+                <td>' OR '1'='1</td>
+            </tr>
+
+            <tr>
+                <td>2025-11-30T17:40:00Z</td>
+                <td><span class="pattern-tag pattern-sql">SQL Injection</span><span class="pattern-tag pattern-sql">SQL Injection</span></td>
+                <td>product-service</td>
+                <td><code>/api/users</code></td>
+                <td><code>192.168.201.98</code></td>
+                <td>' OR '1'='1</td>
+            </tr>
+</table>
+    </div>
+    
+    <div class="section">
+        <h2>Recommendations</h2>
+        <ol>
+
+            <li><strong>Review Authentication Failures:</strong> Investigate the source IPs and determine if they represent legitimate users with credential issues or potential attackers.</li>
+
+            <li><strong>Strengthen Input Validation:</strong> Ensure all user inputs are properly sanitized and parameterized queries are used for database operations.</li>
+            <li><strong>Implement WAF Rules:</strong> Deploy Web Application Firewall rules to detect and block common injection patterns.</li>
+
+            <li><strong>Enable Enhanced Logging:</strong> Ensure detailed logging is enabled for security events to aid in forensic analysis.</li>
+            <li><strong>Regular Security Audits:</strong> Conduct periodic security assessments to identify and remediate vulnerabilities.</li>
+        </ol>
+    </div>
+    
+    <footer style="text-align: center; color: #757575; margin-top: 30px; padding: 20px;">
+        <p>Generated by Elastic Logs Security Analyzer</p>
+    </footer>
+</body>
+</html>
