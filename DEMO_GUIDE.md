@@ -180,7 +180,7 @@ The playbook can be executed via Devin's API or manually using the individual an
 
 ```bash
 # Run the playbook
-python script/run_playbook.py --log-file logs/elastic_logs.json --output-dir analysis
+python script/run_playbook.py --log-file logs/elastic_logs_28_11_25.json --output-dir analysis
 ```
 
 See `playbook/PLAYBOOK.md` for the complete playbook definition and execution instructions.

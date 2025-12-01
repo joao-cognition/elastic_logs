@@ -2,12 +2,11 @@
 """Trigger 3 parallel Devin sessions to analyze a log file."""
 
 import argparse
-import json
 import os
-import time
 from datetime import datetime
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
+import json
 
 
 class DevinAPIClient:
@@ -20,11 +19,9 @@ class DevinAPIClient:
         if not self.api_key:
             raise ValueError("DEVIN_API_KEY environment variable is required")
     
-    def create_session(self, prompt: str, idempotency_key: str = None):
+    def create_session(self, prompt: str):
         """Create a new Devin session."""
         payload = {"prompt": prompt}
-        if idempotency_key:
-            payload["idempotency_key"] = idempotency_key
         
         data = json.dumps(payload).encode('utf-8')
         request = Request(
@@ -68,22 +65,11 @@ def main():
         "security": f"Read {args.log_file}. Find: status_code=401/403 entries, unique IPs with >10 failed requests, any SQL/XSS patterns in request_path. Save as security_report_{timestamp}.html in analysis/"
     }
     
-    results = {}
-    
     # Trigger all 3 sessions
     for name, prompt in prompts.items():
         print(f"Starting {name} analysis...")
         session = client.create_session(prompt=prompt)
-        results[name] = {
-            "session_id": session["session_id"],
-            "url": session["url"]
-        }
         print(f"  → {session['url']}")
-    
-    # Save session info
-    os.makedirs("analysis", exist_ok=True)
-    with open(f"analysis/sessions_{timestamp}.json", "w") as f:
-        json.dump(results, f, indent=2)
     
     print(f"\n✓ 3 sessions started. HTML reports will be saved to analysis/")
 
