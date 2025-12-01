@@ -1,159 +1,138 @@
 #!/usr/bin/env python3
-"""Analyze Elastic Logs for application errors using Devin's API."""
+"""
+Error Pattern Analysis Script.
 
+This script uses Devin's API to analyze Elastic Logs for error patterns,
+including 500 errors, timeouts, and connection failures.
+"""
+
+import argparse
 import json
 import os
 import sys
-from datetime import datetime
-from typing import Any
 
-import requests
+from devin_api import DevinAPIClient, save_analysis_result
 
 
-def load_logs(log_file: str) -> list[dict[str, Any]]:
-    """Load log entries from a JSON file.
+def build_error_analysis_prompt(log_file: str) -> str:
+    """
+    Build the prompt for error pattern analysis.
 
     Args:
-        log_file: Path to the log file.
+        log_file: Path to the log file to analyze.
 
     Returns:
-        List of log entries.
+        The analysis prompt string.
     """
-    with open(log_file, "r") as f:
-        return json.load(f)
+    return f"""Analyze the Elastic Logs in the repository for error patterns.
+
+Please perform the following analysis on the log file at `{log_file}`:
+
+1. **Error Frequency Analysis**: Count and categorize all ERROR level logs by:
+   - HTTP status code (500, 502, 503, 504, etc.)
+   - Service name
+   - Error message type
+
+2. **Error Pattern Detection**: Identify recurring error patterns:
+   - Look for repeated errors from the same service
+   - Identify error cascades (errors that trigger other errors)
+   - Find correlation between errors and specific endpoints
+
+3. **Root Cause Analysis**: For each major error category:
+   - Identify potential root causes based on error messages and stack traces
+   - Suggest remediation steps
+
+4. **Time-based Analysis**: Analyze error distribution over time:
+   - Identify any error spikes or clusters
+   - Look for patterns in error timing
+
+5. **Impact Assessment**: Assess the impact of errors:
+   - Which services are most affected
+   - Which endpoints have the highest error rates
+   - Estimate user impact based on error frequency
+
+Please provide a detailed report with:
+- Summary statistics
+- Detailed findings for each analysis category
+- Prioritized recommendations for addressing the errors
+- Any anomalies or concerning patterns discovered
+
+Save your analysis report to the `analysis/` folder with a descriptive filename."""
 
 
-def filter_error_logs(logs: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Filter logs to only include ERROR level entries.
+def main() -> None:
+    """Run error pattern analysis using Devin API."""
+    parser = argparse.ArgumentParser(
+        description="Analyze Elastic Logs for error patterns using Devin API"
+    )
+    parser.add_argument(
+        "--log-file",
+        default="logs/elastic_logs.json",
+        help="Path to the log file to analyze",
+    )
+    parser.add_argument(
+        "--wait",
+        action="store_true",
+        help="Wait for analysis to complete",
+    )
+    args = parser.parse_args()
 
-    Args:
-        logs: List of all log entries.
+    if not os.path.exists(args.log_file):
+        print(f"Error: Log file not found: {args.log_file}")
+        sys.exit(1)
 
-    Returns:
-        List of error log entries.
-    """
-    return [log for log in logs if log.get("log", {}).get("level") == "ERROR"]
+    print("Initializing Devin API client...")
+    try:
+        client = DevinAPIClient()
+    except ValueError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
 
+    prompt = build_error_analysis_prompt(args.log_file)
 
-def create_analysis_prompt(error_logs: list[dict[str, Any]]) -> str:
-    """Create a prompt for Devin to analyze error logs.
+    print("Creating Devin session for error pattern analysis...")
+    try:
+        session = client.create_session(
+            prompt=prompt,
+            idempotency_key=f"error-analysis-{os.path.basename(args.log_file)}",
+        )
+    except Exception as e:
+        print(f"Error creating session: {e}")
+        sys.exit(1)
 
-    Args:
-        error_logs: List of error log entries.
+    session_id = session.get("session_id")
+    session_url = session.get("url")
 
-    Returns:
-        Analysis prompt string.
-    """
-    log_summary = json.dumps(error_logs, indent=2)
-    return f"""Analyze the following application error logs from an Elastic Log dataset.
+    print("Session created successfully!")
+    print(f"  Session ID: {session_id}")
+    print(f"  Session URL: {session_url}")
 
-Identify:
-1. Common error patterns and their frequency
-2. Services most affected by errors
-3. Potential root causes for each error type
-4. Recommended remediation steps
+    result_file = save_analysis_result(
+        analysis_type="error",
+        session_id=session_id,
+        session_url=session_url,
+        prompt=prompt,
+    )
+    print(f"  Result saved to: {result_file}")
 
-Error Logs:
-{log_summary}
+    if args.wait:
+        print("\nWaiting for analysis to complete...")
+        try:
+            final_status = client.wait_for_completion(session_id)
+            print(f"Analysis completed with status: {final_status.get('status_enum')}")
 
-Provide a structured analysis report with actionable recommendations."""
+            with open(result_file, "r") as f:
+                result = json.load(f)
+            result["status"] = final_status.get("status_enum")
+            result["final_response"] = final_status
+            with open(result_file, "w") as f:
+                json.dump(result, f, indent=2)
 
+        except TimeoutError as e:
+            print(f"Warning: {e}")
 
-def call_devin_api(prompt: str, api_key: str) -> dict[str, Any]:
-    """Call Devin's API to create an analysis session.
-
-    Args:
-        prompt: The analysis prompt.
-        api_key: Devin API key.
-
-    Returns:
-        API response data.
-    """
-    url = "https://api.devin.ai/v1/sessions"
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json",
-    }
-    payload = {
-        "prompt": prompt,
-    }
-
-    response = requests.post(url, headers=headers, json=payload, timeout=60)
-    response.raise_for_status()
-    return response.json()
-
-
-def save_analysis_result(
-    result: dict[str, Any], error_logs: list[dict[str, Any]], output_dir: str
-) -> str:
-    """Save analysis result to a file.
-
-    Args:
-        result: API response data.
-        error_logs: The error logs that were analyzed.
-        output_dir: Directory to save the result.
-
-    Returns:
-        Path to the saved file.
-    """
-    os.makedirs(output_dir, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_file = os.path.join(output_dir, f"error_analysis_{timestamp}.json")
-
-    analysis_data = {
-        "analysis_type": "application_errors",
-        "timestamp": datetime.now().isoformat(),
-        "error_count": len(error_logs),
-        "devin_session": result,
-        "analyzed_logs": error_logs,
-    }
-
-    with open(output_file, "w") as f:
-        json.dump(analysis_data, f, indent=2)
-
-    return output_file
-
-
-def main() -> int:
-    """Main function to run error log analysis.
-
-    Returns:
-        Exit code (0 for success, 1 for failure).
-    """
-    api_key = os.environ.get("DEVIN_API_KEY")
-    if not api_key:
-        print("Error: DEVIN_API_KEY environment variable not set")
-        return 1
-
-    log_file = sys.argv[1] if len(sys.argv) > 1 else "logs/elastic_logs.json"
-    output_dir = sys.argv[2] if len(sys.argv) > 2 else "analysis"
-
-    print(f"Loading logs from {log_file}...")
-    logs = load_logs(log_file)
-
-    print("Filtering error logs...")
-    error_logs = filter_error_logs(logs)
-    print(f"Found {len(error_logs)} error entries")
-
-    if not error_logs:
-        print("No error logs found to analyze")
-        return 0
-
-    print("Creating analysis prompt...")
-    prompt = create_analysis_prompt(error_logs)
-
-    print("Calling Devin API for error analysis...")
-    result = call_devin_api(prompt, api_key)
-
-    print("Saving analysis result...")
-    output_file = save_analysis_result(result, error_logs, output_dir)
-    print(f"Analysis saved to {output_file}")
-
-    session_url = result.get("url", "N/A")
-    print(f"Devin session URL: {session_url}")
-
-    return 0
+    print("\nError pattern analysis initiated successfully!")
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

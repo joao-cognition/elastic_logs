@@ -1,0 +1,102 @@
+name: Scan Docker Code
+
+on:
+  push:
+    paths:
+      - 'docker_code/**'
+  pull_request:
+    paths:
+      - 'docker_code/**'
+  workflow_dispatch:
+    inputs:
+      docker_dir:
+        description: 'Path to the Docker code directory'
+        required: false
+        default: 'docker_code'
+
+jobs:
+  scan-docker:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Determine Docker directory to scan
+        id: docker-dir
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "docker_dir=${{ github.event.inputs.docker_dir }}" >> $GITHUB_OUTPUT
+          else
+            echo "docker_dir=docker_code" >> $GITHUB_OUTPUT
+          fi
+
+      - name: List Docker files to scan
+        run: |
+          echo "Docker files found in ${{ steps.docker-dir.outputs.docker_dir }}:"
+          find ${{ steps.docker-dir.outputs.docker_dir }} -type f \( -name "Dockerfile*" -o -name "docker-compose*.yml" -o -name "docker-compose*.yaml" -o -name "*.py" -o -name "*.sh" \) 2>/dev/null || echo "No files found"
+
+      - name: Check for DEVIN_API_KEY
+        id: check-key
+        run: |
+          if [ -n "${{ secrets.DEVIN_API_KEY }}" ]; then
+            echo "has_key=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_key=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Skip Scan (no DEVIN_API_KEY)
+        if: steps.check-key.outputs.has_key != 'true'
+        run: |
+          echo "## Docker Scan Skipped" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "DEVIN_API_KEY is not configured. Skipping Devin scan steps." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "To enable scanning, add DEVIN_API_KEY as a repository secret:" >> $GITHUB_STEP_SUMMARY
+          echo "Settings > Secrets and variables > Actions > New repository secret" >> $GITHUB_STEP_SUMMARY
+
+      - name: Run Docker Code Scan
+        if: steps.check-key.outputs.has_key == 'true'
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          cd ${{ github.workspace }}
+          python script/scan_docker.py --docker-dir "${{ steps.docker-dir.outputs.docker_dir }}" --output-dir analysis
+
+      - name: Upload scan results
+        if: steps.check-key.outputs.has_key == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-scan-results-${{ github.run_id }}
+          path: analysis/
+          retention-days: 30
+
+      - name: Summary
+        if: steps.check-key.outputs.has_key == 'true'
+        run: |
+          echo "## Docker Code Scan Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Directory Scanned:** ${{ steps.docker-dir.outputs.docker_dir }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Files Analyzed:" >> $GITHUB_STEP_SUMMARY
+          find ${{ steps.docker-dir.outputs.docker_dir }} -type f \( -name "Dockerfile*" -o -name "docker-compose*.yml" -o -name "docker-compose*.yaml" \) 2>/dev/null | while read file; do
+            echo "- $file" >> $GITHUB_STEP_SUMMARY
+          done
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Scan Categories:" >> $GITHUB_STEP_SUMMARY
+          echo "- Dockerfile Security Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "- Docker Compose Security Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "- Application Code Security" >> $GITHUB_STEP_SUMMARY
+          echo "- Best Practices Compliance" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Check the Devin session for detailed scan results." >> $GITHUB_STEP_SUMMARY

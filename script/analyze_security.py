@@ -1,190 +1,147 @@
 #!/usr/bin/env python3
-"""Analyze Elastic Logs for security issues using Devin's API."""
+"""
+Security Issue Detection Script.
 
+This script uses Devin's API to analyze Elastic Logs for security issues,
+including failed authentication attempts, suspicious IPs, and injection attacks.
+"""
+
+import argparse
 import json
 import os
 import sys
-from datetime import datetime
-from typing import Any
 
-import requests
+from devin_api import DevinAPIClient, save_analysis_result
 
 
-def load_logs(log_file: str) -> list[dict[str, Any]]:
-    """Load log entries from a JSON file.
+def build_security_analysis_prompt(log_file: str) -> str:
+    """
+    Build the prompt for security issue detection.
 
     Args:
-        log_file: Path to the log file.
+        log_file: Path to the log file to analyze.
 
     Returns:
-        List of log entries.
+        The analysis prompt string.
     """
-    with open(log_file, "r") as f:
-        return json.load(f)
+    return f"""Analyze the Elastic Logs in the repository for security issues.
+
+Please perform the following security analysis on the log file at `{log_file}`:
+
+1. **Authentication Analysis**: Identify authentication-related issues:
+   - Failed login attempts and their frequency
+   - Brute force attack patterns (multiple failed attempts from same IP)
+   - Unusual authentication patterns (time, location, user agent)
+
+2. **Suspicious IP Detection**: Analyze client IP addresses:
+   - Identify IPs with high failure rates
+   - Look for known malicious IP patterns
+   - Detect IPs attempting to access restricted resources
+
+3. **Injection Attack Detection**: Look for injection attempts:
+   - SQL injection patterns in request parameters
+   - XSS (Cross-Site Scripting) attempts
+   - Command injection attempts
+   - Path traversal attempts
+
+4. **Access Control Violations**: Identify unauthorized access attempts:
+   - Attempts to access admin endpoints without authorization
+   - 401/403 response patterns
+   - Privilege escalation attempts
+
+5. **Rate Limiting Analysis**: Analyze request patterns:
+   - IPs exceeding rate limits
+   - Potential DDoS patterns
+   - Automated bot activity indicators
+
+6. **User Agent Analysis**: Examine user agents for:
+   - Known attack tools (sqlmap, nikto, etc.)
+   - Suspicious or malformed user agents
+   - Bot signatures
+
+Please provide a detailed security report with:
+- Executive summary of security posture
+- Detailed findings categorized by severity (Critical, High, Medium, Low)
+- Specific indicators of compromise (IOCs)
+- Recommended immediate actions
+- Long-term security improvements
+
+Save your analysis report to the `analysis/` folder with a descriptive filename."""
 
 
-def filter_security_logs(logs: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    """Filter logs to identify security-related entries.
+def main() -> None:
+    """Run security issue detection using Devin API."""
+    parser = argparse.ArgumentParser(
+        description="Analyze Elastic Logs for security issues using Devin API"
+    )
+    parser.add_argument(
+        "--log-file",
+        default="logs/elastic_logs.json",
+        help="Path to the log file to analyze",
+    )
+    parser.add_argument(
+        "--wait",
+        action="store_true",
+        help="Wait for analysis to complete",
+    )
+    args = parser.parse_args()
 
-    Args:
-        logs: List of all log entries.
+    if not os.path.exists(args.log_file):
+        print(f"Error: Log file not found: {args.log_file}")
+        sys.exit(1)
 
-    Returns:
-        List of security-related log entries.
-    """
-    security_indicators = [
-        "unauthorized",
-        "injection",
-        "failed login",
-        "suspicious",
-        "rate limit",
-        "invalid",
-        "blocked",
-        "attack",
-    ]
+    print("Initializing Devin API client...")
+    try:
+        client = DevinAPIClient()
+    except ValueError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
 
-    security_logs = []
-    for log in logs:
-        message = log.get("message", "").lower()
-        event_category = log.get("event", {}).get("category", "")
-        has_threat = "threat" in log
+    prompt = build_security_analysis_prompt(args.log_file)
 
-        is_security_related = (
-            any(indicator in message for indicator in security_indicators)
-            or event_category == "authentication"
-            or has_threat
+    print("Creating Devin session for security issue detection...")
+    try:
+        session = client.create_session(
+            prompt=prompt,
+            idempotency_key=f"security-analysis-{os.path.basename(args.log_file)}",
         )
+    except Exception as e:
+        print(f"Error creating session: {e}")
+        sys.exit(1)
 
-        if is_security_related:
-            security_logs.append(log)
+    session_id = session.get("session_id")
+    session_url = session.get("url")
 
-    return security_logs
+    print("Session created successfully!")
+    print(f"  Session ID: {session_id}")
+    print(f"  Session URL: {session_url}")
 
+    result_file = save_analysis_result(
+        analysis_type="security",
+        session_id=session_id,
+        session_url=session_url,
+        prompt=prompt,
+    )
+    print(f"  Result saved to: {result_file}")
 
-def create_analysis_prompt(security_logs: list[dict[str, Any]]) -> str:
-    """Create a prompt for Devin to analyze security logs.
+    if args.wait:
+        print("\nWaiting for analysis to complete...")
+        try:
+            final_status = client.wait_for_completion(session_id)
+            print(f"Analysis completed with status: {final_status.get('status_enum')}")
 
-    Args:
-        security_logs: List of security-related log entries.
+            with open(result_file, "r") as f:
+                result = json.load(f)
+            result["status"] = final_status.get("status_enum")
+            result["final_response"] = final_status
+            with open(result_file, "w") as f:
+                json.dump(result, f, indent=2)
 
-    Returns:
-        Analysis prompt string.
-    """
-    log_summary = json.dumps(security_logs, indent=2)
-    return f"""Analyze the following security-related logs from an Elastic Log dataset.
+        except TimeoutError as e:
+            print(f"Warning: {e}")
 
-Identify:
-1. Types of security threats detected (SQL injection, XSS, brute force, etc.)
-2. Source IPs involved in suspicious activities
-3. Services targeted by security threats
-4. Severity assessment for each threat type
-5. Recommended security measures and mitigations
-
-Security Logs:
-{log_summary}
-
-Provide a structured security analysis report with:
-- Threat classification
-- Risk assessment
-- Immediate action items
-- Long-term security recommendations"""
-
-
-def call_devin_api(prompt: str, api_key: str) -> dict[str, Any]:
-    """Call Devin's API to create an analysis session.
-
-    Args:
-        prompt: The analysis prompt.
-        api_key: Devin API key.
-
-    Returns:
-        API response data.
-    """
-    url = "https://api.devin.ai/v1/sessions"
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json",
-    }
-    payload = {
-        "prompt": prompt,
-    }
-
-    response = requests.post(url, headers=headers, json=payload, timeout=60)
-    response.raise_for_status()
-    return response.json()
-
-
-def save_analysis_result(
-    result: dict[str, Any], security_logs: list[dict[str, Any]], output_dir: str
-) -> str:
-    """Save analysis result to a file.
-
-    Args:
-        result: API response data.
-        security_logs: The security logs that were analyzed.
-        output_dir: Directory to save the result.
-
-    Returns:
-        Path to the saved file.
-    """
-    os.makedirs(output_dir, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_file = os.path.join(output_dir, f"security_analysis_{timestamp}.json")
-
-    analysis_data = {
-        "analysis_type": "security_issues",
-        "timestamp": datetime.now().isoformat(),
-        "security_event_count": len(security_logs),
-        "devin_session": result,
-        "analyzed_logs": security_logs,
-    }
-
-    with open(output_file, "w") as f:
-        json.dump(analysis_data, f, indent=2)
-
-    return output_file
-
-
-def main() -> int:
-    """Main function to run security log analysis.
-
-    Returns:
-        Exit code (0 for success, 1 for failure).
-    """
-    api_key = os.environ.get("DEVIN_API_KEY")
-    if not api_key:
-        print("Error: DEVIN_API_KEY environment variable not set")
-        return 1
-
-    log_file = sys.argv[1] if len(sys.argv) > 1 else "logs/elastic_logs.json"
-    output_dir = sys.argv[2] if len(sys.argv) > 2 else "analysis"
-
-    print(f"Loading logs from {log_file}...")
-    logs = load_logs(log_file)
-
-    print("Filtering security-related logs...")
-    security_logs = filter_security_logs(logs)
-    print(f"Found {len(security_logs)} security-related entries")
-
-    if not security_logs:
-        print("No security-related logs found to analyze")
-        return 0
-
-    print("Creating analysis prompt...")
-    prompt = create_analysis_prompt(security_logs)
-
-    print("Calling Devin API for security analysis...")
-    result = call_devin_api(prompt, api_key)
-
-    print("Saving analysis result...")
-    output_file = save_analysis_result(result, security_logs, output_dir)
-    print(f"Analysis saved to {output_file}")
-
-    session_url = result.get("url", "N/A")
-    print(f"Devin session URL: {session_url}")
-
-    return 0
+    print("\nSecurity issue detection initiated successfully!")
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

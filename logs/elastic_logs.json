@@ -1,2592 +1,2405 @@
 [
   {
     "@timestamp": "2025-12-01T10:00:00Z",
-    "log": {
-      "level": "ERROR"
-    },
-    "message": "Database connection timeout after 30000ms",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0000",
-      "category": "process"
+    "log_id": "log-0001",
+    "level": "ERROR",
+    "service": "order-service",
+    "host": "server-2.example.com",
+    "message": "Internal server error: database connection pool exhausted",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 500,
+      "response_time_ms": 29132
     },
     "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:102)",
+      "correlation_id": "err-98696"
     },
-    "http": {
-      "response": {
-        "status_code": 500
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:01:00Z",
-    "log": {
-      "level": "ERROR"
+    "client": {
+      "ip": "192.168.190.229",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     },
-    "message": "SSL handshake failed",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0001",
-      "category": "process"
-    },
-    "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
-    },
-    "http": {
-      "response": {
-        "status_code": 500
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:02:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Request processed successfully",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0002",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_12"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:03:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Request processed successfully",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0003",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_72"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:04:00Z",
-    "log": {
-      "level": "ERROR"
-    },
-    "message": "Failed to parse JSON response",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0004",
-      "category": "process"
-    },
-    "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
-    },
-    "http": {
-      "response": {
-        "status_code": 500
-      }
+    "metadata": {
+      "trace_id": "trace-81482",
+      "span_id": "span-2424"
     }
   },
   {
     "@timestamp": "2025-12-01T10:05:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Health check passed",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0005",
-      "category": "process"
-    },
+    "log_id": "log-0002",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
     "http": {
-      "response": {
-        "status_code": 200
-      }
+      "method": "GET",
+      "endpoint": "/api/products",
+      "status_code": 200,
+      "response_time_ms": 139
     },
-    "user": {
-      "name": "user_1"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:06:00Z",
-    "log": {
-      "level": "INFO"
+    "client": {
+      "ip": "192.168.155.7",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     },
-    "message": "Health check passed",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0006",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_20"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:07:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Session created",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0007",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_13"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:08:00Z",
-    "log": {
-      "level": "ERROR"
-    },
-    "message": "Transaction rollback due to deadlock",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0008",
-      "category": "process"
-    },
-    "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
-    },
-    "http": {
-      "response": {
-        "status_code": 500
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:09:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "User authentication successful",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0009",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_49"
+    "metadata": {
+      "trace_id": "trace-83563",
+      "span_id": "span-4257"
     }
   },
   {
     "@timestamp": "2025-12-01T10:10:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Connection established",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0010",
-      "category": "process"
-    },
+    "log_id": "log-0003",
+    "level": "ERROR",
+    "service": "product-service",
+    "host": "server-2.example.com",
+    "message": "Internal server error: out of memory exception",
     "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_74"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:11:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Cache hit for request",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0011",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_99"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:12:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "Cross-site scripting attempt blocked",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0012",
-      "category": "authentication"
-    },
-    "source": {
-      "ip": "192.168.26.98"
-    },
-    "http": {
-      "response": {
-        "status_code": 403
-      }
-    },
-    "threat": {
-      "indicator": {
-        "type": "suspicious_activity"
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:13:00Z",
-    "log": {
-      "level": "ERROR"
-    },
-    "message": "OutOfMemoryError: Java heap space",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0013",
-      "category": "process"
+      "method": "POST",
+      "endpoint": "/api/checkout",
+      "status_code": 500,
+      "response_time_ms": 14115
     },
     "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:464)",
+      "correlation_id": "err-10851"
     },
-    "http": {
-      "response": {
-        "status_code": 500
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:14:00Z",
-    "log": {
-      "level": "INFO"
+    "client": {
+      "ip": "192.168.195.207",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     },
-    "message": "Health check passed",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0014",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_90"
+    "metadata": {
+      "trace_id": "trace-30926",
+      "span_id": "span-7924"
     }
   },
   {
     "@timestamp": "2025-12-01T10:15:00Z",
-    "log": {
-      "level": "ERROR"
-    },
-    "message": "Failed to parse JSON response",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0015",
-      "category": "process"
-    },
-    "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
-    },
+    "log_id": "log-0004",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
     "http": {
-      "response": {
-        "status_code": 500
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:16:00Z",
-    "log": {
-      "level": "INFO"
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 200,
+      "response_time_ms": 107
     },
-    "message": "Health check passed",
-    "service": {
-      "name": "user-service"
+    "client": {
+      "ip": "192.168.25.92",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0016",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_82"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:17:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Request processed successfully",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0017",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_30"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:18:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "User authentication successful",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0018",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_28"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:19:00Z",
-    "log": {
-      "level": "ERROR"
-    },
-    "message": "Connection refused to downstream service",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0019",
-      "category": "process"
-    },
-    "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
-    },
-    "http": {
-      "response": {
-        "status_code": 500
-      }
+    "metadata": {
+      "trace_id": "trace-55082",
+      "span_id": "span-5333"
     }
   },
   {
     "@timestamp": "2025-12-01T10:20:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Cache hit for request",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0020",
-      "category": "process"
-    },
+    "log_id": "log-0005",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Unauthorized access attempt to admin endpoint",
     "http": {
-      "response": {
-        "status_code": 200
-      }
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 429,
+      "response_time_ms": 491
     },
-    "user": {
-      "name": "user_96"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:21:00Z",
-    "log": {
-      "level": "INFO"
+    "security": {
+      "event_type": "UNAUTHORIZED_ACCESS",
+      "target_resource": "/admin/users"
     },
-    "message": "Session created",
-    "service": {
-      "name": "payment-service"
+    "client": {
+      "ip": "45.33.32.156",
+      "user_agent": "sqlmap/1.5.2"
     },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0021",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_47"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:22:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "User authentication successful",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0022",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_97"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:23:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Database query completed",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0023",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_88"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:24:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Session created",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0024",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_77"
+    "metadata": {
+      "trace_id": "trace-35203",
+      "span_id": "span-2139"
     }
   },
   {
     "@timestamp": "2025-12-01T10:25:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Request processed successfully",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0025",
-      "category": "process"
-    },
+    "log_id": "log-0006",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
     "http": {
-      "response": {
-        "status_code": 200
-      }
+      "method": "GET",
+      "endpoint": "/api/products",
+      "status_code": 200,
+      "response_time_ms": 107
     },
-    "user": {
-      "name": "user_88"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:26:00Z",
-    "log": {
-      "level": "WARN"
+    "client": {
+      "ip": "192.168.72.117",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     },
-    "message": "Cross-site scripting attempt blocked",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0026",
-      "category": "authentication"
-    },
-    "source": {
-      "ip": "192.168.69.197"
-    },
-    "http": {
-      "response": {
-        "status_code": 403
-      }
-    },
-    "threat": {
-      "indicator": {
-        "type": "suspicious_activity"
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:27:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Database query completed",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0027",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_59"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:28:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "SQL injection pattern detected in request parameter",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0028",
-      "category": "authentication"
-    },
-    "source": {
-      "ip": "192.168.249.129"
-    },
-    "http": {
-      "response": {
-        "status_code": 403
-      }
-    },
-    "threat": {
-      "indicator": {
-        "type": "suspicious_activity"
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:29:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "Disk I/O latency high: 500ms",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0029",
-      "category": "process"
-    },
-    "performance": {
-      "latency_ms": 8122,
-      "memory_percent": 89,
-      "cpu_percent": 98
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
+    "metadata": {
+      "trace_id": "trace-93320",
+      "span_id": "span-6977"
     }
   },
   {
     "@timestamp": "2025-12-01T10:30:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Database query completed",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0030",
-      "category": "process"
-    },
+    "log_id": "log-0007",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
     "http": {
-      "response": {
-        "status_code": 200
-      }
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 204,
+      "response_time_ms": 172
     },
-    "user": {
-      "name": "user_70"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:31:00Z",
-    "log": {
-      "level": "INFO"
+    "client": {
+      "ip": "192.168.44.137",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     },
-    "message": "Request processed successfully",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0031",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_15"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:32:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Cache hit for request",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0032",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_73"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:33:00Z",
-    "log": {
-      "level": "ERROR"
-    },
-    "message": "Transaction rollback due to deadlock",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0033",
-      "category": "process"
-    },
-    "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
-    },
-    "http": {
-      "response": {
-        "status_code": 500
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:34:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "Unauthorized access attempt to /admin endpoint",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0034",
-      "category": "authentication"
-    },
-    "source": {
-      "ip": "192.168.169.122"
-    },
-    "http": {
-      "response": {
-        "status_code": 403
-      }
-    },
-    "threat": {
-      "indicator": {
-        "type": "suspicious_activity"
-      }
+    "metadata": {
+      "trace_id": "trace-42087",
+      "span_id": "span-3677"
     }
   },
   {
     "@timestamp": "2025-12-01T10:35:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Session created",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0035",
-      "category": "process"
-    },
+    "log_id": "log-0008",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
     "http": {
-      "response": {
-        "status_code": 200
-      }
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "status_code": 200,
+      "response_time_ms": 68
     },
-    "user": {
-      "name": "user_28"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:36:00Z",
-    "log": {
-      "level": "INFO"
+    "client": {
+      "ip": "192.168.211.9",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     },
-    "message": "Connection established",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0036",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_57"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:37:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "User authentication successful",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0037",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_44"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:38:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Cache hit for request",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0038",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_1"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:39:00Z",
-    "log": {
-      "level": "ERROR"
-    },
-    "message": "Database connection timeout after 30000ms",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0039",
-      "category": "process"
-    },
-    "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
-    },
-    "http": {
-      "response": {
-        "status_code": 500
-      }
+    "metadata": {
+      "trace_id": "trace-51347",
+      "span_id": "span-7572"
     }
   },
   {
     "@timestamp": "2025-12-01T10:40:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "Multiple failed login attempts detected from IP 192.168.1.100",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0040",
-      "category": "authentication"
-    },
-    "source": {
-      "ip": "192.168.132.61"
-    },
+    "log_id": "log-0009",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
     "http": {
-      "response": {
-        "status_code": 403
-      }
+      "method": "PUT",
+      "endpoint": "/api/products",
+      "status_code": 204,
+      "response_time_ms": 137
     },
-    "threat": {
-      "indicator": {
-        "type": "suspicious_activity"
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:41:00Z",
-    "log": {
-      "level": "INFO"
+    "client": {
+      "ip": "192.168.102.227",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     },
-    "message": "Database query completed",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0041",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_93"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:42:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "Cross-site scripting attempt blocked",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0042",
-      "category": "authentication"
-    },
-    "source": {
-      "ip": "192.168.105.49"
-    },
-    "http": {
-      "response": {
-        "status_code": 403
-      }
-    },
-    "threat": {
-      "indicator": {
-        "type": "suspicious_activity"
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:43:00Z",
-    "log": {
-      "level": "ERROR"
-    },
-    "message": "OutOfMemoryError: Java heap space",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0043",
-      "category": "process"
-    },
-    "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
-    },
-    "http": {
-      "response": {
-        "status_code": 500
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:44:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Request processed successfully",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0044",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_87"
+    "metadata": {
+      "trace_id": "trace-94259",
+      "span_id": "span-8517"
     }
   },
   {
     "@timestamp": "2025-12-01T10:45:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Connection established",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0045",
-      "category": "process"
-    },
+    "log_id": "log-0010",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
     "http": {
-      "response": {
-        "status_code": 200
-      }
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 201,
+      "response_time_ms": 159
     },
-    "user": {
-      "name": "user_14"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:46:00Z",
-    "log": {
-      "level": "INFO"
+    "client": {
+      "ip": "192.168.103.93",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     },
-    "message": "Data synchronized",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0046",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_18"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:47:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Cache hit for request",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0047",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_10"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:48:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Request processed successfully",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0048",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_12"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:49:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Data synchronized",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0049",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_28"
+    "metadata": {
+      "trace_id": "trace-38746",
+      "span_id": "span-3266"
     }
   },
   {
     "@timestamp": "2025-12-01T10:50:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Request processed successfully",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0050",
-      "category": "process"
-    },
+    "log_id": "log-0011",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
     "http": {
-      "response": {
-        "status_code": 200
-      }
+      "method": "GET",
+      "endpoint": "/api/products",
+      "status_code": 204,
+      "response_time_ms": 50
     },
-    "user": {
-      "name": "user_50"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:51:00Z",
-    "log": {
-      "level": "INFO"
+    "client": {
+      "ip": "192.168.203.175",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     },
-    "message": "Data synchronized",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0051",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_20"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:52:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Request processed successfully",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0052",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_75"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:53:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Request processed successfully",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0053",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_75"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:54:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "Thread pool exhausted, requests queued",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0054",
-      "category": "process"
-    },
-    "performance": {
-      "latency_ms": 4289,
-      "memory_percent": 85,
-      "cpu_percent": 93
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
+    "metadata": {
+      "trace_id": "trace-65333",
+      "span_id": "span-2040"
     }
   },
   {
     "@timestamp": "2025-12-01T10:55:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "User authentication successful",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0055",
-      "category": "process"
-    },
+    "log_id": "log-0012",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
     "http": {
-      "response": {
-        "status_code": 200
-      }
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 184
     },
-    "user": {
-      "name": "user_87"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:56:00Z",
-    "log": {
-      "level": "INFO"
+    "client": {
+      "ip": "192.168.185.30",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     },
-    "message": "Cache hit for request",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0056",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_75"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:57:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Connection established",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0057",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_34"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:58:00Z",
-    "log": {
-      "level": "ERROR"
-    },
-    "message": "Database connection timeout after 30000ms",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0058",
-      "category": "process"
-    },
-    "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
-    },
-    "http": {
-      "response": {
-        "status_code": 500
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T10:59:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Health check passed",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0059",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_59"
+    "metadata": {
+      "trace_id": "trace-99353",
+      "span_id": "span-9797"
     }
   },
   {
     "@timestamp": "2025-12-01T11:00:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "User authentication successful",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0060",
-      "category": "process"
-    },
+    "log_id": "log-0013",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "Unauthorized access attempt to admin endpoint",
     "http": {
-      "response": {
-        "status_code": 200
-      }
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 429,
+      "response_time_ms": 184
     },
-    "user": {
-      "name": "user_10"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:01:00Z",
-    "log": {
-      "level": "INFO"
+    "security": {
+      "event_type": "UNAUTHORIZED_ACCESS",
+      "target_resource": "/admin/users"
     },
-    "message": "Connection established",
-    "service": {
-      "name": "user-service"
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "sqlmap/1.5.2"
     },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0061",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_9"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:02:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Data synchronized",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0062",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_70"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:03:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "Disk I/O latency high: 500ms",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0063",
-      "category": "process"
-    },
-    "performance": {
-      "latency_ms": 8357,
-      "memory_percent": 93,
-      "cpu_percent": 85
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:04:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Database query completed",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0064",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_34"
+    "metadata": {
+      "trace_id": "trace-23947",
+      "span_id": "span-5889"
     }
   },
   {
     "@timestamp": "2025-12-01T11:05:00Z",
-    "log": {
-      "level": "ERROR"
-    },
-    "message": "Database connection timeout after 30000ms",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0065",
-      "category": "process"
-    },
-    "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
-    },
+    "log_id": "log-0014",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-5.example.com",
+    "message": "Suspicious request pattern detected - possible SQL injection",
     "http": {
-      "response": {
-        "status_code": 500
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:06:00Z",
-    "log": {
-      "level": "ERROR"
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 403,
+      "response_time_ms": 300
     },
-    "message": "SSL handshake failed",
-    "service": {
-      "name": "payment-service"
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
     },
-    "host": {
-      "name": "prod-server-02"
+    "client": {
+      "ip": "10.0.0.99",
+      "user_agent": "curl/7.68.0"
     },
-    "event": {
-      "id": "evt-0066",
-      "category": "process"
-    },
-    "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
-    },
-    "http": {
-      "response": {
-        "status_code": 500
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:07:00Z",
-    "log": {
-      "level": "ERROR"
-    },
-    "message": "Transaction rollback due to deadlock",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0067",
-      "category": "process"
-    },
-    "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
-    },
-    "http": {
-      "response": {
-        "status_code": 500
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:08:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Request processed successfully",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0068",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_12"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:09:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Connection established",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0069",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_99"
+    "metadata": {
+      "trace_id": "trace-57576",
+      "span_id": "span-6038"
     }
   },
   {
     "@timestamp": "2025-12-01T11:10:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "Memory usage at 95% capacity",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0070",
-      "category": "process"
-    },
-    "performance": {
-      "latency_ms": 9072,
-      "memory_percent": 92,
-      "cpu_percent": 93
-    },
+    "log_id": "log-0015",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
     "http": {
-      "response": {
-        "status_code": 200
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:11:00Z",
-    "log": {
-      "level": "INFO"
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 204,
+      "response_time_ms": 134
     },
-    "message": "User authentication successful",
-    "service": {
-      "name": "order-service"
+    "client": {
+      "ip": "192.168.209.18",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0071",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_89"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:12:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Connection established",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0072",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_75"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:13:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Health check passed",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0073",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_47"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:14:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Cache hit for request",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0074",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_86"
+    "metadata": {
+      "trace_id": "trace-79822",
+      "span_id": "span-3060"
     }
   },
   {
     "@timestamp": "2025-12-01T11:15:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "Cross-site scripting attempt blocked",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0075",
-      "category": "authentication"
-    },
-    "source": {
-      "ip": "192.168.105.250"
-    },
+    "log_id": "log-0016",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
     "http": {
-      "response": {
-        "status_code": 403
-      }
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 165
     },
-    "threat": {
-      "indicator": {
-        "type": "suspicious_activity"
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:16:00Z",
-    "log": {
-      "level": "WARN"
+    "client": {
+      "ip": "192.168.109.247",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     },
-    "message": "Cross-site scripting attempt blocked",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0076",
-      "category": "authentication"
-    },
-    "source": {
-      "ip": "192.168.208.46"
-    },
-    "http": {
-      "response": {
-        "status_code": 403
-      }
-    },
-    "threat": {
-      "indicator": {
-        "type": "suspicious_activity"
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:17:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Connection established",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0077",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_53"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:18:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "User authentication successful",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0078",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_49"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:19:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Data synchronized",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0079",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_45"
+    "metadata": {
+      "trace_id": "trace-37760",
+      "span_id": "span-9835"
     }
   },
   {
     "@timestamp": "2025-12-01T11:20:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Cache hit for request",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0080",
-      "category": "process"
-    },
+    "log_id": "log-0017",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-3.example.com",
+    "message": "Unauthorized access attempt to admin endpoint",
     "http": {
-      "response": {
-        "status_code": 200
-      }
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 403,
+      "response_time_ms": 111
     },
-    "user": {
-      "name": "user_52"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:21:00Z",
-    "log": {
-      "level": "WARN"
+    "security": {
+      "event_type": "UNAUTHORIZED_ACCESS",
+      "target_resource": "/admin/users"
     },
-    "message": "Cross-site scripting attempt blocked",
-    "service": {
-      "name": "payment-service"
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "curl/7.68.0"
     },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0081",
-      "category": "authentication"
-    },
-    "source": {
-      "ip": "192.168.72.90"
-    },
-    "http": {
-      "response": {
-        "status_code": 403
-      }
-    },
-    "threat": {
-      "indicator": {
-        "type": "suspicious_activity"
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:22:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "Thread pool exhausted, requests queued",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0082",
-      "category": "process"
-    },
-    "performance": {
-      "latency_ms": 5712,
-      "memory_percent": 85,
-      "cpu_percent": 86
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:23:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Health check passed",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0083",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_5"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:24:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Connection established",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0084",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_56"
+    "metadata": {
+      "trace_id": "trace-18392",
+      "span_id": "span-6539"
     }
   },
   {
     "@timestamp": "2025-12-01T11:25:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "Unauthorized access attempt to /admin endpoint",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0085",
-      "category": "authentication"
-    },
-    "source": {
-      "ip": "192.168.66.12"
-    },
+    "log_id": "log-0018",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
     "http": {
-      "response": {
-        "status_code": 403
-      }
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 200,
+      "response_time_ms": 191
     },
-    "threat": {
-      "indicator": {
-        "type": "suspicious_activity"
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:26:00Z",
-    "log": {
-      "level": "INFO"
+    "client": {
+      "ip": "192.168.162.16",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     },
-    "message": "Cache hit for request",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0086",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_47"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:27:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "CPU utilization spike detected: 98%",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0087",
-      "category": "process"
-    },
-    "performance": {
-      "latency_ms": 8104,
-      "memory_percent": 90,
-      "cpu_percent": 95
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:28:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "Thread pool exhausted, requests queued",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0088",
-      "category": "process"
-    },
-    "performance": {
-      "latency_ms": 5533,
-      "memory_percent": 95,
-      "cpu_percent": 91
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:29:00Z",
-    "log": {
-      "level": "ERROR"
-    },
-    "message": "Failed to parse JSON response",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0089",
-      "category": "process"
-    },
-    "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
-    },
-    "http": {
-      "response": {
-        "status_code": 500
-      }
+    "metadata": {
+      "trace_id": "trace-40007",
+      "span_id": "span-2104"
     }
   },
   {
     "@timestamp": "2025-12-01T11:30:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Session created",
-    "service": {
-      "name": "user-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0090",
-      "category": "process"
-    },
+    "log_id": "log-0019",
+    "level": "WARN",
+    "service": "cache-service",
+    "host": "server-4.example.com",
+    "message": "Disk I/O latency spike",
     "http": {
-      "response": {
-        "status_code": 200
-      }
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 200,
+      "response_time_ms": 9427
     },
-    "user": {
-      "name": "user_87"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:31:00Z",
-    "log": {
-      "level": "INFO"
+    "performance": {
+      "read_latency_ms": 209,
+      "write_latency_ms": 752,
+      "iops": 58
     },
-    "message": "Session created",
-    "service": {
-      "name": "user-service"
+    "client": {
+      "ip": "192.168.122.207",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
     },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0091",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_71"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:32:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Session created",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0092",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_75"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:33:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Cache hit for request",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0093",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_66"
-    }
-  },
-  {
-    "@timestamp": "2025-12-01T11:34:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "User authentication successful",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-03"
-    },
-    "event": {
-      "id": "evt-0094",
-      "category": "process"
-    },
-    "http": {
-      "response": {
-        "status_code": 200
-      }
-    },
-    "user": {
-      "name": "user_37"
+    "metadata": {
+      "trace_id": "trace-63354",
+      "span_id": "span-4119"
     }
   },
   {
     "@timestamp": "2025-12-01T11:35:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "Cross-site scripting attempt blocked",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0095",
-      "category": "authentication"
-    },
-    "source": {
-      "ip": "192.168.61.173"
-    },
+    "log_id": "log-0020",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
     "http": {
-      "response": {
-        "status_code": 403
-      }
+      "method": "DELETE",
+      "endpoint": "/api/health",
+      "status_code": 201,
+      "response_time_ms": 196
     },
-    "threat": {
-      "indicator": {
-        "type": "suspicious_activity"
-      }
+    "client": {
+      "ip": "192.168.14.173",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-95649",
+      "span_id": "span-2612"
     }
   },
   {
-    "@timestamp": "2025-12-01T11:36:00Z",
-    "log": {
-      "level": "WARN"
-    },
-    "message": "Unauthorized access attempt to /admin endpoint",
-    "service": {
-      "name": "payment-service"
-    },
-    "host": {
-      "name": "prod-server-01"
-    },
-    "event": {
-      "id": "evt-0096",
-      "category": "authentication"
-    },
-    "source": {
-      "ip": "192.168.7.12"
-    },
+    "@timestamp": "2025-12-01T11:40:00Z",
+    "log_id": "log-0021",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
     "http": {
-      "response": {
-        "status_code": 403
-      }
+      "method": "POST",
+      "endpoint": "/api/products",
+      "status_code": 200,
+      "response_time_ms": 147
     },
-    "threat": {
-      "indicator": {
-        "type": "suspicious_activity"
-      }
+    "client": {
+      "ip": "192.168.115.36",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-65296",
+      "span_id": "span-4006"
     }
   },
   {
-    "@timestamp": "2025-12-01T11:37:00Z",
-    "log": {
-      "level": "ERROR"
+    "@timestamp": "2025-12-01T11:45:00Z",
+    "log_id": "log-0022",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 22
     },
-    "message": "Transaction rollback due to deadlock",
-    "service": {
-      "name": "user-service"
+    "client": {
+      "ip": "192.168.167.139",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
     },
-    "host": {
-      "name": "prod-server-02"
+    "metadata": {
+      "trace_id": "trace-11934",
+      "span_id": "span-2528"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T11:50:00Z",
+    "log_id": "log-0023",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "Connection pool exhaustion warning",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/analytics",
+      "status_code": 200,
+      "response_time_ms": 9423
     },
-    "event": {
-      "id": "evt-0097",
-      "category": "process"
+    "performance": {
+      "active_connections": 96,
+      "max_connections": 100,
+      "wait_time_ms": 4541
+    },
+    "client": {
+      "ip": "192.168.201.117",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-47388",
+      "span_id": "span-7930"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T11:55:00Z",
+    "log_id": "log-0024",
+    "level": "ERROR",
+    "service": "product-service",
+    "host": "server-2.example.com",
+    "message": "Internal server error: out of memory exception",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/orders",
+      "status_code": 500,
+      "response_time_ms": 12133
     },
     "error": {
-      "type": "application_error",
-      "stack_trace": "at com.example.service.Handler.process(Handler.java:42)"
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:79)",
+      "correlation_id": "err-85914"
     },
-    "http": {
-      "response": {
-        "status_code": 500
-      }
+    "client": {
+      "ip": "192.168.189.139",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-17989",
+      "span_id": "span-6138"
     }
   },
   {
-    "@timestamp": "2025-12-01T11:38:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Cache hit for request",
-    "service": {
-      "name": "api-gateway"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0098",
-      "category": "process"
-    },
+    "@timestamp": "2025-12-01T12:00:00Z",
+    "log_id": "log-0025",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
     "http": {
-      "response": {
-        "status_code": 200
-      }
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 204,
+      "response_time_ms": 30
     },
-    "user": {
-      "name": "user_92"
+    "client": {
+      "ip": "192.168.218.48",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-18981",
+      "span_id": "span-2113"
     }
   },
   {
-    "@timestamp": "2025-12-01T11:39:00Z",
-    "log": {
-      "level": "INFO"
-    },
-    "message": "Database query completed",
-    "service": {
-      "name": "order-service"
-    },
-    "host": {
-      "name": "prod-server-02"
-    },
-    "event": {
-      "id": "evt-0099",
-      "category": "process"
-    },
+    "@timestamp": "2025-12-01T12:05:00Z",
+    "log_id": "log-0026",
+    "level": "ERROR",
+    "service": "product-service",
+    "host": "server-1.example.com",
+    "message": "Bad gateway: upstream service unavailable",
     "http": {
-      "response": {
-        "status_code": 200
-      }
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 502,
+      "response_time_ms": 23970
     },
-    "user": {
-      "name": "user_84"
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:354)",
+      "correlation_id": "err-15209"
+    },
+    "client": {
+      "ip": "192.168.159.21",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-64948",
+      "span_id": "span-9565"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T12:10:00Z",
+    "log_id": "log-0027",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/products",
+      "status_code": 201,
+      "response_time_ms": 111
+    },
+    "client": {
+      "ip": "192.168.34.172",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-94607",
+      "span_id": "span-5915"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T12:15:00Z",
+    "log_id": "log-0028",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/search",
+      "status_code": 204,
+      "response_time_ms": 35
+    },
+    "client": {
+      "ip": "192.168.19.138",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-37938",
+      "span_id": "span-9288"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T12:20:00Z",
+    "log_id": "log-0029",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "status_code": 201,
+      "response_time_ms": 50
+    },
+    "client": {
+      "ip": "192.168.113.214",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-81200",
+      "span_id": "span-5956"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T12:25:00Z",
+    "log_id": "log-0030",
+    "level": "ERROR",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Internal server error: out of memory exception",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/checkout",
+      "status_code": 500,
+      "response_time_ms": 8394
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:499)",
+      "correlation_id": "err-27601"
+    },
+    "client": {
+      "ip": "192.168.68.30",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-24029",
+      "span_id": "span-3546"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T12:30:00Z",
+    "log_id": "log-0031",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 135
+    },
+    "client": {
+      "ip": "192.168.65.232",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-16658",
+      "span_id": "span-2512"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T12:35:00Z",
+    "log_id": "log-0032",
+    "level": "ERROR",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "Service unavailable: circuit breaker open",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 503,
+      "response_time_ms": 25876
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:184)",
+      "correlation_id": "err-31178"
+    },
+    "client": {
+      "ip": "192.168.190.114",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-82309",
+      "span_id": "span-8007"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T12:40:00Z",
+    "log_id": "log-0033",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 104
+    },
+    "client": {
+      "ip": "192.168.150.142",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-29410",
+      "span_id": "span-8041"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T12:45:00Z",
+    "log_id": "log-0034",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/orders",
+      "status_code": 200,
+      "response_time_ms": 184
+    },
+    "client": {
+      "ip": "192.168.64.171",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-23473",
+      "span_id": "span-6794"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T12:50:00Z",
+    "log_id": "log-0035",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/login",
+      "status_code": 401,
+      "response_time_ms": 427
+    },
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
+    },
+    "client": {
+      "ip": "45.33.32.156",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-97806",
+      "span_id": "span-5065"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T12:55:00Z",
+    "log_id": "log-0036",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/health",
+      "status_code": 200,
+      "response_time_ms": 61
+    },
+    "client": {
+      "ip": "192.168.210.236",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-70332",
+      "span_id": "span-6728"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:00:00Z",
+    "log_id": "log-0037",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/products",
+      "status_code": 201,
+      "response_time_ms": 94
+    },
+    "client": {
+      "ip": "192.168.72.222",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-19099",
+      "span_id": "span-5573"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:05:00Z",
+    "log_id": "log-0038",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 200,
+      "response_time_ms": 76
+    },
+    "client": {
+      "ip": "192.168.46.149",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-44795",
+      "span_id": "span-1626"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:10:00Z",
+    "log_id": "log-0039",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 204,
+      "response_time_ms": 140
+    },
+    "client": {
+      "ip": "192.168.30.99",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-85574",
+      "span_id": "span-4114"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:15:00Z",
+    "log_id": "log-0040",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "status_code": 201,
+      "response_time_ms": 27
+    },
+    "client": {
+      "ip": "192.168.243.171",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-53279",
+      "span_id": "span-6143"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:20:00Z",
+    "log_id": "log-0041",
+    "level": "ERROR",
+    "service": "order-service",
+    "host": "server-5.example.com",
+    "message": "Internal server error: database connection pool exhausted",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/checkout",
+      "status_code": 500,
+      "response_time_ms": 18382
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:217)",
+      "correlation_id": "err-62743"
+    },
+    "client": {
+      "ip": "192.168.179.76",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-82667",
+      "span_id": "span-3085"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:25:00Z",
+    "log_id": "log-0042",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 204,
+      "response_time_ms": 10
+    },
+    "client": {
+      "ip": "192.168.78.74",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-37549",
+      "span_id": "span-8043"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:30:00Z",
+    "log_id": "log-0043",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-2.example.com",
+    "message": "Unauthorized access attempt to admin endpoint",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 401,
+      "response_time_ms": 387
+    },
+    "security": {
+      "event_type": "UNAUTHORIZED_ACCESS",
+      "target_resource": "/admin/users"
+    },
+    "client": {
+      "ip": "10.0.0.99",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-77561",
+      "span_id": "span-6491"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:35:00Z",
+    "log_id": "log-0044",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/products",
+      "status_code": 200,
+      "response_time_ms": 16
+    },
+    "client": {
+      "ip": "192.168.12.63",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-72277",
+      "span_id": "span-2193"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:40:00Z",
+    "log_id": "log-0045",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/health",
+      "status_code": 200,
+      "response_time_ms": 47
+    },
+    "client": {
+      "ip": "192.168.168.177",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-10726",
+      "span_id": "span-2746"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:45:00Z",
+    "log_id": "log-0046",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Unauthorized access attempt to admin endpoint",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/login",
+      "status_code": 403,
+      "response_time_ms": 118
+    },
+    "security": {
+      "event_type": "UNAUTHORIZED_ACCESS",
+      "target_resource": "/admin/users"
+    },
+    "client": {
+      "ip": "91.121.87.10",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-79616",
+      "span_id": "span-6198"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:50:00Z",
+    "log_id": "log-0047",
+    "level": "WARN",
+    "service": "database-service",
+    "host": "server-3.example.com",
+    "message": "Connection pool exhaustion warning",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 200,
+      "response_time_ms": 9880
+    },
+    "performance": {
+      "active_connections": 98,
+      "max_connections": 100,
+      "wait_time_ms": 4402
+    },
+    "client": {
+      "ip": "192.168.164.71",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-78327",
+      "span_id": "span-8939"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:55:00Z",
+    "log_id": "log-0048",
+    "level": "ERROR",
+    "service": "product-service",
+    "host": "server-1.example.com",
+    "message": "Service unavailable: circuit breaker open",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 503,
+      "response_time_ms": 12683
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:189)",
+      "correlation_id": "err-54020"
+    },
+    "client": {
+      "ip": "192.168.82.229",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-80798",
+      "span_id": "span-2320"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:00:00Z",
+    "log_id": "log-0049",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/products",
+      "status_code": 200,
+      "response_time_ms": 116
+    },
+    "client": {
+      "ip": "192.168.105.85",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-81121",
+      "span_id": "span-8633"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:05:00Z",
+    "log_id": "log-0050",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/search",
+      "status_code": 204,
+      "response_time_ms": 15
+    },
+    "client": {
+      "ip": "192.168.220.226",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-85456",
+      "span_id": "span-7232"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:10:00Z",
+    "log_id": "log-0051",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/health",
+      "status_code": 204,
+      "response_time_ms": 198
+    },
+    "client": {
+      "ip": "192.168.140.205",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-89069",
+      "span_id": "span-4613"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:15:00Z",
+    "log_id": "log-0052",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/users",
+      "status_code": 201,
+      "response_time_ms": 96
+    },
+    "client": {
+      "ip": "192.168.172.174",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-62994",
+      "span_id": "span-3704"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:20:00Z",
+    "log_id": "log-0053",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-5.example.com",
+    "message": "Failed authentication attempt - invalid credentials",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/login",
+      "status_code": 429,
+      "response_time_ms": 269
+    },
+    "security": {
+      "event_type": "AUTH_FAILURE",
+      "attempts": 5
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-33819",
+      "span_id": "span-1823"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:25:00Z",
+    "log_id": "log-0054",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/orders",
+      "status_code": 201,
+      "response_time_ms": 107
+    },
+    "client": {
+      "ip": "192.168.72.193",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-65255",
+      "span_id": "span-5133"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:30:00Z",
+    "log_id": "log-0055",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-2.example.com",
+    "message": "Failed authentication attempt - invalid credentials",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 401,
+      "response_time_ms": 436
+    },
+    "security": {
+      "event_type": "AUTH_FAILURE",
+      "attempts": 10
+    },
+    "client": {
+      "ip": "10.0.0.99",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-36130",
+      "span_id": "span-1333"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:35:00Z",
+    "log_id": "log-0056",
+    "level": "ERROR",
+    "service": "user-service",
+    "host": "server-4.example.com",
+    "message": "Bad gateway: upstream service unavailable",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 502,
+      "response_time_ms": 23480
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:161)",
+      "correlation_id": "err-70952"
+    },
+    "client": {
+      "ip": "192.168.180.66",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-58351",
+      "span_id": "span-3749"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:40:00Z",
+    "log_id": "log-0057",
+    "level": "ERROR",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Internal server error: out of memory exception",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 500,
+      "response_time_ms": 23962
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:63)",
+      "correlation_id": "err-50888"
+    },
+    "client": {
+      "ip": "192.168.148.174",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-59192",
+      "span_id": "span-7498"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:45:00Z",
+    "log_id": "log-0058",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Disk I/O latency spike",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 200,
+      "response_time_ms": 5844
+    },
+    "performance": {
+      "read_latency_ms": 495,
+      "write_latency_ms": 508,
+      "iops": 93
+    },
+    "client": {
+      "ip": "192.168.137.110",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-96706",
+      "span_id": "span-7071"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:50:00Z",
+    "log_id": "log-0059",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/health",
+      "status_code": 200,
+      "response_time_ms": 120
+    },
+    "client": {
+      "ip": "192.168.246.93",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-93307",
+      "span_id": "span-8532"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:55:00Z",
+    "log_id": "log-0060",
+    "level": "ERROR",
+    "service": "user-service",
+    "host": "server-5.example.com",
+    "message": "Gateway timeout: request exceeded 30s limit",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 504,
+      "response_time_ms": 25182
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:463)",
+      "correlation_id": "err-80539"
+    },
+    "client": {
+      "ip": "192.168.199.124",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-70931",
+      "span_id": "span-8136"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:00:00Z",
+    "log_id": "log-0061",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-4.example.com",
+    "message": "Failed authentication attempt - invalid credentials",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/admin",
+      "status_code": 429,
+      "response_time_ms": 362
+    },
+    "security": {
+      "event_type": "AUTH_FAILURE",
+      "attempts": 7
+    },
+    "client": {
+      "ip": "91.121.87.10",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-13761",
+      "span_id": "span-9098"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:05:00Z",
+    "log_id": "log-0062",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-3.example.com",
+    "message": "Rate limit exceeded from suspicious IP",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 429,
+      "response_time_ms": 500
+    },
+    "security": {
+      "event_type": "RATE_LIMIT_EXCEEDED",
+      "requests_per_minute": 1498
+    },
+    "client": {
+      "ip": "45.33.32.156",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-11330",
+      "span_id": "span-9464"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:10:00Z",
+    "log_id": "log-0063",
+    "level": "WARN",
+    "service": "database-service",
+    "host": "server-1.example.com",
+    "message": "Connection pool exhaustion warning",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 200,
+      "response_time_ms": 5410
+    },
+    "performance": {
+      "active_connections": 99,
+      "max_connections": 100,
+      "wait_time_ms": 4105
+    },
+    "client": {
+      "ip": "192.168.57.104",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-41890",
+      "span_id": "span-6016"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:15:00Z",
+    "log_id": "log-0064",
+    "level": "ERROR",
+    "service": "product-service",
+    "host": "server-5.example.com",
+    "message": "Service unavailable: circuit breaker open",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 503,
+      "response_time_ms": 18942
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:431)",
+      "correlation_id": "err-82140"
+    },
+    "client": {
+      "ip": "192.168.85.91",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-69473",
+      "span_id": "span-5438"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:20:00Z",
+    "log_id": "log-0065",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "status_code": 200,
+      "response_time_ms": 200
+    },
+    "client": {
+      "ip": "192.168.138.244",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-34267",
+      "span_id": "span-4138"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:25:00Z",
+    "log_id": "log-0066",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 200,
+      "response_time_ms": 85
+    },
+    "client": {
+      "ip": "192.168.59.93",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-33519",
+      "span_id": "span-5952"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:30:00Z",
+    "log_id": "log-0067",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 204,
+      "response_time_ms": 84
+    },
+    "client": {
+      "ip": "192.168.179.242",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-26551",
+      "span_id": "span-9042"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:35:00Z",
+    "log_id": "log-0068",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 201,
+      "response_time_ms": 122
+    },
+    "client": {
+      "ip": "192.168.88.48",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-16734",
+      "span_id": "span-5136"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:40:00Z",
+    "log_id": "log-0069",
+    "level": "WARN",
+    "service": "cache-service",
+    "host": "server-3.example.com",
+    "message": "High memory usage detected",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 200,
+      "response_time_ms": 5033
+    },
+    "performance": {
+      "memory_used_mb": 3558,
+      "memory_limit_mb": 4096,
+      "gc_pause_ms": 633
+    },
+    "client": {
+      "ip": "192.168.31.143",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-64548",
+      "span_id": "span-4697"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:45:00Z",
+    "log_id": "log-0070",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-4.example.com",
+    "message": "Rate limit exceeded from suspicious IP",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 429,
+      "response_time_ms": 80
+    },
+    "security": {
+      "event_type": "RATE_LIMIT_EXCEEDED",
+      "requests_per_minute": 1422
+    },
+    "client": {
+      "ip": "10.0.0.99",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-91987",
+      "span_id": "span-4457"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:50:00Z",
+    "log_id": "log-0071",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/products",
+      "status_code": 204,
+      "response_time_ms": 29
+    },
+    "client": {
+      "ip": "192.168.41.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-63545",
+      "span_id": "span-8381"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:55:00Z",
+    "log_id": "log-0072",
+    "level": "ERROR",
+    "service": "order-service",
+    "host": "server-1.example.com",
+    "message": "Gateway timeout: request exceeded 30s limit",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/orders",
+      "status_code": 504,
+      "response_time_ms": 28165
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:194)",
+      "correlation_id": "err-69510"
+    },
+    "client": {
+      "ip": "192.168.19.176",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-40595",
+      "span_id": "span-5334"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:00:00Z",
+    "log_id": "log-0073",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Potential XSS attack detected in request body",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/login",
+      "status_code": 401,
+      "response_time_ms": 80
+    },
+    "security": {
+      "event_type": "XSS_ATTEMPT",
+      "payload": "<script>alert('xss')</script>"
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-87993",
+      "span_id": "span-5728"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:05:00Z",
+    "log_id": "log-0074",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 148
+    },
+    "client": {
+      "ip": "192.168.127.113",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-20543",
+      "span_id": "span-1653"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:10:00Z",
+    "log_id": "log-0075",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Failed authentication attempt - invalid credentials",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 403,
+      "response_time_ms": 345
+    },
+    "security": {
+      "event_type": "AUTH_FAILURE",
+      "attempts": 8
+    },
+    "client": {
+      "ip": "10.0.0.99",
+      "user_agent": "curl/7.68.0"
+    },
+    "metadata": {
+      "trace_id": "trace-71669",
+      "span_id": "span-9502"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:15:00Z",
+    "log_id": "log-0076",
+    "level": "ERROR",
+    "service": "user-service",
+    "host": "server-5.example.com",
+    "message": "Service unavailable: circuit breaker open",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/checkout",
+      "status_code": 503,
+      "response_time_ms": 21112
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:96)",
+      "correlation_id": "err-71605"
+    },
+    "client": {
+      "ip": "192.168.90.105",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-53687",
+      "span_id": "span-6260"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:20:00Z",
+    "log_id": "log-0077",
+    "level": "ERROR",
+    "service": "order-service",
+    "host": "server-4.example.com",
+    "message": "Bad gateway: upstream service unavailable",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 502,
+      "response_time_ms": 14444
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:389)",
+      "correlation_id": "err-62488"
+    },
+    "client": {
+      "ip": "192.168.209.195",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-82102",
+      "span_id": "span-1601"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:25:00Z",
+    "log_id": "log-0078",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 201,
+      "response_time_ms": 141
+    },
+    "client": {
+      "ip": "192.168.212.253",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-10150",
+      "span_id": "span-9889"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:30:00Z",
+    "log_id": "log-0079",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 201,
+      "response_time_ms": 170
+    },
+    "client": {
+      "ip": "192.168.114.195",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-16764",
+      "span_id": "span-4335"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:35:00Z",
+    "log_id": "log-0080",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/health",
+      "status_code": 200,
+      "response_time_ms": 17
+    },
+    "client": {
+      "ip": "192.168.250.162",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-89806",
+      "span_id": "span-4920"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:40:00Z",
+    "log_id": "log-0081",
+    "level": "ERROR",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Service unavailable: circuit breaker open",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 503,
+      "response_time_ms": 12362
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:480)",
+      "correlation_id": "err-24871"
+    },
+    "client": {
+      "ip": "192.168.119.243",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-25396",
+      "span_id": "span-3522"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:45:00Z",
+    "log_id": "log-0082",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 201,
+      "response_time_ms": 130
+    },
+    "client": {
+      "ip": "192.168.63.117",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-82255",
+      "span_id": "span-3369"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:50:00Z",
+    "log_id": "log-0083",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 201,
+      "response_time_ms": 139
+    },
+    "client": {
+      "ip": "192.168.69.211",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-10336",
+      "span_id": "span-5634"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:55:00Z",
+    "log_id": "log-0084",
+    "level": "ERROR",
+    "service": "product-service",
+    "host": "server-2.example.com",
+    "message": "Internal server error: null pointer exception in OrderProcessor",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/checkout",
+      "status_code": 500,
+      "response_time_ms": 20870
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:226)",
+      "correlation_id": "err-53573"
+    },
+    "client": {
+      "ip": "192.168.142.196",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-81228",
+      "span_id": "span-7180"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:00:00Z",
+    "log_id": "log-0085",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/search",
+      "status_code": 201,
+      "response_time_ms": 69
+    },
+    "client": {
+      "ip": "192.168.220.199",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-63841",
+      "span_id": "span-1715"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:05:00Z",
+    "log_id": "log-0086",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/products",
+      "status_code": 201,
+      "response_time_ms": 19
+    },
+    "client": {
+      "ip": "192.168.33.129",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-87356",
+      "span_id": "span-6439"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:10:00Z",
+    "log_id": "log-0087",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-2.example.com",
+    "message": "Unauthorized access attempt to admin endpoint",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 401,
+      "response_time_ms": 88
+    },
+    "security": {
+      "event_type": "UNAUTHORIZED_ACCESS",
+      "target_resource": "/admin/users"
+    },
+    "client": {
+      "ip": "91.121.87.10",
+      "user_agent": "python-requests/2.25.1"
+    },
+    "metadata": {
+      "trace_id": "trace-54375",
+      "span_id": "span-7512"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:15:00Z",
+    "log_id": "log-0088",
+    "level": "ERROR",
+    "service": "product-service",
+    "host": "server-3.example.com",
+    "message": "Service unavailable: circuit breaker open",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/checkout",
+      "status_code": 503,
+      "response_time_ms": 29884
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:299)",
+      "correlation_id": "err-80912"
+    },
+    "client": {
+      "ip": "192.168.10.159",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-18968",
+      "span_id": "span-4846"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:20:00Z",
+    "log_id": "log-0089",
+    "level": "ERROR",
+    "service": "user-service",
+    "host": "server-1.example.com",
+    "message": "Service unavailable: circuit breaker open",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/users",
+      "status_code": 503,
+      "response_time_ms": 29915
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:374)",
+      "correlation_id": "err-23173"
+    },
+    "client": {
+      "ip": "192.168.114.43",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-49251",
+      "span_id": "span-1474"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:25:00Z",
+    "log_id": "log-0090",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 201,
+      "response_time_ms": 47
+    },
+    "client": {
+      "ip": "192.168.63.136",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-64008",
+      "span_id": "span-3950"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:30:00Z",
+    "log_id": "log-0091",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/search",
+      "status_code": 204,
+      "response_time_ms": 71
+    },
+    "client": {
+      "ip": "192.168.128.234",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-86435",
+      "span_id": "span-3344"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:35:00Z",
+    "log_id": "log-0092",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 201,
+      "response_time_ms": 83
+    },
+    "client": {
+      "ip": "192.168.174.140",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-30706",
+      "span_id": "span-2210"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:40:00Z",
+    "log_id": "log-0093",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 204,
+      "response_time_ms": 74
+    },
+    "client": {
+      "ip": "192.168.117.217",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-49599",
+      "span_id": "span-4263"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:45:00Z",
+    "log_id": "log-0094",
+    "level": "WARN",
+    "service": "database-service",
+    "host": "server-1.example.com",
+    "message": "Connection pool exhaustion warning",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/export",
+      "status_code": 200,
+      "response_time_ms": 8618
+    },
+    "performance": {
+      "active_connections": 97,
+      "max_connections": 100,
+      "wait_time_ms": 3354
+    },
+    "client": {
+      "ip": "192.168.200.191",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-16428",
+      "span_id": "span-9138"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:50:00Z",
+    "log_id": "log-0095",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-2.example.com",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 429,
+      "response_time_ms": 442
+    },
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-22735",
+      "span_id": "span-1645"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:55:00Z",
+    "log_id": "log-0096",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/products",
+      "status_code": 200,
+      "response_time_ms": 85
+    },
+    "client": {
+      "ip": "192.168.84.192",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-64460",
+      "span_id": "span-3877"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:00:00Z",
+    "log_id": "log-0097",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/products",
+      "status_code": 201,
+      "response_time_ms": 133
+    },
+    "client": {
+      "ip": "192.168.248.207",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-48684",
+      "span_id": "span-6549"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:05:00Z",
+    "log_id": "log-0098",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-4.example.com",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/login",
+      "status_code": 403,
+      "response_time_ms": 57
+    },
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
+    },
+    "client": {
+      "ip": "45.33.32.156",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-26199",
+      "span_id": "span-8451"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:10:00Z",
+    "log_id": "log-0099",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/orders",
+      "status_code": 200,
+      "response_time_ms": 182
+    },
+    "client": {
+      "ip": "192.168.60.121",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-13280",
+      "span_id": "span-6374"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T18:15:00Z",
+    "log_id": "log-0100",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "High memory usage detected",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/analytics",
+      "status_code": 200,
+      "response_time_ms": 7035
+    },
+    "performance": {
+      "memory_used_mb": 3831,
+      "memory_limit_mb": 4096,
+      "gc_pause_ms": 629
+    },
+    "client": {
+      "ip": "192.168.30.25",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-40775",
+      "span_id": "span-9807"
     }
   }
 ]
