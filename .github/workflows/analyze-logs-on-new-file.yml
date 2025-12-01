@@ -18,8 +18,9 @@ jobs:
       - name: Get added log files
         id: added-files
         run: |
-          # Get only added files (not modified or deleted) in logs/
-          added=$(git diff --name-only --diff-filter=A ${{ github.event.before }} ${{ github.sha }} | grep '^logs/.*\.json$' || echo "")
+          # Get added or renamed files (not modified or deleted) in logs/
+          # A = added, R = renamed
+          added=$(git diff --name-only --diff-filter=AR ${{ github.event.before }} ${{ github.sha }} | grep '^logs/.*\.json$' || echo "")
           if [ -z "$added" ]; then
             echo "No new log files added"
             echo "files=" >> $GITHUB_OUTPUT
