@@ -1,0 +1,116 @@
+# GitHub Actions Workflow: Analyze Logs with Playbook
+# This workflow triggers after the "Analyze Logs on New File" workflow completes
+# and runs a single Devin session using the Playbook for comprehensive analysis.
+#
+# To use this workflow:
+# 1. Copy this file to .github/workflows/ in your repository
+# 2. Add DEVIN_API_KEY as a repository secret (Settings > Secrets and variables > Actions)
+# 3. Optionally add DEVIN_PLAYBOOK_ID if you have a registered playbook
+
+name: Analyze Logs with Playbook
+
+on:
+  workflow_run:
+    workflows: ["Analyze Logs on New File"]
+    types:
+      - completed
+  workflow_dispatch:
+    inputs:
+      log_file:
+        description: 'Path to the log file to analyze'
+        required: false
+        default: 'logs/elastic_logs.json'
+      playbook_id:
+        description: 'Devin Playbook ID (optional)'
+        required: false
+        default: ''
+
+jobs:
+  playbook-analysis:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Determine log file to analyze
+        id: log-file
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            LOG_FILE="${{ github.event.inputs.log_file }}"
+            PLAYBOOK_ID="${{ github.event.inputs.playbook_id }}"
+          else
+            # Find the most recently modified log file
+            LOG_FILE=$(find logs -name "*.json" -type f -printf '%T@ %p\n' 2>/dev/null | sort -n | tail -1 | cut -d' ' -f2-)
+            if [ -z "$LOG_FILE" ]; then
+              LOG_FILE="logs/elastic_logs.json"
+            fi
+            PLAYBOOK_ID="${{ secrets.DEVIN_PLAYBOOK_ID }}"
+          fi
+          echo "log_file=$LOG_FILE" >> $GITHUB_OUTPUT
+          echo "playbook_id=$PLAYBOOK_ID" >> $GITHUB_OUTPUT
+
+      - name: Check for DEVIN_API_KEY
+        id: check-key
+        run: |
+          if [ -n "${{ secrets.DEVIN_API_KEY }}" ]; then
+            echo "has_key=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_key=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Skip Analysis (no DEVIN_API_KEY)
+        if: steps.check-key.outputs.has_key != 'true'
+        run: |
+          echo "## Playbook Analysis Skipped" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "DEVIN_API_KEY is not configured. Skipping Devin playbook analysis." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "To enable analysis, add DEVIN_API_KEY as a repository secret:" >> $GITHUB_STEP_SUMMARY
+          echo "Settings > Secrets and variables > Actions > New repository secret" >> $GITHUB_STEP_SUMMARY
+
+      - name: Run Elastic Logs Analysis Playbook
+        if: steps.check-key.outputs.has_key == 'true'
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          PLAYBOOK_ARGS="--log-file ${{ steps.log-file.outputs.log_file }} --output-dir analysis"
+          if [ -n "${{ steps.log-file.outputs.playbook_id }}" ]; then
+            PLAYBOOK_ARGS="$PLAYBOOK_ARGS --playbook-id ${{ steps.log-file.outputs.playbook_id }}"
+          fi
+          python script/run_playbook.py $PLAYBOOK_ARGS
+
+      - name: Upload playbook analysis results
+        if: steps.check-key.outputs.has_key == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: playbook-analysis-${{ github.run_id }}
+          path: analysis/
+          retention-days: 30
+
+      - name: Summary
+        if: steps.check-key.outputs.has_key == 'true'
+        run: |
+          echo "## Elastic Logs Playbook Analysis Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Log File Analyzed:** ${{ steps.log-file.outputs.log_file }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Playbook Tasks Executed:" >> $GITHUB_STEP_SUMMARY
+          echo "The playbook encapsulates all analysis tasks in a single Devin session:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "1. **Error Pattern Analysis** - Identifies error patterns and root causes" >> $GITHUB_STEP_SUMMARY
+          echo "2. **Security Issue Detection** - Detects security threats and vulnerabilities" >> $GITHUB_STEP_SUMMARY
+          echo "3. **Performance Anomaly Analysis** - Finds performance bottlenecks" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Check the Devin session for detailed results and generated reports." >> $GITHUB_STEP_SUMMARY

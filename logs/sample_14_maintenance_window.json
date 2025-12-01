@@ -1,0 +1,1227 @@
+[
+  {
+    "@timestamp": "2025-12-01T13:00:00Z",
+    "log_id": "log-0001",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 204,
+      "response_time_ms": 57
+    },
+    "client": {
+      "ip": "192.168.78.23",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-56088",
+      "span_id": "span-8732"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:05:00Z",
+    "log_id": "log-0002",
+    "level": "ERROR",
+    "service": "product-service",
+    "host": "server-3.example.com",
+    "message": "Gateway timeout: request exceeded 30s limit",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 504,
+      "response_time_ms": 22504
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:445)",
+      "correlation_id": "err-92699"
+    },
+    "client": {
+      "ip": "192.168.11.162",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-43717",
+      "span_id": "span-1672"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:10:00Z",
+    "log_id": "log-0003",
+    "level": "WARN",
+    "service": "cache-service",
+    "host": "server-4.example.com",
+    "message": "Disk I/O latency spike",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 200,
+      "response_time_ms": 4856
+    },
+    "performance": {
+      "read_latency_ms": 293,
+      "write_latency_ms": 437,
+      "iops": 55
+    },
+    "client": {
+      "ip": "192.168.196.53",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-63791",
+      "span_id": "span-3786"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:15:00Z",
+    "log_id": "log-0004",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/orders",
+      "status_code": 201,
+      "response_time_ms": 102
+    },
+    "client": {
+      "ip": "192.168.159.52",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-41519",
+      "span_id": "span-8667"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:20:00Z",
+    "log_id": "log-0005",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 122
+    },
+    "client": {
+      "ip": "192.168.54.78",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-93404",
+      "span_id": "span-3132"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:25:00Z",
+    "log_id": "log-0006",
+    "level": "ERROR",
+    "service": "product-service",
+    "host": "server-4.example.com",
+    "message": "Internal server error: out of memory exception",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/checkout",
+      "status_code": 500,
+      "response_time_ms": 29285
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:104)",
+      "correlation_id": "err-62349"
+    },
+    "client": {
+      "ip": "192.168.210.169",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-20336",
+      "span_id": "span-5166"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:30:00Z",
+    "log_id": "log-0007",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 200,
+      "response_time_ms": 31
+    },
+    "client": {
+      "ip": "192.168.154.107",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-69138",
+      "span_id": "span-9139"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:35:00Z",
+    "log_id": "log-0008",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 201,
+      "response_time_ms": 67
+    },
+    "client": {
+      "ip": "192.168.101.144",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-65453",
+      "span_id": "span-8739"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:40:00Z",
+    "log_id": "log-0009",
+    "level": "ERROR",
+    "service": "order-service",
+    "host": "server-1.example.com",
+    "message": "Internal server error: out of memory exception",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/checkout",
+      "status_code": 500,
+      "response_time_ms": 28819
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:231)",
+      "correlation_id": "err-64866"
+    },
+    "client": {
+      "ip": "192.168.83.181",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-56305",
+      "span_id": "span-1063"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:45:00Z",
+    "log_id": "log-0010",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/health",
+      "status_code": 204,
+      "response_time_ms": 84
+    },
+    "client": {
+      "ip": "192.168.243.136",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-63159",
+      "span_id": "span-5386"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:50:00Z",
+    "log_id": "log-0011",
+    "level": "ERROR",
+    "service": "user-service",
+    "host": "server-2.example.com",
+    "message": "Bad gateway: upstream service unavailable",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 502,
+      "response_time_ms": 27306
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:407)",
+      "correlation_id": "err-55360"
+    },
+    "client": {
+      "ip": "192.168.115.149",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-94818",
+      "span_id": "span-9006"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T13:55:00Z",
+    "log_id": "log-0012",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/search",
+      "status_code": 204,
+      "response_time_ms": 75
+    },
+    "client": {
+      "ip": "192.168.47.123",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-37689",
+      "span_id": "span-7757"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:00:00Z",
+    "log_id": "log-0013",
+    "level": "WARN",
+    "service": "database-service",
+    "host": "server-5.example.com",
+    "message": "Disk I/O latency spike",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 200,
+      "response_time_ms": 9422
+    },
+    "performance": {
+      "read_latency_ms": 464,
+      "write_latency_ms": 426,
+      "iops": 80
+    },
+    "client": {
+      "ip": "192.168.109.7",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-57521",
+      "span_id": "span-8183"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:05:00Z",
+    "log_id": "log-0014",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/search",
+      "status_code": 201,
+      "response_time_ms": 93
+    },
+    "client": {
+      "ip": "192.168.20.15",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-27874",
+      "span_id": "span-8119"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:10:00Z",
+    "log_id": "log-0015",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 189
+    },
+    "client": {
+      "ip": "192.168.94.13",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-94606",
+      "span_id": "span-2138"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:15:00Z",
+    "log_id": "log-0016",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/users",
+      "status_code": 200,
+      "response_time_ms": 101
+    },
+    "client": {
+      "ip": "192.168.110.175",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-11823",
+      "span_id": "span-7700"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:20:00Z",
+    "log_id": "log-0017",
+    "level": "ERROR",
+    "service": "user-service",
+    "host": "server-3.example.com",
+    "message": "Internal server error: out of memory exception",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 500,
+      "response_time_ms": 23725
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:434)",
+      "correlation_id": "err-90628"
+    },
+    "client": {
+      "ip": "192.168.180.74",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-80694",
+      "span_id": "span-9451"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:25:00Z",
+    "log_id": "log-0018",
+    "level": "ERROR",
+    "service": "order-service",
+    "host": "server-5.example.com",
+    "message": "Internal server error: null pointer exception",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/users",
+      "status_code": 500,
+      "response_time_ms": 18020
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:292)",
+      "correlation_id": "err-82234"
+    },
+    "client": {
+      "ip": "192.168.6.82",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-25931",
+      "span_id": "span-9471"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:30:00Z",
+    "log_id": "log-0019",
+    "level": "WARN",
+    "service": "database-service",
+    "host": "server-1.example.com",
+    "message": "Connection pool exhaustion warning",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 200,
+      "response_time_ms": 8542
+    },
+    "performance": {
+      "active_connections": 95,
+      "max_connections": 100,
+      "wait_time_ms": 1958
+    },
+    "client": {
+      "ip": "192.168.98.17",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-81781",
+      "span_id": "span-3337"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:35:00Z",
+    "log_id": "log-0020",
+    "level": "ERROR",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Gateway timeout: request exceeded 30s limit",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/checkout",
+      "status_code": 504,
+      "response_time_ms": 8737
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:86)",
+      "correlation_id": "err-18168"
+    },
+    "client": {
+      "ip": "192.168.17.145",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-89522",
+      "span_id": "span-2705"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:40:00Z",
+    "log_id": "log-0021",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/users",
+      "status_code": 200,
+      "response_time_ms": 46
+    },
+    "client": {
+      "ip": "192.168.251.87",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-73323",
+      "span_id": "span-6701"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:45:00Z",
+    "log_id": "log-0022",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/search",
+      "status_code": 204,
+      "response_time_ms": 195
+    },
+    "client": {
+      "ip": "192.168.86.238",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-98142",
+      "span_id": "span-2612"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:50:00Z",
+    "log_id": "log-0023",
+    "level": "ERROR",
+    "service": "order-service",
+    "host": "server-4.example.com",
+    "message": "Internal server error: null pointer exception",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "status_code": 500,
+      "response_time_ms": 24240
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:185)",
+      "correlation_id": "err-72684"
+    },
+    "client": {
+      "ip": "192.168.253.26",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-96566",
+      "span_id": "span-6747"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T14:55:00Z",
+    "log_id": "log-0024",
+    "level": "WARN",
+    "service": "auth-service",
+    "host": "server-1.example.com",
+    "message": "Suspicious request pattern detected - possible SQL injection",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/admin",
+      "status_code": 429,
+      "response_time_ms": 334
+    },
+    "security": {
+      "event_type": "SQL_INJECTION_ATTEMPT",
+      "payload": "' OR '1'='1"
+    },
+    "client": {
+      "ip": "185.220.101.1",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-63323",
+      "span_id": "span-2761"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:00:00Z",
+    "log_id": "log-0025",
+    "level": "ERROR",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Service unavailable: circuit breaker open",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/checkout",
+      "status_code": 503,
+      "response_time_ms": 5576
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:78)",
+      "correlation_id": "err-95916"
+    },
+    "client": {
+      "ip": "192.168.96.1",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-63499",
+      "span_id": "span-8741"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:05:00Z",
+    "log_id": "log-0026",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 103
+    },
+    "client": {
+      "ip": "192.168.122.141",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-77271",
+      "span_id": "span-6380"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:10:00Z",
+    "log_id": "log-0027",
+    "level": "ERROR",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Internal server error: null pointer exception",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 500,
+      "response_time_ms": 21716
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:366)",
+      "correlation_id": "err-42630"
+    },
+    "client": {
+      "ip": "192.168.2.250",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-50945",
+      "span_id": "span-5907"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:15:00Z",
+    "log_id": "log-0028",
+    "level": "WARN",
+    "service": "database-service",
+    "host": "server-3.example.com",
+    "message": "CPU spike detected",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/reports",
+      "status_code": 200,
+      "response_time_ms": 3614
+    },
+    "performance": {
+      "cpu_percent": 86,
+      "thread_count": 499
+    },
+    "client": {
+      "ip": "192.168.75.6",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-22706",
+      "span_id": "span-8353"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:20:00Z",
+    "log_id": "log-0029",
+    "level": "ERROR",
+    "service": "order-service",
+    "host": "server-2.example.com",
+    "message": "Gateway timeout: request exceeded 30s limit",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/orders",
+      "status_code": 504,
+      "response_time_ms": 14708
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:164)",
+      "correlation_id": "err-65021"
+    },
+    "client": {
+      "ip": "192.168.161.223",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-60446",
+      "span_id": "span-9697"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:25:00Z",
+    "log_id": "log-0030",
+    "level": "WARN",
+    "service": "database-service",
+    "host": "server-1.example.com",
+    "message": "CPU spike detected",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/export",
+      "status_code": 200,
+      "response_time_ms": 7811
+    },
+    "performance": {
+      "cpu_percent": 97,
+      "thread_count": 416
+    },
+    "client": {
+      "ip": "192.168.85.136",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-38246",
+      "span_id": "span-6738"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:30:00Z",
+    "log_id": "log-0031",
+    "level": "WARN",
+    "service": "security-monitor",
+    "host": "server-3.example.com",
+    "message": "Rate limit exceeded from suspicious IP",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/login",
+      "status_code": 403,
+      "response_time_ms": 229
+    },
+    "security": {
+      "event_type": "RATE_LIMIT_EXCEEDED",
+      "requests_per_minute": 1867
+    },
+    "client": {
+      "ip": "10.0.0.99",
+      "user_agent": "sqlmap/1.5.2"
+    },
+    "metadata": {
+      "trace_id": "trace-19785",
+      "span_id": "span-4463"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:35:00Z",
+    "log_id": "log-0032",
+    "level": "INFO",
+    "service": "order-service",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 204,
+      "response_time_ms": 117
+    },
+    "client": {
+      "ip": "192.168.205.193",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-70419",
+      "span_id": "span-6824"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:40:00Z",
+    "log_id": "log-0033",
+    "level": "ERROR",
+    "service": "order-service",
+    "host": "server-4.example.com",
+    "message": "Gateway timeout: request exceeded 30s limit",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/checkout",
+      "status_code": 504,
+      "response_time_ms": 29328
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:211)",
+      "correlation_id": "err-19911"
+    },
+    "client": {
+      "ip": "192.168.175.134",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-38409",
+      "span_id": "span-7842"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:45:00Z",
+    "log_id": "log-0034",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/health",
+      "status_code": 204,
+      "response_time_ms": 157
+    },
+    "client": {
+      "ip": "192.168.13.160",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-40463",
+      "span_id": "span-3016"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:50:00Z",
+    "log_id": "log-0035",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-5.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/products",
+      "status_code": 201,
+      "response_time_ms": 187
+    },
+    "client": {
+      "ip": "192.168.252.203",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-38624",
+      "span_id": "span-6429"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T15:55:00Z",
+    "log_id": "log-0036",
+    "level": "ERROR",
+    "service": "user-service",
+    "host": "server-5.example.com",
+    "message": "Internal server error: null pointer exception",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/checkout",
+      "status_code": 500,
+      "response_time_ms": 22027
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:486)",
+      "correlation_id": "err-43950"
+    },
+    "client": {
+      "ip": "192.168.169.180",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-37163",
+      "span_id": "span-7583"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:00:00Z",
+    "log_id": "log-0037",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/products",
+      "status_code": 201,
+      "response_time_ms": 93
+    },
+    "client": {
+      "ip": "192.168.145.225",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-51654",
+      "span_id": "span-4958"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:05:00Z",
+    "log_id": "log-0038",
+    "level": "WARN",
+    "service": "cache-service",
+    "host": "server-2.example.com",
+    "message": "CPU spike detected",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/export",
+      "status_code": 200,
+      "response_time_ms": 9404
+    },
+    "performance": {
+      "cpu_percent": 87,
+      "thread_count": 326
+    },
+    "client": {
+      "ip": "192.168.106.71",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-60150",
+      "span_id": "span-6482"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:10:00Z",
+    "log_id": "log-0039",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/search",
+      "status_code": 200,
+      "response_time_ms": 104
+    },
+    "client": {
+      "ip": "192.168.85.156",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-55641",
+      "span_id": "span-9069"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:15:00Z",
+    "log_id": "log-0040",
+    "level": "ERROR",
+    "service": "order-service",
+    "host": "server-4.example.com",
+    "message": "Bad gateway: upstream service unavailable",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/orders",
+      "status_code": 502,
+      "response_time_ms": 27673
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:322)",
+      "correlation_id": "err-42647"
+    },
+    "client": {
+      "ip": "192.168.21.141",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-59458",
+      "span_id": "span-4244"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:20:00Z",
+    "log_id": "log-0041",
+    "level": "WARN",
+    "service": "api-gateway",
+    "host": "server-3.example.com",
+    "message": "High memory usage detected",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/export",
+      "status_code": 200,
+      "response_time_ms": 4519
+    },
+    "performance": {
+      "memory_used_mb": 3822,
+      "memory_limit_mb": 4096,
+      "gc_pause_ms": 1123
+    },
+    "client": {
+      "ip": "192.168.30.223",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-61562",
+      "span_id": "span-9438"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:25:00Z",
+    "log_id": "log-0042",
+    "level": "INFO",
+    "service": "api-gateway",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "POST",
+      "endpoint": "/api/search",
+      "status_code": 204,
+      "response_time_ms": 20
+    },
+    "client": {
+      "ip": "192.168.46.72",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-38515",
+      "span_id": "span-7080"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:30:00Z",
+    "log_id": "log-0043",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-1.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "DELETE",
+      "endpoint": "/api/users",
+      "status_code": 200,
+      "response_time_ms": 54
+    },
+    "client": {
+      "ip": "192.168.113.24",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-22982",
+      "span_id": "span-9137"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:35:00Z",
+    "log_id": "log-0044",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-2.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/products",
+      "status_code": 200,
+      "response_time_ms": 16
+    },
+    "client": {
+      "ip": "192.168.172.209",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-87122",
+      "span_id": "span-1862"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:40:00Z",
+    "log_id": "log-0045",
+    "level": "ERROR",
+    "service": "user-service",
+    "host": "server-2.example.com",
+    "message": "Service unavailable: circuit breaker open",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/orders",
+      "status_code": 503,
+      "response_time_ms": 7932
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:306)",
+      "correlation_id": "err-90264"
+    },
+    "client": {
+      "ip": "192.168.155.228",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-33908",
+      "span_id": "span-6139"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:45:00Z",
+    "log_id": "log-0046",
+    "level": "WARN",
+    "service": "database-service",
+    "host": "server-1.example.com",
+    "message": "High memory usage detected",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/analytics",
+      "status_code": 200,
+      "response_time_ms": 9171
+    },
+    "performance": {
+      "memory_used_mb": 3839,
+      "memory_limit_mb": 4096,
+      "gc_pause_ms": 529
+    },
+    "client": {
+      "ip": "192.168.183.251",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-21064",
+      "span_id": "span-1543"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:50:00Z",
+    "log_id": "log-0047",
+    "level": "ERROR",
+    "service": "order-service",
+    "host": "server-2.example.com",
+    "message": "Internal server error: null pointer exception",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/checkout",
+      "status_code": 500,
+      "response_time_ms": 20932
+    },
+    "error": {
+      "type": "ApplicationError",
+      "stack_trace": "at com.example.service.Handler.process(Handler.java:468)",
+      "correlation_id": "err-37922"
+    },
+    "client": {
+      "ip": "192.168.215.59",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+    },
+    "metadata": {
+      "trace_id": "trace-44268",
+      "span_id": "span-8104"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T16:55:00Z",
+    "log_id": "log-0048",
+    "level": "INFO",
+    "service": "product-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/users",
+      "status_code": 201,
+      "response_time_ms": 16
+    },
+    "client": {
+      "ip": "192.168.240.122",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-67400",
+      "span_id": "span-6645"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:00:00Z",
+    "log_id": "log-0049",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-4.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "GET",
+      "endpoint": "/api/health",
+      "status_code": 204,
+      "response_time_ms": 190
+    },
+    "client": {
+      "ip": "192.168.242.76",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-22729",
+      "span_id": "span-7412"
+    }
+  },
+  {
+    "@timestamp": "2025-12-01T17:05:00Z",
+    "log_id": "log-0050",
+    "level": "INFO",
+    "service": "user-service",
+    "host": "server-3.example.com",
+    "message": "Request completed successfully",
+    "http": {
+      "method": "PUT",
+      "endpoint": "/api/search",
+      "status_code": 204,
+      "response_time_ms": 193
+    },
+    "client": {
+      "ip": "192.168.234.52",
+      "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+    },
+    "metadata": {
+      "trace_id": "trace-93315",
+      "span_id": "span-6354"
+    }
+  }
+]
