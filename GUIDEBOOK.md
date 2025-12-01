@@ -4,7 +4,7 @@ This guidebook provides comprehensive instructions for running the Elastic Logs 
 
 ## Overview
 
-This demonstration showcases how to analyze Elastic Logs for various issues using Devin's AI-powered analysis capabilities. The system performs three types of analysis on log data: application error detection, security threat identification, and performance issue analysis.
+This demonstration showcases how to analyze Elastic Logs for various issues using Devin's AI-powered analysis capabilities. The system performs three types of analysis on log data: application error detection, security threat identification, and performance issue analysis. Additionally, it includes a Docker code scanning use case to identify security vulnerabilities and best practice violations in Dockerfiles.
 
 ## Prerequisites
 
@@ -29,13 +29,17 @@ elastic_logs/
 │   ├── analyze_security.py        # Security analysis script
 │   ├── analyze_performance.py     # Performance analysis script
 │   ├── run_all_analyses.py        # Combined analysis script
-│   └── trigger_playbook.py        # Playbook trigger script
+│   ├── trigger_playbook.py        # Playbook trigger script
+│   └── analyze_docker.py          # Docker scanning script
+├── docker/                        # Sample Docker files
+│   └── Dockerfile                 # Sample Dockerfile with issues
 ├── playbook/                      # Playbook definitions
 │   └── elastic_logs_analysis.yaml # Main analysis playbook
 ├── analysis/                      # Analysis results (generated)
 ├── .github/workflows/             # GitHub Actions workflows
 │   ├── analyze_logs.yml           # Individual analysis workflow
-│   └── analyze_logs_playbook.yml  # Playbook-based workflow
+│   ├── analyze_logs_playbook.yml  # Playbook-based workflow
+│   └── docker_scan.yml            # Docker scanning workflow
 └── GUIDEBOOK.md                   # This file
 ```
 
@@ -231,6 +235,58 @@ If workflows fail:
 2. Verify the DEVIN_API_KEY secret is configured
 3. Ensure the log file path is correct
 
+## Docker Code Scanning
+
+The repository includes a Docker code scanning use case that analyzes Dockerfiles for security vulnerabilities, best practice violations, and performance issues.
+
+### Running Docker Analysis
+
+To scan a Dockerfile for issues:
+
+```bash
+python script/analyze_docker.py docker/Dockerfile analysis
+```
+
+To scan all Dockerfiles in a directory:
+
+```bash
+python script/analyze_docker.py docker/ analysis
+```
+
+### Docker Scanning Workflow
+
+The `docker_scan.yml` workflow automatically triggers when Dockerfiles are added or modified. It scans for:
+
+1. Security vulnerabilities (hardcoded secrets, running as root)
+2. Best practice violations (using 'latest' tag, inefficient layers)
+3. Performance issues (large base images, unnecessary packages)
+4. Maintainability concerns (missing labels, documentation)
+
+To manually trigger this workflow:
+1. Go to the repository's Actions tab
+2. Select "Scan Docker Code"
+3. Click "Run workflow"
+4. Optionally specify a custom Dockerfile path
+
+### Sample Dockerfile
+
+The repository includes a sample Dockerfile at `docker/Dockerfile` that intentionally contains common issues for demonstration purposes, including hardcoded secrets, running as root, using the 'latest' tag, and inefficient layer caching.
+
+### Docker Analysis Results
+
+Docker analysis results are saved to the `analysis/` directory with the format `docker_analysis_Dockerfile_YYYYMMDD_HHMMSS.json` and include the Dockerfile content, analysis timestamp, and Devin session information.
+
+## Important Notes on GitHub Actions
+
+The GitHub Actions workflows are configured to skip execution when the `DEVIN_API_KEY` secret is not configured. This ensures CI passes even without the secret, but actual analysis only runs when the key is properly set up.
+
+To enable full analysis functionality:
+1. Go to your repository's Settings > Secrets and variables > Actions
+2. Add a new repository secret named `DEVIN_API_KEY`
+3. Set the value to your Devin API key
+
+Without the secret configured, workflows will show as "skipped" rather than "failed".
+
 ## Best Practices
 
 1. Always review analysis results before taking action
@@ -238,6 +294,7 @@ If workflows fail:
 3. Archive analysis results for historical tracking
 4. Regularly update log files to reflect current system state
 5. Monitor Devin session URLs for detailed analysis insights
+6. Configure the DEVIN_API_KEY secret to enable automated analysis
 
 ## Support
 

@@ -1,0 +1,68 @@
+name: Scan Docker Code
+
+on:
+  push:
+    paths:
+      - 'docker/**'
+      - '**/Dockerfile*'
+  pull_request:
+    paths:
+      - 'docker/**'
+      - '**/Dockerfile*'
+  workflow_dispatch:
+    inputs:
+      dockerfile_path:
+        description: 'Path to the Dockerfile or directory to scan'
+        required: false
+        default: 'docker/Dockerfile'
+
+jobs:
+  scan-docker:
+    name: Scan Dockerfiles for Issues
+    runs-on: ubuntu-latest
+    if: ${{ secrets.DEVIN_API_KEY != '' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Run Docker analysis
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          python script/analyze_docker.py \
+            ${{ github.event.inputs.dockerfile_path || 'docker' }} \
+            analysis
+
+      - name: Upload Docker analysis results
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-analysis-results
+          path: analysis/docker_analysis_*.json
+          if-no-files-found: ignore
+
+      - name: Display scan summary
+        run: |
+          echo "## Docker Code Scan Complete"
+          echo ""
+          echo "Devin has analyzed the Dockerfiles for:"
+          echo "- Security vulnerabilities (hardcoded secrets, running as root)"
+          echo "- Best practice violations (latest tags, inefficient layers)"
+          echo "- Performance issues (large base images, unnecessary packages)"
+          echo "- Maintainability concerns (missing labels, documentation)"
+          echo ""
+          echo "Check the Devin session URL in the analysis results for detailed findings."
+          if ls analysis/docker_analysis_*.json 1> /dev/null 2>&1; then
+            echo ""
+            echo "Analysis results:"
+            cat analysis/docker_analysis_*.json
+          fi
