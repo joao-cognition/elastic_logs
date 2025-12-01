@@ -12,14 +12,26 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
       
-      - name: Get changed log file
-        id: changed-file
+      - name: Get added log files
+        id: added-files
         run: |
-          files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^logs/' | head -n1)
-          echo "file=${files}" >> $GITHUB_OUTPUT
+          # Get only added files (not modified or deleted) in logs/
+          added=$(git diff --name-only --diff-filter=A ${{ github.event.before }} ${{ github.sha }} | grep '^logs/.*\.json$' || echo "")
+          if [ -z "$added" ]; then
+            echo "No new log files added"
+            echo "files=" >> $GITHUB_OUTPUT
+          else
+            echo "Added files: $added"
+            # Convert to JSON array
+            files_json=$(echo "$added" | jq -R -s -c 'split("\n") | map(select(length > 0))')
+            echo "files=$files_json" >> $GITHUB_OUTPUT
+          fi
       
-      - name: Trigger 3 Devin sessions
+      - name: Trigger Devin sessions for each file
+        if: steps.added-files.outputs.files != ''
         env:
           DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
         run: |
@@ -30,29 +42,38 @@ jobs:
           from datetime import datetime
           
           api_key = os.environ.get("DEVIN_API_KEY")
-          log_file = "${{ steps.changed-file.outputs.file }}"
+          files_json = '${{ steps.added-files.outputs.files }}'
+          
+          if not files_json or files_json == '':
+              print("No files to process")
+              exit(0)
+          
+          log_files = json.loads(files_json)
           timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
           
-          prompts = {
-              "error": f"Read {log_file}. Count all entries with level='ERROR'. Group by: status_code, service_name, error_message. List top 10 most frequent errors. Save as error_report_{timestamp}.html in analysis/",
-              "performance": f"Read {log_file}. Calculate response_time stats: min, max, avg, p95, p99. List slowest 10 endpoints. Identify any response_time > 1000ms. Save as performance_report_{timestamp}.html in analysis/",
-              "security": f"Read {log_file}. Find: status_code=401/403 entries, unique IPs with >10 failed requests, any SQL/XSS patterns in request_path. Save as security_report_{timestamp}.html in analysis/"
-          }
-          
-          for name, prompt in prompts.items():
-              payload = {"prompt": prompt}
-              data = json.dumps(payload).encode('utf-8')
-              request = Request(
-                  "https://api.devin.ai/v1/sessions",
-                  data=data,
-                  headers={
-                      "Authorization": f"Bearer {api_key}",
-                      "Content-Type": "application/json",
-                  },
-                  method="POST"
-              )
+          for log_file in log_files:
+              print(f"\n=== Processing {log_file} ===")
               
-              with urlopen(request, timeout=30) as response:
-                  result = json.loads(response.read().decode('utf-8'))
-                  print(f"{name} analysis: {result['url']}")
+              prompts = {
+                  "error": f"Read {log_file}. Count all entries with level='ERROR'. Group by: status_code, service_name, error_message. List top 10 most frequent errors. Save as error_report_{timestamp}.html in analysis/",
+                  "performance": f"Read {log_file}. Calculate response_time stats: min, max, avg, p95, p99. List slowest 10 endpoints. Identify any response_time > 1000ms. Save as performance_report_{timestamp}.html in analysis/",
+                  "security": f"Read {log_file}. Find: status_code=401/403 entries, unique IPs with >10 failed requests, any SQL/XSS patterns in request_path. Save as security_report_{timestamp}.html in analysis/"
+              }
+              
+              for name, prompt in prompts.items():
+                  payload = {"prompt": prompt}
+                  data = json.dumps(payload).encode('utf-8')
+                  request = Request(
+                      "https://api.devin.ai/v1/sessions",
+                      data=data,
+                      headers={
+                          "Authorization": f"Bearer {api_key}",
+                          "Content-Type": "application/json",
+                      },
+                      method="POST"
+                  )
+                  
+                  with urlopen(request, timeout=30) as response:
+                      result = json.loads(response.read().decode('utf-8'))
+                      print(f"  {name}: {result['url']}")
           EOF
