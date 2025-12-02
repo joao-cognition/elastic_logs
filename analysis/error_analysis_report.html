@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Analysis Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #d32f2f;
+            border-bottom: 3px solid #d32f2f;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #1976d2;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #388e3c;
+        }
+        .summary-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .metric {
+            display: inline-block;
+            background: #e3f2fd;
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1976d2;
+        }
+        .metric-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #1976d2;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .critical {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .high {
+            background-color: #fff3e0;
+            color: #e65100;
+        }
+        .medium {
+            background-color: #fff8e1;
+            color: #f57f17;
+        }
+        .remediation {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        .remediation ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .timestamp {
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Error Analysis Report</h1>
+    <p class="timestamp">Generated: 2025-12-02T11:57:14.287177</p>
+
+    <div class="summary-card">
+        <h2>Executive Summary</h2>
+        <div class="metric">
+            <div class="metric-value">11</div>
+            <div class="metric-label">Total Errors</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">5</div>
+            <div class="metric-label">Services Affected</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">4</div>
+            <div class="metric-label">Error Types</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">4</div>
+            <div class="metric-label">Error Cascades</div>
+        </div>
+    </div>
+
+    <div class="summary-card">
+        <h2>1. Error Frequency Analysis</h2>
+
+        <h3>1.1 Errors by HTTP Status Code</h3>
+        <table>
+            <tr><th>Status Code</th><th>Count</th><th>Description</th></tr>
+            <tr><td>500</td><td>1</td><td>Internal Server Error</td></tr><tr><td>502</td><td>2</td><td>Bad Gateway</td></tr><tr><td>503</td><td>6</td><td>Service Unavailable</td></tr><tr><td>504</td><td>2</td><td>Gateway Timeout</td></tr>
+        </table>
+
+        <h3>1.2 Errors by Service</h3>
+        <table>
+            <tr><th>Service</th><th>Error Count</th><th>Impact Level</th></tr>
+            <tr class='high'><td>security-monitor</td><td>3</td><td>High</td></tr><tr class='high'><td>order-service</td><td>3</td><td>High</td></tr><tr class='medium'><td>product-service</td><td>2</td><td>Medium</td></tr><tr class='medium'><td>cache-service</td><td>2</td><td>Medium</td></tr><tr class='medium'><td>api-gateway</td><td>1</td><td>Medium</td></tr>
+        </table>
+
+        <h3>1.3 Errors by Message Type</h3>
+        <table>
+            <tr><th>Error Message</th><th>Count</th></tr>
+            <tr><td>Internal server error: database connection pool exhausted</td><td>4</td></tr><tr><td>Request timeout: upstream service unavailable</td><td>3</td></tr><tr><td>Internal server error: out of memory exception</td><td>2</td></tr><tr><td>Connection refused: service unreachable</td><td>2</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>2. Root Cause Analysis</h2>
+        
+    <div class="remediation">
+        <h3>Request timeout: upstream service unavailable</h3>
+        <p><strong>Occurrences:</strong> 3</p>
+        <p><strong>Affected Services:</strong> product-service, security-monitor, order-service</p>
+        <p><strong>Root Cause:</strong> Upstream service is down or unreachable</p>
+        <p><strong>Remediation Steps:</strong></p>
+        <ul>
+            <li>Implement circuit breaker pattern</li><li>Add retry logic with exponential backoff</li><li>Set up health checks for upstream services</li><li>Configure fallback mechanisms</li>
+        </ul>
+    </div>
+    
+    <div class="remediation">
+        <h3>Internal server error: database connection pool exhausted</h3>
+        <p><strong>Occurrences:</strong> 4</p>
+        <p><strong>Affected Services:</strong> security-monitor, api-gateway, order-service</p>
+        <p><strong>Root Cause:</strong> Database connection pool is exhausted due to high load or connection leaks</p>
+        <p><strong>Remediation Steps:</strong></p>
+        <ul>
+            <li>Increase connection pool size</li><li>Implement connection pooling best practices</li><li>Add connection timeout and retry logic</li><li>Monitor and close idle connections</li>
+        </ul>
+    </div>
+    
+    <div class="remediation">
+        <h3>Internal server error: out of memory exception</h3>
+        <p><strong>Occurrences:</strong> 2</p>
+        <p><strong>Affected Services:</strong> security-monitor, cache-service</p>
+        <p><strong>Root Cause:</strong> Application is running out of memory due to memory leaks or insufficient allocation</p>
+        <p><strong>Remediation Steps:</strong></p>
+        <ul>
+            <li>Increase heap size allocation</li><li>Profile application for memory leaks</li><li>Implement proper garbage collection tuning</li><li>Add memory monitoring and alerts</li>
+        </ul>
+    </div>
+    
+    <div class="remediation">
+        <h3>Connection refused: service unreachable</h3>
+        <p><strong>Occurrences:</strong> 2</p>
+        <p><strong>Affected Services:</strong> product-service, cache-service</p>
+        <p><strong>Root Cause:</strong> Network connectivity issues or service crash</p>
+        <p><strong>Remediation Steps:</strong></p>
+        <ul>
+            <li>Check network configuration</li><li>Verify service health and restart if needed</li><li>Implement service discovery</li><li>Add redundancy and load balancing</li>
+        </ul>
+    </div>
+    
+    </div>
+
+    <div class="summary-card">
+        <h2>3. Error Timeline</h2>
+        <table>
+            <tr><th>Timestamp</th><th>Log ID</th><th>Service</th><th>Status</th><th>Message</th></tr>
+            <tr><td class='timestamp'>2025-11-29T11:00:00Z</td><td>log-0013</td><td>security-monitor</td><td>502</td><td>Request timeout: upstream service unavailable...</td></tr><tr><td class='timestamp'>2025-11-29T11:35:00Z</td><td>log-0020</td><td>security-monitor</td><td>504</td><td>Internal server error: database connection pool ex...</td></tr><tr><td class='timestamp'>2025-11-29T13:05:00Z</td><td>log-0038</td><td>order-service</td><td>502</td><td>Internal server error: database connection pool ex...</td></tr><tr><td class='timestamp'>2025-11-29T13:10:00Z</td><td>log-0039</td><td>order-service</td><td>500</td><td>Request timeout: upstream service unavailable...</td></tr><tr><td class='timestamp'>2025-11-29T13:50:00Z</td><td>log-0047</td><td>api-gateway</td><td>504</td><td>Internal server error: database connection pool ex...</td></tr><tr><td class='timestamp'>2025-11-29T13:55:00Z</td><td>log-0048</td><td>product-service</td><td>503</td><td>Request timeout: upstream service unavailable...</td></tr><tr><td class='timestamp'>2025-11-29T14:35:00Z</td><td>log-0056</td><td>order-service</td><td>503</td><td>Internal server error: database connection pool ex...</td></tr><tr><td class='timestamp'>2025-11-29T14:40:00Z</td><td>log-0057</td><td>security-monitor</td><td>503</td><td>Internal server error: out of memory exception...</td></tr><tr><td class='timestamp'>2025-11-29T14:50:00Z</td><td>log-0059</td><td>cache-service</td><td>503</td><td>Connection refused: service unreachable...</td></tr><tr><td class='timestamp'>2025-11-29T14:55:00Z</td><td>log-0060</td><td>product-service</td><td>503</td><td>Connection refused: service unreachable...</td></tr><tr><td class='timestamp'>2025-11-29T18:00:00Z</td><td>log-0097</td><td>cache-service</td><td>503</td><td>Internal server error: out of memory exception...</td></tr>
+        </table>
+        <p><em>Showing first 20 errors. Total: 11</em></p>
+    </div>
+
+    <div class="summary-card">
+        <h2>4. Error Cascades Detected</h2>
+        
+    <div style="background: #fff3e0; padding: 10px; margin: 10px 0; border-radius: 5px;">
+        <p><strong>Trigger:</strong> order-service - Internal server error: database connection pool ex...</p>
+        <p><strong>Subsequent:</strong> order-service - Request timeout: upstream service unavailable...</p>
+        <p><strong>Time Difference:</strong> 300.0s</p>
+    </div>
+    
+    <div style="background: #fff3e0; padding: 10px; margin: 10px 0; border-radius: 5px;">
+        <p><strong>Trigger:</strong> api-gateway - Internal server error: database connection pool ex...</p>
+        <p><strong>Subsequent:</strong> product-service - Request timeout: upstream service unavailable...</p>
+        <p><strong>Time Difference:</strong> 300.0s</p>
+    </div>
+    
+    <div style="background: #fff3e0; padding: 10px; margin: 10px 0; border-radius: 5px;">
+        <p><strong>Trigger:</strong> order-service - Internal server error: database connection pool ex...</p>
+        <p><strong>Subsequent:</strong> security-monitor - Internal server error: out of memory exception...</p>
+        <p><strong>Time Difference:</strong> 300.0s</p>
+    </div>
+    
+    <div style="background: #fff3e0; padding: 10px; margin: 10px 0; border-radius: 5px;">
+        <p><strong>Trigger:</strong> cache-service - Connection refused: service unreachable...</p>
+        <p><strong>Subsequent:</strong> product-service - Connection refused: service unreachable...</p>
+        <p><strong>Time Difference:</strong> 300.0s</p>
+    </div>
+    
+        <p><em>Showing first 10 cascades. Total: 4</em></p>
+    </div>
+
+    <div class="summary-card">
+        <h2>5. Endpoint Error Rates</h2>
+        <table>
+            <tr><th>Endpoint</th><th>Total Requests</th><th>Errors</th><th>Error Rate</th></tr>
+            <tr><td>/api/orders</td><td>7</td><td>2</td><td>28.57%</td></tr><tr><td>/api/users</td><td>16</td><td>3</td><td>18.75%</td></tr><tr><td>/api/products</td><td>13</td><td>2</td><td>15.38%</td></tr><tr><td>/api/reports</td><td>20</td><td>2</td><td>10.0%</td></tr><tr><td>/api/search</td><td>16</td><td>1</td><td>6.25%</td></tr><tr><td>/api/health</td><td>19</td><td>1</td><td>5.26%</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>6. Service Impact Assessment</h2>
+        <table>
+            <tr><th>Service</th><th>Error Count</th><th>Impact Level</th><th>% of Total</th></tr>
+            <tr class='high'><td>security-monitor</td><td>3</td><td>High</td><td>3.0%</td></tr><tr class='high'><td>order-service</td><td>3</td><td>High</td><td>3.0%</td></tr><tr class='medium'><td>product-service</td><td>2</td><td>Medium</td><td>2.0%</td></tr><tr class='medium'><td>cache-service</td><td>2</td><td>Medium</td><td>2.0%</td></tr><tr class='medium'><td>api-gateway</td><td>1</td><td>Medium</td><td>1.0%</td></tr>
+        </table>
+    </div>
+</body>
+</html>
