@@ -44,19 +44,6 @@ Generate a Devin API Key to enable programmatic access to Devin's analysis capab
 
 The API key will be used in subsequent steps to authenticate requests to Devin's API for log analysis.
 
-### Step 2: GitHub Secrets Configuration
-
-Add the generated API Key to GitHub Secrets to enable secure access from GitHub Actions.
-
-1. Navigate to your GitHub repository (joao-cognition/elastic_logs)
-2. Go to **Settings** > **Secrets and variables** > **Actions**
-3. Click **New repository secret**
-4. Name the secret `DEVIN_API_KEY`
-5. Paste your API key as the value
-6. Click **Add secret**
-
-This secret will be available to GitHub Actions workflows for authenticating with Devin's API.
-
 ### Step 3: IDE Analysis
 
 Run analysis sessions directly from your IDE to analyze a specific log file.
@@ -90,6 +77,19 @@ This script (`script/analyze_logs.py`) triggers three parallel Devin sessions:
 The script saves session information to the `analysis/` directory and provides URLs to track each analysis session.
 
 ### Step 5: Automate Analysis on New Files
+
+# GitHub Secrets Configuration
+
+Add the generated API Key to GitHub Secrets to enable secure access from GitHub Actions.
+
+1. Navigate to your GitHub repository (joao-cognition/elastic_logs)
+2. Go to **Settings** > **Secrets and variables** > **Actions**
+3. Click **New repository secret**
+4. Name the secret `DEVIN_API_KEY`
+5. Paste your API key as the value
+6. Click **Add secret**
+
+This secret will be available to GitHub Actions workflows for authenticating with Devin's API.
 
 Set up a GitHub Action to automatically run log analysis whenever a new file is added to the `logs/` directory.
 
