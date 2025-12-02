@@ -47,7 +47,7 @@ jobs:
               
               # Trigger playbook with log file as input
               payload = {
-                  "prompt": f"@elastic_logs Run playbook !logs_analysis on {log_file}"
+                  "prompt": f"@elastic_logs Run playbook !logs_analysis on {log_file}. Follow coding guidelines !coding-guidelines. Save all HTML reports to analysis/ folder."
               }
               
               data = json.dumps(payload).encode('utf-8')
