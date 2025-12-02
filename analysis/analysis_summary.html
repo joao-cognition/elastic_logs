@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elastic Logs Analysis Summary</title>
+    
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+        h3 {
+            color: #7f8c8d;
+        }
+        .summary-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .summary-box h2 {
+            color: white;
+            border-left-color: white;
+        }
+        .metric {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .metric-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .severity-critical {
+            background-color: #e74c3c;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+        .severity-high {
+            background-color: #e67e22;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+        .severity-medium {
+            background-color: #f39c12;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+        .severity-low {
+            background-color: #27ae60;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+        }
+        .status-healthy {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .status-degraded {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        .status-unhealthy {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin: 15px 0;
+        }
+        .recommendation {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 10px 0;
+        }
+        code {
+            background: #f8f9fa;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .timestamp {
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+        footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+    </style>
+    
+</head>
+<body>
+    <h1>Elastic Logs Analysis Summary</h1>
+    <p class="timestamp">Generated: 2025-12-02 11:34:34 UTC</p>
+
+    <div class="summary-box">
+        <h2>Analysis Summary</h2>
+        <p>Comprehensive analysis of Elastic logs covering error patterns, security issues, and performance anomalies.</p>
+    </div>
+
+    <div class="card">
+        <h2>Error Analysis Summary</h2>
+        <table>
+            <tr><th>Metric</th><th>Value</th></tr>
+            <tr><td>Total Logs Analyzed</td><td>100</td></tr>
+            <tr><td>Total Errors</td><td>11</td></tr>
+            <tr><td>Error Rate</td><td>11.0%</td></tr>
+            <tr><td>Unique Error Types</td><td>4</td></tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Security Analysis Summary</h2>
+        <table>
+            <tr><th>Metric</th><th>Value</th></tr>
+            <tr><td>Total Security Events</td><td>35</td></tr>
+            <tr><td>Critical Findings</td><td><span class="severity-critical">1</span></td></tr>
+            <tr><td>High Findings</td><td><span class="severity-high">2</span></td></tr>
+            <tr><td>Medium Findings</td><td><span class="severity-medium">1</span></td></tr>
+            <tr><td>Low Findings</td><td><span class="severity-low">1</span></td></tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Performance Analysis Summary</h2>
+        <table>
+            <tr><th>Metric</th><th>Value</th></tr>
+            <tr><td>Requests Analyzed</td><td>100</td></tr>
+            <tr><td>Average Response Time</td><td>3077ms</td></tr>
+            <tr><td>P95 Response Time</td><td>20609.75ms</td></tr>
+            <tr><td>P99 Response Time</td><td>27579.74ms</td></tr>
+            <tr><td>Slow Endpoints</td><td>7</td></tr>
+            <tr><td>Response Time Spikes</td><td>16</td></tr>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Key Findings</h2>
+        <h3>Critical Security Issues</h3><ul>
+            <li><span class='severity-critical'>CRITICAL</span> SQL Injection attempts detected: 12 incidents</li>
+        </ul>
+        <h3>High Priority Issues</h3><ul>
+            <li><span class='severity-high'>HIGH</span> Attack tools detected: 22 requests</li>
+            <li><span class='severity-high'>HIGH</span> Unauthorized access attempts: 7 incidents</li>
+        </ul>
+        <h3>Performance Recommendations</h3><ul>
+            <li>Optimize 7 slow endpoints with avg response time > 1000ms</li>
+            <li>Investigate 7 disk I/O latency issues</li>
+            <li>Increase database connection pool size to prevent exhaustion</li>
+            <li>Investigate 16 response time spikes (>10s)</li>
+            <li>Address issues in unhealthy services: order-service, cache-service</li>
+        </ul>
+        <h3>Error Root Causes</h3><ul>
+            <li><strong>Internal server error: database connection pool exhausted</strong> (4 occurrences): Database connection pool exhaustion</li>
+            <li><strong>Request timeout: upstream service unavailable</strong> (3 occurrences): Upstream service unavailability or network issues</li>
+            <li><strong>Internal server error: out of memory exception</strong> (2 occurrences): Memory exhaustion</li>
+            <li><strong>Connection refused: service unreachable</strong> (2 occurrences): Application-level error</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>Recommended Actions</h2>
+        <ol>
+            <li>Immediately investigate and remediate critical security findings (SQL injection, XSS attempts)</li>
+            <li>Address high-priority security issues including brute force attacks and attack tool usage</li>
+            <li>Optimize 7 slow endpoints with response times > 1000ms</li>
+            <li>Investigate 16 response time spikes exceeding 10 seconds</li>
+            <li>Reduce error rate from 11.0% to below 5%</li>
+        </ol>
+    </div>
+
+    <footer>
+        <p>Elastic Logs Analysis Report - Generated by Comprehensive Log Analyzer</p>
+    </footer>
+</body>
+</html>
