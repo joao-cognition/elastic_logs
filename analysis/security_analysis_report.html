@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Analysis Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #c62828;
+            border-bottom: 3px solid #c62828;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #1976d2;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #388e3c;
+        }
+        .summary-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .metric {
+            display: inline-block;
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .metric-critical {
+            background: #ffebee;
+        }
+        .metric-high {
+            background: #fff3e0;
+        }
+        .metric-medium {
+            background: #fff8e1;
+        }
+        .metric-low {
+            background: #e8f5e9;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+        }
+        .metric-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #c62828;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .severity-critical {
+            background-color: #ffebee;
+            border-left: 4px solid #c62828;
+        }
+        .severity-high {
+            background-color: #fff3e0;
+            border-left: 4px solid #e65100;
+        }
+        .severity-medium {
+            background-color: #fff8e1;
+            border-left: 4px solid #f57f17;
+        }
+        .severity-low {
+            background-color: #e8f5e9;
+            border-left: 4px solid #388e3c;
+        }
+        .alert-box {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+        .timestamp {
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .ip-address {
+            font-family: monospace;
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Security Analysis Report</h1>
+    <p class="timestamp">Generated: 2025-12-02T11:57:14.287430</p>
+
+    <div class="summary-card">
+        <h2>Executive Summary</h2>
+        <div class="metric metric-critical">
+            <div class="metric-value" style="color: #c62828;">12</div>
+            <div class="metric-label">Critical</div>
+        </div>
+        <div class="metric metric-high">
+            <div class="metric-value" style="color: #e65100;">29</div>
+            <div class="metric-label">High</div>
+        </div>
+        <div class="metric metric-medium">
+            <div class="metric-value" style="color: #f57f17;">11</div>
+            <div class="metric-label">Medium</div>
+        </div>
+        <div class="metric metric-low">
+            <div class="metric-value" style="color: #388e3c;">0</div>
+            <div class="metric-label">Low</div>
+        </div>
+        <p><strong>Total Security Findings:</strong> 28</p>
+    </div>
+
+    <div class="summary-card severity-critical">
+        <h2>1. SQL Injection Attempts</h2>
+        <p><strong>Total Detected:</strong> 12</p>
+        <table>
+            <tr><th>Timestamp</th><th>IP Address</th><th>Endpoint</th><th>Payload</th></tr>
+            <tr><td class='timestamp'>2025-11-29T10:35:00Z</td><td class='ip-address'>192.168.189.24</td><td>/api/users</td><td><code>N/A</code></td></tr><tr><td class='timestamp'>2025-11-29T11:25:00Z</td><td class='ip-address'>192.168.242.44</td><td>/api/users</td><td><code>' OR '1'='1</code></td></tr><tr><td class='timestamp'>2025-11-29T12:50:00Z</td><td class='ip-address'>192.168.234.234</td><td>/api/products</td><td><code>N/A</code></td></tr><tr><td class='timestamp'>2025-11-29T13:20:00Z</td><td class='ip-address'>192.168.170.144</td><td>/api/health</td><td><code>N/A</code></td></tr><tr><td class='timestamp'>2025-11-29T14:25:00Z</td><td class='ip-address'>192.168.18.89</td><td>/api/checkout</td><td><code>N/A</code></td></tr><tr><td class='timestamp'>2025-11-29T15:00:00Z</td><td class='ip-address'>192.168.41.19</td><td>/api/reports</td><td><code>N/A</code></td></tr><tr><td class='timestamp'>2025-11-29T15:10:00Z</td><td class='ip-address'>192.168.53.217</td><td>/api/products</td><td><code>' OR '1'='1</code></td></tr><tr><td class='timestamp'>2025-11-29T15:15:00Z</td><td class='ip-address'>192.168.125.242</td><td>/api/search</td><td><code>N/A</code></td></tr><tr><td class='timestamp'>2025-11-29T15:35:00Z</td><td class='ip-address'>192.168.212.147</td><td>/api/reports</td><td><code>' OR '1'='1</code></td></tr><tr><td class='timestamp'>2025-11-29T16:45:00Z</td><td class='ip-address'>192.168.115.23</td><td>/api/search</td><td><code>N/A</code></td></tr>
+        </table>
+        <div class="alert-box" style="background: #ffebee;">
+            <strong>Recommendation:</strong> Implement parameterized queries, input validation, and WAF rules to block SQL injection patterns.
+        </div>
+    </div>
+
+    <div class="summary-card severity-high">
+        <h2>2. Unauthorized Access Attempts</h2>
+        <p><strong>Total Detected:</strong> 7</p>
+        <table>
+            <tr><th>Timestamp</th><th>IP Address</th><th>Target Resource</th><th>Endpoint</th></tr>
+            <tr><td class='timestamp'>2025-11-29T11:30:00Z</td><td class='ip-address'>192.168.158.198</td><td>/admin/users</td><td>/api/health</td></tr><tr><td class='timestamp'>2025-11-29T12:10:00Z</td><td class='ip-address'>192.168.116.149</td><td>/admin/users</td><td>/api/health</td></tr><tr><td class='timestamp'>2025-11-29T12:50:00Z</td><td class='ip-address'>192.168.234.234</td><td>/admin/users</td><td>/api/products</td></tr><tr><td class='timestamp'>2025-11-29T13:20:00Z</td><td class='ip-address'>192.168.170.144</td><td>/admin/users</td><td>/api/health</td></tr><tr><td class='timestamp'>2025-11-29T14:25:00Z</td><td class='ip-address'>192.168.18.89</td><td>/admin/users</td><td>/api/checkout</td></tr><tr><td class='timestamp'>2025-11-29T16:25:00Z</td><td class='ip-address'>192.168.253.162</td><td>/admin/users</td><td>/api/health</td></tr><tr><td class='timestamp'>2025-11-29T17:15:00Z</td><td class='ip-address'>192.168.95.99</td><td>/admin/users</td><td>/api/products</td></tr>
+        </table>
+        <div class="alert-box" style="background: #fff3e0;">
+            <strong>Recommendation:</strong> Review access control policies, implement proper authentication, and monitor admin endpoint access.
+        </div>
+    </div>
+
+    <div class="summary-card severity-critical">
+        <h2>3. Potential Brute Force Attacks</h2>
+        <p><strong>Suspicious IPs Detected:</strong> 0</p>
+        <table>
+            <tr><th>IP Address</th><th>Failed Attempts</th><th>Severity</th></tr>
+            
+        </table>
+        <div class="alert-box" style="background: #ffebee;">
+            <strong>Recommendation:</strong> Implement account lockout policies, CAPTCHA, and IP-based rate limiting.
+        </div>
+    </div>
+
+    <div class="summary-card severity-medium">
+        <h2>4. Rate Limit Violations</h2>
+        <p><strong>Total Violations:</strong> 9</p>
+        <table>
+            <tr><th>Timestamp</th><th>IP Address</th><th>Endpoint</th><th>Requests/Min</th></tr>
+            <tr><td class='timestamp'>2025-11-29T10:35:00Z</td><td class='ip-address'>192.168.189.24</td><td>/api/users</td><td>150</td></tr><tr><td class='timestamp'>2025-11-29T10:50:00Z</td><td class='ip-address'>192.168.127.22</td><td>/api/checkout</td><td>150</td></tr><tr><td class='timestamp'>2025-11-29T15:00:00Z</td><td class='ip-address'>192.168.41.19</td><td>/api/reports</td><td>150</td></tr><tr><td class='timestamp'>2025-11-29T15:10:00Z</td><td class='ip-address'>192.168.53.217</td><td>/api/products</td><td>None</td></tr><tr><td class='timestamp'>2025-11-29T15:15:00Z</td><td class='ip-address'>192.168.125.242</td><td>/api/search</td><td>150</td></tr><tr><td class='timestamp'>2025-11-29T16:25:00Z</td><td class='ip-address'>192.168.253.162</td><td>/api/health</td><td>None</td></tr><tr><td class='timestamp'>2025-11-29T16:45:00Z</td><td class='ip-address'>192.168.115.23</td><td>/api/search</td><td>150</td></tr><tr><td class='timestamp'>2025-11-29T16:50:00Z</td><td class='ip-address'>192.168.219.110</td><td>/api/products</td><td>150</td></tr><tr><td class='timestamp'>2025-11-29T17:15:00Z</td><td class='ip-address'>192.168.95.99</td><td>/api/products</td><td>None</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card severity-high">
+        <h2>5. Suspicious User Agents (Attack Tools)</h2>
+        <p><strong>Total Detected:</strong> 22</p>
+        <table>
+            <tr><th>Timestamp</th><th>IP Address</th><th>Detected Tool</th><th>User Agent</th></tr>
+            <tr><td class='timestamp'>2025-11-29T10:20:00Z</td><td class='ip-address'>192.168.251.235</td><td><strong>sqlmap</strong></td><td>sqlmap/1.5.2</td></tr><tr><td class='timestamp'>2025-11-29T10:55:00Z</td><td class='ip-address'>192.168.165.169</td><td><strong>sqlmap</strong></td><td>sqlmap/1.5.2</td></tr><tr><td class='timestamp'>2025-11-29T11:10:00Z</td><td class='ip-address'>192.168.89.27</td><td><strong>sqlmap</strong></td><td>sqlmap/1.5.2</td></tr><tr><td class='timestamp'>2025-11-29T11:15:00Z</td><td class='ip-address'>192.168.111.110</td><td><strong>sqlmap</strong></td><td>sqlmap/1.5.2</td></tr><tr><td class='timestamp'>2025-11-29T11:50:00Z</td><td class='ip-address'>192.168.70.240</td><td><strong>sqlmap</strong></td><td>sqlmap/1.5.2</td></tr><tr><td class='timestamp'>2025-11-29T11:55:00Z</td><td class='ip-address'>192.168.22.152</td><td><strong>sqlmap</strong></td><td>sqlmap/1.5.2</td></tr><tr><td class='timestamp'>2025-11-29T12:40:00Z</td><td class='ip-address'>192.168.165.106</td><td><strong>sqlmap</strong></td><td>sqlmap/1.5.2</td></tr><tr><td class='timestamp'>2025-11-29T13:10:00Z</td><td class='ip-address'>192.168.209.32</td><td><strong>sqlmap</strong></td><td>sqlmap/1.5.2</td></tr><tr><td class='timestamp'>2025-11-29T13:20:00Z</td><td class='ip-address'>192.168.170.144</td><td><strong>sqlmap</strong></td><td>sqlmap/1.5.2</td></tr><tr><td class='timestamp'>2025-11-29T13:50:00Z</td><td class='ip-address'>192.168.252.31</td><td><strong>sqlmap</strong></td><td>sqlmap/1.5.2</td></tr>
+        </table>
+        <div class="alert-box" style="background: #fff3e0;">
+            <strong>Recommendation:</strong> Block known attack tool signatures at WAF level and investigate source IPs.
+        </div>
+    </div>
+
+    <div class="summary-card severity-medium">
+        <h2>6. Suspicious IP Addresses</h2>
+        <p><strong>Total Suspicious IPs:</strong> 2</p>
+        <table>
+            <tr><th>IP Address</th><th>Reason</th><th>Request Count</th><th>Endpoints Accessed</th></tr>
+            <tr><td class='ip-address'>45.33.32.156</td><td>IP from suspicious range (45.33.x.x)</td><td>1</td><td>/api/search</td></tr><tr><td class='ip-address'>185.220.101.1</td><td>IP from suspicious range (185.220.x.x)</td><td>1</td><td>/api/reports</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>7. Failed Authentication Summary</h2>
+        <p><strong>Total Failed Auth Attempts:</strong> 13</p>
+        <table>
+            <tr><th>Timestamp</th><th>IP Address</th><th>Status Code</th><th>Endpoint</th></tr>
+            <tr><td class='timestamp'>2025-11-29T10:35:00Z</td><td class='ip-address'>192.168.189.24</td><td>403</td><td>/api/users</td></tr><tr><td class='timestamp'>2025-11-29T10:50:00Z</td><td class='ip-address'>192.168.127.22</td><td>401</td><td>/api/checkout</td></tr><tr><td class='timestamp'>2025-11-29T11:25:00Z</td><td class='ip-address'>192.168.242.44</td><td>403</td><td>/api/users</td></tr><tr><td class='timestamp'>2025-11-29T11:30:00Z</td><td class='ip-address'>192.168.158.198</td><td>401</td><td>/api/health</td></tr><tr><td class='timestamp'>2025-11-29T12:10:00Z</td><td class='ip-address'>192.168.116.149</td><td>401</td><td>/api/health</td></tr><tr><td class='timestamp'>2025-11-29T12:50:00Z</td><td class='ip-address'>192.168.234.234</td><td>403</td><td>/api/products</td></tr><tr><td class='timestamp'>2025-11-29T13:20:00Z</td><td class='ip-address'>192.168.170.144</td><td>403</td><td>/api/health</td></tr><tr><td class='timestamp'>2025-11-29T14:25:00Z</td><td class='ip-address'>192.168.18.89</td><td>403</td><td>/api/checkout</td></tr><tr><td class='timestamp'>2025-11-29T15:00:00Z</td><td class='ip-address'>192.168.41.19</td><td>401</td><td>/api/reports</td></tr><tr><td class='timestamp'>2025-11-29T15:15:00Z</td><td class='ip-address'>192.168.125.242</td><td>403</td><td>/api/search</td></tr><tr><td class='timestamp'>2025-11-29T15:35:00Z</td><td class='ip-address'>192.168.212.147</td><td>401</td><td>/api/reports</td></tr><tr><td class='timestamp'>2025-11-29T16:50:00Z</td><td class='ip-address'>192.168.219.110</td><td>401</td><td>/api/products</td></tr><tr><td class='timestamp'>2025-11-29T18:15:00Z</td><td class='ip-address'>192.168.219.102</td><td>403</td><td>/api/search</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>8. Severity Classification Summary</h2>
+        <h3>Critical Findings (12)</h3>
+        <ul>
+            <li>SQL Injection Attempt: 192.168.189.24</li><li>SQL Injection Attempt: 192.168.242.44</li><li>SQL Injection Attempt: 192.168.234.234</li><li>SQL Injection Attempt: 192.168.170.144</li><li>SQL Injection Attempt: 192.168.18.89</li>
+        </ul>
+        <h3>High Findings (29)</h3>
+        <ul>
+            <li>Attack Tool Detected: 192.168.251.235</li><li>Attack Tool Detected: 192.168.165.169</li><li>Attack Tool Detected: 192.168.89.27</li><li>Attack Tool Detected: 192.168.111.110</li><li>Unauthorized Access Attempt: 192.168.158.198</li>
+        </ul>
+    </div>
+</body>
+</html>
