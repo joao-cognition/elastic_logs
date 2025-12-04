@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Performance Anomaly Analysis Report</title>
+    
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 40px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 30px; }
+        h3 { color: #7f8c8d; }
+        .summary-box { background: #ecf0f1; padding: 20px; border-radius: 5px; margin: 20px 0; }
+        .metric { display: inline-block; margin: 10px 20px 10px 0; }
+        .metric-value { font-size: 2em; font-weight: bold; color: #2980b9; }
+        .metric-label { color: #7f8c8d; font-size: 0.9em; }
+        .severity-critical { background: #e74c3c; color: white; padding: 5px 10px; border-radius: 3px; }
+        .severity-high { background: #e67e22; color: white; padding: 5px 10px; border-radius: 3px; }
+        .severity-medium { background: #f39c12; color: white; padding: 5px 10px; border-radius: 3px; }
+        .severity-low { background: #27ae60; color: white; padding: 5px 10px; border-radius: 3px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #3498db; color: white; }
+        tr:hover { background: #f5f5f5; }
+        .status-healthy { color: #27ae60; font-weight: bold; }
+        .status-degraded { color: #f39c12; font-weight: bold; }
+        .status-unhealthy { color: #e74c3c; font-weight: bold; }
+        .recommendation { background: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin: 10px 0; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; color: #7f8c8d; font-size: 0.9em; }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Performance Anomaly Analysis Report</h1>
+        <p>Generated: 2025-12-04 15:43:04 UTC</p>
+        <p>Log File: logs/elastic_logs_30_11_25.json</p>
+
+        <div class="summary-box">
+            <h2>Executive Summary</h2>
+            <div class="metric">
+                <div class="metric-value">100</div>
+                <div class="metric-label">Total Requests</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">3490ms</div>
+                <div class="metric-label">Avg Response Time</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">19957ms</div>
+                <div class="metric-label">P95 Response Time</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">22.0%</div>
+                <div class="metric-label">Slow Requests</div>
+            </div>
+        </div>
+
+        <h2>Response Time Statistics</h2>
+        <table>
+            <tr><th>Metric</th><th>Value</th></tr>
+            <tr><td>Average</td><td>3490.17 ms</td></tr>
+            <tr><td>Median</td><td>181.00 ms</td></tr>
+            <tr><td>Minimum</td><td>53.00 ms</td></tr>
+            <tr><td>Maximum</td><td>27017.00 ms</td></tr>
+            <tr><td>P95</td><td>19957.40 ms</td></tr>
+            <tr><td>P99</td><td>26659.61 ms</td></tr>
+            <tr><td>Standard Deviation</td><td>7125.64 ms</td></tr>
+        </table>
+
+        <h2>Response Time by Endpoint</h2>
+        <table>
+            <tr><th>Endpoint</th><th>Avg (ms)</th><th>P95 (ms)</th><th>P99 (ms)</th><th>Slow Requests</th></tr>
+<tr><td>/api/products</td><td>5709</td><td>17496</td><td>17522</td><td>5</td></tr><tr><td>/api/checkout</td><td>1816</td><td>9120</td><td>17548</td><td>1</td></tr><tr><td>/api/health</td><td>1340</td><td>6220</td><td>14858</td><td>1</td></tr><tr><td>/api/search</td><td>3232</td><td>25894</td><td>26504</td><td>2</td></tr><tr><td>/api/users</td><td>2714</td><td>9499</td><td>13766</td><td>5</td></tr><tr><td>/api/orders</td><td>1870</td><td>12791</td><td>13253</td><td>2</td></tr><tr><td>/api/reports</td><td>8524</td><td>26619</td><td>26937</td><td>6</td></tr></table>
+        <h2>Slow Endpoints (Avg > 1000ms)</h2>
+        <div class="recommendation">
+            <strong>Action Required:</strong> The following endpoints have average response times exceeding 1000ms and require optimization.
+        </div>
+        <table>
+            <tr><th>Endpoint</th><th>Avg Response Time</th><th>Request Count</th></tr>
+<tr><td>/api/products</td><td>5709 ms</td><td>12</td></tr><tr><td>/api/checkout</td><td>1816 ms</td><td>12</td></tr><tr><td>/api/health</td><td>1340 ms</td><td>14</td></tr><tr><td>/api/search</td><td>3232 ms</td><td>17</td></tr><tr><td>/api/users</td><td>2714 ms</td><td>17</td></tr><tr><td>/api/orders</td><td>1870 ms</td><td>15</td></tr><tr><td>/api/reports</td><td>8524 ms</td><td>13</td></tr></table>
+        <h2>Service Health</h2>
+        <table>
+            <tr><th>Service</th><th>Requests</th><th>Error Rate</th><th>Avg Response</th><th>Health Score</th><th>Status</th></tr>
+<tr><td>order-service</td><td>19</td><td>5.3%</td><td>3228ms</td><td>59</td><td class='status-degraded'>DEGRADED</td></tr><tr><td>user-service</td><td>19</td><td>21.1%</td><td>3938ms</td><td>28</td><td class='status-unhealthy'>UNHEALTHY</td></tr><tr><td>cache-service</td><td>23</td><td>13.0%</td><td>3576ms</td><td>44</td><td class='status-unhealthy'>UNHEALTHY</td></tr><tr><td>product-service</td><td>10</td><td>10.0%</td><td>2768ms</td><td>52</td><td class='status-degraded'>DEGRADED</td></tr><tr><td>api-gateway</td><td>19</td><td>21.1%</td><td>3031ms</td><td>28</td><td class='status-unhealthy'>UNHEALTHY</td></tr><tr><td>security-monitor</td><td>10</td><td>20.0%</td><td>4534ms</td><td>30</td><td class='status-unhealthy'>UNHEALTHY</td></tr></table>
+        <h2>Resource Utilization Issues</h2>
+        <p><strong>Memory Issues:</strong> 3</p>
+        <p><strong>I/O Issues:</strong> 2</p>
+        <p><strong>Total Performance Warnings:</strong> 7</p>
+
+        <h2>Database Performance</h2>
+        <p><strong>Slow Queries Detected:</strong> 2</p>
+        <p><strong>Connection Pool Issues:</strong> 3</p>
+
+        <h2>Capacity Planning Insights</h2>
+        <p><strong>Peak Hour:</strong> 10:00 UTC</p>
+        <p><strong>Peak Load:</strong> 12 requests</p>
+        <p><strong>Average Load:</strong> 11.1 requests/hour</p>
+<h3>Recommendations</h3><ul><li class='recommendation'>Consider scaling up services with performance warnings</li><li class='recommendation'>High percentage of slow requests - consider horizontal scaling</li></ul>
+        <h2>Performance Trends</h2>
+        <p><strong>Overall Trend:</strong> <span class="status-healthy">IMPROVING</span></p>
+
+        <div class="footer">
+            <p>Generated by Elastic Logs Analysis Tool</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Security Issue Detection Report</title>
+    
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 40px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 30px; }
+        h3 { color: #7f8c8d; }
+        .summary-box { background: #ecf0f1; padding: 20px; border-radius: 5px; margin: 20px 0; }
+        .metric { display: inline-block; margin: 10px 20px 10px 0; }
+        .metric-value { font-size: 2em; font-weight: bold; color: #2980b9; }
+        .metric-label { color: #7f8c8d; font-size: 0.9em; }
+        .severity-critical { background: #e74c3c; color: white; padding: 5px 10px; border-radius: 3px; }
+        .severity-high { background: #e67e22; color: white; padding: 5px 10px; border-radius: 3px; }
+        .severity-medium { background: #f39c12; color: white; padding: 5px 10px; border-radius: 3px; }
+        .severity-low { background: #27ae60; color: white; padding: 5px 10px; border-radius: 3px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #3498db; color: white; }
+        tr:hover { background: #f5f5f5; }
+        .status-healthy { color: #27ae60; font-weight: bold; }
+        .status-degraded { color: #f39c12; font-weight: bold; }
+        .status-unhealthy { color: #e74c3c; font-weight: bold; }
+        .recommendation { background: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin: 10px 0; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; color: #7f8c8d; font-size: 0.9em; }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Security Issue Detection Report</h1>
+        <p>Generated: 2025-12-04 15:43:04 UTC</p>
+        <p>Log File: logs/elastic_logs_30_11_25.json</p>
+
+        <div class="summary-box">
+            <h2>Executive Summary</h2>
+            <div class="metric">
+                <div class="metric-value">100</div>
+                <div class="metric-label">Total Logs</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">19</div>
+                <div class="metric-label">Security Events</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">1</div>
+                <div class="metric-label">Critical Issues</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">1</div>
+                <div class="metric-label">High Issues</div>
+            </div>
+        </div>
+
+        <h2>Severity Classification</h2>
+<h3><span class='severity-critical'>CRITICAL</span></h3><ul><li><strong>Injection Attacks</strong>: SQL injection or XSS attempts detected (5 occurrences)</li></ul><h3><span class='severity-high'>HIGH</span></h3><ul><li><strong>Unauthorized Access Attempts</strong>: Attempts to access restricted resources (12 occurrences)</li></ul><h3><span class='severity-medium'>MEDIUM</span></h3><ul><li><strong>Rate Limit Violations</strong>: IPs exceeding rate limits (13 occurrences)</li><li><strong>Attack Tool Usage</strong>: Detected tools: sqlmap (29 occurrences)</li></ul>
+        <h2>Injection Attack Analysis</h2>
+        <div class="summary-box">
+            <p><strong>SQL Injection Attempts:</strong> 5</p>
+            <p><strong>XSS Attempts:</strong> 0</p>
+        </div>
+
+        <h3>SQL Injection Details</h3>
+        <table>
+            <tr><th>Timestamp</th><th>IP Address</th><th>Endpoint</th><th>Payload</th></tr>
+<tr><td>2025-11-30T12:45:00Z</td><td>185.220.101.1</td><td>/api/search</td><td><code>' OR '1'='1</code></td></tr><tr><td>2025-11-30T14:35:00Z</td><td>192.168.172.13</td><td>/api/checkout</td><td><code>' OR '1'='1</code></td></tr><tr><td>2025-11-30T16:15:00Z</td><td>192.168.63.127</td><td>/api/reports</td><td><code>' OR '1'='1</code></td></tr><tr><td>2025-11-30T16:20:00Z</td><td>192.168.19.53</td><td>/api/health</td><td><code>' OR '1'='1</code></td></tr><tr><td>2025-11-30T17:40:00Z</td><td>192.168.201.98</td><td>/api/users</td><td><code>' OR '1'='1</code></td></tr></table>
+        <h2>Suspicious IP Analysis</h2>
+        <p>Detected 2 suspicious IP addresses</p>
+        <table>
+            <tr><th>IP Address</th><th>Total Requests</th><th>Security Events</th><th>Reasons</th></tr>
+<tr><td>185.220.101.1</td><td>6</td><td>3</td><td>Known suspicious IP range, Multiple security events (3)</td></tr><tr><td>45.33.32.156</td><td>4</td><td>1</td><td>Known suspicious IP range</td></tr></table>
+        <h2>Attack Tool Detection</h2>
+        <div class="recommendation">
+            <strong>Warning:</strong> The following attack tools were detected: sqlmap
+        </div>
+        <table>
+            <tr><th>Tool</th><th>Usage Count</th></tr>
+<tr><td>sqlmap</td><td>29</td></tr></table>
+        <h2>Rate Limiting Analysis</h2>
+        <p><strong>Total Violations:</strong> 13</p>
+        <p><strong>Unique IPs:</strong> 12</p>
+        <p><strong>Potential DDoS:</strong> No</p>
+
+        <div class="footer">
+            <p>Generated by Elastic Logs Analysis Tool</p>
+        </div>
+    </div>
+</body>
+</html>
