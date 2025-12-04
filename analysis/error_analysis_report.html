@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Error Pattern Analysis Report</title>
+    
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 40px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; margin-top: 30px; }
+        h3 { color: #7f8c8d; }
+        .summary-box { background: #ecf0f1; padding: 20px; border-radius: 5px; margin: 20px 0; }
+        .metric { display: inline-block; margin: 10px 20px 10px 0; }
+        .metric-value { font-size: 2em; font-weight: bold; color: #2980b9; }
+        .metric-label { color: #7f8c8d; font-size: 0.9em; }
+        .severity-critical { background: #e74c3c; color: white; padding: 5px 10px; border-radius: 3px; }
+        .severity-high { background: #e67e22; color: white; padding: 5px 10px; border-radius: 3px; }
+        .severity-medium { background: #f39c12; color: white; padding: 5px 10px; border-radius: 3px; }
+        .severity-low { background: #27ae60; color: white; padding: 5px 10px; border-radius: 3px; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #3498db; color: white; }
+        tr:hover { background: #f5f5f5; }
+        .status-healthy { color: #27ae60; font-weight: bold; }
+        .status-degraded { color: #f39c12; font-weight: bold; }
+        .status-unhealthy { color: #e74c3c; font-weight: bold; }
+        .recommendation { background: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin: 10px 0; }
+        .footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; color: #7f8c8d; font-size: 0.9em; }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <h1>Error Pattern Analysis Report</h1>
+        <p>Generated: 2025-12-04 15:43:04 UTC</p>
+        <p>Log File: logs/elastic_logs_30_11_25.json</p>
+
+        <div class="summary-box">
+            <h2>Executive Summary</h2>
+            <div class="metric">
+                <div class="metric-value">100</div>
+                <div class="metric-label">Total Logs</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">15</div>
+                <div class="metric-label">Total Errors</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">15.0%</div>
+                <div class="metric-label">Error Rate</div>
+            </div>
+        </div>
+
+        <h2>Errors by HTTP Status Code</h2>
+        <table>
+            <tr><th>Status Code</th><th>Count</th><th>Percentage</th><th>Services Affected</th></tr>
+<tr><td>500</td><td>1</td><td>6.7%</td><td>security-monitor</td></tr><tr><td>502</td><td>3</td><td>20.0%</td><td>cache-service, api-gateway</td></tr><tr><td>503</td><td>6</td><td>40.0%</td><td>api-gateway, security-monitor, cache-service, product-service, user-service</td></tr><tr><td>504</td><td>5</td><td>33.3%</td><td>order-service, cache-service, user-service, api-gateway</td></tr>
+        </table>
+
+        <h2>Errors by Service</h2>
+        <table>
+            <tr><th>Service</th><th>Error Count</th><th>Error Rate</th><th>Status Codes</th></tr>
+<tr><td>api-gateway</td><td>4</td><td>26.7%</td><td>504, 502, 503</td></tr><tr><td>cache-service</td><td>3</td><td>20.0%</td><td>504, 502, 503</td></tr><tr><td>order-service</td><td>1</td><td>6.7%</td><td>504</td></tr><tr><td>product-service</td><td>1</td><td>6.7%</td><td>503</td></tr><tr><td>security-monitor</td><td>2</td><td>13.3%</td><td>500, 503</td></tr><tr><td>user-service</td><td>4</td><td>26.7%</td><td>504, 503</td></tr>
+        </table>
+
+        <h2>Root Cause Analysis</h2>
+
+        <h3>Connection refused: service unreachable (5 occurrences)</h3>
+        <p><strong>Potential Causes:</strong></p>
+        <ul>
+<li>Downstream service is down</li><li>Network connectivity issues</li><li>Service overloaded and rejecting connections</li></ul><p><strong>Remediation Steps:</strong></p><ul><li>Implement circuit breaker pattern</li><li>Add retry logic with exponential backoff</li><li>Scale downstream services</li></ul>
+        <h3>Internal server error: out of memory exception (3 occurrences)</h3>
+        <p><strong>Potential Causes:</strong></p>
+        <ul>
+<li>Memory leak in application</li><li>Insufficient heap size configuration</li><li>Large data processing without streaming</li></ul><p><strong>Remediation Steps:</strong></p><ul><li>Increase JVM heap size</li><li>Implement memory profiling</li><li>Review and optimize memory-intensive operations</li></ul>
+        <h3>Internal server error: database connection pool exhausted (3 occurrences)</h3>
+        <p><strong>Potential Causes:</strong></p>
+        <ul>
+<li>Connection leak in application code</li><li>Pool size too small for load</li><li>Long-running queries blocking connections</li></ul><p><strong>Remediation Steps:</strong></p><ul><li>Increase connection pool size</li><li>Implement connection timeout</li><li>Review query performance and optimize slow queries</li></ul>
+        <h3>Request timeout: upstream service unavailable (4 occurrences)</h3>
+        <p><strong>Potential Causes:</strong></p>
+        <ul>
+<li>Upstream service responding slowly</li><li>Network latency issues</li><li>Resource contention</li></ul><p><strong>Remediation Steps:</strong></p><ul><li>Increase timeout thresholds</li><li>Implement async processing</li><li>Add caching layer</li></ul>
+        <h2>Impact Assessment</h2>
+        <div class="summary-box">
+            <p><strong>Overall Error Rate:</strong> 15.0%</p>
+            <p><strong>Estimated User Impact:</strong> <span class="severity-high">HIGH</span></p>
+        </div>
+
+        <h3>Most Affected Endpoints</h3>
+        <table>
+            <tr><th>Endpoint</th><th>Error Count</th></tr>
+<tr><td>/api/reports</td><td>5</td></tr><tr><td>/api/search</td><td>2</td></tr><tr><td>/api/users</td><td>2</td></tr><tr><td>/api/products</td><td>2</td></tr><tr><td>/api/orders</td><td>2</td></tr></table>
+        <div class="footer">
+            <p>Generated by Elastic Logs Analysis Tool</p>
+        </div>
+    </div>
+</body>
+</html>
