@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Issue Detection Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #7b1fa2;
+            border-bottom: 3px solid #7b1fa2;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #1976d2;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #388e3c;
+        }
+        .summary-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .metric {
+            display: inline-block;
+            margin: 10px 20px 10px 0;
+            padding: 15px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            min-width: 150px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1976d2;
+        }
+        .metric-label {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .critical {
+            background: #ffebee;
+            border-left: 4px solid #d32f2f;
+        }
+        .critical .metric-value { color: #d32f2f; }
+        .high {
+            background: #fff3e0;
+            border-left: 4px solid #f57c00;
+        }
+        .high .metric-value { color: #f57c00; }
+        .medium {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+        }
+        .medium .metric-value { color: #f9a825; }
+        .low {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+        }
+        .low .metric-value { color: #388e3c; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #7b1fa2;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .severity-critical { background: #ffebee; color: #d32f2f; font-weight: bold; }
+        .severity-high { background: #fff3e0; color: #f57c00; font-weight: bold; }
+        .severity-medium { background: #fff8e1; color: #f9a825; font-weight: bold; }
+        .severity-low { background: #e8f5e9; color: #388e3c; font-weight: bold; }
+        .alert {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .alert-critical {
+            background: #ffebee;
+            border-left: 4px solid #d32f2f;
+        }
+        .alert-high {
+            background: #fff3e0;
+            border-left: 4px solid #f57c00;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .code {
+            font-family: monospace;
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .ip-address {
+            font-family: monospace;
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <h1>Security Issue Detection Report</h1>
+    <p class="timestamp">Generated: 2025-12-04 14:02:40 UTC</p>
+
+    <div class="summary-card">
+        <h2>2.7 Severity Classification Summary</h2>
+        <div class="metric critical">
+            <div class="metric-value">5</div>
+            <div class="metric-label">Critical</div>
+        </div>
+        <div class="metric high">
+            <div class="metric-value">36</div>
+            <div class="metric-label">High</div>
+        </div>
+        <div class="metric medium">
+            <div class="metric-value">1</div>
+            <div class="metric-label">Medium</div>
+        </div>
+        <div class="metric low">
+            <div class="metric-value">0</div>
+            <div class="metric-label">Low</div>
+        </div>
+    </div>
+
+    <div class="summary-card">
+        <h2>Prioritized Security Findings</h2>
+        <table>
+            <tr><th>Severity</th><th>Type</th><th>Details</th></tr>
+            <tr><td class='severity-critical'>CRITICAL</td><td>SQL Injection Attempt</td><td>{'log_id': 'log-0034', 'timestamp': '2025-11-30T12:45:00Z', 'ip': '185.220.101.1', 'payload': "' OR ...</td></tr>
+            <tr><td class='severity-critical'>CRITICAL</td><td>SQL Injection Attempt</td><td>{'log_id': 'log-0056', 'timestamp': '2025-11-30T14:35:00Z', 'ip': '192.168.172.13', 'payload': "' OR...</td></tr>
+            <tr><td class='severity-critical'>CRITICAL</td><td>SQL Injection Attempt</td><td>{'log_id': 'log-0076', 'timestamp': '2025-11-30T16:15:00Z', 'ip': '192.168.63.127', 'payload': "' OR...</td></tr>
+            <tr><td class='severity-critical'>CRITICAL</td><td>SQL Injection Attempt</td><td>{'log_id': 'log-0077', 'timestamp': '2025-11-30T16:20:00Z', 'ip': '192.168.19.53', 'payload': "' OR ...</td></tr>
+            <tr><td class='severity-critical'>CRITICAL</td><td>SQL Injection Attempt</td><td>{'log_id': 'log-0093', 'timestamp': '2025-11-30T17:40:00Z', 'ip': '192.168.201.98', 'payload': "' OR...</td></tr>
+            <tr><td class='severity-high'>HIGH</td><td>Unauthorized Access Attempt</td><td>{'log_id': 'log-0035', 'timestamp': '2025-11-30T12:50:00Z', 'ip': '185.220.101.1', 'target': '/admin...</td></tr>
+            <tr><td class='severity-high'>HIGH</td><td>Unauthorized Access Attempt</td><td>{'log_id': 'log-0036', 'timestamp': '2025-11-30T12:55:00Z', 'ip': '192.168.155.56', 'target': '/admi...</td></tr>
+            <tr><td class='severity-high'>HIGH</td><td>Unauthorized Access Attempt</td><td>{'log_id': 'log-0041', 'timestamp': '2025-11-30T13:20:00Z', 'ip': '192.168.150.2', 'target': '/admin...</td></tr>
+            <tr><td class='severity-high'>HIGH</td><td>Unauthorized Access Attempt</td><td>{'log_id': 'log-0055', 'timestamp': '2025-11-30T14:30:00Z', 'ip': '192.168.95.249', 'target': '/admi...</td></tr>
+            <tr><td class='severity-high'>HIGH</td><td>Unauthorized Access Attempt</td><td>{'log_id': 'log-0074', 'timestamp': '2025-11-30T16:05:00Z', 'ip': '192.168.173.34', 'target': '/admi...</td></tr>
+            <tr><td class='severity-high'>HIGH</td><td>Unauthorized Access Attempt</td><td>{'log_id': 'log-0092', 'timestamp': '2025-11-30T17:35:00Z', 'ip': '192.168.32.52', 'target': '/admin...</td></tr>
+            <tr><td class='severity-high'>HIGH</td><td>Unauthorized Access Attempt</td><td>{'log_id': 'log-0097', 'timestamp': '2025-11-30T18:00:00Z', 'ip': '192.168.62.38', 'target': '/admin...</td></tr>
+            <tr><td class='severity-high'>HIGH</td><td>Attack Tool Detected</td><td>{'log_id': 'log-0004', 'timestamp': '2025-11-30T10:15:00Z', 'ip': '192.168.247.78', 'user_agent': 's...</td></tr>
+            <tr><td class='severity-high'>HIGH</td><td>Attack Tool Detected</td><td>{'log_id': 'log-0009', 'timestamp': '2025-11-30T10:40:00Z', 'ip': '45.33.32.156', 'user_agent': 'sql...</td></tr>
+            <tr><td class='severity-high'>HIGH</td><td>Attack Tool Detected</td><td>{'log_id': 'log-0013', 'timestamp': '2025-11-30T11:00:00Z', 'ip': '192.168.171.171', 'user_agent': '...</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>2.1 Authentication Analysis</h2>
+
+        <h3>Failed Login Attempts: 6</h3>
+        <table>
+            <tr><th>Log ID</th><th>Timestamp</th><th>IP Address</th><th>Endpoint</th><th>User Agent</th></tr>
+            <tr><td class='code'>log-0005</td><td class='timestamp'>2025-11-30T10:20:00Z</td><td class='ip-address'>192.168.59.194</td><td>/api/checkout</td><td>curl/7.68.0...</td></tr>
+            <tr><td class='code'>log-0034</td><td class='timestamp'>2025-11-30T12:45:00Z</td><td class='ip-address'>185.220.101.1</td><td>/api/search</td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb...</td></tr>
+            <tr><td class='code'>log-0036</td><td class='timestamp'>2025-11-30T12:55:00Z</td><td class='ip-address'>192.168.155.56</td><td>/api/checkout</td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb...</td></tr>
+            <tr><td class='code'>log-0046</td><td class='timestamp'>2025-11-30T13:45:00Z</td><td class='ip-address'>185.220.101.1</td><td>/api/checkout</td><td>sqlmap/1.5.2...</td></tr>
+            <tr><td class='code'>log-0056</td><td class='timestamp'>2025-11-30T14:35:00Z</td><td class='ip-address'>192.168.172.13</td><td>/api/checkout</td><td>sqlmap/1.5.2...</td></tr>
+            <tr><td class='code'>log-0092</td><td class='timestamp'>2025-11-30T17:35:00Z</td><td class='ip-address'>192.168.32.52</td><td>/api/health</td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb...</td></tr>
+        </table>
+
+        <h3>Brute Force Attack Candidates</h3>
+        <table>
+            <tr><th>IP Address</th><th>Failed Attempts</th><th>Severity</th></tr>
+            <tr><td class='ip-address'>185.220.101.1</td><td>3</td><td class='severity-medium'>MEDIUM</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>2.2 Suspicious IP Detection</h2>
+
+        <h3>High Failure Rate IPs</h3>
+        <table>
+            <tr><th>IP Address</th><th>Failures</th><th>Total Requests</th><th>Failure Rate</th></tr>
+            <tr><td class='ip-address'>192.168.59.194</td><td>1</td><td>1</td><td>100.0%</td></tr>
+            <tr><td class='ip-address'>192.168.222.217</td><td>1</td><td>1</td><td>100.0%</td></tr>
+            <tr><td class='ip-address'>185.220.101.1</td><td>3</td><td>6</td><td>50.0%</td></tr>
+            <tr><td class='ip-address'>192.168.155.56</td><td>1</td><td>1</td><td>100.0%</td></tr>
+            <tr><td class='ip-address'>192.168.150.2</td><td>1</td><td>1</td><td>100.0%</td></tr>
+            <tr><td class='ip-address'>192.168.95.249</td><td>1</td><td>1</td><td>100.0%</td></tr>
+            <tr><td class='ip-address'>192.168.172.13</td><td>1</td><td>1</td><td>100.0%</td></tr>
+            <tr><td class='ip-address'>192.168.253.42</td><td>1</td><td>1</td><td>100.0%</td></tr>
+            <tr><td class='ip-address'>192.168.173.34</td><td>1</td><td>1</td><td>100.0%</td></tr>
+            <tr><td class='ip-address'>192.168.63.127</td><td>1</td><td>1</td><td>100.0%</td></tr>
+            <tr><td class='ip-address'>192.168.19.53</td><td>1</td><td>1</td><td>100.0%</td></tr>
+            <tr><td class='ip-address'>192.168.7.219</td><td>1</td><td>1</td><td>100.0%</td></tr>
+            <tr><td class='ip-address'>192.168.32.52</td><td>1</td><td>1</td><td>100.0%</td></tr>
+            <tr><td class='ip-address'>192.168.201.98</td><td>1</td><td>1</td><td>100.0%</td></tr>
+            <tr><td class='ip-address'>192.168.62.38</td><td>1</td><td>1</td><td>100.0%</td></tr>
+            <tr><td class='ip-address'>192.168.169.112</td><td>1</td><td>1</td><td>100.0%</td></tr>
+        </table>
+
+        <h3>IPs with Suspicious Activity</h3>
+        <table>
+            <tr><th>IP Address</th><th>Suspicious Activities</th></tr>
+            <tr><td class='ip-address'>192.168.247.78</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>45.33.32.156</td><td>Attack tool detected: sqlmap, Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.171.171</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.62.242</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.148.106</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>185.220.101.1</td><td>Attack tool detected: sqlmap, Attack tool detected: sqlmap, Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.150.2</td><td>SQL injection pattern in message</td></tr>
+            <tr><td class='ip-address'>192.168.178.60</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.184.18</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.1.241</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.95.249</td><td>SQL injection pattern in message</td></tr>
+            <tr><td class='ip-address'>192.168.172.13</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.1.74</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.42.120</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.107.193</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.118.195</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.99.24</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.114.186</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.173.34</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.7.237</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.63.127</td><td>Attack tool detected: sqlmap, SQL injection pattern in message</td></tr>
+            <tr><td class='ip-address'>192.168.19.53</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.128.48</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.135.129</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.167.14</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.158.53</td><td>Attack tool detected: sqlmap</td></tr>
+            <tr><td class='ip-address'>192.168.62.38</td><td>Attack tool detected: sqlmap, SQL injection pattern in message</td></tr>
+            <tr><td class='ip-address'>10.0.0.99</td><td>Attack tool detected: sqlmap</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>2.3 Injection Attack Detection</h2>
+
+        <h3>SQL Injection Attempts</h3>
+        <table>
+            <tr><th>Log ID</th><th>Timestamp</th><th>IP Address</th><th>Endpoint</th><th>Payload</th></tr>
+            <tr><td class='code'>log-0034</td><td class='timestamp'>2025-11-30T12:45:00Z</td><td class='ip-address'>185.220.101.1</td><td>/api/search</td><td class='code'>' OR '1'='1</td></tr>
+            <tr><td class='code'>log-0056</td><td class='timestamp'>2025-11-30T14:35:00Z</td><td class='ip-address'>192.168.172.13</td><td>/api/checkout</td><td class='code'>' OR '1'='1</td></tr>
+            <tr><td class='code'>log-0076</td><td class='timestamp'>2025-11-30T16:15:00Z</td><td class='ip-address'>192.168.63.127</td><td>/api/reports</td><td class='code'>' OR '1'='1</td></tr>
+            <tr><td class='code'>log-0077</td><td class='timestamp'>2025-11-30T16:20:00Z</td><td class='ip-address'>192.168.19.53</td><td>/api/health</td><td class='code'>' OR '1'='1</td></tr>
+            <tr><td class='code'>log-0093</td><td class='timestamp'>2025-11-30T17:40:00Z</td><td class='ip-address'>192.168.201.98</td><td>/api/users</td><td class='code'>' OR '1'='1</td></tr>
+        </table>
+        <div class="alert alert-critical">
+            <strong>CRITICAL:</strong> SQL injection attempts detected. Immediate review and remediation required.
+        </div>
+    </div>
+
+    <div class="summary-card">
+        <h2>2.4 Access Control Violations</h2>
+
+        <h3>Unauthorized Access Attempts</h3>
+        <table>
+            <tr><th>Log ID</th><th>Timestamp</th><th>IP Address</th><th>Target Resource</th></tr>
+            <tr><td class='code'>log-0035</td><td class='timestamp'>2025-11-30T12:50:00Z</td><td class='ip-address'>185.220.101.1</td><td>/admin/users</td></tr>
+            <tr><td class='code'>log-0036</td><td class='timestamp'>2025-11-30T12:55:00Z</td><td class='ip-address'>192.168.155.56</td><td>/admin/users</td></tr>
+            <tr><td class='code'>log-0041</td><td class='timestamp'>2025-11-30T13:20:00Z</td><td class='ip-address'>192.168.150.2</td><td>/admin/users</td></tr>
+            <tr><td class='code'>log-0055</td><td class='timestamp'>2025-11-30T14:30:00Z</td><td class='ip-address'>192.168.95.249</td><td>/admin/users</td></tr>
+            <tr><td class='code'>log-0074</td><td class='timestamp'>2025-11-30T16:05:00Z</td><td class='ip-address'>192.168.173.34</td><td>/admin/users</td></tr>
+            <tr><td class='code'>log-0092</td><td class='timestamp'>2025-11-30T17:35:00Z</td><td class='ip-address'>192.168.32.52</td><td>/admin/users</td></tr>
+            <tr><td class='code'>log-0097</td><td class='timestamp'>2025-11-30T18:00:00Z</td><td class='ip-address'>192.168.62.38</td><td>/admin/users</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>2.5 Rate Limiting Analysis</h2>
+
+        <h3>Rate Limit Violations</h3>
+        <table>
+            <tr><th>Log ID</th><th>Timestamp</th><th>IP Address</th><th>Requests/Minute</th></tr>
+            <tr><td class='code'>log-0005</td><td class='timestamp'>2025-11-30T10:20:00Z</td><td class='ip-address'>192.168.59.194</td><td>150</td></tr>
+            <tr><td class='code'>log-0019</td><td class='timestamp'>2025-11-30T11:30:00Z</td><td class='ip-address'>192.168.222.217</td><td>150</td></tr>
+            <tr><td class='code'>log-0046</td><td class='timestamp'>2025-11-30T13:45:00Z</td><td class='ip-address'>185.220.101.1</td><td>150</td></tr>
+            <tr><td class='code'>log-0048</td><td class='timestamp'>2025-11-30T13:55:00Z</td><td class='ip-address'>45.33.32.156</td><td>150</td></tr>
+            <tr><td class='code'>log-0066</td><td class='timestamp'>2025-11-30T15:25:00Z</td><td class='ip-address'>192.168.253.42</td><td>150</td></tr>
+            <tr><td class='code'>log-0085</td><td class='timestamp'>2025-11-30T17:00:00Z</td><td class='ip-address'>192.168.7.219</td><td>150</td></tr>
+            <tr><td class='code'>log-0099</td><td class='timestamp'>2025-11-30T18:10:00Z</td><td class='ip-address'>192.168.169.112</td><td>150</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>2.6 User Agent Analysis</h2>
+
+        <h3>Suspicious User Agents (Attack Tools)</h3>
+        <table>
+            <tr><th>Log ID</th><th>Timestamp</th><th>IP Address</th><th>Detected Tool</th><th>User Agent</th></tr>
+            <tr><td class='code'>log-0004</td><td class='timestamp'>2025-11-30T10:15:00Z</td><td class='ip-address'>192.168.247.78</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0009</td><td class='timestamp'>2025-11-30T10:40:00Z</td><td class='ip-address'>45.33.32.156</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0013</td><td class='timestamp'>2025-11-30T11:00:00Z</td><td class='ip-address'>192.168.171.171</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0021</td><td class='timestamp'>2025-11-30T11:40:00Z</td><td class='ip-address'>192.168.62.242</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0022</td><td class='timestamp'>2025-11-30T11:45:00Z</td><td class='ip-address'>192.168.148.106</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0035</td><td class='timestamp'>2025-11-30T12:50:00Z</td><td class='ip-address'>185.220.101.1</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0038</td><td class='timestamp'>2025-11-30T13:05:00Z</td><td class='ip-address'>185.220.101.1</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0042</td><td class='timestamp'>2025-11-30T13:25:00Z</td><td class='ip-address'>192.168.178.60</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0046</td><td class='timestamp'>2025-11-30T13:45:00Z</td><td class='ip-address'>185.220.101.1</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0048</td><td class='timestamp'>2025-11-30T13:55:00Z</td><td class='ip-address'>45.33.32.156</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0049</td><td class='timestamp'>2025-11-30T14:00:00Z</td><td class='ip-address'>192.168.184.18</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0050</td><td class='timestamp'>2025-11-30T14:05:00Z</td><td class='ip-address'>192.168.1.241</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0056</td><td class='timestamp'>2025-11-30T14:35:00Z</td><td class='ip-address'>192.168.172.13</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0057</td><td class='timestamp'>2025-11-30T14:40:00Z</td><td class='ip-address'>192.168.1.74</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0058</td><td class='timestamp'>2025-11-30T14:45:00Z</td><td class='ip-address'>192.168.42.120</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0059</td><td class='timestamp'>2025-11-30T14:50:00Z</td><td class='ip-address'>192.168.107.193</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0061</td><td class='timestamp'>2025-11-30T15:00:00Z</td><td class='ip-address'>192.168.118.195</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0063</td><td class='timestamp'>2025-11-30T15:10:00Z</td><td class='ip-address'>192.168.99.24</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0070</td><td class='timestamp'>2025-11-30T15:45:00Z</td><td class='ip-address'>192.168.114.186</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0074</td><td class='timestamp'>2025-11-30T16:05:00Z</td><td class='ip-address'>192.168.173.34</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0075</td><td class='timestamp'>2025-11-30T16:10:00Z</td><td class='ip-address'>192.168.7.237</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0076</td><td class='timestamp'>2025-11-30T16:15:00Z</td><td class='ip-address'>192.168.63.127</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0077</td><td class='timestamp'>2025-11-30T16:20:00Z</td><td class='ip-address'>192.168.19.53</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0081</td><td class='timestamp'>2025-11-30T16:40:00Z</td><td class='ip-address'>192.168.128.48</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0083</td><td class='timestamp'>2025-11-30T16:50:00Z</td><td class='ip-address'>192.168.135.129</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0089</td><td class='timestamp'>2025-11-30T17:20:00Z</td><td class='ip-address'>192.168.167.14</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0096</td><td class='timestamp'>2025-11-30T17:55:00Z</td><td class='ip-address'>192.168.158.53</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0097</td><td class='timestamp'>2025-11-30T18:00:00Z</td><td class='ip-address'>192.168.62.38</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+            <tr><td class='code'>log-0100</td><td class='timestamp'>2025-11-30T18:15:00Z</td><td class='ip-address'>10.0.0.99</td><td class='severity-high'>sqlmap</td><td>sqlmap/1.5.2</td></tr>
+        </table>
+        <div class="alert alert-high">
+            <strong>HIGH:</strong> Known attack tools detected in user agent strings. These IPs should be investigated and potentially blocked.
+        </div>
+    </div>
+</body>
+</html>
