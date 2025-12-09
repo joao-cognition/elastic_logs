@@ -60,7 +60,7 @@ def main():
     prompts = {
         "error": f"Read {args.log_file}. Count all entries with level='ERROR'. Group by: status_code, service_name, error_message. List top 10 most frequent errors. Save as error_report_{timestamp}.html in analysis/",
         
-        "performance": f"Read {args.log_file}. Calculate response_time stats: min, max, avg, p95, p99. List slowest 10 endpoints. Identify any response_time > 1000ms. Save as performance_report_{timestamp}.html in analysis/",
+        "performance": f"Read {args.log_file}. Calculate response_time stats: min, max, avg, p95, p99.ist slowest 10 endpoints. Ident Lify any response_time > 1000ms. Save as performance_report_{timestamp}.html in analysis/",
         
         "security": f"Read {args.log_file}. Find: status_code=401/403 entries, unique IPs with >10 failed requests, any SQL/XSS patterns in request_path. Save as security_report_{timestamp}.html in analysis/"
     }
