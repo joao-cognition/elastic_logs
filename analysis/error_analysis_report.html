@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Analysis Report - 2025-12-09 13:32:19 UTC</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+               background: #f5f5f5; color: #333; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #dc3545, #c82333); color: white; 
+                 padding: 30px; border-radius: 10px; margin-bottom: 30px; }
+        h1 { font-size: 2em; margin-bottom: 10px; }
+        .subtitle { opacity: 0.9; }
+        .card { background: white; border-radius: 10px; padding: 25px; margin-bottom: 20px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .card h2 { color: #dc3545; margin-bottom: 20px; border-bottom: 2px solid #dc3545;
+                   padding-bottom: 10px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                      gap: 20px; margin-bottom: 20px; }
+        .stat-box { background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center; }
+        .stat-value { font-size: 2.5em; font-weight: bold; color: #dc3545; }
+        .stat-label { color: #666; margin-top: 5px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f8f9fa; font-weight: 600; }
+        tr:hover { background: #f8f9fa; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; 
+                 font-size: 0.85em; font-weight: 500; }
+        .badge-error { background: #dc3545; color: white; }
+        .badge-warning { background: #ffc107; color: #333; }
+        .progress-bar { background: #e9ecef; border-radius: 10px; height: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; background: #dc3545; transition: width 0.3s; }
+        .code { font-family: monospace; background: #f4f4f4; padding: 2px 6px; 
+                border-radius: 4px; font-size: 0.9em; }
+        .timestamp { color: #666; font-size: 0.9em; }
+        .remediation { background: #d4edda; border-left: 4px solid #28a745; padding: 15px;
+                       margin-top: 15px; border-radius: 0 8px 8px 0; }
+        .remediation h4 { color: #155724; margin-bottom: 10px; }
+        .remediation ul { margin-left: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Error Analysis Report</h1>
+            <p class="subtitle">Generated: 2025-12-09 13:32:19 UTC | Log File: elastic_logs_29_11_25.json</p>
+        </header>
+
+        <div class="card">
+            <h2>Executive Summary</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value">11</div>
+                    <div class="stat-label">Total Errors</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">100</div>
+                    <div class="stat-label">Total Log Entries</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">11.0%</div>
+                    <div class="stat-label">Error Rate</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Affected Services</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Errors by HTTP Status Code</h2>
+            <table>
+                <thead>
+                    <tr><th>Status Code</th><th>Count</th><th>Percentage</th><th>Distribution</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-error">503</span></td>
+                        <td>6</td>
+                        <td>54.5%</td>
+                        <td><div class="progress-bar"><div class="progress-fill" style="width: 54.54545454545454%"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-error">502</span></td>
+                        <td>2</td>
+                        <td>18.2%</td>
+                        <td><div class="progress-bar"><div class="progress-fill" style="width: 18.181818181818183%"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-error">504</span></td>
+                        <td>2</td>
+                        <td>18.2%</td>
+                        <td><div class="progress-bar"><div class="progress-fill" style="width: 18.181818181818183%"></div></div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-error">500</span></td>
+                        <td>1</td>
+                        <td>9.1%</td>
+                        <td><div class="progress-bar"><div class="progress-fill" style="width: 9.090909090909092%"></div></div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Errors by Service</h2>
+            <table>
+                <thead>
+                    <tr><th>Service</th><th>Error Count</th><th>Impact Level</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code class="code">security-monitor</code></td>
+                        <td>3</td>
+                        <td><span class="badge badge-warning">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">order-service</code></td>
+                        <td>3</td>
+                        <td><span class="badge badge-warning">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">product-service</code></td>
+                        <td>2</td>
+                        <td><span class="badge badge-warning">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">cache-service</code></td>
+                        <td>2</td>
+                        <td><span class="badge badge-warning">Medium</span></td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">api-gateway</code></td>
+                        <td>1</td>
+                        <td><span class="badge badge-warning">Low</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Error Messages Analysis</h2>
+            <table>
+                <thead>
+                    <tr><th>Error Message</th><th>Occurrences</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Internal server error: database connection pool exhausted</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>Request timeout: upstream service unavailable</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>Internal server error: out of memory exception</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>Connection refused: service unreachable</td>
+                        <td>2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Time-Based Error Distribution</h2>
+            <table>
+                <thead>
+                    <tr><th>Hour (UTC)</th><th>Error Count</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>11:00</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>13:00</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>14:00</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>18:00</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Detailed Error Log</h2>
+            <table>
+                <thead>
+                    <tr><th>Log ID</th><th>Timestamp</th><th>Service</th><th>Status</th><th>Message</th><th>Response Time</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code class="code">log-0013</code></td>
+                        <td class="timestamp">2025-11-29T11:00:00Z</td>
+                        <td>security-monitor</td>
+                        <td><span class="badge badge-error">502</span></td>
+                        <td>Request timeout: upstream service unavailable...</td>
+                        <td>14644ms</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0020</code></td>
+                        <td class="timestamp">2025-11-29T11:35:00Z</td>
+                        <td>security-monitor</td>
+                        <td><span class="badge badge-error">504</span></td>
+                        <td>Internal server error: database connection pool ex...</td>
+                        <td>23008ms</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0038</code></td>
+                        <td class="timestamp">2025-11-29T13:05:00Z</td>
+                        <td>order-service</td>
+                        <td><span class="badge badge-error">502</span></td>
+                        <td>Internal server error: database connection pool ex...</td>
+                        <td>27561ms</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0039</code></td>
+                        <td class="timestamp">2025-11-29T13:10:00Z</td>
+                        <td>order-service</td>
+                        <td><span class="badge badge-error">500</span></td>
+                        <td>Request timeout: upstream service unavailable...</td>
+                        <td>15652ms</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0047</code></td>
+                        <td class="timestamp">2025-11-29T13:50:00Z</td>
+                        <td>api-gateway</td>
+                        <td><span class="badge badge-error">504</span></td>
+                        <td>Internal server error: database connection pool ex...</td>
+                        <td>12194ms</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0048</code></td>
+                        <td class="timestamp">2025-11-29T13:55:00Z</td>
+                        <td>product-service</td>
+                        <td><span class="badge badge-error">503</span></td>
+                        <td>Request timeout: upstream service unavailable...</td>
+                        <td>15896ms</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0056</code></td>
+                        <td class="timestamp">2025-11-29T14:35:00Z</td>
+                        <td>order-service</td>
+                        <td><span class="badge badge-error">503</span></td>
+                        <td>Internal server error: database connection pool ex...</td>
+                        <td>22108ms</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0057</code></td>
+                        <td class="timestamp">2025-11-29T14:40:00Z</td>
+                        <td>security-monitor</td>
+                        <td><span class="badge badge-error">503</span></td>
+                        <td>Internal server error: out of memory exception...</td>
+                        <td>29435ms</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0059</code></td>
+                        <td class="timestamp">2025-11-29T14:50:00Z</td>
+                        <td>cache-service</td>
+                        <td><span class="badge badge-error">503</span></td>
+                        <td>Connection refused: service unreachable...</td>
+                        <td>18462ms</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0060</code></td>
+                        <td class="timestamp">2025-11-29T14:55:00Z</td>
+                        <td>product-service</td>
+                        <td><span class="badge badge-error">503</span></td>
+                        <td>Connection refused: service unreachable...</td>
+                        <td>21802ms</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0097</code></td>
+                        <td class="timestamp">2025-11-29T18:00:00Z</td>
+                        <td>cache-service</td>
+                        <td><span class="badge badge-error">503</span></td>
+                        <td>Internal server error: out of memory exception...</td>
+                        <td>20547ms</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Root Cause Analysis & Remediation</h2>
+            <div class="remediation">
+                <h4>Database Connection Pool Exhaustion</h4>
+                <p>Multiple errors indicate database connection pool exhaustion.</p>
+                <ul>
+                    <li>Increase connection pool size in database configuration</li>
+                    <li>Implement connection pooling with proper timeout settings</li>
+                    <li>Add circuit breakers to prevent cascade failures</li>
+                    <li>Monitor and alert on connection pool utilization</li>
+                </ul>
+            </div>
+            <div class="remediation">
+                <h4>Upstream Service Unavailability</h4>
+                <p>502/503 errors suggest upstream services are failing.</p>
+                <ul>
+                    <li>Implement health checks for all upstream services</li>
+                    <li>Add retry logic with exponential backoff</li>
+                    <li>Configure proper timeouts for service calls</li>
+                    <li>Consider implementing service mesh for better observability</li>
+                </ul>
+            </div>
+            <div class="remediation">
+                <h4>Memory Issues</h4>
+                <p>Out of memory exceptions detected in some services.</p>
+                <ul>
+                    <li>Review and optimize memory allocation settings</li>
+                    <li>Implement proper garbage collection tuning</li>
+                    <li>Add memory monitoring and alerting</li>
+                    <li>Consider horizontal scaling for memory-intensive services</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
