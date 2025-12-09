@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Analysis Report - 2025-12-09 13:32:19 UTC</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+               background: #f5f5f5; color: #333; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #17a2b8, #138496); color: white; 
+                 padding: 30px; border-radius: 10px; margin-bottom: 30px; }
+        h1 { font-size: 2em; margin-bottom: 10px; }
+        .subtitle { opacity: 0.9; }
+        .card { background: white; border-radius: 10px; padding: 25px; margin-bottom: 20px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .card h2 { color: #17a2b8; margin-bottom: 20px; border-bottom: 2px solid #17a2b8;
+                   padding-bottom: 10px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                      gap: 15px; margin-bottom: 20px; }
+        .stat-box { background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center; }
+        .stat-value { font-size: 2em; font-weight: bold; color: #17a2b8; }
+        .stat-label { color: #666; margin-top: 5px; font-size: 0.9em; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #f8f9fa; font-weight: 600; }
+        tr:hover { background: #f8f9fa; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; 
+                 font-size: 0.85em; font-weight: 500; }
+        .badge-slow { background: #dc3545; color: white; }
+        .badge-warning { background: #ffc107; color: #333; }
+        .badge-good { background: #28a745; color: white; }
+        .code { font-family: monospace; background: #f4f4f4; padding: 2px 6px; 
+                border-radius: 4px; font-size: 0.9em; }
+        .timestamp { color: #666; font-size: 0.9em; }
+        .progress-bar { background: #e9ecef; border-radius: 10px; height: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; transition: width 0.3s; }
+        .progress-good { background: #28a745; }
+        .progress-warning { background: #ffc107; }
+        .progress-slow { background: #dc3545; }
+        .metric-row { display: flex; justify-content: space-between; padding: 10px 0;
+                      border-bottom: 1px solid #eee; }
+        .metric-label { font-weight: 500; }
+        .metric-value { color: #17a2b8; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Performance Analysis Report</h1>
+            <p class="subtitle">Generated: 2025-12-09 13:32:19 UTC | Log File: elastic_logs_29_11_25.json</p>
+        </header>
+
+        <div class="card">
+            <h2>Response Time Overview</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value">51</div>
+                    <div class="stat-label">Min (ms)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">3077</div>
+                    <div class="stat-label">Average (ms)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">168.5</div>
+                    <div class="stat-label">Median (ms)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">20609.75</div>
+                    <div class="stat-label">P95 (ms)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">27579.74</div>
+                    <div class="stat-label">P99 (ms)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">29435</div>
+                    <div class="stat-label">Max (ms)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Performance Summary</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value">100</div>
+                    <div class="stat-label">Total Requests</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">18</div>
+                    <div class="stat-label">Slow Requests (&gt;1s)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">18.0%</div>
+                    <div class="stat-label">Slow Request Rate</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">7</div>
+                    <div class="stat-label">Resource Issues</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Slowest Endpoints</h2>
+            <table>
+                <thead>
+                    <tr><th>Endpoint</th><th>Avg Response (ms)</th><th>P95 (ms)</th><th>Max (ms)</th><th>Slow Count</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code class="code">/api/orders</code></td>
+                        <td>6261.71</td>
+                        <td>23988.3</td>
+                        <td>27561</td>
+                        <td>2</td>
+                        <td><span class="badge badge-slow">Critical</span></td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">/api/users</code></td>
+                        <td>5965.56</td>
+                        <td>21878.5</td>
+                        <td>22108</td>
+                        <td>6</td>
+                        <td><span class="badge badge-slow">Critical</span></td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">/api/reports</code></td>
+                        <td>3204.2</td>
+                        <td>15054.85</td>
+                        <td>29435</td>
+                        <td>4</td>
+                        <td><span class="badge badge-slow">Critical</span></td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">/api/products</code></td>
+                        <td>2716.46</td>
+                        <td>16171.2</td>
+                        <td>18462</td>
+                        <td>2</td>
+                        <td><span class="badge badge-slow">Critical</span></td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">/api/checkout</code></td>
+                        <td>1626.67</td>
+                        <td>8024.4</td>
+                        <td>13090</td>
+                        <td>1</td>
+                        <td><span class="badge badge-slow">Critical</span></td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">/api/search</code></td>
+                        <td>1575.62</td>
+                        <td>6064.0</td>
+                        <td>23008</td>
+                        <td>1</td>
+                        <td><span class="badge badge-slow">Critical</span></td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">/api/health</code></td>
+                        <td>1535.32</td>
+                        <td>7104.6</td>
+                        <td>20547</td>
+                        <td>2</td>
+                        <td><span class="badge badge-slow">Critical</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Performance by Service</h2>
+            <table>
+                <thead>
+                    <tr><th>Service</th><th>Request Count</th><th>Avg Response (ms)</th><th>P95 (ms)</th><th>Slow Requests</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code class="code">order-service</code></td>
+                        <td>17</td>
+                        <td>4792.65</td>
+                        <td>23198.6</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">security-monitor</code></td>
+                        <td>21</td>
+                        <td>3628.62</td>
+                        <td>23008.0</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">cache-service</code></td>
+                        <td>12</td>
+                        <td>3386.67</td>
+                        <td>19400.25</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">product-service</code></td>
+                        <td>22</td>
+                        <td>2625.23</td>
+                        <td>15652.75</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">user-service</code></td>
+                        <td>12</td>
+                        <td>2014</td>
+                        <td>11393.25</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">api-gateway</code></td>
+                        <td>16</td>
+                        <td>1716.31</td>
+                        <td>12418.0</td>
+                        <td>2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Hourly Performance Trends</h2>
+            <table>
+                <thead>
+                    <tr><th>Hour (UTC)</th><th>Request Count</th><th>Avg Response (ms)</th><th>Max Response (ms)</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>10:00</td>
+                        <td>12</td>
+                        <td>1012.42</td>
+                        <td>10527</td>
+                    </tr>
+                    <tr>
+                        <td>11:00</td>
+                        <td>12</td>
+                        <td>4333.17</td>
+                        <td>23008</td>
+                    </tr>
+                    <tr>
+                        <td>12:00</td>
+                        <td>12</td>
+                        <td>617.92</td>
+                        <td>5721</td>
+                    </tr>
+                    <tr>
+                        <td>13:00</td>
+                        <td>12</td>
+                        <td>8262.67</td>
+                        <td>27561</td>
+                    </tr>
+                    <tr>
+                        <td>14:00</td>
+                        <td>12</td>
+                        <td>7751.92</td>
+                        <td>29435</td>
+                    </tr>
+                    <tr>
+                        <td>15:00</td>
+                        <td>12</td>
+                        <td>1109.42</td>
+                        <td>11031</td>
+                    </tr>
+                    <tr>
+                        <td>16:00</td>
+                        <td>12</td>
+                        <td>201.25</td>
+                        <td>416</td>
+                    </tr>
+                    <tr>
+                        <td>17:00</td>
+                        <td>12</td>
+                        <td>153.83</td>
+                        <td>484</td>
+                    </tr>
+                    <tr>
+                        <td>18:00</td>
+                        <td>4</td>
+                        <td>6597.25</td>
+                        <td>20547</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Slowest Individual Requests</h2>
+            <table>
+                <thead>
+                    <tr><th>Log ID</th><th>Timestamp</th><th>Service</th><th>Endpoint</th><th>Response Time</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code class="code">log-0057</code></td>
+                        <td class="timestamp">2025-11-29T14:40:00Z</td>
+                        <td>security-monitor</td>
+                        <td><code class="code">/api/reports</code></td>
+                        <td><span class="badge badge-slow">29435ms</span></td>
+                        <td>503</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0038</code></td>
+                        <td class="timestamp">2025-11-29T13:05:00Z</td>
+                        <td>order-service</td>
+                        <td><code class="code">/api/orders</code></td>
+                        <td><span class="badge badge-slow">27561ms</span></td>
+                        <td>502</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0020</code></td>
+                        <td class="timestamp">2025-11-29T11:35:00Z</td>
+                        <td>security-monitor</td>
+                        <td><code class="code">/api/search</code></td>
+                        <td><span class="badge badge-slow">23008ms</span></td>
+                        <td>504</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0056</code></td>
+                        <td class="timestamp">2025-11-29T14:35:00Z</td>
+                        <td>order-service</td>
+                        <td><code class="code">/api/users</code></td>
+                        <td><span class="badge badge-slow">22108ms</span></td>
+                        <td>503</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0060</code></td>
+                        <td class="timestamp">2025-11-29T14:55:00Z</td>
+                        <td>product-service</td>
+                        <td><code class="code">/api/users</code></td>
+                        <td><span class="badge badge-slow">21802ms</span></td>
+                        <td>503</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0097</code></td>
+                        <td class="timestamp">2025-11-29T18:00:00Z</td>
+                        <td>cache-service</td>
+                        <td><code class="code">/api/health</code></td>
+                        <td><span class="badge badge-slow">20547ms</span></td>
+                        <td>503</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0059</code></td>
+                        <td class="timestamp">2025-11-29T14:50:00Z</td>
+                        <td>cache-service</td>
+                        <td><code class="code">/api/products</code></td>
+                        <td><span class="badge badge-slow">18462ms</span></td>
+                        <td>503</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0048</code></td>
+                        <td class="timestamp">2025-11-29T13:55:00Z</td>
+                        <td>product-service</td>
+                        <td><code class="code">/api/users</code></td>
+                        <td><span class="badge badge-slow">15896ms</span></td>
+                        <td>503</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0039</code></td>
+                        <td class="timestamp">2025-11-29T13:10:00Z</td>
+                        <td>order-service</td>
+                        <td><code class="code">/api/orders</code></td>
+                        <td><span class="badge badge-slow">15652ms</span></td>
+                        <td>500</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0013</code></td>
+                        <td class="timestamp">2025-11-29T11:00:00Z</td>
+                        <td>security-monitor</td>
+                        <td><code class="code">/api/products</code></td>
+                        <td><span class="badge badge-slow">14644ms</span></td>
+                        <td>502</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0040</code></td>
+                        <td class="timestamp">2025-11-29T13:15:00Z</td>
+                        <td>order-service</td>
+                        <td><code class="code">/api/reports</code></td>
+                        <td><span class="badge badge-slow">14298ms</span></td>
+                        <td>200</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0017</code></td>
+                        <td class="timestamp">2025-11-29T11:20:00Z</td>
+                        <td>api-gateway</td>
+                        <td><code class="code">/api/checkout</code></td>
+                        <td><span class="badge badge-slow">13090ms</span></td>
+                        <td>200</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0046</code></td>
+                        <td class="timestamp">2025-11-29T13:45:00Z</td>
+                        <td>user-service</td>
+                        <td><code class="code">/api/users</code></td>
+                        <td><span class="badge badge-slow">12452ms</span></td>
+                        <td>200</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0047</code></td>
+                        <td class="timestamp">2025-11-29T13:50:00Z</td>
+                        <td>api-gateway</td>
+                        <td><code class="code">/api/reports</code></td>
+                        <td><span class="badge badge-slow">12194ms</span></td>
+                        <td>504</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0062</code></td>
+                        <td class="timestamp">2025-11-29T15:05:00Z</td>
+                        <td>product-service</td>
+                        <td><code class="code">/api/users</code></td>
+                        <td><span class="badge badge-slow">11031ms</span></td>
+                        <td>200</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Resource Issues Detected</h2>
+            <table>
+                <thead>
+                    <tr><th>Type</th><th>Log ID</th><th>Timestamp</th><th>Service</th><th>Message</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-slow">connection_pool</span></td>
+                        <td><code class="code">log-0020</code></td>
+                        <td class="timestamp">2025-11-29T11:35:00Z</td>
+                        <td>security-monitor</td>
+                        <td>Internal server error: database connection pool exhausted...</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-slow">connection_pool</span></td>
+                        <td><code class="code">log-0038</code></td>
+                        <td class="timestamp">2025-11-29T13:05:00Z</td>
+                        <td>order-service</td>
+                        <td>Internal server error: database connection pool exhausted...</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-slow">memory</span></td>
+                        <td><code class="code">log-0040</code></td>
+                        <td class="timestamp">2025-11-29T13:15:00Z</td>
+                        <td>order-service</td>
+                        <td>High memory usage detected...</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-slow">connection_pool</span></td>
+                        <td><code class="code">log-0047</code></td>
+                        <td class="timestamp">2025-11-29T13:50:00Z</td>
+                        <td>api-gateway</td>
+                        <td>Internal server error: database connection pool exhausted...</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-slow">connection_pool</span></td>
+                        <td><code class="code">log-0056</code></td>
+                        <td class="timestamp">2025-11-29T14:35:00Z</td>
+                        <td>order-service</td>
+                        <td>Internal server error: database connection pool exhausted...</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-slow">memory</span></td>
+                        <td><code class="code">log-0057</code></td>
+                        <td class="timestamp">2025-11-29T14:40:00Z</td>
+                        <td>security-monitor</td>
+                        <td>Internal server error: out of memory exception...</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-slow">memory</span></td>
+                        <td><code class="code">log-0097</code></td>
+                        <td class="timestamp">2025-11-29T18:00:00Z</td>
+                        <td>cache-service</td>
+                        <td>Internal server error: out of memory exception...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>I/O Performance Warnings</h2>
+            <table>
+                <thead>
+                    <tr><th>Log ID</th><th>Service</th><th>Read Latency</th><th>Write Latency</th><th>IOPS</th><th>Message</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code class="code">log-0007</code></td>
+                        <td>user-service</td>
+                        <td>267ms</td>
+                        <td>515ms</td>
+                        <td>164</td>
+                        <td>Disk I/O latency spike...</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0017</code></td>
+                        <td>api-gateway</td>
+                        <td>494ms</td>
+                        <td>252ms</td>
+                        <td>174</td>
+                        <td>Disk I/O latency spike...</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0028</code></td>
+                        <td>product-service</td>
+                        <td>253ms</td>
+                        <td>268ms</td>
+                        <td>148</td>
+                        <td>Slow database query detected...</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0040</code></td>
+                        <td>order-service</td>
+                        <td>488ms</td>
+                        <td>252ms</td>
+                        <td>169</td>
+                        <td>High memory usage detected...</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0046</code></td>
+                        <td>user-service</td>
+                        <td>134ms</td>
+                        <td>633ms</td>
+                        <td>156</td>
+                        <td>Disk I/O latency spike...</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0062</code></td>
+                        <td>product-service</td>
+                        <td>234ms</td>
+                        <td>765ms</td>
+                        <td>127</td>
+                        <td>Slow database query detected...</td>
+                    </tr>
+                    <tr>
+                        <td><code class="code">log-0099</code></td>
+                        <td>security-monitor</td>
+                        <td>233ms</td>
+                        <td>294ms</td>
+                        <td>72</td>
+                        <td>Slow database query detected...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Performance Recommendations</h2>
+            <div style="background: #d1ecf1; border-left: 4px solid #17a2b8; padding: 15px; margin-bottom: 15px; border-radius: 0 8px 8px 0;">
+                <h4 style="color: #0c5460; margin-bottom: 10px;">Database Optimization</h4>
+                <ul style="margin-left: 20px;">
+                    <li>Increase database connection pool size to handle peak loads</li>
+                    <li>Implement query caching for frequently accessed data</li>
+                    <li>Add database read replicas for read-heavy workloads</li>
+                    <li>Review and optimize slow queries identified in logs</li>
+                </ul>
+            </div>
+            <div style="background: #d1ecf1; border-left: 4px solid #17a2b8; padding: 15px; margin-bottom: 15px; border-radius: 0 8px 8px 0;">
+                <h4 style="color: #0c5460; margin-bottom: 10px;">Infrastructure Scaling</h4>
+                <ul style="margin-left: 20px;">
+                    <li>Consider horizontal scaling for services with high response times</li>
+                    <li>Implement auto-scaling based on response time metrics</li>
+                    <li>Add caching layer (Redis/Memcached) for frequently accessed endpoints</li>
+                    <li>Review memory allocation for services with OOM issues</li>
+                </ul>
+            </div>
+            <div style="background: #d1ecf1; border-left: 4px solid #17a2b8; padding: 15px; border-radius: 0 8px 8px 0;">
+                <h4 style="color: #0c5460; margin-bottom: 10px;">Monitoring Improvements</h4>
+                <ul style="margin-left: 20px;">
+                    <li>Set up alerting for P95 response times exceeding thresholds</li>
+                    <li>Implement distributed tracing for cross-service latency analysis</li>
+                    <li>Add APM tooling for detailed performance profiling</li>
+                    <li>Create dashboards for real-time performance monitoring</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
