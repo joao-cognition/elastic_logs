@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Report - 2026-02-12 14:32:07</title>
+<style>
+  :root { --bg: #0f172a; --card: #1e293b; --border: #334155; --text: #e2e8f0; --muted: #94a3b8; --red: #ef4444; --orange: #f97316; --yellow: #eab308; --green: #22c55e; --blue: #3b82f6; --purple: #a855f7; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+  .subtitle { color: var(--muted); margin-bottom: 2rem; font-size: 0.95rem; }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .summary-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; }
+  .summary-card .label { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .summary-card .value { font-size: 2rem; font-weight: 700; margin-top: 0.25rem; }
+  .summary-card .value.red { color: var(--red); }
+  .summary-card .value.orange { color: var(--orange); }
+  .summary-card .value.yellow { color: var(--yellow); }
+  .summary-card .value.green { color: var(--green); }
+  .summary-card .value.purple { color: var(--purple); }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  section h2 { font-size: 1.2rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 2px solid var(--border); color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; }
+  td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+  .badge-401 { background: rgba(239,68,68,0.15); color: var(--red); }
+  .badge-403 { background: rgba(249,115,22,0.15); color: var(--orange); }
+  .badge-sqli { background: rgba(168,85,247,0.15); color: var(--purple); }
+  .badge-sqlmap { background: rgba(234,179,8,0.15); color: var(--yellow); }
+  .badge-ratelimit { background: rgba(249,115,22,0.15); color: var(--orange); }
+  .mono { font-family: 'Cascadia Code', 'Fira Code', monospace; font-size: 0.8rem; }
+  .note { color: var(--muted); font-size: 0.85rem; margin-top: 0.75rem; padding: 0.75rem; background: rgba(148,163,184,0.08); border-radius: 6px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Security Analysis Report</h1>
+  <p class="subtitle">Log file: <strong>elastic_logs_29_11_25.json</strong> &nbsp;|&nbsp; Generated: 2026-02-12 14:32:07 UTC &nbsp;|&nbsp; Total log entries: 100</p>
+
+  <div class="summary-grid">
+    <div class="summary-card"><div class="label">401/403 Entries</div><div class="value red">13</div></div>
+    <div class="summary-card"><div class="label">IPs with &gt;10 Failures</div><div class="value green">0</div></div>
+    <div class="summary-card"><div class="label">SQL/XSS Indicators</div><div class="value purple">32</div></div>
+    <div class="summary-card"><div class="label">sqlmap User-Agents</div><div class="value yellow">22</div></div>
+  </div>
+
+  <section>
+    <h2><span style="color:var(--red)">&#9632;</span> Unauthorized / Forbidden Responses (401 &amp; 403)</h2>
+    <table>
+      <thead><tr><th>Log ID</th><th>Timestamp</th><th>Status</th><th>Service</th><th>Endpoint</th><th>Client IP</th><th>Message</th><th>Security Event</th></tr></thead>
+      <tbody>
+
+        <tr>
+          <td class="mono">log-0008</td>
+          <td class="mono">2025-11-29T10:35:00Z</td>
+          <td><span class="badge badge-403">403</span></td>
+          <td>product-service</td>
+          <td class="mono">/api/users</td>
+          <td class="mono">192.168.189.24</td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+          <td>RATE_LIMIT_EXCEEDED | 150 req/min</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0011</td>
+          <td class="mono">2025-11-29T10:50:00Z</td>
+          <td><span class="badge badge-401">401</span></td>
+          <td>product-service</td>
+          <td class="mono">/api/checkout</td>
+          <td class="mono">192.168.127.22</td>
+          <td>Rate limit exceeded for IP</td>
+          <td>RATE_LIMIT_EXCEEDED | 150 req/min</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0018</td>
+          <td class="mono">2025-11-29T11:25:00Z</td>
+          <td><span class="badge badge-403">403</span></td>
+          <td>security-monitor</td>
+          <td class="mono">/api/users</td>
+          <td class="mono">192.168.242.44</td>
+          <td>Rate limit exceeded for IP</td>
+          <td>SQL_INJECTION_ATTEMPT | payload: <code>&#x27; OR &#x27;1&#x27;=&#x27;1</code></td>
+        </tr>
+        <tr>
+          <td class="mono">log-0019</td>
+          <td class="mono">2025-11-29T11:30:00Z</td>
+          <td><span class="badge badge-401">401</span></td>
+          <td>user-service</td>
+          <td class="mono">/api/health</td>
+          <td class="mono">192.168.158.198</td>
+          <td>Unauthorized access attempt to admin endpoint</td>
+          <td>UNAUTHORIZED_ACCESS | target: <code>/admin/users</code></td>
+        </tr>
+        <tr>
+          <td class="mono">log-0027</td>
+          <td class="mono">2025-11-29T12:10:00Z</td>
+          <td><span class="badge badge-401">401</span></td>
+          <td>product-service</td>
+          <td class="mono">/api/health</td>
+          <td class="mono">192.168.116.149</td>
+          <td>Rate limit exceeded for IP</td>
+          <td>UNAUTHORIZED_ACCESS | target: <code>/admin/users</code></td>
+        </tr>
+        <tr>
+          <td class="mono">log-0035</td>
+          <td class="mono">2025-11-29T12:50:00Z</td>
+          <td><span class="badge badge-403">403</span></td>
+          <td>api-gateway</td>
+          <td class="mono">/api/products</td>
+          <td class="mono">192.168.234.234</td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+          <td>UNAUTHORIZED_ACCESS | target: <code>/admin/users</code></td>
+        </tr>
+        <tr>
+          <td class="mono">log-0041</td>
+          <td class="mono">2025-11-29T13:20:00Z</td>
+          <td><span class="badge badge-403">403</span></td>
+          <td>order-service</td>
+          <td class="mono">/api/health</td>
+          <td class="mono">192.168.170.144</td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+          <td>UNAUTHORIZED_ACCESS | target: <code>/admin/users</code></td>
+        </tr>
+        <tr>
+          <td class="mono">log-0054</td>
+          <td class="mono">2025-11-29T14:25:00Z</td>
+          <td><span class="badge badge-403">403</span></td>
+          <td>api-gateway</td>
+          <td class="mono">/api/checkout</td>
+          <td class="mono">192.168.18.89</td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+          <td>UNAUTHORIZED_ACCESS | target: <code>/admin/users</code></td>
+        </tr>
+        <tr>
+          <td class="mono">log-0061</td>
+          <td class="mono">2025-11-29T15:00:00Z</td>
+          <td><span class="badge badge-401">401</span></td>
+          <td>user-service</td>
+          <td class="mono">/api/reports</td>
+          <td class="mono">192.168.41.19</td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+          <td>RATE_LIMIT_EXCEEDED | 150 req/min</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0064</td>
+          <td class="mono">2025-11-29T15:15:00Z</td>
+          <td><span class="badge badge-403">403</span></td>
+          <td>security-monitor</td>
+          <td class="mono">/api/search</td>
+          <td class="mono">192.168.125.242</td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+          <td>RATE_LIMIT_EXCEEDED | 150 req/min</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0068</td>
+          <td class="mono">2025-11-29T15:35:00Z</td>
+          <td><span class="badge badge-401">401</span></td>
+          <td>security-monitor</td>
+          <td class="mono">/api/reports</td>
+          <td class="mono">192.168.212.147</td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+          <td>SQL_INJECTION_ATTEMPT | payload: <code>&#x27; OR &#x27;1&#x27;=&#x27;1</code></td>
+        </tr>
+        <tr>
+          <td class="mono">log-0083</td>
+          <td class="mono">2025-11-29T16:50:00Z</td>
+          <td><span class="badge badge-401">401</span></td>
+          <td>security-monitor</td>
+          <td class="mono">/api/products</td>
+          <td class="mono">192.168.219.110</td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+          <td>RATE_LIMIT_EXCEEDED | 150 req/min</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0100</td>
+          <td class="mono">2025-11-29T18:15:00Z</td>
+          <td><span class="badge badge-403">403</span></td>
+          <td>user-service</td>
+          <td class="mono">/api/search</td>
+          <td class="mono">192.168.219.102</td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+          <td>SQL_INJECTION_ATTEMPT | payload: <code>&#x27; OR &#x27;1&#x27;=&#x27;1</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note">
+      <strong>Breakdown:</strong> 6 &times; 401 (Unauthorized), 7 &times; 403 (Forbidden) &nbsp;|&nbsp;
+      <strong>Services affected:</strong> security-monitor (4), product-service (3), user-service (3), api-gateway (2), order-service (1)
+    </div>
+  </section>
+
+  <section>
+    <h2><span style="color:var(--orange)">&#9632;</span> Unique IPs with &gt;10 Failed Requests</h2>
+    <div class="note">
+      <strong>No IPs exceeded the threshold.</strong> Across 28 total failed requests from 28 unique IPs, no single IP had more than 10 failures.
+      The maximum observed was <strong>1 failure per IP</strong>, indicating distributed rather than concentrated attack patterns.
+    </div>
+    <h3 style="font-size:0.95rem; margin: 1rem 0 0.5rem; color: var(--muted);">Top 15 IPs by Failed Requests (for reference)</h3>
+    <table><thead><tr><th>IP Address</th><th>Failed Requests</th><th>Status Codes</th></tr></thead><tbody>
+        <tr><td class='mono'>192.168.189.24</td><td>1</td><td>403 &times;1</td></tr>
+        <tr><td class='mono'>192.168.127.22</td><td>1</td><td>401 &times;1</td></tr>
+        <tr><td class='mono'>192.168.133.8</td><td>1</td><td>502 &times;1</td></tr>
+        <tr><td class='mono'>192.168.242.44</td><td>1</td><td>403 &times;1</td></tr>
+        <tr><td class='mono'>192.168.158.198</td><td>1</td><td>401 &times;1</td></tr>
+        <tr><td class='mono'>45.33.32.156</td><td>1</td><td>504 &times;1</td></tr>
+        <tr><td class='mono'>192.168.116.149</td><td>1</td><td>401 &times;1</td></tr>
+        <tr><td class='mono'>192.168.234.234</td><td>1</td><td>403 &times;1</td></tr>
+        <tr><td class='mono'>192.168.84.70</td><td>1</td><td>502 &times;1</td></tr>
+        <tr><td class='mono'>192.168.209.32</td><td>1</td><td>500 &times;1</td></tr>
+        <tr><td class='mono'>192.168.170.144</td><td>1</td><td>403 &times;1</td></tr>
+        <tr><td class='mono'>192.168.252.31</td><td>1</td><td>504 &times;1</td></tr>
+        <tr><td class='mono'>192.168.142.138</td><td>1</td><td>503 &times;1</td></tr>
+        <tr><td class='mono'>192.168.18.89</td><td>1</td><td>403 &times;1</td></tr>
+        <tr><td class='mono'>192.168.251.184</td><td>1</td><td>503 &times;1</td></tr>
+      </tbody></table>
+  </section>
+  <section>
+    <h2><span style="color:var(--purple)">&#9632;</span> SQL Injection / XSS Pattern Detection</h2>
+    <h3 style="font-size:0.95rem; margin-bottom:0.75rem; color:var(--muted);">3a. Patterns in Endpoint Paths</h3>
+    <div class="note"><strong>No SQL/XSS patterns detected directly in endpoint paths.</strong> The endpoints use clean REST paths (e.g., <code>/api/users</code>, <code>/api/orders</code>). Attack indicators were found in security metadata and messages instead.</div>
+    <h3 style="font-size:0.95rem; margin: 1.25rem 0 0.75rem; color:var(--muted);">3b. SQL Injection Indicators (security metadata &amp; log messages)</h3>
+    <table>
+      <thead><tr><th>Log ID</th><th>Timestamp</th><th>Endpoint</th><th>Client IP</th><th>Status</th><th>Detection Type</th><th>Details</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="mono">log-0008</td>
+          <td class="mono">2025-11-29T10:35:00Z</td>
+          <td class="mono">/api/users</td>
+          <td class="mono">192.168.189.24</td>
+          <td><span class="badge badge-403">403</span></td>
+          <td><span class="badge badge-sqli">SUSPICIOUS</span></td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0018</td>
+          <td class="mono">2025-11-29T11:25:00Z</td>
+          <td class="mono">/api/users</td>
+          <td class="mono">192.168.242.44</td>
+          <td><span class="badge badge-403">403</span></td>
+          <td><span class="badge badge-sqli">SQL_INJECTION</span></td>
+          <td>Payload: <code>&#x27; OR &#x27;1&#x27;=&#x27;1</code></td>
+        </tr>
+        <tr>
+          <td class="mono">log-0035</td>
+          <td class="mono">2025-11-29T12:50:00Z</td>
+          <td class="mono">/api/products</td>
+          <td class="mono">192.168.234.234</td>
+          <td><span class="badge badge-403">403</span></td>
+          <td><span class="badge badge-sqli">SUSPICIOUS</span></td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0041</td>
+          <td class="mono">2025-11-29T13:20:00Z</td>
+          <td class="mono">/api/health</td>
+          <td class="mono">192.168.170.144</td>
+          <td><span class="badge badge-403">403</span></td>
+          <td><span class="badge badge-sqli">SUSPICIOUS</span></td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0054</td>
+          <td class="mono">2025-11-29T14:25:00Z</td>
+          <td class="mono">/api/checkout</td>
+          <td class="mono">192.168.18.89</td>
+          <td><span class="badge badge-403">403</span></td>
+          <td><span class="badge badge-sqli">SUSPICIOUS</span></td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0061</td>
+          <td class="mono">2025-11-29T15:00:00Z</td>
+          <td class="mono">/api/reports</td>
+          <td class="mono">192.168.41.19</td>
+          <td><span class="badge badge-401">401</span></td>
+          <td><span class="badge badge-sqli">SUSPICIOUS</span></td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0063</td>
+          <td class="mono">2025-11-29T15:10:00Z</td>
+          <td class="mono">/api/products</td>
+          <td class="mono">192.168.53.217</td>
+          <td><span class="badge badge-429">429</span></td>
+          <td><span class="badge badge-sqli">SQL_INJECTION</span></td>
+          <td>Payload: <code>&#x27; OR &#x27;1&#x27;=&#x27;1</code></td>
+        </tr>
+        <tr>
+          <td class="mono">log-0064</td>
+          <td class="mono">2025-11-29T15:15:00Z</td>
+          <td class="mono">/api/search</td>
+          <td class="mono">192.168.125.242</td>
+          <td><span class="badge badge-403">403</span></td>
+          <td><span class="badge badge-sqli">SUSPICIOUS</span></td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0068</td>
+          <td class="mono">2025-11-29T15:35:00Z</td>
+          <td class="mono">/api/reports</td>
+          <td class="mono">192.168.212.147</td>
+          <td><span class="badge badge-401">401</span></td>
+          <td><span class="badge badge-sqli">SQL_INJECTION</span></td>
+          <td>Payload: <code>&#x27; OR &#x27;1&#x27;=&#x27;1</code></td>
+        </tr>
+        <tr>
+          <td class="mono">log-0082</td>
+          <td class="mono">2025-11-29T16:45:00Z</td>
+          <td class="mono">/api/search</td>
+          <td class="mono">192.168.115.23</td>
+          <td><span class="badge badge-429">429</span></td>
+          <td><span class="badge badge-sqli">SUSPICIOUS</span></td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0083</td>
+          <td class="mono">2025-11-29T16:50:00Z</td>
+          <td class="mono">/api/products</td>
+          <td class="mono">192.168.219.110</td>
+          <td><span class="badge badge-401">401</span></td>
+          <td><span class="badge badge-sqli">SUSPICIOUS</span></td>
+          <td>Suspicious request pattern detected - possible SQL injection</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0100</td>
+          <td class="mono">2025-11-29T18:15:00Z</td>
+          <td class="mono">/api/search</td>
+          <td class="mono">192.168.219.102</td>
+          <td><span class="badge badge-403">403</span></td>
+          <td><span class="badge badge-sqli">SQL_INJECTION</span></td>
+          <td>Payload: <code>&#x27; OR &#x27;1&#x27;=&#x27;1</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note">
+      <strong>Summary:</strong> 4 confirmed SQL injection attempts (payload: <code>' OR '1'='1</code>), 10 entries flagged as suspicious SQL injection patterns.
+    </div>
+
+    <h3 style="font-size:0.95rem; margin: 1.25rem 0 0.75rem; color:var(--muted);">3c. Automated Scanning Tool Detection (sqlmap)</h3>
+    <table>
+      <thead><tr><th>Log ID</th><th>Timestamp</th><th>Status</th><th>Endpoint</th><th>Client IP</th><th>User-Agent</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="mono">log-0005</td>
+          <td class="mono">2025-11-29T10:20:00Z</td>
+          <td><span class="badge badge-204">204</span></td>
+          <td class="mono">/api/reports</td>
+          <td class="mono">192.168.251.235</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0012</td>
+          <td class="mono">2025-11-29T10:55:00Z</td>
+          <td><span class="badge badge-201">201</span></td>
+          <td class="mono">/api/reports</td>
+          <td class="mono">192.168.165.169</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0015</td>
+          <td class="mono">2025-11-29T11:10:00Z</td>
+          <td><span class="badge badge-200">200</span></td>
+          <td class="mono">/api/products</td>
+          <td class="mono">192.168.89.27</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0016</td>
+          <td class="mono">2025-11-29T11:15:00Z</td>
+          <td><span class="badge badge-201">201</span></td>
+          <td class="mono">/api/search</td>
+          <td class="mono">192.168.111.110</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0023</td>
+          <td class="mono">2025-11-29T11:50:00Z</td>
+          <td><span class="badge badge-200">200</span></td>
+          <td class="mono">/api/search</td>
+          <td class="mono">192.168.70.240</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0024</td>
+          <td class="mono">2025-11-29T11:55:00Z</td>
+          <td><span class="badge badge-204">204</span></td>
+          <td class="mono">/api/orders</td>
+          <td class="mono">192.168.22.152</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0033</td>
+          <td class="mono">2025-11-29T12:40:00Z</td>
+          <td><span class="badge badge-201">201</span></td>
+          <td class="mono">/api/checkout</td>
+          <td class="mono">192.168.165.106</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0039</td>
+          <td class="mono">2025-11-29T13:10:00Z</td>
+          <td><span class="badge badge-500">500</span></td>
+          <td class="mono">/api/orders</td>
+          <td class="mono">192.168.209.32</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0041</td>
+          <td class="mono">2025-11-29T13:20:00Z</td>
+          <td><span class="badge badge-403">403</span></td>
+          <td class="mono">/api/health</td>
+          <td class="mono">192.168.170.144</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0047</td>
+          <td class="mono">2025-11-29T13:50:00Z</td>
+          <td><span class="badge badge-504">504</span></td>
+          <td class="mono">/api/reports</td>
+          <td class="mono">192.168.252.31</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0050</td>
+          <td class="mono">2025-11-29T14:05:00Z</td>
+          <td><span class="badge badge-201">201</span></td>
+          <td class="mono">/api/orders</td>
+          <td class="mono">192.168.70.48</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0055</td>
+          <td class="mono">2025-11-29T14:30:00Z</td>
+          <td><span class="badge badge-204">204</span></td>
+          <td class="mono">/api/products</td>
+          <td class="mono">192.168.145.253</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0062</td>
+          <td class="mono">2025-11-29T15:05:00Z</td>
+          <td><span class="badge badge-200">200</span></td>
+          <td class="mono">/api/users</td>
+          <td class="mono">192.168.85.67</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0065</td>
+          <td class="mono">2025-11-29T15:20:00Z</td>
+          <td><span class="badge badge-201">201</span></td>
+          <td class="mono">/api/products</td>
+          <td class="mono">192.168.85.188</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0068</td>
+          <td class="mono">2025-11-29T15:35:00Z</td>
+          <td><span class="badge badge-401">401</span></td>
+          <td class="mono">/api/reports</td>
+          <td class="mono">192.168.212.147</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0079</td>
+          <td class="mono">2025-11-29T16:30:00Z</td>
+          <td><span class="badge badge-204">204</span></td>
+          <td class="mono">/api/reports</td>
+          <td class="mono">192.168.172.42</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0091</td>
+          <td class="mono">2025-11-29T17:30:00Z</td>
+          <td><span class="badge badge-200">200</span></td>
+          <td class="mono">/api/health</td>
+          <td class="mono">192.168.109.25</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0092</td>
+          <td class="mono">2025-11-29T17:35:00Z</td>
+          <td><span class="badge badge-204">204</span></td>
+          <td class="mono">/api/users</td>
+          <td class="mono">192.168.213.37</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0094</td>
+          <td class="mono">2025-11-29T17:45:00Z</td>
+          <td><span class="badge badge-201">201</span></td>
+          <td class="mono">/api/health</td>
+          <td class="mono">192.168.119.159</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0095</td>
+          <td class="mono">2025-11-29T17:50:00Z</td>
+          <td><span class="badge badge-200">200</span></td>
+          <td class="mono">/api/health</td>
+          <td class="mono">192.168.232.33</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0096</td>
+          <td class="mono">2025-11-29T17:55:00Z</td>
+          <td><span class="badge badge-200">200</span></td>
+          <td class="mono">/api/search</td>
+          <td class="mono">192.168.228.48</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+        <tr>
+          <td class="mono">log-0099</td>
+          <td class="mono">2025-11-29T18:10:00Z</td>
+          <td><span class="badge badge-200">200</span></td>
+          <td class="mono">/api/health</td>
+          <td class="mono">192.168.7.11</td>
+          <td class="mono">sqlmap/1.5.2</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="note">
+      <strong>22 requests</strong> from <strong>22 unique IPs</strong> using <code>sqlmap/1.5.2</code> user-agent, a well-known SQL injection scanning tool. No XSS patterns were detected in this log file.
+    </div>
+  </section>
+
+  <section>
+    <h2><span style="color:var(--blue)">&#9632;</span> Recommendations</h2>
+    <table>
+      <thead><tr><th>#</th><th>Priority</th><th>Recommendation</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><span class="badge badge-401">HIGH</span></td><td>Block or rate-limit the 22 IPs identified using <code>sqlmap</code>. Automated scanning tools indicate active reconnaissance.</td></tr>
+        <tr><td>2</td><td><span class="badge badge-401">HIGH</span></td><td>Investigate the 4 confirmed SQL injection attempts with payload <code>' OR '1'='1</code> and verify input sanitization on all endpoints.</td></tr>
+        <tr><td>3</td><td><span class="badge badge-403">MEDIUM</span></td><td>Review the 13 unauthorized/forbidden responses. Multiple entries reference <code>/admin/users</code> as target, suggesting admin endpoint probing.</td></tr>
+        <tr><td>4</td><td><span class="badge badge-ratelimit">MEDIUM</span></td><td>Tighten rate-limiting thresholds. Several entries show 150 req/min triggering limits, but attacks appear distributed across many IPs (1 failure each).</td></tr>
+        <tr><td>5</td><td><span class="badge badge-sqli">LOW</span></td><td>Implement a Web Application Firewall (WAF) to automatically block requests with known SQL injection and XSS payloads.</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+</div>
+</body>
+</html>
