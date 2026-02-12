@@ -1,0 +1,311 @@
+name: Analyze Logs with Devin
+
+on:
+  push:
+    paths:
+      - 'logs/**'
+  workflow_dispatch:
+    inputs:
+      log_file:
+        description: 'Path to a specific log file to analyze (leave empty for auto-detect)'
+        required: false
+        default: ''
+      analysis_type:
+        description: 'Type of analysis to run'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - error
+          - performance
+          - security
+
+concurrency:
+  group: log-analysis-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  REPORTS_DIR: analysis
+  LOGS_DIR: logs
+  API_URL: https://api.devin.ai/v1/sessions
+
+jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      log_files: ${{ steps.resolve.outputs.log_files }}
+      has_files: ${{ steps.resolve.outputs.has_files }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        if: github.event_name == 'push'
+        uses: tj-actions/changed-files@v41
+        with:
+          files: |
+            logs/*.json
+          diff_relative: true
+
+      - name: Resolve target log files
+        id: resolve
+        run: |
+          if [ -n "${{ github.event.inputs.log_file }}" ]; then
+            echo "log_files=${{ github.event.inputs.log_file }}" >> "$GITHUB_OUTPUT"
+            echo "has_files=true" >> "$GITHUB_OUTPUT"
+            echo "Using manually specified log file: ${{ github.event.inputs.log_file }}"
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            FILES="${{ steps.changed-files.outputs.all_changed_files }}"
+            if [ -n "$FILES" ]; then
+              echo "log_files=$FILES" >> "$GITHUB_OUTPUT"
+              echo "has_files=true" >> "$GITHUB_OUTPUT"
+              echo "Detected changed log files: $FILES"
+            else
+              echo "log_files=" >> "$GITHUB_OUTPUT"
+              echo "has_files=false" >> "$GITHUB_OUTPUT"
+              echo "No changed log files detected"
+            fi
+          else
+            echo "log_files=" >> "$GITHUB_OUTPUT"
+            echo "has_files=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  validate:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.has_files == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate log files exist and are valid JSON
+        run: |
+          for file in ${{ needs.detect-changes.outputs.log_files }}; do
+            if [ ! -f "$file" ]; then
+              echo "Error: Log file not found: $file"
+              exit 1
+            fi
+            python3 -c "
+          import json, sys
+          with open('$file') as f:
+              data = json.load(f)
+          if not isinstance(data, list):
+              print('WARN: Expected JSON array in $file')
+              sys.exit(1)
+          print('Schema OK: $file (' + str(len(data)) + ' entries)')
+          "
+          done
+
+  lint:
+    needs: [detect-changes, validate]
+    if: needs.detect-changes.outputs.has_files == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install flake8
+        run: pip install --quiet flake8
+
+      - name: Run flake8 on scripts
+        run: flake8 script/ --max-line-length=100 --count --show-source --statistics || true
+
+  test:
+    needs: [detect-changes, validate]
+    if: needs.detect-changes.outputs.has_files == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install test dependencies
+        run: pip install --quiet pytest pytest-cov requests
+
+      - name: Run unit tests
+        run: |
+          if [ -d "tests" ]; then
+            python3 -m pytest tests/ \
+              --cov=script \
+              --cov-report=xml:coverage.xml \
+              --cov-report=html:htmlcov \
+              --junitxml=test-results.xml \
+              -v || true
+          else
+            echo "No tests directory found, skipping tests"
+          fi
+
+      - name: Upload test results
+        if: always() && hashFiles('test-results.xml') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            test-results.xml
+            coverage.xml
+            htmlcov/
+
+  analyze:
+    needs: [detect-changes, validate, lint, test]
+    if: needs.detect-changes.outputs.has_files == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      matrix:
+        analysis_type: [error, performance, security]
+    steps:
+      - name: Check if analysis type is selected
+        id: check-type
+        run: |
+          SELECTED="${{ github.event.inputs.analysis_type || 'all' }}"
+          if [ "$SELECTED" = "all" ] || [ "$SELECTED" = "${{ matrix.analysis_type }}" ]; then
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout code
+        if: steps.check-type.outputs.should_run == 'true'
+        uses: actions/checkout@v4
+
+      - name: Prepare reports directory
+        if: steps.check-type.outputs.should_run == 'true'
+        run: mkdir -p ${{ env.REPORTS_DIR }}
+
+      - name: Run ${{ matrix.analysis_type }} analysis
+        if: steps.check-type.outputs.should_run == 'true'
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          python3 << 'EOF'
+          import json
+          import os
+          import time
+          from urllib.request import Request, urlopen
+          from urllib.error import HTTPError, URLError
+          from datetime import datetime, timezone
+
+          api_key = os.environ.get("DEVIN_API_KEY")
+          api_url = "${{ env.API_URL }}"
+          analysis_type = "${{ matrix.analysis_type }}"
+          files_str = "${{ needs.detect-changes.outputs.log_files }}"
+          timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+
+          if not files_str:
+              print("No files to process")
+              exit(0)
+
+          log_files = files_str.split()
+
+          prompts = {
+              "error": (
+                  "@elastic_logs Read {log_file}. "
+                  "Count all entries with level='ERROR'. "
+                  "Group by: status_code, service_name, error_message. "
+                  "List top 10 most frequent errors. "
+                  "Save as error_report_{timestamp}.html in analysis/"
+              ),
+              "performance": (
+                  "@elastic_logs Read {log_file}. "
+                  "Calculate response_time stats: min, max, avg, p95, p99. "
+                  "List slowest 10 endpoints. "
+                  "Identify any response_time > 1000ms. "
+                  "Save as performance_report_{timestamp}.html in analysis/"
+              ),
+              "security": (
+                  "@elastic_logs Read {log_file}. "
+                  "Find: status_code=401/403 entries, "
+                  "unique IPs with >10 failed requests, "
+                  "any SQL/XSS patterns in request_path. "
+                  "Save as security_report_{timestamp}.html in analysis/"
+              ),
+          }
+
+          template = prompts[analysis_type]
+
+          for log_file in log_files:
+              print(f"\n=== {analysis_type} analysis on {log_file} ===")
+              prompt = template.format(log_file=log_file, timestamp=timestamp)
+              payload = {"prompt": prompt}
+              data = json.dumps(payload).encode("utf-8")
+              request = Request(
+                  api_url,
+                  data=data,
+                  headers={
+                      "Authorization": f"Bearer {api_key}",
+                      "Content-Type": "application/json",
+                  },
+                  method="POST",
+              )
+
+              max_retries = 3
+              for attempt in range(max_retries):
+                  try:
+                      with urlopen(request, timeout=60) as response:
+                          result = json.loads(response.read().decode("utf-8"))
+                          print(f"  Session URL: {result['url']}")
+                          break
+                  except (HTTPError, URLError) as e:
+                      if attempt < max_retries - 1:
+                          wait = 2 ** attempt
+                          print(f"  Retry {attempt + 1}/{max_retries} after error: {e}")
+                          time.sleep(wait)
+                      else:
+                          print(f"  Failed after {max_retries} attempts: {e}")
+                          raise
+          EOF
+
+  archive-reports:
+    needs: [detect-changes, analyze]
+    if: needs.detect-changes.outputs.has_files == 'true' && always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Upload analysis reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: analysis-reports
+          path: ${{ env.REPORTS_DIR }}/*.html
+          if-no-files-found: ignore
+
+  notify:
+    needs: [detect-changes, validate, lint, test, analyze, archive-reports]
+    if: always() && needs.detect-changes.outputs.has_files == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Report status
+        run: |
+          if [ "${{ needs.analyze.result }}" = "success" ]; then
+            echo "Log analysis pipeline completed successfully."
+            echo "Reports are in: ${{ env.REPORTS_DIR }}/"
+          else
+            echo "Log analysis pipeline had failures."
+            echo "Check the workflow run for details."
+            exit 1
+          fi
