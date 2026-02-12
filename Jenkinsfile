@@ -1,32 +1,4 @@
-// =============================================================================
-// Jenkins Pipeline: Elastic Logs Analysis
-// =============================================================================
-//
-// This Jenkinsfile is designed to be fully mappable to a GitHub Actions workflow.
-// Each section includes a comment showing its GH Action equivalent.
-//
-// Mapping overview:
-//   Jenkins pipeline { }          →  GH Action: workflow file (.yml)
-//   Jenkins agent                 →  GH Action: runs-on
-//   Jenkins environment { }       →  GH Action: env / secrets
-//   Jenkins triggers { }          →  GH Action: on: (push, paths, etc.)
-//   Jenkins stages / stage        →  GH Action: jobs / steps
-//   Jenkins parallel { }          →  GH Action: matrix strategy or separate jobs
-//   Jenkins post { }              →  GH Action: if: always() / if: failure()
-//   Jenkins archiveArtifacts      →  GH Action: actions/upload-artifact
-//   Jenkins credentials()         →  GH Action: ${{ secrets.SECRET_NAME }}
-//   Jenkins parameters { }        →  GH Action: workflow_dispatch inputs
-//   Jenkins when { }              →  GH Action: if: conditions on steps/jobs
-// =============================================================================
-
 pipeline {
-    // -------------------------------------------------------------------------
-    // Agent: Where the pipeline runs
-    // GH Action equivalent:
-    //   jobs:
-    //     analyze:
-    //       runs-on: ubuntu-latest
-    // -------------------------------------------------------------------------
     agent {
         docker {
             image 'python:3.11-slim'
@@ -34,40 +6,10 @@ pipeline {
         }
     }
 
-    // -------------------------------------------------------------------------
-    // Triggers: When the pipeline runs
-    // GH Action equivalent:
-    //   on:
-    //     push:
-    //       paths:
-    //         - 'logs/**'
-    //     workflow_dispatch:
-    //       inputs:
-    //         log_file:
-    //           description: 'Path to log file'
-    //           required: false
-    // -------------------------------------------------------------------------
     triggers {
         pollSCM('H/5 * * * *')
     }
 
-    // -------------------------------------------------------------------------
-    // Parameters: Manual trigger inputs
-    // GH Action equivalent:
-    //   on:
-    //     workflow_dispatch:
-    //       inputs:
-    //         log_file:
-    //           description: 'Path to a specific log file to analyze'
-    //           required: false
-    //           type: string
-    //         analysis_type:
-    //           description: 'Type of analysis to run'
-    //           required: false
-    //           default: 'all'
-    //           type: choice
-    //           options: [all, error, performance, security]
-    // -------------------------------------------------------------------------
     parameters {
         string(
             name: 'LOG_FILE',
@@ -81,17 +23,6 @@ pipeline {
         )
     }
 
-    // -------------------------------------------------------------------------
-    // Environment: Global variables and secrets
-    // GH Action equivalent:
-    //   env:
-    //     REPORTS_DIR: analysis
-    //     LOGS_DIR: logs
-    //   jobs:
-    //     analyze:
-    //       env:
-    //         DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
-    // -------------------------------------------------------------------------
     environment {
         DEVIN_API_KEY = credentials('devin-api-key')
         REPORTS_DIR   = 'analysis'
@@ -99,16 +30,6 @@ pipeline {
         API_URL       = 'https://api.devin.ai/v1/sessions'
     }
 
-    // -------------------------------------------------------------------------
-    // Options: Pipeline-level settings
-    // GH Action equivalent:
-    //   jobs:
-    //     analyze:
-    //       timeout-minutes: 30
-    //       concurrency:
-    //         group: log-analysis-${{ github.ref }}
-    //         cancel-in-progress: true
-    // -------------------------------------------------------------------------
     options {
         timeout(time: 30, unit: 'MINUTES')
         disableConcurrentBuilds()
@@ -117,42 +38,12 @@ pipeline {
     }
 
     stages {
-        // =====================================================================
-        // Stage 1: Checkout
-        // GH Action equivalent:
-        //   steps:
-        //     - name: Checkout code
-        //       uses: actions/checkout@v4
-        //       with:
-        //         fetch-depth: 0
-        // =====================================================================
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
 
-        // =====================================================================
-        // Stage 2: Detect Changed Log Files
-        // GH Action equivalent:
-        //   steps:
-        //     - name: Get changed files
-        //       id: changed-files
-        //       uses: tj-actions/changed-files@v41
-        //       with:
-        //         files: |
-        //           logs/*.json
-        //         diff_relative: true
-        //
-        //     - name: Set log file
-        //       id: set-log-file
-        //       run: |
-        //         if [ -n "${{ inputs.log_file }}" ]; then
-        //           echo "log_file=${{ inputs.log_file }}" >> $GITHUB_OUTPUT
-        //         else
-        //           echo "log_file=${{ steps.changed-files.outputs.all_changed_files }}" >> $GITHUB_OUTPUT
-        //         fi
-        // =====================================================================
         stage('Detect Changed Logs') {
             steps {
                 script {
@@ -177,21 +68,6 @@ pipeline {
             }
         }
 
-        // =====================================================================
-        // Stage 3: Validate Input
-        // GH Action equivalent:
-        //   steps:
-        //     - name: Validate log files exist
-        //       if: steps.set-log-file.outputs.log_file != ''
-        //       run: |
-        //         for file in ${{ steps.set-log-file.outputs.log_file }}; do
-        //           if [ ! -f "$file" ]; then
-        //             echo "::error::Log file not found: $file"
-        //             exit 1
-        //           fi
-        //           python3 -c "import json; json.load(open('$file'))"
-        //         done
-        // =====================================================================
         stage('Validate') {
             when {
                 expression { env.TARGET_LOG_FILES?.trim() }
@@ -214,68 +90,83 @@ pipeline {
             }
         }
 
-        // =====================================================================
-        // Stage 4: Prepare Environment
-        // GH Action equivalent:
-        //   steps:
-        //     - name: Set up Python
-        //       uses: actions/setup-python@v5
-        //       with:
-        //         python-version: '3.11'
-        //
-        //     - name: Create output directory
-        //       run: mkdir -p analysis
-        // =====================================================================
+        stage('Install Dependencies') {
+            when {
+                expression { env.TARGET_LOG_FILES?.trim() }
+            }
+            steps {
+                sh 'python3 --version'
+                sh 'pip install --quiet requests'
+            }
+        }
+
+        stage('Lint & Syntax Check') {
+            when {
+                expression { env.TARGET_LOG_FILES?.trim() }
+            }
+            steps {
+                sh 'pip install --quiet flake8'
+                sh 'flake8 script/ --max-line-length=100 --count --show-source --statistics || true'
+                sh """
+                    for file in ${env.TARGET_LOG_FILES.replaceAll('\n', ' ')}; do
+                        python3 -c "
+import json, sys
+with open('\$file') as f:
+    data = json.load(f)
+if not isinstance(data, list):
+    print('WARN: Expected JSON array in \$file')
+    sys.exit(1)
+print('Schema OK: \$file (' + str(len(data)) + ' entries)')
+"
+                    done
+                """
+            }
+        }
+
+        stage('Unit Tests') {
+            when {
+                expression { env.TARGET_LOG_FILES?.trim() }
+            }
+            steps {
+                sh 'pip install --quiet pytest pytest-cov'
+                sh """
+                    python3 -m pytest tests/ \
+                        --cov=script \
+                        --cov-report=xml:coverage.xml \
+                        --cov-report=html:htmlcov \
+                        --junitxml=test-results.xml \
+                        -v || true
+                """
+            }
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults: 'test-results.xml'
+                    publishHTML(target: [
+                        allowMissing: true,
+                        alwaysLinkToLastBuild: false,
+                        keepAll: true,
+                        reportDir: 'htmlcov',
+                        reportFiles: 'index.html',
+                        reportName: 'Coverage Report'
+                    ])
+                }
+            }
+        }
+
         stage('Prepare') {
             when {
                 expression { env.TARGET_LOG_FILES?.trim() }
             }
             steps {
                 sh "mkdir -p ${REPORTS_DIR}"
-                sh 'python3 --version'
             }
         }
 
-        // =====================================================================
-        // Stage 5: Run Analysis (Parallel)
-        // GH Action equivalent (using matrix strategy):
-        //   jobs:
-        //     analyze:
-        //       strategy:
-        //         matrix:
-        //           analysis_type: [error, performance, security]
-        //       steps:
-        //         - name: Run ${{ matrix.analysis_type }} analysis
-        //           env:
-        //             DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
-        //           run: |
-        //             python3 << 'EOF'
-        //             ...create Devin session for matrix.analysis_type...
-        //             EOF
-        //
-        // Or using separate jobs with needs:
-        //   jobs:
-        //     error-analysis:
-        //       ...
-        //     performance-analysis:
-        //       ...
-        //     security-analysis:
-        //       ...
-        // =====================================================================
         stage('Analyze Logs') {
             when {
                 expression { env.TARGET_LOG_FILES?.trim() }
             }
             parallel {
-                // ---------------------------------------------------------
-                // Error Analysis
-                // GH Action equivalent (matrix value: error):
-                //   - name: Run error analysis
-                //     run: |
-                //       python3 << 'EOF'
-                //       # Count ERROR entries, group by status/service/message
-                //       EOF
-                // ---------------------------------------------------------
                 stage('Error Analysis') {
                     when {
                         expression {
@@ -289,15 +180,6 @@ pipeline {
                     }
                 }
 
-                // ---------------------------------------------------------
-                // Performance Analysis
-                // GH Action equivalent (matrix value: performance):
-                //   - name: Run performance analysis
-                //     run: |
-                //       python3 << 'EOF'
-                //       # Calculate response_time stats: min, max, avg, p95, p99
-                //       EOF
-                // ---------------------------------------------------------
                 stage('Performance Analysis') {
                     when {
                         expression {
@@ -311,15 +193,6 @@ pipeline {
                     }
                 }
 
-                // ---------------------------------------------------------
-                // Security Analysis
-                // GH Action equivalent (matrix value: security):
-                //   - name: Run security analysis
-                //     run: |
-                //       python3 << 'EOF'
-                //       # Find 401/403 entries, suspicious IPs, SQL/XSS patterns
-                //       EOF
-                // ---------------------------------------------------------
                 stage('Security Analysis') {
                     when {
                         expression {
@@ -335,18 +208,6 @@ pipeline {
             }
         }
 
-        // =====================================================================
-        // Stage 6: Archive Reports
-        // GH Action equivalent:
-        //   steps:
-        //     - name: Upload analysis reports
-        //       if: always()
-        //       uses: actions/upload-artifact@v4
-        //       with:
-        //         name: analysis-reports
-        //         path: analysis/*.html
-        //         retention-days: 30
-        // =====================================================================
         stage('Archive Reports') {
             when {
                 expression { env.TARGET_LOG_FILES?.trim() }
@@ -361,30 +222,22 @@ pipeline {
         }
     }
 
-    // =========================================================================
-    // Post: Actions that run after the pipeline completes
-    // GH Action equivalent:
-    //   jobs:
-    //     analyze:
-    //       steps:
-    //         - name: Notify on success
-    //           if: success()
-    //           run: echo "Analysis completed successfully"
-    //
-    //         - name: Notify on failure
-    //           if: failure()
-    //           run: echo "::error::Analysis pipeline failed"
-    //
-    //         - name: Cleanup
-    //           if: always()
-    //           run: echo "Pipeline finished"
-    // =========================================================================
     post {
         success {
             echo 'Log analysis pipeline completed successfully.'
+            slackSend(
+                channel: '#log-analysis',
+                color: 'good',
+                message: "Log analysis passed: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            )
         }
         failure {
-            echo 'Log analysis pipeline failed. Check the logs for details.'
+            echo 'Log analysis pipeline failed.'
+            slackSend(
+                channel: '#log-analysis',
+                color: 'danger',
+                message: "Log analysis FAILED: ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            )
         }
         always {
             echo "Pipeline finished. Reports are in: ${REPORTS_DIR}/"
@@ -393,30 +246,6 @@ pipeline {
     }
 }
 
-// =============================================================================
-// Shared function: Trigger a Devin analysis session
-// GH Action equivalent:
-//   This logic lives inline in the step's `run:` block or in a reusable
-//   composite action / workflow_call.
-//
-//   For composite action (reusable):
-//     # .github/actions/run-analysis/action.yml
-//     inputs:
-//       analysis_type:
-//         required: true
-//       log_file:
-//         required: true
-//     runs:
-//       using: composite
-//       steps:
-//         - run: |
-//             python3 << 'EOF'
-//             import json, os, time
-//             from urllib.request import Request, urlopen
-//             from datetime import datetime, timezone
-//             ...build prompt and call API...
-//             EOF
-// =============================================================================
 def runAnalysis(String analysisType, String logFiles) {
     def timestamp = new Date().format("yyyyMMdd_HHmmss", TimeZone.getTimeZone('UTC'))
 
@@ -471,15 +300,6 @@ PYEOF
     }
 }
 
-// =============================================================================
-// Prompt builder: Generates analysis-specific prompts
-// GH Action equivalent:
-//   Inline in the run: block, or as environment variables per matrix entry:
-//     env:
-//       ERROR_PROMPT: "Count all entries with level='ERROR'..."
-//       PERF_PROMPT: "Calculate response_time stats..."
-//       SECURITY_PROMPT: "Find status_code=401/403 entries..."
-// =============================================================================
 def buildPrompt(String analysisType, String logFile, String timestamp) {
     def prompts = [
         error: "@elastic_logs Read ${logFile}. Count all entries with level='ERROR'. " +
