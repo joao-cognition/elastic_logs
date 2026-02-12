@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Performance Report - elastic_logs_28_11_25</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; color: #333; padding: 24px; }
+.container { max-width: 1400px; margin: 0 auto; }
+h1 { font-size: 28px; margin-bottom: 8px; color: #1a1a1a; }
+h2 { font-size: 20px; margin: 32px 0 16px 0; color: #1a1a1a; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px; }
+.subtitle { color: #666; font-size: 14px; margin-bottom: 24px; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
+.stat-card { background: #fff; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); text-align: center; }
+.stat-card .label { font-size: 12px; text-transform: uppercase; color: #888; letter-spacing: 1px; margin-bottom: 8px; }
+.stat-card .value { font-size: 28px; font-weight: 700; color: #1a1a1a; }
+.stat-card .unit { font-size: 14px; color: #888; }
+.stat-card.highlight { border-left: 4px solid #e74c3c; }
+.stat-card.good { border-left: 4px solid #27ae60; }
+.stat-card.warn { border-left: 4px solid #f39c12; }
+table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px; }
+th { background: #2c3e50; color: #fff; padding: 12px 16px; text-align: left; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+td { padding: 10px 16px; border-bottom: 1px solid #eee; font-size: 14px; }
+tr:hover { background: #f8f9fa; }
+.critical { color: #e74c3c; font-weight: 700; }
+.warning { color: #f39c12; font-weight: 700; }
+.slow { color: #e67e22; font-weight: 600; }
+.bar { background: linear-gradient(90deg, #3498db, #2980b9); height: 18px; border-radius: 3px; min-width: 2px; }
+.summary-box { background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 16px 20px; margin-bottom: 24px; }
+.summary-box.danger { background: #f8d7da; border-color: #f5c6cb; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+.badge-critical { background: #fde8e8; color: #e74c3c; }
+.badge-warning { background: #fef3cd; color: #856404; }
+footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #ddd; color: #888; font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Performance Analysis Report</h1>
+<p class="subtitle">Log file: <strong>logs/elastic_logs_28_11_25.json</strong> | Generated: 2026-02-12 14:30:23 UTC | Total entries analyzed: 100</p>
+
+<div class="summary-box danger">
+<strong>Performance Alert:</strong> 27 out of 100 requests (27.0%) exceeded the 1,000ms threshold.
+Average response time is 4,641ms, significantly above healthy levels. P99 latency at 29,884ms indicates severe tail-end degradation.
+</div>
+
+<h2>Response Time Statistics</h2>
+<div class="stats-grid">
+<div class="stat-card good"><div class="label">Minimum</div><div class="value">10</div><div class="unit">ms</div></div>
+<div class="stat-card"><div class="label">Maximum</div><div class="value">29,915</div><div class="unit">ms</div></div>
+<div class="stat-card warn"><div class="label">Average</div><div class="value">4,641</div><div class="unit">ms</div></div>
+<div class="stat-card"><div class="label">Median</div><div class="value">148</div><div class="unit">ms</div></div>
+<div class="stat-card highlight"><div class="label">P95</div><div class="value">25,217</div><div class="unit">ms</div></div>
+<div class="stat-card highlight"><div class="label">P99</div><div class="value">29,884</div><div class="unit">ms</div></div>
+</div>
+
+<h2>Response Time Distribution</h2>
+<table>
+<thead><tr><th>Bucket</th><th>Count</th><th>Percentage</th><th>Distribution</th></tr></thead>
+<tbody>
+<tr>
+<td>0-100 ms</td>
+<td>30</td>
+<td>30.0%</td>
+<td><div class="bar" style="width: 90.0px;"></div></td>
+</tr>
+<tr>
+<td>100-200 ms</td>
+<td>32</td>
+<td>32.0%</td>
+<td><div class="bar" style="width: 96.0px;"></div></td>
+</tr>
+<tr>
+<td>200-500 ms</td>
+<td>10</td>
+<td>10.0%</td>
+<td><div class="bar" style="width: 30.0px;"></div></td>
+</tr>
+<tr>
+<td>500-1,000 ms</td>
+<td>1</td>
+<td>1.0%</td>
+<td><div class="bar" style="width: 3.0px;"></div></td>
+</tr>
+<tr>
+<td>1,000-5,000 ms</td>
+<td>0</td>
+<td>0.0%</td>
+<td><div class="bar" style="width: 2px;"></div></td>
+</tr>
+<tr>
+<td>5,000-10,000 ms</td>
+<td>9</td>
+<td>9.0%</td>
+<td><div class="bar" style="width: 27.0px;"></div></td>
+</tr>
+<tr>
+<td>10,000-30,000 ms</td>
+<td>18</td>
+<td>18.0%</td>
+<td><div class="bar" style="width: 54.0px;"></div></td>
+</tr>
+
+</tbody>
+</table>
+
+<h2>Top 10 Slowest Endpoints</h2>
+<table>
+<thead><tr><th>#</th><th>Log ID</th><th>Timestamp</th><th>Endpoint</th><th>Service</th><th>Status</th><th>Response Time (ms)</th></tr></thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>log-0089</td>
+<td>2025-12-01T17:20:00Z</td>
+<td>POST /api/users</td>
+<td>user-service</td>
+<td>503</td>
+<td class="critical">29,915</td>
+</tr>
+<tr>
+<td>2</td>
+<td>log-0088</td>
+<td>2025-12-01T17:15:00Z</td>
+<td>PUT /api/checkout</td>
+<td>product-service</td>
+<td>503</td>
+<td class="critical">29,884</td>
+</tr>
+<tr>
+<td>3</td>
+<td>log-0001</td>
+<td>2025-12-01T10:00:00Z</td>
+<td>GET /api/users</td>
+<td>order-service</td>
+<td>500</td>
+<td class="critical">29,132</td>
+</tr>
+<tr>
+<td>4</td>
+<td>log-0072</td>
+<td>2025-12-01T15:55:00Z</td>
+<td>GET /api/orders</td>
+<td>order-service</td>
+<td>504</td>
+<td class="critical">28,165</td>
+</tr>
+<tr>
+<td>5</td>
+<td>log-0032</td>
+<td>2025-12-01T12:35:00Z</td>
+<td>POST /api/users</td>
+<td>api-gateway</td>
+<td>503</td>
+<td class="critical">25,876</td>
+</tr>
+<tr>
+<td>6</td>
+<td>log-0060</td>
+<td>2025-12-01T14:55:00Z</td>
+<td>PUT /api/orders</td>
+<td>user-service</td>
+<td>504</td>
+<td class="critical">25,182</td>
+</tr>
+<tr>
+<td>7</td>
+<td>log-0026</td>
+<td>2025-12-01T12:05:00Z</td>
+<td>PUT /api/users</td>
+<td>product-service</td>
+<td>502</td>
+<td class="critical">23,970</td>
+</tr>
+<tr>
+<td>8</td>
+<td>log-0057</td>
+<td>2025-12-01T14:40:00Z</td>
+<td>POST /api/users</td>
+<td>api-gateway</td>
+<td>500</td>
+<td class="critical">23,962</td>
+</tr>
+<tr>
+<td>9</td>
+<td>log-0056</td>
+<td>2025-12-01T14:35:00Z</td>
+<td>PUT /api/users</td>
+<td>user-service</td>
+<td>502</td>
+<td class="critical">23,480</td>
+</tr>
+<tr>
+<td>10</td>
+<td>log-0076</td>
+<td>2025-12-01T16:15:00Z</td>
+<td>POST /api/checkout</td>
+<td>user-service</td>
+<td>503</td>
+<td class="critical">21,112</td>
+</tr>
+
+</tbody>
+</table>
+
+<h2>All Requests Exceeding 1,000ms Threshold (27 entries)</h2>
+<table>
+<thead><tr><th>Log ID</th><th>Timestamp</th><th>Endpoint</th><th>Service</th><th>Status</th><th>Level</th><th>Response Time (ms)</th><th>Message</th></tr></thead>
+<tbody>
+<tr>
+<td>log-0089</td>
+<td>2025-12-01T17:20:00Z</td>
+<td>POST /api/users</td>
+<td>user-service</td>
+<td>503</td>
+<td>ERROR</td>
+<td class="critical">29,915</td>
+<td>Service unavailable: circuit breaker open</td>
+</tr>
+<tr>
+<td>log-0088</td>
+<td>2025-12-01T17:15:00Z</td>
+<td>PUT /api/checkout</td>
+<td>product-service</td>
+<td>503</td>
+<td>ERROR</td>
+<td class="critical">29,884</td>
+<td>Service unavailable: circuit breaker open</td>
+</tr>
+<tr>
+<td>log-0001</td>
+<td>2025-12-01T10:00:00Z</td>
+<td>GET /api/users</td>
+<td>order-service</td>
+<td>500</td>
+<td>ERROR</td>
+<td class="critical">29,132</td>
+<td>Internal server error: database connection pool exhausted</td>
+</tr>
+<tr>
+<td>log-0072</td>
+<td>2025-12-01T15:55:00Z</td>
+<td>GET /api/orders</td>
+<td>order-service</td>
+<td>504</td>
+<td>ERROR</td>
+<td class="critical">28,165</td>
+<td>Gateway timeout: request exceeded 30s limit</td>
+</tr>
+<tr>
+<td>log-0032</td>
+<td>2025-12-01T12:35:00Z</td>
+<td>POST /api/users</td>
+<td>api-gateway</td>
+<td>503</td>
+<td>ERROR</td>
+<td class="critical">25,876</td>
+<td>Service unavailable: circuit breaker open</td>
+</tr>
+<tr>
+<td>log-0060</td>
+<td>2025-12-01T14:55:00Z</td>
+<td>PUT /api/orders</td>
+<td>user-service</td>
+<td>504</td>
+<td>ERROR</td>
+<td class="critical">25,182</td>
+<td>Gateway timeout: request exceeded 30s limit</td>
+</tr>
+<tr>
+<td>log-0026</td>
+<td>2025-12-01T12:05:00Z</td>
+<td>PUT /api/users</td>
+<td>product-service</td>
+<td>502</td>
+<td>ERROR</td>
+<td class="critical">23,970</td>
+<td>Bad gateway: upstream service unavailable</td>
+</tr>
+<tr>
+<td>log-0057</td>
+<td>2025-12-01T14:40:00Z</td>
+<td>POST /api/users</td>
+<td>api-gateway</td>
+<td>500</td>
+<td>ERROR</td>
+<td class="critical">23,962</td>
+<td>Internal server error: out of memory exception</td>
+</tr>
+<tr>
+<td>log-0056</td>
+<td>2025-12-01T14:35:00Z</td>
+<td>PUT /api/users</td>
+<td>user-service</td>
+<td>502</td>
+<td>ERROR</td>
+<td class="critical">23,480</td>
+<td>Bad gateway: upstream service unavailable</td>
+</tr>
+<tr>
+<td>log-0076</td>
+<td>2025-12-01T16:15:00Z</td>
+<td>POST /api/checkout</td>
+<td>user-service</td>
+<td>503</td>
+<td>ERROR</td>
+<td class="critical">21,112</td>
+<td>Service unavailable: circuit breaker open</td>
+</tr>
+<tr>
+<td>log-0084</td>
+<td>2025-12-01T16:55:00Z</td>
+<td>POST /api/checkout</td>
+<td>product-service</td>
+<td>500</td>
+<td>ERROR</td>
+<td class="critical">20,870</td>
+<td>Internal server error: null pointer exception in OrderProcessor</td>
+</tr>
+<tr>
+<td>log-0064</td>
+<td>2025-12-01T15:15:00Z</td>
+<td>PUT /api/orders</td>
+<td>product-service</td>
+<td>503</td>
+<td>ERROR</td>
+<td class="critical">18,942</td>
+<td>Service unavailable: circuit breaker open</td>
+</tr>
+<tr>
+<td>log-0041</td>
+<td>2025-12-01T13:20:00Z</td>
+<td>POST /api/checkout</td>
+<td>order-service</td>
+<td>500</td>
+<td>ERROR</td>
+<td class="critical">18,382</td>
+<td>Internal server error: database connection pool exhausted</td>
+</tr>
+<tr>
+<td>log-0077</td>
+<td>2025-12-01T16:20:00Z</td>
+<td>PUT /api/orders</td>
+<td>order-service</td>
+<td>502</td>
+<td>ERROR</td>
+<td class="critical">14,444</td>
+<td>Bad gateway: upstream service unavailable</td>
+</tr>
+<tr>
+<td>log-0003</td>
+<td>2025-12-01T10:10:00Z</td>
+<td>POST /api/checkout</td>
+<td>product-service</td>
+<td>500</td>
+<td>ERROR</td>
+<td class="critical">14,115</td>
+<td>Internal server error: out of memory exception</td>
+</tr>
+<tr>
+<td>log-0048</td>
+<td>2025-12-01T13:55:00Z</td>
+<td>PUT /api/orders</td>
+<td>product-service</td>
+<td>503</td>
+<td>ERROR</td>
+<td class="critical">12,683</td>
+<td>Service unavailable: circuit breaker open</td>
+</tr>
+<tr>
+<td>log-0081</td>
+<td>2025-12-01T16:40:00Z</td>
+<td>POST /api/users</td>
+<td>api-gateway</td>
+<td>503</td>
+<td>ERROR</td>
+<td class="critical">12,362</td>
+<td>Service unavailable: circuit breaker open</td>
+</tr>
+<tr>
+<td>log-0024</td>
+<td>2025-12-01T11:55:00Z</td>
+<td>GET /api/orders</td>
+<td>product-service</td>
+<td>500</td>
+<td>ERROR</td>
+<td class="critical">12,133</td>
+<td>Internal server error: out of memory exception</td>
+</tr>
+<tr>
+<td>log-0047</td>
+<td>2025-12-01T13:50:00Z</td>
+<td>GET /api/reports</td>
+<td>database-service</td>
+<td>200</td>
+<td>WARN</td>
+<td class="warning">9,880</td>
+<td>Connection pool exhaustion warning</td>
+</tr>
+<tr>
+<td>log-0019</td>
+<td>2025-12-01T11:30:00Z</td>
+<td>GET /api/reports</td>
+<td>cache-service</td>
+<td>200</td>
+<td>WARN</td>
+<td class="warning">9,427</td>
+<td>Disk I/O latency spike</td>
+</tr>
+<tr>
+<td>log-0023</td>
+<td>2025-12-01T11:50:00Z</td>
+<td>GET /api/analytics</td>
+<td>api-gateway</td>
+<td>200</td>
+<td>WARN</td>
+<td class="warning">9,423</td>
+<td>Connection pool exhaustion warning</td>
+</tr>
+<tr>
+<td>log-0094</td>
+<td>2025-12-01T17:45:00Z</td>
+<td>GET /api/export</td>
+<td>database-service</td>
+<td>200</td>
+<td>WARN</td>
+<td class="warning">8,618</td>
+<td>Connection pool exhaustion warning</td>
+</tr>
+<tr>
+<td>log-0030</td>
+<td>2025-12-01T12:25:00Z</td>
+<td>POST /api/checkout</td>
+<td>api-gateway</td>
+<td>500</td>
+<td>ERROR</td>
+<td class="warning">8,394</td>
+<td>Internal server error: out of memory exception</td>
+</tr>
+<tr>
+<td>log-0100</td>
+<td>2025-12-01T18:15:00Z</td>
+<td>GET /api/analytics</td>
+<td>api-gateway</td>
+<td>200</td>
+<td>WARN</td>
+<td class="warning">7,035</td>
+<td>High memory usage detected</td>
+</tr>
+<tr>
+<td>log-0058</td>
+<td>2025-12-01T14:45:00Z</td>
+<td>GET /api/reports</td>
+<td>api-gateway</td>
+<td>200</td>
+<td>WARN</td>
+<td class="warning">5,844</td>
+<td>Disk I/O latency spike</td>
+</tr>
+<tr>
+<td>log-0063</td>
+<td>2025-12-01T15:10:00Z</td>
+<td>GET /api/reports</td>
+<td>database-service</td>
+<td>200</td>
+<td>WARN</td>
+<td class="warning">5,410</td>
+<td>Connection pool exhaustion warning</td>
+</tr>
+<tr>
+<td>log-0069</td>
+<td>2025-12-01T15:40:00Z</td>
+<td>GET /api/reports</td>
+<td>cache-service</td>
+<td>200</td>
+<td>WARN</td>
+<td class="warning">5,033</td>
+<td>High memory usage detected</td>
+</tr>
+
+</tbody>
+</table>
+
+<h2>Performance by Service</h2>
+<table>
+<thead><tr><th>Service</th><th>Requests</th><th>Min (ms)</th><th>Max (ms)</th><th>Avg (ms)</th><th>P95 (ms)</th><th>Slow (&gt;1s)</th></tr></thead>
+<tbody>
+<tr>
+<td>api-gateway</td>
+<td>24</td>
+<td>29</td>
+<td>25,876</td>
+<td>3,977.38</td>
+<td>22,222.00</td>
+<td>7</td>
+</tr>
+<tr>
+<td>auth-service</td>
+<td>4</td>
+<td>269</td>
+<td>500</td>
+<td>391.75</td>
+<td>490.40</td>
+<td>0</td>
+</tr>
+<tr>
+<td>cache-service</td>
+<td>2</td>
+<td>5,033</td>
+<td>9,427</td>
+<td>7,230.00</td>
+<td>9,207.30</td>
+<td>2</td>
+</tr>
+<tr>
+<td>database-service</td>
+<td>3</td>
+<td>5,410</td>
+<td>9,880</td>
+<td>7,969.33</td>
+<td>9,753.80</td>
+<td>3</td>
+</tr>
+<tr>
+<td>order-service</td>
+<td>21</td>
+<td>50</td>
+<td>29,132</td>
+<td>4,389.90</td>
+<td>28,165.00</td>
+<td>4</td>
+</tr>
+<tr>
+<td>product-service</td>
+<td>19</td>
+<td>10</td>
+<td>29,884</td>
+<td>7,040.11</td>
+<td>24,561.40</td>
+<td>7</td>
+</tr>
+<tr>
+<td>security-monitor</td>
+<td>6</td>
+<td>57</td>
+<td>442</td>
+<td>229.50</td>
+<td>428.25</td>
+<td>0</td>
+</tr>
+<tr>
+<td>user-service</td>
+<td>21</td>
+<td>15</td>
+<td>29,915</td>
+<td>4,829.00</td>
+<td>25,182.00</td>
+<td>4</td>
+</tr>
+
+</tbody>
+</table>
+
+<h2>Performance by Endpoint</h2>
+<table>
+<thead><tr><th>Endpoint</th><th>Requests</th><th>Min (ms)</th><th>Max (ms)</th><th>Avg (ms)</th><th>P95 (ms)</th><th>Slow (&gt;1s)</th></tr></thead>
+<tbody>
+<tr>
+<td>POST /api/users</td>
+<td>10</td>
+<td>30</td>
+<td>29,915</td>
+<td>9,360.10</td>
+<td>28,097.45</td>
+<td>4</td>
+</tr>
+<tr>
+<td>PUT /api/checkout</td>
+<td>1</td>
+<td>29,884</td>
+<td>29,884</td>
+<td>29,884.00</td>
+<td>29,884.00</td>
+<td>1</td>
+</tr>
+<tr>
+<td>GET /api/users</td>
+<td>10</td>
+<td>80</td>
+<td>29,132</td>
+<td>3,144.90</td>
+<td>16,247.60</td>
+<td>1</td>
+</tr>
+<tr>
+<td>GET /api/orders</td>
+<td>3</td>
+<td>184</td>
+<td>28,165</td>
+<td>13,494.00</td>
+<td>26,561.80</td>
+<td>2</td>
+</tr>
+<tr>
+<td>PUT /api/orders</td>
+<td>5</td>
+<td>47</td>
+<td>25,182</td>
+<td>14,259.60</td>
+<td>23,934.00</td>
+<td>4</td>
+</tr>
+<tr>
+<td>PUT /api/users</td>
+<td>8</td>
+<td>76</td>
+<td>23,970</td>
+<td>6,014.25</td>
+<td>23,798.50</td>
+<td>2</td>
+</tr>
+<tr>
+<td>POST /api/checkout</td>
+<td>5</td>
+<td>8,394</td>
+<td>21,112</td>
+<td>16,574.60</td>
+<td>21,063.60</td>
+<td>5</td>
+</tr>
+<tr>
+<td>GET /api/reports</td>
+<td>5</td>
+<td>5,033</td>
+<td>9,880</td>
+<td>7,118.80</td>
+<td>9,789.40</td>
+<td>5</td>
+</tr>
+<tr>
+<td>GET /api/analytics</td>
+<td>2</td>
+<td>7,035</td>
+<td>9,423</td>
+<td>8,229.00</td>
+<td>9,303.60</td>
+<td>2</td>
+</tr>
+<tr>
+<td>GET /api/export</td>
+<td>1</td>
+<td>8,618</td>
+<td>8,618</td>
+<td>8,618.00</td>
+<td>8,618.00</td>
+<td>1</td>
+</tr>
+<tr>
+<td>GET /api/login</td>
+<td>3</td>
+<td>57</td>
+<td>427</td>
+<td>188.00</td>
+<td>392.30</td>
+<td>0</td>
+</tr>
+<tr>
+<td>POST /api/admin</td>
+<td>1</td>
+<td>362</td>
+<td>362</td>
+<td>362.00</td>
+<td>362.00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>POST /api/login</td>
+<td>2</td>
+<td>118</td>
+<td>269</td>
+<td>193.50</td>
+<td>261.45</td>
+<td>0</td>
+</tr>
+<tr>
+<td>POST /api/orders</td>
+<td>6</td>
+<td>27</td>
+<td>200</td>
+<td>107.50</td>
+<td>191.25</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DELETE /api/health</td>
+<td>5</td>
+<td>17</td>
+<td>198</td>
+<td>115.60</td>
+<td>197.60</td>
+<td>0</td>
+</tr>
+<tr>
+<td>PUT /api/search</td>
+<td>3</td>
+<td>159</td>
+<td>184</td>
+<td>171.00</td>
+<td>182.60</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DELETE /api/orders</td>
+<td>3</td>
+<td>107</td>
+<td>182</td>
+<td>145.67</td>
+<td>178.60</td>
+<td>0</td>
+</tr>
+<tr>
+<td>POST /api/products</td>
+<td>4</td>
+<td>16</td>
+<td>147</td>
+<td>77.00</td>
+<td>142.35</td>
+<td>0</td>
+</tr>
+<tr>
+<td>PUT /api/health</td>
+<td>6</td>
+<td>10</td>
+<td>140</td>
+<td>102.50</td>
+<td>139.75</td>
+<td>0</td>
+</tr>
+<tr>
+<td>GET /api/products</td>
+<td>4</td>
+<td>50</td>
+<td>139</td>
+<td>97.50</td>
+<td>134.20</td>
+<td>0</td>
+</tr>
+<tr>
+<td>PUT /api/products</td>
+<td>4</td>
+<td>85</td>
+<td>137</td>
+<td>116.50</td>
+<td>136.40</td>
+<td>0</td>
+</tr>
+<tr>
+<td>POST /api/search</td>
+<td>2</td>
+<td>69</td>
+<td>104</td>
+<td>86.50</td>
+<td>102.25</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DELETE /api/users</td>
+<td>1</td>
+<td>96</td>
+<td>96</td>
+<td>96.00</td>
+<td>96.00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DELETE /api/search</td>
+<td>4</td>
+<td>15</td>
+<td>71</td>
+<td>35.75</td>
+<td>65.60</td>
+<td>0</td>
+</tr>
+<tr>
+<td>GET /api/health</td>
+<td>1</td>
+<td>61</td>
+<td>61</td>
+<td>61.00</td>
+<td>61.00</td>
+<td>0</td>
+</tr>
+<tr>
+<td>DELETE /api/products</td>
+<td>1</td>
+<td>19</td>
+<td>19</td>
+<td>19.00</td>
+<td>19.00</td>
+<td>0</td>
+</tr>
+
+</tbody>
+</table>
+
+<footer>
+Performance Report generated by Devin AI | Source: logs/elastic_logs_28_11_25.json | Report ID: performance_report_20260212_143023
+</footer>
+</div>
+</body>
+</html>
