@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Summary - 2025-12-09 13:32:19 UTC</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+               background: #f5f5f5; color: #333; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #343a40, #212529); color: white; 
+                 padding: 30px; border-radius: 10px; margin-bottom: 30px; }
+        h1 { font-size: 2em; margin-bottom: 10px; }
+        .subtitle { opacity: 0.9; }
+        .card { background: white; border-radius: 10px; padding: 25px; margin-bottom: 20px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .card h2 { margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid; }
+        .card-error h2 { color: #dc3545; border-color: #dc3545; }
+        .card-security h2 { color: #6f42c1; border-color: #6f42c1; }
+        .card-performance h2 { color: #17a2b8; border-color: #17a2b8; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                      gap: 20px; }
+        .stat-box { background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center; }
+        .stat-value { font-size: 2em; font-weight: bold; }
+        .stat-value-error { color: #dc3545; }
+        .stat-value-security { color: #6f42c1; }
+        .stat-value-performance { color: #17a2b8; }
+        .stat-label { color: #666; margin-top: 5px; }
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; 
+                 font-size: 0.85em; font-weight: 500; margin: 2px; }
+        .badge-critical { background: #dc3545; color: white; }
+        .badge-high { background: #fd7e14; color: white; }
+        .badge-medium { background: #ffc107; color: #333; }
+        .badge-low { background: #28a745; color: white; }
+        .summary-section { margin-top: 20px; }
+        .summary-item { padding: 15px; background: #f8f9fa; border-radius: 8px; margin-bottom: 10px; }
+        .summary-item h4 { margin-bottom: 10px; }
+        ul { margin-left: 20px; }
+        .report-links { margin-top: 20px; }
+        .report-links a { display: inline-block; padding: 10px 20px; background: #007bff; 
+                         color: white; text-decoration: none; border-radius: 5px; margin-right: 10px; }
+        .report-links a:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Elastic Logs Analysis Summary</h1>
+            <p class="subtitle">Generated: 2025-12-09 13:32:19 UTC | Log File: elastic_logs_29_11_25.json</p>
+        </header>
+
+        <div class="card card-error">
+            <h2>Error Analysis Summary</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value stat-value-error">11</div>
+                    <div class="stat-label">Total Errors</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value stat-value-error">11.0%</div>
+                    <div class="stat-label">Error Rate</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value stat-value-error">5</div>
+                    <div class="stat-label">Affected Services</div>
+                </div>
+            </div>
+            <div class="summary-section">
+                <div class="summary-item">
+                    <h4>Key Findings</h4>
+                    <ul>
+                        <li>Most common error: Database connection pool exhaustion</li>
+                        <li>Services most affected: security-monitor, order-service, product-service</li>
+                        <li>Primary status codes: 503, 502, 504</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-security">
+            <h2>Security Analysis Summary</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value stat-value-security">12</div>
+                    <div class="stat-label">Critical Issues</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value stat-value-security">7</div>
+                    <div class="stat-label">High Severity</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value stat-value-security">12</div>
+                    <div class="stat-label">Injection Attempts</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value stat-value-security">10</div>
+                    <div class="stat-label">High-Risk IPs</div>
+                </div>
+            </div>
+            <div class="summary-section">
+                <div class="summary-item">
+                    <h4>Severity Breakdown</h4>
+                    <p>
+                        <span class="badge badge-critical">Critical: 12</span>
+                        <span class="badge badge-high">High: 7</span>
+                        <span class="badge badge-medium">Medium: 9</span>
+                        <span class="badge badge-low">Low: 13</span>
+                    </p>
+                </div>
+                <div class="summary-item">
+                    <h4>Key Threats Detected</h4>
+                    <ul>
+                        <li>SQL injection attempts with payload: ' OR '1'='1</li>
+                        <li>Attack tool usage detected: sqlmap</li>
+                        <li>Multiple unauthorized access attempts to /admin/users</li>
+                        <li>Known malicious IPs: 45.33.32.156, 185.220.101.1</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-performance">
+            <h2>Performance Analysis Summary</h2>
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-value stat-value-performance">3077</div>
+                    <div class="stat-label">Avg Response (ms)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value stat-value-performance">20609.75</div>
+                    <div class="stat-label">P95 Response (ms)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value stat-value-performance">18</div>
+                    <div class="stat-label">Slow Requests</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value stat-value-performance">18.0%</div>
+                    <div class="stat-label">Slow Request Rate</div>
+                </div>
+            </div>
+            <div class="summary-section">
+                <div class="summary-item">
+                    <h4>Key Performance Issues</h4>
+                    <ul>
+                        <li>Maximum response time: 29435ms</li>
+                        <li>Resource issues detected: 7</li>
+                        <li>I/O performance warnings: 7</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Priority Action Items</h2>
+            <div class="summary-item">
+                <h4>1. Critical Security Actions</h4>
+                <ul>
+                    <li>Block malicious IPs: 45.33.32.156, 185.220.101.1</li>
+                    <li>Implement WAF rules for SQL injection protection</li>
+                    <li>Review and strengthen admin endpoint access controls</li>
+                </ul>
+            </div>
+            <div class="summary-item">
+                <h4>2. Infrastructure Improvements</h4>
+                <ul>
+                    <li>Increase database connection pool size</li>
+                    <li>Add circuit breakers for upstream service calls</li>
+                    <li>Review memory allocation for affected services</li>
+                </ul>
+            </div>
+            <div class="summary-item">
+                <h4>3. Monitoring Enhancements</h4>
+                <ul>
+                    <li>Set up alerting for error rate thresholds</li>
+                    <li>Implement real-time security event monitoring</li>
+                    <li>Add P95 response time dashboards</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Detailed Reports</h2>
+            <div class="report-links">
+                <a href="error_analysis_report.html">Error Analysis Report</a>
+                <a href="security_analysis_report.html">Security Analysis Report</a>
+                <a href="performance_analysis_report.html">Performance Analysis Report</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
