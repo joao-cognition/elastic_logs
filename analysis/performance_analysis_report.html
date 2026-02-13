@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Anomaly Analysis Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #1976d2;
+            border-bottom: 3px solid #1976d2;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #388e3c;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #7b1fa2;
+        }
+        .summary-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .metric {
+            display: inline-block;
+            margin: 10px 20px 10px 0;
+            padding: 15px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            min-width: 120px;
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #1976d2;
+        }
+        .metric-label {
+            font-size: 0.85em;
+            color: #666;
+        }
+        .warning-metric {
+            background: #fff3e0;
+        }
+        .warning-metric .metric-value {
+            color: #f57c00;
+        }
+        .danger-metric {
+            background: #ffebee;
+        }
+        .danger-metric .metric-value {
+            color: #d32f2f;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #388e3c;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .slow {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+        .normal {
+            color: #388e3c;
+        }
+        .anomaly {
+            background: #ffebee;
+            border-left: 4px solid #d32f2f;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .anomaly-critical {
+            border-left-color: #d32f2f;
+        }
+        .anomaly-high {
+            border-left-color: #f57c00;
+        }
+        .recommendation {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .code {
+            font-family: monospace;
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Performance Anomaly Analysis Report</h1>
+    <p class="timestamp">Generated: 2025-12-04 14:02:40 UTC</p>
+
+    <div class="summary-card">
+        <h2>3.1 Response Time Analysis - Overall Statistics</h2>
+        <div class="metric">
+            <div class="metric-value">100</div>
+            <div class="metric-label">Total Requests</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">3490.17ms</div>
+            <div class="metric-label">Avg Response</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">181.0ms</div>
+            <div class="metric-label">Median</div>
+        </div>
+        <div class="metric warning-metric">
+            <div class="metric-value">25703ms</div>
+            <div class="metric-label">P95</div>
+        </div>
+        <div class="metric danger-metric">
+            <div class="metric-value">27017ms</div>
+            <div class="metric-label">P99</div>
+        </div>
+        <div class="metric danger-metric">
+            <div class="metric-value">22</div>
+            <div class="metric-label">Slow Requests (&gt;1s)</div>
+        </div>
+    </div>
+
+    <div class="summary-card">
+        <h2>Detected Anomalies</h2>
+        <div class="anomaly anomaly-high">
+            <strong>HIGH: High P99 Latency</strong><br>
+            P99 response time is 27017ms (threshold: 5000ms)
+        </div>
+        <div class="anomaly anomaly-high">
+            <strong>HIGH: Memory Issues Detected</strong><br>
+            10 memory-related issues found
+        </div>
+        <div class="anomaly anomaly-critical">
+            <strong>CRITICAL: Connection Pool Issues</strong><br>
+            8 connection pool issues found
+        </div>
+    </div>
+
+    <div class="summary-card">
+        <h2>Response Time by Endpoint</h2>
+        <table>
+            <tr><th>Endpoint</th><th>Requests</th><th>Avg (ms)</th><th>P95 (ms)</th><th>P99 (ms)</th><th>Max (ms)</th><th>Slow Requests</th></tr>
+            <tr><td>/api/reports</td><td>13</td><td class='slow'>8524.08</td><td>27017</td><td>27017</td><td>27017</td><td>6</td></tr>
+            <tr><td>/api/products</td><td>12</td><td class='slow'>5708.75</td><td>17528</td><td>17528</td><td>17528</td><td>5</td></tr>
+            <tr><td>/api/search</td><td>17</td><td class='slow'>3232.35</td><td>26656</td><td>26656</td><td>26656</td><td>2</td></tr>
+            <tr><td>/api/users</td><td>17</td><td class='slow'>2714.06</td><td>14833</td><td>14833</td><td>14833</td><td>5</td></tr>
+            <tr><td>/api/orders</td><td>15</td><td class='slow'>1870.07</td><td>13369</td><td>13369</td><td>13369</td><td>2</td></tr>
+            <tr><td>/api/checkout</td><td>12</td><td class='slow'>1816.33</td><td>19655</td><td>19655</td><td>19655</td><td>1</td></tr>
+            <tr><td>/api/health</td><td>14</td><td class='slow'>1340.21</td><td>17017</td><td>17017</td><td>17017</td><td>1</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>3.4 Service Health Analysis</h2>
+        <table>
+            <tr><th>Service</th><th>Requests</th><th>Avg (ms)</th><th>P95 (ms)</th><th>P99 (ms)</th><th>Slow Requests</th></tr>
+            <tr><td>security-monitor</td><td>10</td><td class='slow'>4533.8</td><td>26656</td><td>26656</td><td>2</td></tr>
+            <tr><td>user-service</td><td>19</td><td class='slow'>3937.89</td><td>27017</td><td>27017</td><td>4</td></tr>
+            <tr><td>cache-service</td><td>23</td><td class='slow'>3576.26</td><td>17017</td><td>25703</td><td>5</td></tr>
+            <tr><td>order-service</td><td>19</td><td class='slow'>3228</td><td>13685</td><td>13685</td><td>6</td></tr>
+            <tr><td>api-gateway</td><td>19</td><td class='slow'>3031.05</td><td>19655</td><td>19655</td><td>4</td></tr>
+            <tr><td>product-service</td><td>10</td><td class='slow'>2768.3</td><td>26354</td><td>26354</td><td>1</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>3.2 Resource Utilization Analysis</h2>
+
+        <h3>Memory Issues</h3>
+        <table>
+            <tr><th>Log ID</th><th>Timestamp</th><th>Service</th><th>Message</th></tr>
+            <tr><td class='code'>log-0001</td><td class='timestamp'>2025-11-30T10:00:00Z</td><td>order-service</td><td>Slow database query detected</td></tr>
+            <tr><td class='code'>log-0007</td><td class='timestamp'>2025-11-30T10:30:00Z</td><td>cache-service</td><td>Internal server error: out of memory exception</td></tr>
+            <tr><td class='code'>log-0010</td><td class='timestamp'>2025-11-30T10:45:00Z</td><td>user-service</td><td>Internal server error: out of memory exception</td></tr>
+            <tr><td class='code'>log-0011</td><td class='timestamp'>2025-11-30T10:50:00Z</td><td>cache-service</td><td>High memory usage detected</td></tr>
+            <tr><td class='code'>log-0047</td><td class='timestamp'>2025-11-30T13:50:00Z</td><td>order-service</td><td>Slow database query detected</td></tr>
+            <tr><td class='code'>log-0060</td><td class='timestamp'>2025-11-30T14:55:00Z</td><td>order-service</td><td>Disk I/O latency spike</td></tr>
+            <tr><td class='code'>log-0065</td><td class='timestamp'>2025-11-30T15:20:00Z</td><td>product-service</td><td>Internal server error: out of memory exception</td></tr>
+            <tr><td class='code'>log-0071</td><td class='timestamp'>2025-11-30T15:50:00Z</td><td>order-service</td><td>Disk I/O latency spike</td></tr>
+            <tr><td class='code'>log-0081</td><td class='timestamp'>2025-11-30T16:40:00Z</td><td>order-service</td><td>High memory usage detected</td></tr>
+            <tr><td class='code'>log-0089</td><td class='timestamp'>2025-11-30T17:20:00Z</td><td>cache-service</td><td>High memory usage detected</td></tr>
+        </table>
+
+        <h3>Connection Pool Issues</h3>
+        <table>
+            <tr><th>Log ID</th><th>Timestamp</th><th>Service</th><th>Message</th></tr>
+            <tr><td class='code'>log-0004</td><td class='timestamp'>2025-11-30T10:15:00Z</td><td>cache-service</td><td>Connection refused: service unreachable</td></tr>
+            <tr><td class='code'>log-0017</td><td class='timestamp'>2025-11-30T11:20:00Z</td><td>security-monitor</td><td>Connection refused: service unreachable</td></tr>
+            <tr><td class='code'>log-0024</td><td class='timestamp'>2025-11-30T11:55:00Z</td><td>api-gateway</td><td>Internal server error: database connection pool exhausted</td></tr>
+            <tr><td class='code'>log-0045</td><td class='timestamp'>2025-11-30T13:40:00Z</td><td>order-service</td><td>Internal server error: database connection pool exhausted</td></tr>
+            <tr><td class='code'>log-0063</td><td class='timestamp'>2025-11-30T15:10:00Z</td><td>cache-service</td><td>Connection refused: service unreachable</td></tr>
+            <tr><td class='code'>log-0069</td><td class='timestamp'>2025-11-30T15:40:00Z</td><td>security-monitor</td><td>Connection refused: service unreachable</td></tr>
+            <tr><td class='code'>log-0084</td><td class='timestamp'>2025-11-30T16:55:00Z</td><td>api-gateway</td><td>Internal server error: database connection pool exhausted</td></tr>
+            <tr><td class='code'>log-0087</td><td class='timestamp'>2025-11-30T17:10:00Z</td><td>user-service</td><td>Connection refused: service unreachable</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>3.5 Capacity Planning Insights</h2>
+
+        <h3>Peak Load Hours</h3>
+        <table>
+            <tr><th>Hour (UTC)</th><th>Request Count</th><th>Avg Response Time (ms)</th><th>Max Response Time (ms)</th></tr>
+            <tr><td>10:00</td><td>12</td><td>6653.17</td><td>25703</td></tr>
+            <tr><td>11:00</td><td>12</td><td>3030.08</td><td>17528</td></tr>
+            <tr><td>12:00</td><td>12</td><td>1107.08</td><td>11198</td></tr>
+        </table>
+
+        <h3>Hourly Traffic Distribution</h3>
+        <table>
+            <tr><th>Hour (UTC)</th><th>Requests</th><th>Avg Response (ms)</th><th>Max Response (ms)</th></tr>
+            <tr><td>10:00</td><td>12</td><td>6653.17</td><td>25703</td></tr>
+            <tr><td>11:00</td><td>12</td><td>3030.08</td><td>17528</td></tr>
+            <tr><td>12:00</td><td>12</td><td>1107.08</td><td>11198</td></tr>
+            <tr><td>13:00</td><td>12</td><td>1297</td><td>7937</td></tr>
+            <tr><td>14:00</td><td>12</td><td>751.75</td><td>7402</td></tr>
+            <tr><td>15:00</td><td>12</td><td>7630.08</td><td>26656</td></tr>
+            <tr><td>16:00</td><td>12</td><td>1652.92</td><td>12595</td></tr>
+            <tr><td>17:00</td><td>12</td><td>6893.75</td><td>27017</td></tr>
+            <tr><td>18:00</td><td>4</td><td>206.75</td><td>379</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>3.6 Performance Trends & Recommendations</h2>
+
+        <h3>Slowest Endpoints (Require Optimization)</h3>
+        <table>
+            <tr><th>Endpoint</th><th>Avg Response (ms)</th><th>Request Count</th></tr>
+            <tr><td>/api/reports</td><td class='slow'>8524.08</td><td>13</td></tr>
+            <tr><td>/api/products</td><td class='slow'>5708.75</td><td>12</td></tr>
+            <tr><td>/api/search</td><td class='slow'>3232.35</td><td>17</td></tr>
+            <tr><td>/api/users</td><td class='slow'>2714.06</td><td>17</td></tr>
+            <tr><td>/api/orders</td><td class='slow'>1870.07</td><td>15</td></tr>
+        </table>
+
+        <div class="recommendation">
+            <strong>Recommendations:</strong>
+            <ul>
+                <li>Investigate and optimize endpoints with average response times exceeding 1000ms</li>
+                <li>Consider implementing caching for frequently accessed endpoints</li>
+                <li>Review database queries for slow endpoints</li>
+                <li>Consider horizontal scaling during peak hours</li>
+                <li>Implement connection pooling optimizations for services with connection issues</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="summary-card">
+        <h2>Slow Request Details</h2>
+        <table>
+            <tr><th>Log ID</th><th>Timestamp</th><th>Service</th><th>Endpoint</th><th>Response Time (ms)</th><th>Status</th></tr>
+            <tr><td class='code'>log-0001</td><td class='timestamp'>2025-11-30T10:00:00Z</td><td>order-service</td><td>/api/products</td><td class='slow'>13685</td><td>200</td></tr>
+            <tr><td class='code'>log-0004</td><td class='timestamp'>2025-11-30T10:15:00Z</td><td>cache-service</td><td>/api/health</td><td class='slow'>17017</td><td>502</td></tr>
+            <tr><td class='code'>log-0007</td><td class='timestamp'>2025-11-30T10:30:00Z</td><td>cache-service</td><td>/api/search</td><td class='slow'>25703</td><td>503</td></tr>
+            <tr><td class='code'>log-0010</td><td class='timestamp'>2025-11-30T10:45:00Z</td><td>user-service</td><td>/api/users</td><td class='slow'>7495</td><td>504</td></tr>
+            <tr><td class='code'>log-0011</td><td class='timestamp'>2025-11-30T10:50:00Z</td><td>cache-service</td><td>/api/users</td><td class='slow'>14833</td><td>200</td></tr>
+            <tr><td class='code'>log-0017</td><td class='timestamp'>2025-11-30T11:20:00Z</td><td>security-monitor</td><td>/api/products</td><td class='slow'>17528</td><td>503</td></tr>
+            <tr><td class='code'>log-0024</td><td class='timestamp'>2025-11-30T11:55:00Z</td><td>api-gateway</td><td>/api/products</td><td class='slow'>17470</td><td>503</td></tr>
+            <tr><td class='code'>log-0032</td><td class='timestamp'>2025-11-30T12:35:00Z</td><td>user-service</td><td>/api/reports</td><td class='slow'>11198</td><td>504</td></tr>
+            <tr><td class='code'>log-0045</td><td class='timestamp'>2025-11-30T13:40:00Z</td><td>order-service</td><td>/api/reports</td><td class='slow'>5824</td><td>504</td></tr>
+            <tr><td class='code'>log-0047</td><td class='timestamp'>2025-11-30T13:50:00Z</td><td>order-service</td><td>/api/users</td><td class='slow'>7937</td><td>200</td></tr>
+            <tr><td class='code'>log-0060</td><td class='timestamp'>2025-11-30T14:55:00Z</td><td>order-service</td><td>/api/products</td><td class='slow'>7402</td><td>200</td></tr>
+            <tr><td class='code'>log-0062</td><td class='timestamp'>2025-11-30T15:05:00Z</td><td>api-gateway</td><td>/api/orders</td><td class='slow'>12543</td><td>502</td></tr>
+            <tr><td class='code'>log-0063</td><td class='timestamp'>2025-11-30T15:10:00Z</td><td>cache-service</td><td>/api/orders</td><td class='slow'>13369</td><td>504</td></tr>
+            <tr><td class='code'>log-0065</td><td class='timestamp'>2025-11-30T15:20:00Z</td><td>product-service</td><td>/api/reports</td><td class='slow'>26354</td><td>503</td></tr>
+            <tr><td class='code'>log-0069</td><td class='timestamp'>2025-11-30T15:40:00Z</td><td>security-monitor</td><td>/api/search</td><td class='slow'>26656</td><td>500</td></tr>
+            <tr><td class='code'>log-0071</td><td class='timestamp'>2025-11-30T15:50:00Z</td><td>order-service</td><td>/api/products</td><td class='slow'>11602</td><td>200</td></tr>
+            <tr><td class='code'>log-0081</td><td class='timestamp'>2025-11-30T16:40:00Z</td><td>order-service</td><td>/api/reports</td><td class='slow'>12595</td><td>200</td></tr>
+            <tr><td class='code'>log-0084</td><td class='timestamp'>2025-11-30T16:55:00Z</td><td>api-gateway</td><td>/api/users</td><td class='slow'>5684</td><td>504</td></tr>
+            <tr><td class='code'>log-0087</td><td class='timestamp'>2025-11-30T17:10:00Z</td><td>user-service</td><td>/api/reports</td><td class='slow'>27017</td><td>503</td></tr>
+            <tr><td class='code'>log-0089</td><td class='timestamp'>2025-11-30T17:20:00Z</td><td>cache-service</td><td>/api/users</td><td class='slow'>8166</td><td>200</td></tr>
+        </table>
+    </div>
+</body>
+</html>
