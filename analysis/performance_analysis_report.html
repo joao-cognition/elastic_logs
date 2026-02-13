@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Analysis Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #ff6f00;
+            border-bottom: 3px solid #ff6f00;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #1976d2;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #388e3c;
+        }
+        .summary-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .metric {
+            display: inline-block;
+            background: #e3f2fd;
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .metric-warning {
+            background: #fff3e0;
+        }
+        .metric-critical {
+            background: #ffebee;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1976d2;
+        }
+        .metric-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #ff6f00;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .healthy {
+            background-color: #e8f5e9;
+        }
+        .degraded {
+            background-color: #fff8e1;
+        }
+        .critical {
+            background-color: #ffebee;
+        }
+        .timestamp {
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .response-time {
+            font-family: monospace;
+            font-weight: bold;
+        }
+        .slow {
+            color: #c62828;
+        }
+        .normal {
+            color: #388e3c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Performance Analysis Report</h1>
+    <p class="timestamp">Generated: 2025-12-02T11:57:14.287628</p>
+
+    <div class="summary-card">
+        <h2>Executive Summary</h2>
+        <div class="metric metric-critical">
+            <div class="metric-value">18</div>
+            <div class="metric-label">Slow Requests (&gt;1s)</div>
+        </div>
+        <div class="metric metric-warning">
+            <div class="metric-value">3</div>
+            <div class="metric-label">Memory Issues</div>
+        </div>
+        <div class="metric metric-warning">
+            <div class="metric-value">7</div>
+            <div class="metric-label">Disk I/O Issues</div>
+        </div>
+        <div class="metric">
+            <div class="metric-value">7</div>
+            <div class="metric-label">Database Issues</div>
+        </div>
+    </div>
+
+    <div class="summary-card">
+        <h2>1. Response Time Analysis by Endpoint</h2>
+        <table>
+            <tr><th>Endpoint</th><th>Requests</th><th>Min (ms)</th><th>Avg (ms)</th><th>Median (ms)</th><th>P95 (ms)</th><th>P99 (ms)</th><th>Max (ms)</th></tr>
+            <tr><td>/api/orders</td><td>7</td><td>57</td><td class='response-time slow'>6261.71</td><td>138</td><td>27561</td><td>27561</td><td class='response-time slow'>27561</td></tr><tr><td>/api/users</td><td>16</td><td>93</td><td class='response-time slow'>5965.56</td><td>194.0</td><td>22108</td><td>22108</td><td class='response-time slow'>22108</td></tr><tr><td>/api/reports</td><td>20</td><td>63</td><td class='response-time slow'>3204.2</td><td>161.5</td><td>29435</td><td>29435</td><td class='response-time slow'>29435</td></tr><tr><td>/api/products</td><td>13</td><td>67</td><td class='response-time slow'>2716.46</td><td>182</td><td>18462</td><td>18462</td><td class='response-time slow'>18462</td></tr><tr><td>/api/checkout</td><td>9</td><td>51</td><td class='response-time slow'>1626.67</td><td>192</td><td>13090</td><td>13090</td><td class='response-time slow'>13090</td></tr><tr><td>/api/search</td><td>16</td><td>55</td><td class='response-time slow'>1575.62</td><td>115.5</td><td>23008</td><td>23008</td><td class='response-time slow'>23008</td></tr><tr><td>/api/health</td><td>19</td><td>89</td><td class='response-time slow'>1535.32</td><td>182</td><td>20547</td><td>20547</td><td class='response-time slow'>20547</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>2. Slow Endpoints (Response Time &gt; 1000ms)</h2>
+        <table>
+            <tr><th>Timestamp</th><th>Endpoint</th><th>Service</th><th>Response Time</th><th>Severity</th></tr>
+            <tr class='critical'><td class='timestamp'>2025-11-29T14:40:00Z</td><td>/api/reports</td><td>security-monitor</td><td class='response-time slow'>29435ms</td><td>Critical</td></tr><tr class='critical'><td class='timestamp'>2025-11-29T13:05:00Z</td><td>/api/orders</td><td>order-service</td><td class='response-time slow'>27561ms</td><td>Critical</td></tr><tr class='critical'><td class='timestamp'>2025-11-29T11:35:00Z</td><td>/api/search</td><td>security-monitor</td><td class='response-time slow'>23008ms</td><td>Critical</td></tr><tr class='critical'><td class='timestamp'>2025-11-29T14:35:00Z</td><td>/api/users</td><td>order-service</td><td class='response-time slow'>22108ms</td><td>Critical</td></tr><tr class='critical'><td class='timestamp'>2025-11-29T14:55:00Z</td><td>/api/users</td><td>product-service</td><td class='response-time slow'>21802ms</td><td>Critical</td></tr><tr class='critical'><td class='timestamp'>2025-11-29T18:00:00Z</td><td>/api/health</td><td>cache-service</td><td class='response-time slow'>20547ms</td><td>Critical</td></tr><tr class='critical'><td class='timestamp'>2025-11-29T14:50:00Z</td><td>/api/products</td><td>cache-service</td><td class='response-time slow'>18462ms</td><td>Critical</td></tr><tr class='critical'><td class='timestamp'>2025-11-29T13:55:00Z</td><td>/api/users</td><td>product-service</td><td class='response-time slow'>15896ms</td><td>Critical</td></tr><tr class='critical'><td class='timestamp'>2025-11-29T13:10:00Z</td><td>/api/orders</td><td>order-service</td><td class='response-time slow'>15652ms</td><td>Critical</td></tr><tr class='critical'><td class='timestamp'>2025-11-29T11:00:00Z</td><td>/api/products</td><td>security-monitor</td><td class='response-time slow'>14644ms</td><td>Critical</td></tr><tr class='critical'><td class='timestamp'>2025-11-29T13:15:00Z</td><td>/api/reports</td><td>order-service</td><td class='response-time slow'>14298ms</td><td>Critical</td></tr><tr class='critical'><td class='timestamp'>2025-11-29T11:20:00Z</td><td>/api/checkout</td><td>api-gateway</td><td class='response-time slow'>13090ms</td><td>Critical</td></tr><tr class='critical'><td class='timestamp'>2025-11-29T13:45:00Z</td><td>/api/users</td><td>user-service</td><td class='response-time slow'>12452ms</td><td>Critical</td></tr><tr class='critical'><td class='timestamp'>2025-11-29T13:50:00Z</td><td>/api/reports</td><td>api-gateway</td><td class='response-time slow'>12194ms</td><td>Critical</td></tr><tr class='critical'><td class='timestamp'>2025-11-29T15:05:00Z</td><td>/api/users</td><td>product-service</td><td class='response-time slow'>11031ms</td><td>Critical</td></tr><tr class='critical'><td class='timestamp'>2025-11-29T10:30:00Z</td><td>/api/users</td><td>user-service</td><td class='response-time slow'>10527ms</td><td>Critical</td></tr><tr class='high'><td class='timestamp'>2025-11-29T12:15:00Z</td><td>/api/reports</td><td>product-service</td><td class='response-time slow'>5721ms</td><td>High</td></tr><tr class='high'><td class='timestamp'>2025-11-29T18:10:00Z</td><td>/api/health</td><td>security-monitor</td><td class='response-time slow'>5611ms</td><td>High</td></tr>
+        </table>
+        <p><em>Showing top 20 slowest requests. Total slow requests: 18</em></p>
+    </div>
+
+    <div class="summary-card">
+        <h2>3. Service Health Overview</h2>
+        <table>
+            <tr><th>Service</th><th>Total Requests</th><th>Errors</th><th>Error Rate</th><th>Avg Response (ms)</th><th>Health Status</th></tr>
+            <tr class='critical'><td>order-service</td><td>17</td><td>3</td><td>17.65%</td><td class='response-time'>4792.65</td><td><strong>Critical</strong></td></tr><tr class='critical'><td>cache-service</td><td>12</td><td>2</td><td>16.67%</td><td class='response-time'>3386.67</td><td><strong>Critical</strong></td></tr><tr class='degraded'><td>security-monitor</td><td>21</td><td>3</td><td>14.29%</td><td class='response-time'>3628.62</td><td><strong>Degraded</strong></td></tr><tr class='degraded'><td>product-service</td><td>22</td><td>2</td><td>9.09%</td><td class='response-time'>2625.23</td><td><strong>Degraded</strong></td></tr><tr class='degraded'><td>api-gateway</td><td>16</td><td>1</td><td>6.25%</td><td class='response-time'>1716.31</td><td><strong>Degraded</strong></td></tr><tr class='healthy'><td>user-service</td><td>12</td><td>0</td><td>0.0%</td><td class='response-time'>2014</td><td><strong>Healthy</strong></td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>4. Memory Issues</h2>
+        <p><strong>Total Memory-Related Issues:</strong> 3</p>
+        <table>
+            <tr><th>Timestamp</th><th>Service</th><th>Message</th><th>Correlation ID</th></tr>
+            <tr><td class='timestamp'>2025-11-29T13:15:00Z</td><td>order-service</td><td>High memory usage detected</td><td>None</td></tr><tr><td class='timestamp'>2025-11-29T14:40:00Z</td><td>security-monitor</td><td>Internal server error: out of memory exception</td><td>err-86976</td></tr><tr><td class='timestamp'>2025-11-29T18:00:00Z</td><td>cache-service</td><td>Internal server error: out of memory exception</td><td>err-16476</td></tr>
+        </table>
+        <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin-top: 10px;">
+            <strong>Recommendation:</strong> Monitor heap usage, implement memory profiling, and consider increasing JVM heap size or optimizing memory-intensive operations.
+        </div>
+    </div>
+
+    <div class="summary-card">
+        <h2>5. Disk I/O Latency Issues</h2>
+        <p><strong>Total Disk I/O Issues:</strong> 7</p>
+        <table>
+            <tr><th>Timestamp</th><th>Service</th><th>Read Latency</th><th>Write Latency</th><th>IOPS</th><th>Message</th></tr>
+            <tr><td class='timestamp'>2025-11-29T10:30:00Z</td><td>user-service</td><td>267ms</td><td>515ms</td><td>164</td><td>Disk I/O latency spike</td></tr><tr><td class='timestamp'>2025-11-29T11:20:00Z</td><td>api-gateway</td><td>494ms</td><td>252ms</td><td>174</td><td>Disk I/O latency spike</td></tr><tr><td class='timestamp'>2025-11-29T12:15:00Z</td><td>product-service</td><td>253ms</td><td>268ms</td><td>148</td><td>Slow database query detected</td></tr><tr><td class='timestamp'>2025-11-29T13:15:00Z</td><td>order-service</td><td>488ms</td><td>252ms</td><td>169</td><td>High memory usage detected</td></tr><tr><td class='timestamp'>2025-11-29T13:45:00Z</td><td>user-service</td><td>134ms</td><td>633ms</td><td>156</td><td>Disk I/O latency spike</td></tr><tr><td class='timestamp'>2025-11-29T15:05:00Z</td><td>product-service</td><td>234ms</td><td>765ms</td><td>127</td><td>Slow database query detected</td></tr><tr><td class='timestamp'>2025-11-29T18:10:00Z</td><td>security-monitor</td><td>233ms</td><td>294ms</td><td>72</td><td>Slow database query detected</td></tr>
+        </table>
+    </div>
+
+    <div class="summary-card">
+        <h2>6. Database Performance Issues</h2>
+        <p><strong>Total Database Issues:</strong> 7</p>
+        <table>
+            <tr><th>Timestamp</th><th>Service</th><th>Message</th><th>Response Time</th></tr>
+            <tr><td class='timestamp'>2025-11-29T11:35:00Z</td><td>security-monitor</td><td>Internal server error: database connection pool exhausted</td><td class='response-time slow'>23008ms</td></tr><tr><td class='timestamp'>2025-11-29T12:15:00Z</td><td>product-service</td><td>Slow database query detected</td><td class='response-time slow'>5721ms</td></tr><tr><td class='timestamp'>2025-11-29T13:05:00Z</td><td>order-service</td><td>Internal server error: database connection pool exhausted</td><td class='response-time slow'>27561ms</td></tr><tr><td class='timestamp'>2025-11-29T13:50:00Z</td><td>api-gateway</td><td>Internal server error: database connection pool exhausted</td><td class='response-time slow'>12194ms</td></tr><tr><td class='timestamp'>2025-11-29T14:35:00Z</td><td>order-service</td><td>Internal server error: database connection pool exhausted</td><td class='response-time slow'>22108ms</td></tr><tr><td class='timestamp'>2025-11-29T15:05:00Z</td><td>product-service</td><td>Slow database query detected</td><td class='response-time slow'>11031ms</td></tr><tr><td class='timestamp'>2025-11-29T18:10:00Z</td><td>security-monitor</td><td>Slow database query detected</td><td class='response-time slow'>5611ms</td></tr>
+        </table>
+        <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin-top: 10px;">
+            <strong>Recommendation:</strong> Optimize slow queries, increase connection pool size, implement query caching, and consider database scaling.
+        </div>
+    </div>
+
+    <div class="summary-card">
+        <h2>7. Peak Load Times</h2>
+        <table>
+            <tr><th>Hour</th><th>Request Count</th></tr>
+            <tr><td class='timestamp'>2025-11-29T10</td><td>12</td></tr><tr><td class='timestamp'>2025-11-29T11</td><td>12</td></tr><tr><td class='timestamp'>2025-11-29T12</td><td>12</td></tr><tr><td class='timestamp'>2025-11-29T13</td><td>12</td></tr><tr><td class='timestamp'>2025-11-29T14</td><td>12</td></tr>
+        </table>
+        <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-top: 10px;">
+            <strong>Capacity Planning:</strong> Consider auto-scaling policies during peak hours and ensure sufficient resources are provisioned.
+        </div>
+    </div>
+</body>
+</html>
