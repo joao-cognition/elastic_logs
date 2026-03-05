@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analysis Summary - elastic_logs_29_11_25</title>
+<style>
+  :root { --critical: #dc3545; --high: #fd7e14; --medium: #ffc107; --low: #28a745;
+           --primary: #0d6efd; --bg: #f8f9fa; --card-bg: #fff; --border: #dee2e6;
+           --text: #212529; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+         background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 { color: #212529; margin-bottom: 0.5rem; font-size: 2rem; }
+  h2 { color: #495057; margin: 2rem 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #adb5bd; }
+  .meta { color: #6c757d; margin-bottom: 2rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 1.5rem 0; }
+  .card { background: var(--card-bg); border-radius: 8px; padding: 1.5rem;
+           box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  .card h3 { margin-bottom: 1rem; }
+  .card-error { border-top: 4px solid var(--critical); }
+  .card-error h3 { color: var(--critical); }
+  .card-security { border-top: 4px solid var(--high); }
+  .card-security h3 { color: var(--high); }
+  .card-perf { border-top: 4px solid var(--primary); }
+  .card-perf h3 { color: var(--primary); }
+  .stat { display: flex; justify-content: space-between; padding: 0.5rem 0;
+           border-bottom: 1px solid var(--border); }
+  .stat-label { color: #6c757d; }
+  .stat-value { font-weight: 700; }
+  .stat-critical { color: var(--critical); }
+  .stat-high { color: var(--high); }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; background: var(--card-bg);
+           border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+  th { background: #343a40; color: white; padding: 0.75rem 1rem; text-align: left; }
+  td { padding: 0.6rem 1rem; border-bottom: 1px solid var(--border); }
+  .priority-list { list-style: none; padding: 0; }
+  .priority-list li { padding: 0.75rem 1rem; margin: 0.5rem 0; border-radius: 6px; }
+  .priority-list .p-critical { background: #fff5f5; border-left: 4px solid var(--critical); }
+  .priority-list .p-high { background: #fff8f0; border-left: 4px solid var(--high); }
+  .priority-list .p-medium { background: #fffde7; border-left: 4px solid var(--medium); }
+  a { color: var(--primary); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border);
+           color: #6c757d; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Elastic Logs Analysis Summary</h1>
+  <p class="meta">Log File: elastic_logs_29_11_25.json | Generated: 2026-02-12 14:38:24 UTC | Period: 2025-11-29 10:00 - 18:15 UTC</p>
+
+  <div class="grid-3">
+    <div class="card card-error">
+      <h3>Error Analysis</h3>
+      <div class="stat"><span class="stat-label">Total Errors</span><span class="stat-value stat-critical">11</span></div>
+      <div class="stat"><span class="stat-label">Error Rate</span><span class="stat-value">11.0%</span></div>
+      <div class="stat"><span class="stat-label">Affected Services</span><span class="stat-value">5</span></div>
+      <div class="stat"><span class="stat-label">Cascade Errors</span><span class="stat-value">5</span></div>
+      <div class="stat"><span class="stat-label">Top Error</span><span class="stat-value" style="font-size:0.8rem">DB Pool Exhausted</span></div>
+      <p style="margin-top:1rem"><a href="error_analysis_report.html">View Full Report</a></p>
+    </div>
+
+    <div class="card card-security">
+      <h3>Security Analysis</h3>
+      <div class="stat"><span class="stat-label">Critical Findings</span><span class="stat-value stat-critical">4</span></div>
+      <div class="stat"><span class="stat-label">High Findings</span><span class="stat-value stat-high">13</span></div>
+      <div class="stat"><span class="stat-label">Auth Failures</span><span class="stat-value">13</span></div>
+      <div class="stat"><span class="stat-label">SQL Injection Attempts</span><span class="stat-value stat-critical">4</span></div>
+      <div class="stat"><span class="stat-label">Attack Tool Requests</span><span class="stat-value">22</span></div>
+      <p style="margin-top:1rem"><a href="security_analysis_report.html">View Full Report</a></p>
+    </div>
+
+    <div class="card card-perf">
+      <h3>Performance Analysis</h3>
+      <div class="stat"><span class="stat-label">Avg Response Time</span><span class="stat-value">3077ms</span></div>
+      <div class="stat"><span class="stat-label">P95 Response Time</span><span class="stat-value">21802ms</span></div>
+      <div class="stat"><span class="stat-label">P99 Response Time</span><span class="stat-value stat-critical">29435ms</span></div>
+      <div class="stat"><span class="stat-label">Slow Requests (&gt;1s)</span><span class="stat-value stat-high">18</span></div>
+      <div class="stat"><span class="stat-label">Perf Warnings</span><span class="stat-value">7</span></div>
+      <p style="margin-top:1rem"><a href="performance_analysis_report.html">View Full Report</a></p>
+    </div>
+  </div>
+
+  <h2>Priority Action Items</h2>
+  <ul class="priority-list">
+    <li class="p-critical"><strong>CRITICAL:</strong> Database connection pool exhaustion causing cascading failures. Increase pool size and implement connection management improvements immediately.</li>
+    <li class="p-critical"><strong>CRITICAL:</strong> 4 SQL injection attempts detected with payload <code>' OR '1'='1</code>. Verify WAF rules and input validation.</li>
+    <li class="p-high"><strong>HIGH:</strong> 7 unauthorized access attempts targeting /admin/users. Review access controls and implement IP blocking.</li>
+    <li class="p-high"><strong>HIGH:</strong> Out of memory exceptions in security-monitor and cache-service. Increase JVM heap and investigate memory leaks.</li>
+    <li class="p-high"><strong>HIGH:</strong> 22 requests from sqlmap attack tool detected. Consider blocking known attack tool user agents at WAF level.</li>
+    <li class="p-medium"><strong>MEDIUM:</strong> 18 requests exceeding 1s response time. Investigate disk I/O and database query optimization.</li>
+    <li class="p-medium"><strong>MEDIUM:</strong> Rate limiting triggered 6 times. Review rate limit thresholds and implement progressive rate limiting.</li>
+  </ul>
+
+  <h2>Reports Generated</h2>
+  <table>
+    <thead><tr><th>Report</th><th>File</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Error Analysis</td><td><a href="error_analysis_report.html">error_analysis_report.html</a></td><td>Error frequency, patterns, root cause analysis, and remediation</td></tr>
+      <tr><td>Security Analysis</td><td><a href="security_analysis_report.html">security_analysis_report.html</a></td><td>Authentication, injection, access control, and threat detection</td></tr>
+      <tr><td>Performance Analysis</td><td><a href="performance_analysis_report.html">performance_analysis_report.html</a></td><td>Response times, slow requests, and performance warnings</td></tr>
+      <tr><td>Summary</td><td><a href="analysis_summary.html">analysis_summary.html</a></td><td>This report - consolidated overview and action items</td></tr>
+    </tbody>
+  </table>
+
+  <footer>Report generated by Elastic Logs Analysis Pipeline | Data period: 2025-11-29</footer>
+</div>
+</body></html>
