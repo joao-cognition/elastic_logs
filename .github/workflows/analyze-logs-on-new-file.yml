@@ -53,7 +53,7 @@ jobs:
               echo "ERROR: File not found: $file"
               exit 1
             fi
-            python3 -c "import json; json.load(open('$file'))" || exit 1
+            FILE="$file" python3 -c "import json, os; json.load(open(os.environ['FILE']))" || exit 1
             echo "Validated: $file"
           done
 
