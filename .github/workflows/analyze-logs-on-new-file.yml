@@ -44,9 +44,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Validate JSON log files
+        env:
+          CHANGED_FILES: ${{ needs.detect-changed-logs.outputs.changed_files }}
         run: |
           echo "=== Validating JSON log files ==="
-          for file in ${{ needs.detect-changed-logs.outputs.changed_files }}; do
+          for file in $CHANGED_FILES; do
             if [ ! -f "$file" ]; then
               echo "ERROR: File not found: $file"
               exit 1
@@ -64,8 +66,8 @@ jobs:
       - name: Run error analysis via Devin API
         env:
           DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+          CHANGED_FILES: ${{ needs.detect-changed-logs.outputs.changed_files }}
         run: |
-          CHANGED_FILES="${{ needs.detect-changed-logs.outputs.changed_files }}"
           TIMESTAMP=$(date -u +"%Y%m%d_%H%M%S")
           for LOG_FILE in $CHANGED_FILES; do
             echo "=== Error analysis on $LOG_FILE ==="
@@ -115,8 +117,8 @@ jobs:
       - name: Run performance analysis via Devin API
         env:
           DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+          CHANGED_FILES: ${{ needs.detect-changed-logs.outputs.changed_files }}
         run: |
-          CHANGED_FILES="${{ needs.detect-changed-logs.outputs.changed_files }}"
           TIMESTAMP=$(date -u +"%Y%m%d_%H%M%S")
           for LOG_FILE in $CHANGED_FILES; do
             echo "=== Performance analysis on $LOG_FILE ==="
@@ -166,8 +168,8 @@ jobs:
       - name: Run security analysis via Devin API
         env:
           DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+          CHANGED_FILES: ${{ needs.detect-changed-logs.outputs.changed_files }}
         run: |
-          CHANGED_FILES="${{ needs.detect-changed-logs.outputs.changed_files }}"
           TIMESTAMP=$(date -u +"%Y%m%d_%H%M%S")
           for LOG_FILE in $CHANGED_FILES; do
             echo "=== Security analysis on $LOG_FILE ==="

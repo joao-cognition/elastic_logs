@@ -44,8 +44,8 @@ jobs:
       - name: Trigger Devin playbook for log analysis
         env:
           DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+          CHANGED_FILES: ${{ needs.detect-changed-logs.outputs.changed_files }}
         run: |
-          CHANGED_FILES="${{ needs.detect-changed-logs.outputs.changed_files }}"
           for LOG_FILE in $CHANGED_FILES; do
             echo "=== Processing $LOG_FILE with playbook ==="
             export LOG_FILE
