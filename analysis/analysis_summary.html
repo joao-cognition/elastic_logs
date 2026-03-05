@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analysis Summary - elastic_logs_30_11_25</title>
+<style>
+:root { --bg: #0f172a; --card: #1e293b; --border: #334155; --text: #e2e8f0; --muted: #94a3b8; --accent: #3b82f6; --red: #ef4444; --orange: #f97316; --yellow: #eab308; --green: #22c55e; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; }
+.container { max-width: 1200px; margin: 0 auto; }
+h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: #fff; }
+h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: var(--accent); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: var(--muted); }
+.subtitle { color: var(--muted); margin-bottom: 2rem; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; }
+.stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; }
+.stat-card .value { font-size: 2rem; font-weight: 700; }
+.stat-card .label { color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-card.critical .value { color: var(--red); }
+.stat-card.warning .value { color: var(--orange); }
+.stat-card.info .value { color: var(--accent); }
+.stat-card.success .value { color: var(--green); }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; background: var(--card); border-radius: 8px; overflow: hidden; }
+th { background: #0f172a; color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.8rem 1rem; text-align: left; }
+td { padding: 0.7rem 1rem; border-top: 1px solid var(--border); font-size: 0.9rem; }
+tr:hover td { background: rgba(59,130,246,0.05); }
+.badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+.badge-red { background: rgba(239,68,68,0.15); color: var(--red); }
+.badge-orange { background: rgba(249,115,22,0.15); color: var(--orange); }
+.badge-yellow { background: rgba(234,179,8,0.15); color: var(--yellow); }
+.badge-blue { background: rgba(59,130,246,0.15); color: var(--accent); }
+.badge-green { background: rgba(34,197,94,0.15); color: var(--green); }
+.remediation { background: var(--card); border-left: 4px solid var(--accent); padding: 1rem 1.2rem; margin: 0.5rem 0; border-radius: 0 8px 8px 0; }
+.remediation strong { color: var(--accent); }
+.bar-chart { margin: 1rem 0; }
+.bar-row { display: flex; align-items: center; margin: 0.3rem 0; }
+.bar-label { width: 140px; font-size: 0.85rem; color: var(--muted); text-align: right; padding-right: 1rem; flex-shrink: 0; }
+.bar { height: 24px; border-radius: 4px; background: var(--accent); display: flex; align-items: center; padding-left: 8px; font-size: 0.75rem; font-weight: 600; min-width: 30px; }
+.bar.red { background: var(--red); }
+.bar.orange { background: var(--orange); }
+.bar.yellow { background: var(--yellow); }
+.cascade { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin: 0.5rem 0; }
+.cascade .arrow { color: var(--red); font-weight: bold; }
+.finding { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; margin: 0.8rem 0; }
+.finding-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.8rem; text-align: center; }
+
+.report-link { display: block; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; margin: 0.5rem 0; text-decoration: none; color: var(--text); transition: border-color 0.2s; }
+.report-link:hover { border-color: var(--accent); }
+.report-link h3 { color: var(--accent); margin: 0 0 0.3rem; }
+.report-link p { color: var(--muted); margin: 0; font-size: 0.9rem; }
+.summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0; }
+@media (max-width: 768px) { .summary-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Elastic Logs Analysis Summary</h1>
+<p class="subtitle">Log file: elastic_logs_30_11_25.json | Generated: 2026-02-12 14:40:48 UTC | Period: 2025-11-30 10:00 - 18:15 UTC</p>
+
+<div class="stats-grid">
+<div class="stat-card info"><div class="value">100</div><div class="label">Total Log Entries</div></div>
+<div class="stat-card critical"><div class="value">15</div><div class="label">Errors Detected</div></div>
+<div class="stat-card critical"><div class="value">19</div><div class="label">Security Events</div></div>
+<div class="stat-card warning"><div class="value">22</div><div class="label">Slow Requests</div></div>
+</div>
+
+<h2>Individual Reports</h2>
+<a class="report-link" href="error_analysis_report.html">
+<h3>Error Pattern Analysis Report</h3>
+<p>Detailed analysis of 15 errors across 6 services, including root cause analysis, error cascades, and remediation steps.</p>
+</a>
+<a class="report-link" href="security_analysis_report.html">
+<h3>Security Issue Detection Report</h3>
+<p>Analysis of 19 security events including 5 SQL injection attempts, 7 unauthorized access attempts, and 29 requests from attack tools.</p>
+</a>
+<a class="report-link" href="performance_analysis_report.html">
+<h3>Performance Anomaly Analysis Report</h3>
+<p>Response time analysis showing avg 3,490ms, P95 25,703ms, with 22 requests exceeding 1 second.</p>
+</a>
+
+<h2>Executive Summary</h2>
+<div class="summary-grid">
+<div>
+<h3>Error Analysis Highlights</h3>
+<div class="finding">
+<ul>
+<li><strong>15 errors</strong> detected (15.0% error rate)</li>
+<li><strong>503 Service Unavailable</strong> is the most common error (6 occurrences)</li>
+<li><strong>"Connection refused"</strong> is the top error message (5 occurrences)</li>
+<li><strong>user-service</strong> and <strong>api-gateway</strong> are most affected (4 errors each)</li>
+<li><strong>/api/reports</strong> has highest error count (5 errors, 38.5% error rate)</li>
+<li>3 error cascade sequences detected (errors triggering within 10 min)</li>
+<li>Peak error periods: 10:00-10:45, 15:00-15:40, 16:55-17:30</li>
+</ul>
+</div>
+</div>
+<div>
+<h3>Security Highlights</h3>
+<div class="finding">
+<ul>
+<li><strong>5 SQL injection attempts</strong> with payload ' OR '1'='1</li>
+<li><strong>29 requests</strong> from automated attack tool (sqlmap/1.5.2)</li>
+<li><strong>7 unauthorized access attempts</strong> targeting /admin/users</li>
+<li><strong>12 authentication failures</strong> (401/403 responses)</li>
+<li><strong>7 rate-limited requests</strong> (429 responses)</li>
+<li><strong>3 known suspicious IPs</strong> active (Tor exit, scanner, internal test)</li>
+<li><strong>185.220.101.1</strong> (Tor exit node) has highest failure rate (3 failures/6 requests)</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="summary-grid">
+<div>
+<h3>Performance Highlights</h3>
+<div class="finding">
+<ul>
+<li>Average response time: <strong>3,490ms</strong> (target: &lt;500ms)</li>
+<li>P95 response time: <strong>25,703ms</strong></li>
+<li>Maximum response time: <strong>27,017ms</strong></li>
+<li><strong>22 slow requests</strong> exceeding 1 second (22%)</li>
+<li><strong>/api/reports</strong> is slowest endpoint (avg 8,524ms)</li>
+<li><strong>security-monitor</strong> has highest avg response time (4,534ms)</li>
+<li>Peak degradation hours: 10:00, 15:00, 17:00</li>
+</ul>
+</div>
+</div>
+<div>
+<h3>Priority Actions</h3>
+<div class="finding">
+<ol>
+<li><span class="badge badge-red">Critical</span> Deploy WAF to block SQL injection and sqlmap attacks</li>
+<li><span class="badge badge-red">Critical</span> Implement circuit breakers for inter-service communication</li>
+<li><span class="badge badge-red">Critical</span> Resolve OOM issues in cache-service and user-service</li>
+<li><span class="badge badge-orange">High</span> Block known malicious IPs and Tor exit nodes</li>
+<li><span class="badge badge-orange">High</span> Enforce IP whitelisting for admin endpoints</li>
+<li><span class="badge badge-orange">High</span> Optimize /api/reports endpoint performance</li>
+<li><span class="badge badge-orange">High</span> Increase database connection pool sizes</li>
+<li><span class="badge badge-yellow">Medium</span> Add comprehensive monitoring and alerting</li>
+</ol>
+</div>
+</div>
+</div>
+
+<h2>Log Level Distribution</h2>
+<div class="bar-chart">
+<div class="bar-row"><div class="bar-label">ERROR</div><div class="bar red" style="width:25.423728813559322%">15 (15%)</div></div>
+<div class="bar-row"><div class="bar-label">WARN</div><div class="bar orange" style="width:44.06779661016949%">26 (26%)</div></div>
+<div class="bar-row"><div class="bar-label">INFO</div><div class="bar " style="width:100.0%">59 (59%)</div></div>
+</div>
+<h2>Service Health Overview</h2>
+<table><thead><tr><th>Service</th><th>Total Requests</th><th>Errors</th><th>Error Rate</th><th>Avg Response Time</th><th>Security Events</th><th>Health</th></tr></thead><tbody>
+<tr><td><strong>api-gateway</strong></td><td>19</td><td>4</td><td>21.1%</td><td>3,031ms</td><td>3</td><td><span class="badge badge-red">Critical</span></td></tr>
+<tr><td><strong>cache-service</strong></td><td>23</td><td>3</td><td>13.0%</td><td>3,576ms</td><td>5</td><td><span class="badge badge-orange">Degraded</span></td></tr>
+<tr><td><strong>order-service</strong></td><td>19</td><td>1</td><td>5.3%</td><td>3,228ms</td><td>4</td><td><span class="badge badge-orange">Degraded</span></td></tr>
+<tr><td><strong>product-service</strong></td><td>10</td><td>1</td><td>10.0%</td><td>2,768ms</td><td>2</td><td><span class="badge badge-green">Healthy</span></td></tr>
+<tr><td><strong>security-monitor</strong></td><td>10</td><td>2</td><td>20.0%</td><td>4,534ms</td><td>1</td><td><span class="badge badge-orange">Degraded</span></td></tr>
+<tr><td><strong>user-service</strong></td><td>19</td><td>4</td><td>21.1%</td><td>3,938ms</td><td>4</td><td><span class="badge badge-red">Critical</span></td></tr>
+</tbody></table>
+<footer>Analysis Summary | Log file: elastic_logs_30_11_25.json | Analysis period: 2025-11-30 10:00-18:15 UTC | Generated by Devin AI</footer>
+</div></body></html>

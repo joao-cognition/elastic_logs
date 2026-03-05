@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Analysis Report - elastic_logs_30_11_25</title>
+<style>
+:root { --bg: #0f172a; --card: #1e293b; --border: #334155; --text: #e2e8f0; --muted: #94a3b8; --accent: #3b82f6; --red: #ef4444; --orange: #f97316; --yellow: #eab308; --green: #22c55e; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; }
+.container { max-width: 1200px; margin: 0 auto; }
+h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: #fff; }
+h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: var(--accent); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: var(--muted); }
+.subtitle { color: var(--muted); margin-bottom: 2rem; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; }
+.stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; }
+.stat-card .value { font-size: 2rem; font-weight: 700; }
+.stat-card .label { color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-card.critical .value { color: var(--red); }
+.stat-card.warning .value { color: var(--orange); }
+.stat-card.info .value { color: var(--accent); }
+.stat-card.success .value { color: var(--green); }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; background: var(--card); border-radius: 8px; overflow: hidden; }
+th { background: #0f172a; color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.8rem 1rem; text-align: left; }
+td { padding: 0.7rem 1rem; border-top: 1px solid var(--border); font-size: 0.9rem; }
+tr:hover td { background: rgba(59,130,246,0.05); }
+.badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+.badge-red { background: rgba(239,68,68,0.15); color: var(--red); }
+.badge-orange { background: rgba(249,115,22,0.15); color: var(--orange); }
+.badge-yellow { background: rgba(234,179,8,0.15); color: var(--yellow); }
+.badge-blue { background: rgba(59,130,246,0.15); color: var(--accent); }
+.badge-green { background: rgba(34,197,94,0.15); color: var(--green); }
+.remediation { background: var(--card); border-left: 4px solid var(--accent); padding: 1rem 1.2rem; margin: 0.5rem 0; border-radius: 0 8px 8px 0; }
+.remediation strong { color: var(--accent); }
+.bar-chart { margin: 1rem 0; }
+.bar-row { display: flex; align-items: center; margin: 0.3rem 0; }
+.bar-label { width: 140px; font-size: 0.85rem; color: var(--muted); text-align: right; padding-right: 1rem; flex-shrink: 0; }
+.bar { height: 24px; border-radius: 4px; background: var(--accent); display: flex; align-items: center; padding-left: 8px; font-size: 0.75rem; font-weight: 600; min-width: 30px; }
+.bar.red { background: var(--red); }
+.bar.orange { background: var(--orange); }
+.bar.yellow { background: var(--yellow); }
+.cascade { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin: 0.5rem 0; }
+.cascade .arrow { color: var(--red); font-weight: bold; }
+.finding { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; margin: 0.8rem 0; }
+.finding-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.8rem; text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Security Issue Detection Report</h1>
+<p class="subtitle">Log file: elastic_logs_30_11_25.json | Generated: 2026-02-12 14:40:48 UTC | Period: 2025-11-30 10:00 - 18:15 UTC</p>
+
+<div class="stats-grid">
+<div class="stat-card critical"><div class="value">19</div><div class="label">Security Events</div></div>
+<div class="stat-card warning"><div class="value">12</div><div class="label">Auth Failures (401/403)</div></div>
+<div class="stat-card critical"><div class="value">5</div><div class="label">SQL Injection Attempts</div></div>
+<div class="stat-card warning"><div class="value">7</div><div class="label">Rate Limited (429)</div></div>
+</div>
+<h2>1. Authentication &amp; Authorization Analysis</h2>
+<p>Detected <strong>12</strong> authentication/authorization failures across the analysis period.</p>
+<table><thead><tr><th>Log ID</th><th>Timestamp</th><th>Status</th><th>Service</th><th>IP</th><th>User Agent</th><th>Message</th><th>Security Event</th></tr></thead><tbody>
+<tr><td>log-0005</td><td>2025-11-30T10:20:00Z</td><td><span class="badge badge-red">401</span></td><td>user-service</td><td><code>192.168.59.194</code></td><td>curl/7.68.0</td><td>Unauthorized access attempt to admin endpoint</td><td><span class="badge badge-yellow">RATE_LIMIT_EXCEEDED</span></td></tr>
+<tr><td>log-0034</td><td>2025-11-30T12:45:00Z</td><td><span class="badge badge-red">401</span></td><td>cache-service</td><td><code>185.220.101.1</code></td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36</td><td>Unauthorized access attempt to admin endpoint</td><td><span class="badge badge-yellow">SQL_INJECTION_ATTEMPT</span></td></tr>
+<tr><td>log-0036</td><td>2025-11-30T12:55:00Z</td><td><span class="badge badge-red">401</span></td><td>cache-service</td><td><code>192.168.155.56</code></td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36</td><td>Unauthorized access attempt to admin endpoint</td><td><span class="badge badge-yellow">UNAUTHORIZED_ACCESS</span></td></tr>
+<tr><td>log-0046</td><td>2025-11-30T13:45:00Z</td><td><span class="badge badge-red">401</span></td><td>order-service</td><td><code>185.220.101.1</code></td><td>sqlmap/1.5.2</td><td>Unauthorized access attempt to admin endpoint</td><td><span class="badge badge-yellow">RATE_LIMIT_EXCEEDED</span></td></tr>
+<tr><td>log-0048</td><td>2025-11-30T13:55:00Z</td><td><span class="badge badge-orange">403</span></td><td>user-service</td><td><code>45.33.32.156</code></td><td>sqlmap/1.5.2</td><td>Unauthorized access attempt to admin endpoint</td><td><span class="badge badge-yellow">RATE_LIMIT_EXCEEDED</span></td></tr>
+<tr><td>log-0056</td><td>2025-11-30T14:35:00Z</td><td><span class="badge badge-red">401</span></td><td>api-gateway</td><td><code>192.168.172.13</code></td><td>sqlmap/1.5.2</td><td>Unauthorized access attempt to admin endpoint</td><td><span class="badge badge-yellow">SQL_INJECTION_ATTEMPT</span></td></tr>
+<tr><td>log-0066</td><td>2025-11-30T15:25:00Z</td><td><span class="badge badge-orange">403</span></td><td>cache-service</td><td><code>192.168.253.42</code></td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64)</td><td>Rate limit exceeded for IP</td><td><span class="badge badge-yellow">RATE_LIMIT_EXCEEDED</span></td></tr>
+<tr><td>log-0074</td><td>2025-11-30T16:05:00Z</td><td><span class="badge badge-orange">403</span></td><td>api-gateway</td><td><code>192.168.173.34</code></td><td>sqlmap/1.5.2</td><td>Unauthorized access attempt to admin endpoint</td><td><span class="badge badge-yellow">UNAUTHORIZED_ACCESS</span></td></tr>
+<tr><td>log-0085</td><td>2025-11-30T17:00:00Z</td><td><span class="badge badge-orange">403</span></td><td>order-service</td><td><code>192.168.7.219</code></td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64)</td><td>Unauthorized access attempt to admin endpoint</td><td><span class="badge badge-yellow">RATE_LIMIT_EXCEEDED</span></td></tr>
+<tr><td>log-0092</td><td>2025-11-30T17:35:00Z</td><td><span class="badge badge-red">401</span></td><td>security-monitor</td><td><code>192.168.32.52</code></td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36</td><td>Unauthorized access attempt to admin endpoint</td><td><span class="badge badge-yellow">UNAUTHORIZED_ACCESS</span></td></tr>
+<tr><td>log-0093</td><td>2025-11-30T17:40:00Z</td><td><span class="badge badge-orange">403</span></td><td>product-service</td><td><code>192.168.201.98</code></td><td>curl/7.68.0</td><td>Rate limit exceeded for IP</td><td><span class="badge badge-yellow">SQL_INJECTION_ATTEMPT</span></td></tr>
+<tr><td>log-0099</td><td>2025-11-30T18:10:00Z</td><td><span class="badge badge-orange">403</span></td><td>cache-service</td><td><code>192.168.169.112</code></td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64)</td><td>Rate limit exceeded for IP</td><td><span class="badge badge-yellow">RATE_LIMIT_EXCEEDED</span></td></tr>
+</tbody></table>
+<h2>2. SQL Injection Detection</h2>
+<div class="finding"><div class="finding-header"><strong>SQL Injection Attempts Detected</strong><span class="badge badge-red">CRITICAL - 5 events</span></div>
+<p>Detected 5 SQL injection attempts using payload: <code>' OR '1'='1</code></p></div>
+<table><thead><tr><th>Log ID</th><th>Timestamp</th><th>Service</th><th>Endpoint</th><th>Source IP</th><th>User Agent</th><th>Payload</th></tr></thead><tbody>
+<tr><td>log-0034</td><td>2025-11-30T12:45:00Z</td><td>cache-service</td><td>/api/search</td><td><code>185.220.101.1</code></td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36</td><td><code>&#x27; OR &#x27;1&#x27;=&#x27;1</code></td></tr>
+<tr><td>log-0056</td><td>2025-11-30T14:35:00Z</td><td>api-gateway</td><td>/api/checkout</td><td><code>192.168.172.13</code></td><td>sqlmap/1.5.2</td><td><code>&#x27; OR &#x27;1&#x27;=&#x27;1</code></td></tr>
+<tr><td>log-0076</td><td>2025-11-30T16:15:00Z</td><td>product-service</td><td>/api/reports</td><td><code>192.168.63.127</code></td><td>sqlmap/1.5.2</td><td><code>&#x27; OR &#x27;1&#x27;=&#x27;1</code></td></tr>
+<tr><td>log-0077</td><td>2025-11-30T16:20:00Z</td><td>cache-service</td><td>/api/health</td><td><code>192.168.19.53</code></td><td>sqlmap/1.5.2</td><td><code>&#x27; OR &#x27;1&#x27;=&#x27;1</code></td></tr>
+<tr><td>log-0093</td><td>2025-11-30T17:40:00Z</td><td>product-service</td><td>/api/users</td><td><code>192.168.201.98</code></td><td>curl/7.68.0</td><td><code>&#x27; OR &#x27;1&#x27;=&#x27;1</code></td></tr>
+</tbody></table>
+<h3>Additional SQL Injection Warnings (4)</h3>
+<table><thead><tr><th>Log ID</th><th>Timestamp</th><th>Service</th><th>IP</th><th>Message</th></tr></thead><tbody>
+<tr><td>log-0041</td><td>2025-11-30T13:20:00Z</td><td>order-service</td><td><code>192.168.150.2</code></td><td>Suspicious request pattern detected - possible SQL injection</td></tr>
+<tr><td>log-0055</td><td>2025-11-30T14:30:00Z</td><td>user-service</td><td><code>192.168.95.249</code></td><td>Suspicious request pattern detected - possible SQL injection</td></tr>
+<tr><td>log-0076</td><td>2025-11-30T16:15:00Z</td><td>product-service</td><td><code>192.168.63.127</code></td><td>Suspicious request pattern detected - possible SQL injection</td></tr>
+<tr><td>log-0097</td><td>2025-11-30T18:00:00Z</td><td>order-service</td><td><code>192.168.62.38</code></td><td>Suspicious request pattern detected - possible SQL injection</td></tr>
+</tbody></table>
+<h2>3. Unauthorized Access Attempts</h2>
+<div class="finding"><div class="finding-header"><strong>Admin Endpoint Access Attempts</strong><span class="badge badge-red">HIGH - 7 events</span></div>
+<p>7 attempts to access <code>/admin/users</code> without proper authorization.</p></div>
+<table><thead><tr><th>Log ID</th><th>Timestamp</th><th>Service</th><th>Endpoint</th><th>Source IP</th><th>User Agent</th><th>Target Resource</th></tr></thead><tbody>
+<tr><td>log-0035</td><td>2025-11-30T12:50:00Z</td><td>user-service</td><td>/api/search</td><td><code>185.220.101.1</code></td><td>sqlmap/1.5.2</td><td><code>/admin/users</code></td></tr>
+<tr><td>log-0036</td><td>2025-11-30T12:55:00Z</td><td>cache-service</td><td>/api/checkout</td><td><code>192.168.155.56</code></td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36</td><td><code>/admin/users</code></td></tr>
+<tr><td>log-0041</td><td>2025-11-30T13:20:00Z</td><td>order-service</td><td>/api/orders</td><td><code>192.168.150.2</code></td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36</td><td><code>/admin/users</code></td></tr>
+<tr><td>log-0055</td><td>2025-11-30T14:30:00Z</td><td>user-service</td><td>/api/reports</td><td><code>192.168.95.249</code></td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64)</td><td><code>/admin/users</code></td></tr>
+<tr><td>log-0074</td><td>2025-11-30T16:05:00Z</td><td>api-gateway</td><td>/api/search</td><td><code>192.168.173.34</code></td><td>sqlmap/1.5.2</td><td><code>/admin/users</code></td></tr>
+<tr><td>log-0092</td><td>2025-11-30T17:35:00Z</td><td>security-monitor</td><td>/api/health</td><td><code>192.168.32.52</code></td><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36</td><td><code>/admin/users</code></td></tr>
+<tr><td>log-0097</td><td>2025-11-30T18:00:00Z</td><td>order-service</td><td>/api/orders</td><td><code>192.168.62.38</code></td><td>sqlmap/1.5.2</td><td><code>/admin/users</code></td></tr>
+</tbody></table>
+<h2>4. Rate Limiting Analysis</h2>
+<div class="finding"><div class="finding-header"><strong>Rate Limit Violations</strong><span class="badge badge-orange">HIGH - 7 events</span></div>
+<p>7 rate limit exceeded events detected (threshold: 150 req/min). 7 requests returned 429 status.</p></div>
+<table><thead><tr><th>Log ID</th><th>Timestamp</th><th>Service</th><th>Source IP</th><th>Requests/min</th><th>HTTP Status</th></tr></thead><tbody>
+<tr><td>log-0005</td><td>2025-11-30T10:20:00Z</td><td>user-service</td><td><code>192.168.59.194</code></td><td>150</td><td><span class="badge badge-orange">401</span></td></tr>
+<tr><td>log-0019</td><td>2025-11-30T11:30:00Z</td><td>api-gateway</td><td><code>192.168.222.217</code></td><td>150</td><td><span class="badge badge-red">429</span></td></tr>
+<tr><td>log-0046</td><td>2025-11-30T13:45:00Z</td><td>order-service</td><td><code>185.220.101.1</code></td><td>150</td><td><span class="badge badge-orange">401</span></td></tr>
+<tr><td>log-0048</td><td>2025-11-30T13:55:00Z</td><td>user-service</td><td><code>45.33.32.156</code></td><td>150</td><td><span class="badge badge-orange">403</span></td></tr>
+<tr><td>log-0066</td><td>2025-11-30T15:25:00Z</td><td>cache-service</td><td><code>192.168.253.42</code></td><td>150</td><td><span class="badge badge-orange">403</span></td></tr>
+<tr><td>log-0085</td><td>2025-11-30T17:00:00Z</td><td>order-service</td><td><code>192.168.7.219</code></td><td>150</td><td><span class="badge badge-orange">403</span></td></tr>
+<tr><td>log-0099</td><td>2025-11-30T18:10:00Z</td><td>cache-service</td><td><code>192.168.169.112</code></td><td>150</td><td><span class="badge badge-orange">403</span></td></tr>
+</tbody></table>
+<h2>5. Suspicious IP Analysis</h2>
+<h3>5.1 IPs with Authentication/Rate Failures</h3>
+<table><thead><tr><th>IP Address</th><th>Failures</th><th>Total Requests</th><th>Failure Rate</th><th>Risk Level</th></tr></thead><tbody>
+<tr><td><code>185.220.101.1</code> (KNOWN SUSPICIOUS)</td><td>3</td><td>6</td><td>50%</td><td><span class="badge badge-red">Critical</span></td></tr>
+<tr><td><code>192.168.59.194</code></td><td>1</td><td>1</td><td>100%</td><td><span class="badge badge-orange">High</span></td></tr>
+<tr><td><code>192.168.222.217</code></td><td>1</td><td>1</td><td>100%</td><td><span class="badge badge-orange">High</span></td></tr>
+<tr><td><code>192.168.155.56</code></td><td>1</td><td>1</td><td>100%</td><td><span class="badge badge-orange">High</span></td></tr>
+<tr><td><code>192.168.150.2</code></td><td>1</td><td>1</td><td>100%</td><td><span class="badge badge-orange">High</span></td></tr>
+<tr><td><code>45.33.32.156</code> (KNOWN SUSPICIOUS)</td><td>1</td><td>4</td><td>25%</td><td><span class="badge badge-yellow">Medium</span></td></tr>
+<tr><td><code>192.168.95.249</code></td><td>1</td><td>1</td><td>100%</td><td><span class="badge badge-orange">High</span></td></tr>
+<tr><td><code>192.168.172.13</code></td><td>1</td><td>1</td><td>100%</td><td><span class="badge badge-orange">High</span></td></tr>
+<tr><td><code>192.168.253.42</code></td><td>1</td><td>1</td><td>100%</td><td><span class="badge badge-orange">High</span></td></tr>
+<tr><td><code>192.168.173.34</code></td><td>1</td><td>1</td><td>100%</td><td><span class="badge badge-orange">High</span></td></tr>
+<tr><td><code>192.168.63.127</code></td><td>1</td><td>1</td><td>100%</td><td><span class="badge badge-orange">High</span></td></tr>
+<tr><td><code>192.168.19.53</code></td><td>1</td><td>1</td><td>100%</td><td><span class="badge badge-orange">High</span></td></tr>
+<tr><td><code>192.168.7.219</code></td><td>1</td><td>1</td><td>100%</td><td><span class="badge badge-orange">High</span></td></tr>
+<tr><td><code>192.168.32.52</code></td><td>1</td><td>1</td><td>100%</td><td><span class="badge badge-orange">High</span></td></tr>
+<tr><td><code>192.168.201.98</code></td><td>1</td><td>1</td><td>100%</td><td><span class="badge badge-orange">High</span></td></tr>
+<tr><td><code>192.168.62.38</code></td><td>1</td><td>1</td><td>100%</td><td><span class="badge badge-orange">High</span></td></tr>
+<tr><td><code>192.168.169.112</code></td><td>1</td><td>1</td><td>100%</td><td><span class="badge badge-orange">High</span></td></tr>
+</tbody></table>
+<h3>5.2 Known Suspicious IPs</h3>
+<div class="finding"><div class="finding-header"><strong>45.33.32.156</strong> - Known scanner IP (Nmap project)<span class="badge badge-red">4 requests</span></div>
+<ul>
+<li>log-0009 | 2025-11-30T10:40:00Z | 201 | Request completed successfully</li>
+<li>log-0048 | 2025-11-30T13:55:00Z | 403 | Unauthorized access attempt to admin endpoint | Security: RATE_LIMIT_EXCEEDED</li>
+<li>log-0062 | 2025-11-30T15:05:00Z | 502 | Request timeout: upstream service unavailable</li>
+<li>log-0068 | 2025-11-30T15:35:00Z | 201 | Request completed successfully</li>
+</ul></div>
+<div class="finding"><div class="finding-header"><strong>185.220.101.1</strong> - Known Tor exit node<span class="badge badge-red">6 requests</span></div>
+<ul>
+<li>log-0003 | 2025-11-30T10:10:00Z | 204 | Request completed successfully</li>
+<li>log-0034 | 2025-11-30T12:45:00Z | 401 | Unauthorized access attempt to admin endpoint | Security: SQL_INJECTION_ATTEMPT</li>
+<li>log-0035 | 2025-11-30T12:50:00Z | 429 | Unauthorized access attempt to admin endpoint | Security: UNAUTHORIZED_ACCESS</li>
+<li>log-0038 | 2025-11-30T13:05:00Z | 204 | Request completed successfully</li>
+<li>log-0046 | 2025-11-30T13:45:00Z | 401 | Unauthorized access attempt to admin endpoint | Security: RATE_LIMIT_EXCEEDED</li>
+<li>log-0051 | 2025-11-30T14:10:00Z | 200 | Request completed successfully</li>
+</ul></div>
+<div class="finding"><div class="finding-header"><strong>10.0.0.99</strong> - Internal test IP with unusual activity<span class="badge badge-red">4 requests</span></div>
+<ul>
+<li>log-0037 | 2025-11-30T13:00:00Z | 201 | Request completed successfully</li>
+<li>log-0043 | 2025-11-30T13:30:00Z | 204 | Request completed successfully</li>
+<li>log-0073 | 2025-11-30T16:00:00Z | 200 | Request completed successfully</li>
+<li>log-0100 | 2025-11-30T18:15:00Z | 200 | Request completed successfully</li>
+</ul></div>
+<h2>6. User Agent Analysis</h2>
+<div class="finding"><div class="finding-header"><strong>Attack Tool Detected: sqlmap/1.5.2</strong><span class="badge badge-red">CRITICAL - 29 requests</span></div>
+<p>sqlmap is an automated SQL injection tool. 29 requests detected from this tool.</p>
+<p>Services targeted: cache-service: 10, user-service: 5, product-service: 4, order-service: 4, api-gateway: 4, security-monitor: 2</p>
+<p>Endpoints targeted: /api/orders: 8, /api/search: 7, /api/health: 4, /api/users: 3, /api/checkout: 3, /api/reports: 3, /api/products: 1</p>
+<p>Status codes: 200: 9, 201: 6, 429: 4, 204: 4, 401: 2, 403: 2, 502: 1, 504: 1</p></div>
+<h3>User Agent Distribution</h3>
+<table><thead><tr><th>User Agent</th><th>Requests</th><th>Status Code Breakdown</th><th>Risk</th></tr></thead><tbody>
+<tr><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64)</td><td>31</td><td>200: 4, 201: 7, 204: 10, 403: 3, 429: 2, 503: 3, 504: 2</td><td><span class="badge badge-green">Low</span></td></tr>
+<tr><td>sqlmap/1.5.2</td><td>29</td><td>200: 9, 201: 6, 204: 4, 401: 2, 403: 2, 429: 4, 502: 1, 504: 1</td><td><span class="badge badge-red">Critical</span></td></tr>
+<tr><td>curl/7.68.0</td><td>26</td><td>200: 8, 201: 5, 204: 5, 401: 1, 403: 1, 502: 2, 503: 2, 504: 2</td><td><span class="badge badge-green">Low</span></td></tr>
+<tr><td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36</td><td>14</td><td>200: 2, 201: 2, 204: 4, 401: 3, 429: 1, 500: 1, 503: 1</td><td><span class="badge badge-green">Low</span></td></tr>
+</tbody></table>
+<h2>7. Severity Classification &amp; Recommendations</h2>
+<div class="finding"><div class="finding-header"><strong>SQL injection attempts detected</strong><span class="badge badge-red">Critical</span></div>
+<p>5 SQL injection events with payload &#x27; OR &#x27;1&#x27;=&#x27;1&#x27; targeting multiple services</p>
+<div class="remediation"><strong>Recommendations:</strong><ul>
+<li>Implement parameterized queries across all services</li>
+<li>Deploy a Web Application Firewall (WAF) to filter SQL injection patterns</li>
+<li>Block IPs associated with sqlmap attacks</li>
+<li>Audit all database query construction for injection vulnerabilities</li>
+</ul></div></div>
+<div class="finding"><div class="finding-header"><strong>Automated attack tool (sqlmap) active</strong><span class="badge badge-red">Critical</span></div>
+<p>29 requests from sqlmap/1.5.2 targeting all services</p>
+<div class="remediation"><strong>Recommendations:</strong><ul>
+<li>Block the sqlmap user agent at the WAF/load balancer level</li>
+<li>Implement user agent validation and filtering</li>
+<li>Monitor for other automated scanning tools</li>
+</ul></div></div>
+<div class="finding"><div class="finding-header"><strong>Unauthorized admin access attempts</strong><span class="badge badge-orange">High</span></div>
+<p>7 attempts to access /admin/users endpoint</p>
+<div class="remediation"><strong>Recommendations:</strong><ul>
+<li>Enforce IP whitelisting for admin endpoints</li>
+<li>Implement multi-factor authentication for admin access</li>
+<li>Add rate limiting specifically for admin endpoints</li>
+<li>Review and restrict admin API access controls</li>
+</ul></div></div>
+<div class="finding"><div class="finding-header"><strong>Rate limit violations</strong><span class="badge badge-orange">High</span></div>
+<p>7 rate limit exceeded events at 150 req/min threshold</p>
+<div class="remediation"><strong>Recommendations:</strong><ul>
+<li>Lower rate limits for unauthenticated requests</li>
+<li>Implement progressive rate limiting (warn then block)</li>
+<li>Add CAPTCHA challenges for repeated rate limit violations</li>
+<li>Consider IP-based temporary bans for repeat offenders</li>
+</ul></div></div>
+<div class="finding"><div class="finding-header"><strong>Known suspicious IPs active</strong><span class="badge badge-orange">High</span></div>
+<p>3 known suspicious IPs (Tor exit node, scanner IP, internal test IP) detected</p>
+<div class="remediation"><strong>Recommendations:</strong><ul>
+<li>Block known malicious IPs at the firewall level</li>
+<li>Integrate threat intelligence feeds for real-time IP reputation checks</li>
+<li>Monitor internal test IPs for unauthorized use</li>
+</ul></div></div>
+<div class="finding"><div class="finding-header"><strong>Multiple authentication failures from diverse IPs</strong><span class="badge badge-yellow">Medium</span></div>
+<p>17 unique IPs with authentication failures</p>
+<div class="remediation"><strong>Recommendations:</strong><ul>
+<li>Implement account lockout after N failed attempts</li>
+<li>Add geographic anomaly detection for login attempts</li>
+<li>Enable login attempt logging and alerting</li>
+</ul></div></div>
+<footer>Security Analysis Report | Log file: elastic_logs_30_11_25.json | Analysis period: 2025-11-30 10:00-18:15 UTC | Generated by Devin AI</footer>
+</div></body></html>

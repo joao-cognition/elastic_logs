@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Performance Analysis Report - elastic_logs_30_11_25</title>
+<style>
+:root { --bg: #0f172a; --card: #1e293b; --border: #334155; --text: #e2e8f0; --muted: #94a3b8; --accent: #3b82f6; --red: #ef4444; --orange: #f97316; --yellow: #eab308; --green: #22c55e; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; }
+.container { max-width: 1200px; margin: 0 auto; }
+h1 { font-size: 1.8rem; margin-bottom: 0.5rem; color: #fff; }
+h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: var(--accent); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+h3 { font-size: 1.1rem; margin: 1.5rem 0 0.5rem; color: var(--muted); }
+.subtitle { color: var(--muted); margin-bottom: 2rem; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; }
+.stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; }
+.stat-card .value { font-size: 2rem; font-weight: 700; }
+.stat-card .label { color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.stat-card.critical .value { color: var(--red); }
+.stat-card.warning .value { color: var(--orange); }
+.stat-card.info .value { color: var(--accent); }
+.stat-card.success .value { color: var(--green); }
+table { width: 100%; border-collapse: collapse; margin: 1rem 0; background: var(--card); border-radius: 8px; overflow: hidden; }
+th { background: #0f172a; color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.8rem 1rem; text-align: left; }
+td { padding: 0.7rem 1rem; border-top: 1px solid var(--border); font-size: 0.9rem; }
+tr:hover td { background: rgba(59,130,246,0.05); }
+.badge { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+.badge-red { background: rgba(239,68,68,0.15); color: var(--red); }
+.badge-orange { background: rgba(249,115,22,0.15); color: var(--orange); }
+.badge-yellow { background: rgba(234,179,8,0.15); color: var(--yellow); }
+.badge-blue { background: rgba(59,130,246,0.15); color: var(--accent); }
+.badge-green { background: rgba(34,197,94,0.15); color: var(--green); }
+.remediation { background: var(--card); border-left: 4px solid var(--accent); padding: 1rem 1.2rem; margin: 0.5rem 0; border-radius: 0 8px 8px 0; }
+.remediation strong { color: var(--accent); }
+.bar-chart { margin: 1rem 0; }
+.bar-row { display: flex; align-items: center; margin: 0.3rem 0; }
+.bar-label { width: 140px; font-size: 0.85rem; color: var(--muted); text-align: right; padding-right: 1rem; flex-shrink: 0; }
+.bar { height: 24px; border-radius: 4px; background: var(--accent); display: flex; align-items: center; padding-left: 8px; font-size: 0.75rem; font-weight: 600; min-width: 30px; }
+.bar.red { background: var(--red); }
+.bar.orange { background: var(--orange); }
+.bar.yellow { background: var(--yellow); }
+.cascade { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; margin: 0.5rem 0; }
+.cascade .arrow { color: var(--red); font-weight: bold; }
+.finding { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.2rem; margin: 0.8rem 0; }
+.finding-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.8rem; text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Performance Anomaly Analysis Report</h1>
+<p class="subtitle">Log file: elastic_logs_30_11_25.json | Generated: 2026-02-12 14:40:48 UTC | Period: 2025-11-30 10:00 - 18:15 UTC</p>
+
+<div class="stats-grid">
+<div class="stat-card info"><div class="value">100</div><div class="label">Total Requests</div></div>
+<div class="stat-card critical"><div class="value">3,490ms</div><div class="label">Avg Response Time</div></div>
+<div class="stat-card warning"><div class="value">25,703ms</div><div class="label">P95 Response Time</div></div>
+<div class="stat-card critical"><div class="value">22</div><div class="label">Slow Requests (&gt;1s)</div></div>
+</div>
+
+<h2>1. Response Time Statistics</h2>
+<table>
+<thead><tr><th>Metric</th><th>Value</th></tr></thead>
+<tbody>
+<tr><td>Minimum</td><td>53ms</td></tr>
+<tr><td>Maximum</td><td>27,017ms</td></tr>
+<tr><td>Average</td><td>3,490ms</td></tr>
+<tr><td>Median (P50)</td><td>182ms</td></tr>
+<tr><td>P90</td><td>14,833ms</td></tr>
+<tr><td>P95</td><td>25,703ms</td></tr>
+<tr><td>P99</td><td>27,017ms</td></tr>
+</tbody></table>
+<h2>2. Response Time Distribution</h2><div class="bar-chart">
+<div class="bar-row"><div class="bar-label">0-100ms</div><div class="bar " style="width:48.07692307692308%">25 (25%)</div></div>
+<div class="bar-row"><div class="bar-label">100-500ms</div><div class="bar " style="width:100.0%">52 (52%)</div></div>
+<div class="bar-row"><div class="bar-label">500ms-1s</div><div class="bar " style="width:5%">1 (1%)</div></div>
+<div class="bar-row"><div class="bar-label">1-5s</div><div class="bar yellow" style="width:5%">0 (0%)</div></div>
+<div class="bar-row"><div class="bar-label">5-10s</div><div class="bar orange" style="width:11.538461538461538%">6 (6%)</div></div>
+<div class="bar-row"><div class="bar-label">10-20s</div><div class="bar red" style="width:21.153846153846153%">11 (11%)</div></div>
+<div class="bar-row"><div class="bar-label">20s+</div><div class="bar red" style="width:9.615384615384617%">5 (5%)</div></div>
+</div>
+<div class="remediation"><strong>Distribution Analysis:</strong>
+<ul>
+<li><strong>Normal (&lt;500ms):</strong> 77 requests (77%) - Acceptable performance</li>
+<li><strong>Degraded (1-10s):</strong> 6 requests (6%) - User-impacting latency</li>
+<li><strong>Critical (&gt;10s):</strong> 16 requests (16%) - Service failure level latency</li>
+</ul></div>
+<h2>3. Response Time by Service</h2>
+<table><thead><tr><th>Service</th><th>Requests</th><th>Min</th><th>Max</th><th>Avg</th><th>P95</th><th>Status</th></tr></thead><tbody>
+<tr><td><strong>security-monitor</strong></td><td>10</td><td>53ms</td><td>26,656ms</td><td>4,534ms</td><td>26,656ms</td><td><span class="badge badge-red">Critical</span></td></tr>
+<tr><td><strong>user-service</strong></td><td>19</td><td>54ms</td><td>27,017ms</td><td>3,938ms</td><td>27,017ms</td><td><span class="badge badge-orange">Degraded</span></td></tr>
+<tr><td><strong>cache-service</strong></td><td>23</td><td>58ms</td><td>25,703ms</td><td>3,576ms</td><td>17,017ms</td><td><span class="badge badge-orange">Degraded</span></td></tr>
+<tr><td><strong>order-service</strong></td><td>19</td><td>58ms</td><td>13,685ms</td><td>3,228ms</td><td>13,685ms</td><td><span class="badge badge-orange">Degraded</span></td></tr>
+<tr><td><strong>api-gateway</strong></td><td>19</td><td>57ms</td><td>19,655ms</td><td>3,031ms</td><td>19,655ms</td><td><span class="badge badge-orange">Degraded</span></td></tr>
+<tr><td><strong>product-service</strong></td><td>10</td><td>72ms</td><td>26,354ms</td><td>2,768ms</td><td>26,354ms</td><td><span class="badge badge-orange">Degraded</span></td></tr>
+</tbody></table>
+<h2>4. Response Time by Endpoint</h2>
+<table><thead><tr><th>Endpoint</th><th>Requests</th><th>Min</th><th>Max</th><th>Avg</th><th>P95</th><th>Status</th></tr></thead><tbody>
+<tr><td><strong>/api/reports</strong></td><td>13</td><td>108ms</td><td>27,017ms</td><td>8,524ms</td><td>27,017ms</td><td><span class="badge badge-red">Critical</span></td></tr>
+<tr><td><strong>/api/products</strong></td><td>12</td><td>62ms</td><td>17,528ms</td><td>5,709ms</td><td>17,528ms</td><td><span class="badge badge-red">Critical</span></td></tr>
+<tr><td><strong>/api/search</strong></td><td>17</td><td>64ms</td><td>26,656ms</td><td>3,232ms</td><td>26,656ms</td><td><span class="badge badge-orange">Degraded</span></td></tr>
+<tr><td><strong>/api/users</strong></td><td>17</td><td>88ms</td><td>14,833ms</td><td>2,714ms</td><td>14,833ms</td><td><span class="badge badge-orange">Degraded</span></td></tr>
+<tr><td><strong>/api/orders</strong></td><td>15</td><td>65ms</td><td>13,369ms</td><td>1,870ms</td><td>13,369ms</td><td><span class="badge badge-green">Normal</span></td></tr>
+<tr><td><strong>/api/checkout</strong></td><td>12</td><td>54ms</td><td>19,655ms</td><td>1,816ms</td><td>19,655ms</td><td><span class="badge badge-green">Normal</span></td></tr>
+<tr><td><strong>/api/health</strong></td><td>14</td><td>53ms</td><td>17,017ms</td><td>1,340ms</td><td>17,017ms</td><td><span class="badge badge-green">Normal</span></td></tr>
+</tbody></table>
+<h2>5. Top 10 Slowest Requests</h2>
+<table><thead><tr><th>Log ID</th><th>Timestamp</th><th>Service</th><th>Endpoint</th><th>Method</th><th>Status</th><th>Response Time</th><th>Message</th></tr></thead><tbody>
+<tr><td>log-0087</td><td>2025-11-30T17:10:00Z</td><td>user-service</td><td>/api/reports</td><td>GET</td><td><span class="badge badge-red">503</span></td><td><strong>27,017ms</strong></td><td>Connection refused: service unreachable</td></tr>
+<tr><td>log-0069</td><td>2025-11-30T15:40:00Z</td><td>security-monitor</td><td>/api/search</td><td>PUT</td><td><span class="badge badge-red">500</span></td><td><strong>26,656ms</strong></td><td>Connection refused: service unreachable</td></tr>
+<tr><td>log-0065</td><td>2025-11-30T15:20:00Z</td><td>product-service</td><td>/api/reports</td><td>POST</td><td><span class="badge badge-red">503</span></td><td><strong>26,354ms</strong></td><td>Internal server error: out of memory exception</td></tr>
+<tr><td>log-0090</td><td>2025-11-30T17:25:00Z</td><td>user-service</td><td>/api/reports</td><td>POST</td><td><span class="badge badge-red">503</span></td><td><strong>26,248ms</strong></td><td>Request timeout: upstream service unavailable</td></tr>
+<tr><td>log-0007</td><td>2025-11-30T10:30:00Z</td><td>cache-service</td><td>/api/search</td><td>PUT</td><td><span class="badge badge-red">503</span></td><td><strong>25,703ms</strong></td><td>Internal server error: out of memory exception</td></tr>
+<tr><td>log-0091</td><td>2025-11-30T17:30:00Z</td><td>api-gateway</td><td>/api/checkout</td><td>GET</td><td><span class="badge badge-red">502</span></td><td><strong>19,655ms</strong></td><td>Request timeout: upstream service unavailable</td></tr>
+<tr><td>log-0017</td><td>2025-11-30T11:20:00Z</td><td>security-monitor</td><td>/api/products</td><td>DELETE</td><td><span class="badge badge-red">503</span></td><td><strong>17,528ms</strong></td><td>Connection refused: service unreachable</td></tr>
+<tr><td>log-0024</td><td>2025-11-30T11:55:00Z</td><td>api-gateway</td><td>/api/products</td><td>DELETE</td><td><span class="badge badge-red">503</span></td><td><strong>17,470ms</strong></td><td>Internal server error: database connection pool exhausted</td></tr>
+<tr><td>log-0004</td><td>2025-11-30T10:15:00Z</td><td>cache-service</td><td>/api/health</td><td>GET</td><td><span class="badge badge-red">502</span></td><td><strong>17,017ms</strong></td><td>Connection refused: service unreachable</td></tr>
+<tr><td>log-0011</td><td>2025-11-30T10:50:00Z</td><td>cache-service</td><td>/api/users</td><td>PUT</td><td><span class="badge badge-green">200</span></td><td><strong>14,833ms</strong></td><td>High memory usage detected</td></tr>
+</tbody></table>
+<h2>6. Hourly Performance Trends</h2>
+<table><thead><tr><th>Hour</th><th>Requests</th><th>Avg Response Time</th><th>Max Response Time</th><th>Slow Requests (&gt;1s)</th><th>Status</th></tr></thead><tbody>
+<tr><td>10:00</td><td>12</td><td>6,653ms</td><td>25,703ms</td><td>5</td><td><span class="badge badge-red">Critical</span></td></tr>
+<tr><td>11:00</td><td>12</td><td>3,030ms</td><td>17,528ms</td><td>2</td><td><span class="badge badge-orange">Degraded</span></td></tr>
+<tr><td>12:00</td><td>12</td><td>1,107ms</td><td>11,198ms</td><td>1</td><td><span class="badge badge-green">Normal</span></td></tr>
+<tr><td>13:00</td><td>12</td><td>1,297ms</td><td>7,937ms</td><td>2</td><td><span class="badge badge-green">Normal</span></td></tr>
+<tr><td>14:00</td><td>12</td><td>752ms</td><td>7,402ms</td><td>1</td><td><span class="badge badge-green">Normal</span></td></tr>
+<tr><td>15:00</td><td>12</td><td>7,630ms</td><td>26,656ms</td><td>5</td><td><span class="badge badge-red">Critical</span></td></tr>
+<tr><td>16:00</td><td>12</td><td>1,653ms</td><td>12,595ms</td><td>2</td><td><span class="badge badge-green">Normal</span></td></tr>
+<tr><td>17:00</td><td>12</td><td>6,894ms</td><td>27,017ms</td><td>4</td><td><span class="badge badge-red">Critical</span></td></tr>
+<tr><td>18:00</td><td>4</td><td>207ms</td><td>379ms</td><td>0</td><td><span class="badge badge-green">Normal</span></td></tr>
+</tbody></table>
+<div class="bar-chart">
+<div class="bar-row"><div class="bar-label">10:00</div><div class="bar red" style="width:87.19651379954348%">6,653ms avg</div></div>
+<div class="bar-row"><div class="bar-label">11:00</div><div class="bar orange" style="width:39.71232293225282%">3,030ms avg</div></div>
+<div class="bar-row"><div class="bar-label">12:00</div><div class="bar " style="width:14.50945271458372%">1,107ms avg</div></div>
+<div class="bar-row"><div class="bar-label">13:00</div><div class="bar " style="width:16.998503729753935%">1,297ms avg</div></div>
+<div class="bar-row"><div class="bar-label">14:00</div><div class="bar " style="width:9.852448094712814%">752ms avg</div></div>
+<div class="bar-row"><div class="bar-label">15:00</div><div class="bar red" style="width:100.0%">7,630ms avg</div></div>
+<div class="bar-row"><div class="bar-label">16:00</div><div class="bar " style="width:21.663153526064594%">1,653ms avg</div></div>
+<div class="bar-row"><div class="bar-label">17:00</div><div class="bar red" style="width:90.34960299690917%">6,894ms avg</div></div>
+<div class="bar-row"><div class="bar-label">18:00</div><div class="bar " style="width:5%">207ms avg</div></div>
+</div>
+<div class="remediation"><strong>Peak Degradation Periods:</strong><ul>
+<li><strong>10:00 (avg 6,653ms):</strong> Morning startup contention - cache-service OOM and connection errors</li>
+<li><strong>15:00 (avg 7,630ms):</strong> Afternoon spike - multiple service failures cascading across infrastructure</li>
+<li><strong>17:00 (avg 6,894ms):</strong> Evening degradation - user-service and api-gateway under heavy load</li>
+</ul></div>
+<h2>7. HTTP Method Performance</h2>
+<table><thead><tr><th>Method</th><th>Requests</th><th>Avg Response Time</th><th>Max Response Time</th></tr></thead><tbody>
+<tr><td><strong>PUT</strong></td><td>22</td><td>4,889ms</td><td>26,656ms</td></tr>
+<tr><td><strong>GET</strong></td><td>29</td><td>3,885ms</td><td>27,017ms</td></tr>
+<tr><td><strong>POST</strong></td><td>26</td><td>2,968ms</td><td>26,354ms</td></tr>
+<tr><td><strong>DELETE</strong></td><td>23</td><td>2,245ms</td><td>17,528ms</td></tr>
+</tbody></table>
+<h2>8. Infrastructure Performance Metrics (7 entries)</h2>
+<table><thead><tr><th>Log ID</th><th>Timestamp</th><th>Service</th><th>Read Latency</th><th>Write Latency</th><th>IOPS</th><th>Issue</th></tr></thead><tbody>
+<tr><td>log-0001</td><td>2025-11-30T10:00:00Z</td><td>order-service</td><td>447ms</td><td>292ms</td><td>131</td><td>Slow database query detected</td></tr>
+<tr><td>log-0011</td><td>2025-11-30T10:50:00Z</td><td>cache-service</td><td>185ms</td><td>653ms</td><td>166</td><td>High memory usage detected</td></tr>
+<tr><td>log-0047</td><td>2025-11-30T13:50:00Z</td><td>order-service</td><td>320ms</td><td>488ms</td><td>66</td><td>Slow database query detected</td></tr>
+<tr><td>log-0060</td><td>2025-11-30T14:55:00Z</td><td>order-service</td><td>352ms</td><td>740ms</td><td>170</td><td>Disk I/O latency spike</td></tr>
+<tr><td>log-0071</td><td>2025-11-30T15:50:00Z</td><td>order-service</td><td>246ms</td><td>737ms</td><td>79</td><td>Disk I/O latency spike</td></tr>
+<tr><td>log-0081</td><td>2025-11-30T16:40:00Z</td><td>order-service</td><td>210ms</td><td>730ms</td><td>74</td><td>High memory usage detected</td></tr>
+<tr><td>log-0089</td><td>2025-11-30T17:20:00Z</td><td>cache-service</td><td>335ms</td><td>736ms</td><td>180</td><td>High memory usage detected</td></tr>
+</tbody></table>
+<div class="remediation"><strong>Infrastructure Summary:</strong><ul>
+<li>Average read latency: 299ms (acceptable &lt;100ms, current is elevated)</li>
+<li>Average write latency: 625ms (critical - indicates disk I/O bottleneck)</li>
+<li>Average IOPS: 124 (low throughput indicates storage saturation)</li>
+</ul></div>
+<h2>9. Performance Recommendations</h2>
+<div class="finding"><div class="finding-header"><strong>Address service unreachability causing 20s+ response times</strong><span class="badge badge-red">Critical</span></div>
+<div class="remediation"><strong>Steps:</strong><ul>
+<li>Implement circuit breakers with fast-fail responses instead of waiting for timeouts</li>
+<li>Set aggressive connection timeouts (5s max) for inter-service communication</li>
+<li>Deploy health check endpoints with automatic service restart on failure</li>
+</ul></div></div>
+<div class="finding"><div class="finding-header"><strong>Resolve memory exhaustion in cache-service and user-service</strong><span class="badge badge-red">Critical</span></div>
+<div class="remediation"><strong>Steps:</strong><ul>
+<li>Increase JVM heap allocation and enable GC logging for analysis</li>
+<li>Implement memory-aware request throttling to prevent OOM conditions</li>
+<li>Add memory usage alerts at 70%, 80%, and 90% thresholds</li>
+</ul></div></div>
+<div class="finding"><div class="finding-header"><strong>Optimize /api/reports endpoint (avg 8,524ms)</strong><span class="badge badge-orange">High</span></div>
+<div class="remediation"><strong>Steps:</strong><ul>
+<li>Profile and optimize database queries for report generation</li>
+<li>Implement pagination for large report datasets</li>
+<li>Consider async report generation with polling/webhook delivery</li>
+</ul></div></div>
+<div class="finding"><div class="finding-header"><strong>Address database connection pool saturation</strong><span class="badge badge-orange">High</span></div>
+<div class="remediation"><strong>Steps:</strong><ul>
+<li>Increase pool size and implement connection timeout settings</li>
+<li>Optimize slow queries consuming connection time</li>
+<li>Add connection pool monitoring with alerting on &gt;80% utilization</li>
+</ul></div></div>
+<div class="finding"><div class="finding-header"><strong>Reduce disk I/O latency on order-service</strong><span class="badge badge-yellow">Medium</span></div>
+<div class="remediation"><strong>Steps:</strong><ul>
+<li>Migrate to SSD-backed storage if using HDD</li>
+<li>Implement write batching to reduce IOPS pressure</li>
+<li>Review and optimize disk-intensive operations</li>
+</ul></div></div>
+<h2>10. All Slow Requests (&gt;1000ms)</h2>
+<table><thead><tr><th>Log ID</th><th>Service</th><th>Endpoint</th><th>Response Time</th><th>Level</th><th>Message</th></tr></thead><tbody>
+<tr><td>log-0087</td><td>user-service</td><td>/api/reports</td><td><strong>27,017ms</strong></td><td><span class="badge badge-red">ERROR</span></td><td>Connection refused: service unreachable</td></tr>
+<tr><td>log-0069</td><td>security-monitor</td><td>/api/search</td><td><strong>26,656ms</strong></td><td><span class="badge badge-red">ERROR</span></td><td>Connection refused: service unreachable</td></tr>
+<tr><td>log-0065</td><td>product-service</td><td>/api/reports</td><td><strong>26,354ms</strong></td><td><span class="badge badge-red">ERROR</span></td><td>Internal server error: out of memory exception</td></tr>
+<tr><td>log-0090</td><td>user-service</td><td>/api/reports</td><td><strong>26,248ms</strong></td><td><span class="badge badge-red">ERROR</span></td><td>Request timeout: upstream service unavailable</td></tr>
+<tr><td>log-0007</td><td>cache-service</td><td>/api/search</td><td><strong>25,703ms</strong></td><td><span class="badge badge-red">ERROR</span></td><td>Internal server error: out of memory exception</td></tr>
+<tr><td>log-0091</td><td>api-gateway</td><td>/api/checkout</td><td><strong>19,655ms</strong></td><td><span class="badge badge-red">ERROR</span></td><td>Request timeout: upstream service unavailable</td></tr>
+<tr><td>log-0017</td><td>security-monitor</td><td>/api/products</td><td><strong>17,528ms</strong></td><td><span class="badge badge-red">ERROR</span></td><td>Connection refused: service unreachable</td></tr>
+<tr><td>log-0024</td><td>api-gateway</td><td>/api/products</td><td><strong>17,470ms</strong></td><td><span class="badge badge-red">ERROR</span></td><td>Internal server error: database connection pool exhausted</td></tr>
+<tr><td>log-0004</td><td>cache-service</td><td>/api/health</td><td><strong>17,017ms</strong></td><td><span class="badge badge-red">ERROR</span></td><td>Connection refused: service unreachable</td></tr>
+<tr><td>log-0011</td><td>cache-service</td><td>/api/users</td><td><strong>14,833ms</strong></td><td><span class="badge badge-orange">WARN</span></td><td>High memory usage detected</td></tr>
+<tr><td>log-0001</td><td>order-service</td><td>/api/products</td><td><strong>13,685ms</strong></td><td><span class="badge badge-orange">WARN</span></td><td>Slow database query detected</td></tr>
+<tr><td>log-0063</td><td>cache-service</td><td>/api/orders</td><td><strong>13,369ms</strong></td><td><span class="badge badge-red">ERROR</span></td><td>Connection refused: service unreachable</td></tr>
+<tr><td>log-0081</td><td>order-service</td><td>/api/reports</td><td><strong>12,595ms</strong></td><td><span class="badge badge-orange">WARN</span></td><td>High memory usage detected</td></tr>
+<tr><td>log-0062</td><td>api-gateway</td><td>/api/orders</td><td><strong>12,543ms</strong></td><td><span class="badge badge-red">ERROR</span></td><td>Request timeout: upstream service unavailable</td></tr>
+<tr><td>log-0071</td><td>order-service</td><td>/api/products</td><td><strong>11,602ms</strong></td><td><span class="badge badge-orange">WARN</span></td><td>Disk I/O latency spike</td></tr>
+<tr><td>log-0032</td><td>user-service</td><td>/api/reports</td><td><strong>11,198ms</strong></td><td><span class="badge badge-red">ERROR</span></td><td>Request timeout: upstream service unavailable</td></tr>
+<tr><td>log-0089</td><td>cache-service</td><td>/api/users</td><td><strong>8,166ms</strong></td><td><span class="badge badge-orange">WARN</span></td><td>High memory usage detected</td></tr>
+<tr><td>log-0047</td><td>order-service</td><td>/api/users</td><td><strong>7,937ms</strong></td><td><span class="badge badge-orange">WARN</span></td><td>Slow database query detected</td></tr>
+<tr><td>log-0010</td><td>user-service</td><td>/api/users</td><td><strong>7,495ms</strong></td><td><span class="badge badge-red">ERROR</span></td><td>Internal server error: out of memory exception</td></tr>
+<tr><td>log-0060</td><td>order-service</td><td>/api/products</td><td><strong>7,402ms</strong></td><td><span class="badge badge-orange">WARN</span></td><td>Disk I/O latency spike</td></tr>
+<tr><td>log-0045</td><td>order-service</td><td>/api/reports</td><td><strong>5,824ms</strong></td><td><span class="badge badge-red">ERROR</span></td><td>Internal server error: database connection pool exhausted</td></tr>
+<tr><td>log-0084</td><td>api-gateway</td><td>/api/users</td><td><strong>5,684ms</strong></td><td><span class="badge badge-red">ERROR</span></td><td>Internal server error: database connection pool exhausted</td></tr>
+</tbody></table>
+<footer>Performance Analysis Report | Log file: elastic_logs_30_11_25.json | Analysis period: 2025-11-30 10:00-18:15 UTC | Generated by Devin AI</footer>
+</div></body></html>
