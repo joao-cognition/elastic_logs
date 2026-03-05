@@ -34,7 +34,7 @@ jobs:
         id: detect
         run: |
           echo "=== Detecting changed log files ==="
-          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- 'logs/*.json' || true)
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- 'logs/**/*.json' || true)
           if [ -z "$CHANGED_FILES" ]; then
             echo "No changed log files detected"
             echo "" > changed_files.txt
