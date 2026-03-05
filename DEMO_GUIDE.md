@@ -93,7 +93,7 @@ This secret will be available to GitHub Actions workflows for authenticating wit
 
 Set up a GitHub Action to automatically run log analysis whenever a new file is added to the `logs/` directory.
 
-The GitHub Action configuration is defined in `github_actions/analyze-logs-on-new-file.yml`:
+The GitHub Action configuration is defined in `.github/workflows/analyze-logs-on-new-file.yml`:
 
 ```yaml
 name: Analyze Logs with Devin
@@ -191,7 +191,7 @@ See `playbook/PLAYBOOK.md` for the complete playbook definition and execution in
 
 ### Step 8: GitHub Action for Playbook
 
-Create a GitHub Action that triggers the playbook for automated analysis. The action is defined in `github_actions/analyze-logs-playbook.yml`:
+Create a GitHub Action that triggers the playbook for automated analysis. The action is defined in `.github/workflows/analyze-logs-playbook.yml`:
 
 ```yaml
 name: Analyze Logs with Devin Playbook
@@ -285,9 +285,10 @@ elastic_logs/
 │   └── analyze_logs.py                     # Main log analysis script
 ├── playbook/                                # Playbook definitions
 │   └── PLAYBOOK.md                         # Log analysis playbook
-├── github_actions/                          # GitHub Action configurations
-│   ├── analyze-logs-on-new-file.yml        # Trigger on new log files
-│   └── analyze-logs-playbook.yml           # Trigger playbook on new logs
+├── .github/
+│   └── workflows/                          # GitHub Action configurations
+│       ├── analyze-logs-on-new-file.yml    # Trigger on new log files
+│       └── analyze-logs-playbook.yml       # Trigger playbook on new logs
 ├── analysis/                                # Generated analysis reports
 └── DEMO_GUIDE.md                           # This guide
 ```

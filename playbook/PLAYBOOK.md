@@ -170,7 +170,7 @@ python script/run_playbook.py --log-file logs/elastic_logs.json --output-dir ana
 
 ### Via GitHub Actions
 
-The playbook can be triggered automatically via the GitHub Actions workflow when new log files are added to the repository. See `github_actions/analyze-logs-playbook.yml` for the workflow configuration.
+The playbook can be triggered automatically via the GitHub Actions workflow when new log files are added to the repository. See `.github/workflows/analyze-logs-playbook.yml` for the workflow configuration.
 
 ### Manual Execution
 

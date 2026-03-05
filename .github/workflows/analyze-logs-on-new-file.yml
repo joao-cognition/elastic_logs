@@ -1,0 +1,211 @@
+name: Analyze Logs with Devin
+
+on:
+  push:
+    paths:
+      - 'logs/**'
+
+jobs:
+  detect-changed-logs:
+    runs-on: ubuntu-latest
+    outputs:
+      changed_files: ${{ steps.detect.outputs.changed_files }}
+      has_changes: ${{ steps.detect.outputs.has_changes }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed log files
+        id: detect
+        run: |
+          echo "=== Detecting changed log files ==="
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- 'logs/*.json' || true)
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No changed log files detected"
+            echo "changed_files=" >> $GITHUB_OUTPUT
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            # Convert newlines to spaces for passing between jobs
+            FILES_SINGLE_LINE=$(echo "$CHANGED_FILES" | tr '\n' ' ')
+            echo "changed_files=$FILES_SINGLE_LINE" >> $GITHUB_OUTPUT
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Changed files:"
+            echo "$CHANGED_FILES"
+          fi
+
+  validate-logs:
+    needs: detect-changed-logs
+    if: needs.detect-changed-logs.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate JSON log files
+        env:
+          CHANGED_FILES: ${{ needs.detect-changed-logs.outputs.changed_files }}
+        run: |
+          echo "=== Validating JSON log files ==="
+          for file in $CHANGED_FILES; do
+            if [ ! -f "$file" ]; then
+              echo "ERROR: File not found: $file"
+              exit 1
+            fi
+            FILE="$file" python3 -c "import json, os; json.load(open(os.environ['FILE']))" || exit 1
+            echo "Validated: $file"
+          done
+
+  analyze-errors:
+    needs: [detect-changed-logs, validate-logs]
+    if: needs.detect-changed-logs.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Run error analysis via Devin API
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+          CHANGED_FILES: ${{ needs.detect-changed-logs.outputs.changed_files }}
+        run: |
+          TIMESTAMP=$(date -u +"%Y%m%d_%H%M%S")
+          for LOG_FILE in $CHANGED_FILES; do
+            echo "=== Error analysis on $LOG_FILE ==="
+            export LOG_FILE TIMESTAMP
+            python3 << 'PYEOF'
+          import json, os, time
+          from urllib.request import Request, urlopen
+          from urllib.error import HTTPError, URLError
+
+          api_key = os.environ.get("DEVIN_API_KEY")
+          log_file = os.environ.get("LOG_FILE", "")
+          timestamp = os.environ.get("TIMESTAMP", "")
+
+          prompt = f"@elastic_logs Read {log_file}. Count all entries with level='ERROR'. Group by: status_code, service_name, error_message. List top 10 most frequent errors. Save as error_report_{timestamp}.html in analysis/"
+
+          payload = {"prompt": prompt}
+          data = json.dumps(payload).encode('utf-8')
+          request = Request(
+              "https://api.devin.ai/v1/sessions",
+              data=data,
+              headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+              method="POST"
+          )
+
+          max_retries = 3
+          for attempt in range(max_retries):
+              try:
+                  with urlopen(request, timeout=60) as response:
+                      result = json.loads(response.read().decode('utf-8'))
+                      print(f"  error: {result['url']}")
+                      break
+              except (HTTPError, URLError) as e:
+                  if attempt < max_retries - 1:
+                      print(f"  Retry {attempt + 1}/{max_retries}: {e}")
+                      time.sleep(2 ** attempt)
+                  else:
+                      raise
+          PYEOF
+          done
+
+  analyze-performance:
+    needs: [detect-changed-logs, validate-logs]
+    if: needs.detect-changed-logs.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Run performance analysis via Devin API
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+          CHANGED_FILES: ${{ needs.detect-changed-logs.outputs.changed_files }}
+        run: |
+          TIMESTAMP=$(date -u +"%Y%m%d_%H%M%S")
+          for LOG_FILE in $CHANGED_FILES; do
+            echo "=== Performance analysis on $LOG_FILE ==="
+            export LOG_FILE TIMESTAMP
+            python3 << 'PYEOF'
+          import json, os, time
+          from urllib.request import Request, urlopen
+          from urllib.error import HTTPError, URLError
+
+          api_key = os.environ.get("DEVIN_API_KEY")
+          log_file = os.environ.get("LOG_FILE", "")
+          timestamp = os.environ.get("TIMESTAMP", "")
+
+          prompt = f"@elastic_logs Read {log_file}. Calculate response_time stats: min, max, avg, p95, p99. List slowest 10 endpoints. Identify any response_time > 1000ms. Save as performance_report_{timestamp}.html in analysis/"
+
+          payload = {"prompt": prompt}
+          data = json.dumps(payload).encode('utf-8')
+          request = Request(
+              "https://api.devin.ai/v1/sessions",
+              data=data,
+              headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+              method="POST"
+          )
+
+          max_retries = 3
+          for attempt in range(max_retries):
+              try:
+                  with urlopen(request, timeout=60) as response:
+                      result = json.loads(response.read().decode('utf-8'))
+                      print(f"  performance: {result['url']}")
+                      break
+              except (HTTPError, URLError) as e:
+                  if attempt < max_retries - 1:
+                      print(f"  Retry {attempt + 1}/{max_retries}: {e}")
+                      time.sleep(2 ** attempt)
+                  else:
+                      raise
+          PYEOF
+          done
+
+  analyze-security:
+    needs: [detect-changed-logs, validate-logs]
+    if: needs.detect-changed-logs.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Run security analysis via Devin API
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+          CHANGED_FILES: ${{ needs.detect-changed-logs.outputs.changed_files }}
+        run: |
+          TIMESTAMP=$(date -u +"%Y%m%d_%H%M%S")
+          for LOG_FILE in $CHANGED_FILES; do
+            echo "=== Security analysis on $LOG_FILE ==="
+            export LOG_FILE TIMESTAMP
+            python3 << 'PYEOF'
+          import json, os, time
+          from urllib.request import Request, urlopen
+          from urllib.error import HTTPError, URLError
+
+          api_key = os.environ.get("DEVIN_API_KEY")
+          log_file = os.environ.get("LOG_FILE", "")
+          timestamp = os.environ.get("TIMESTAMP", "")
+
+          prompt = f"@elastic_logs Read {log_file}. Find: status_code=401/403 entries, unique IPs with >10 failed requests, any SQL/XSS patterns in request_path. Save as security_report_{timestamp}.html in analysis/"
+
+          payload = {"prompt": prompt}
+          data = json.dumps(payload).encode('utf-8')
+          request = Request(
+              "https://api.devin.ai/v1/sessions",
+              data=data,
+              headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+              method="POST"
+          )
+
+          max_retries = 3
+          for attempt in range(max_retries):
+              try:
+                  with urlopen(request, timeout=60) as response:
+                      result = json.loads(response.read().decode('utf-8'))
+                      print(f"  security: {result['url']}")
+                      break
+              except (HTTPError, URLError) as e:
+                  if attempt < max_retries - 1:
+                      print(f"  Retry {attempt + 1}/{max_retries}: {e}")
+                      time.sleep(2 ** attempt)
+                  else:
+                      raise
+          PYEOF
+          done
