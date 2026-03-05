@@ -93,65 +93,19 @@ This secret will be available to GitHub Actions workflows for authenticating wit
 
 Set up a GitHub Action to automatically run log analysis whenever a new file is added to the `logs/` directory.
 
-The GitHub Action configuration is defined in `github_actions/analyze-logs-on-new-file.yml`:
+The GitHub Actions workflow is defined in `.github/workflows/analyze-logs.yml`. It triggers automatically on pushes to `logs/**` and also supports manual execution via `workflow_dispatch` with configurable inputs for `log_file` and `analysis_type`.
 
-```yaml
-name: Analyze Logs with Devin
+The workflow includes the following jobs:
 
-on:
-  push:
-    paths:
-      - 'logs/**'
+1. **detect-changes** - Identifies new or modified JSON log files
+2. **validate** - Verifies log files exist and contain valid JSON arrays
+3. **lint** - Runs flake8 on Python scripts
+4. **test** - Runs pytest with coverage (if a `tests/` directory exists)
+5. **analyze** - Runs error, performance, and security analysis in parallel via Devin API
+6. **archive-reports** - Uploads generated HTML reports as workflow artifacts
+7. **notify** - Reports final pipeline status
 
-jobs:
-  trigger-devin:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Get changed log file
-        id: changed-file
-        run: |
-          files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^logs/' | head -n1)
-          echo "file=${files}" >> $GITHUB_OUTPUT
-      
-      - name: Create issue for Devin to analyze logs
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const logFile = '${{ steps.changed-file.outputs.file }}';
-            const timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, -5);
-            
-            await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `Analyze ${logFile}`,
-              body: `@devin Please analyze ${logFile}:
-
-            **Error Analysis:**
-            - Count all entries with level='ERROR'
-            - Group by: status_code, service_name, error_message
-            - List top 10 most frequent errors
-            - Save as error_report_${timestamp}.html in analysis/
-
-            **Performance Analysis:**
-            - Calculate response_time stats: min, max, avg, p95, p99
-            - List slowest 10 endpoints
-            - Identify any response_time > 1000ms
-            - Save as performance_report_${timestamp}.html in analysis/
-
-            **Security Analysis:**
-            - Find status_code=401/403 entries
-            - Find unique IPs with >10 failed requests
-            - Find any SQL/XSS patterns in request_path
-            - Save as security_report_${timestamp}.html in analysis/`,
-              labels: ['devin']
-            });
-```
-
-This workflow automatically creates a GitHub issue that triggers Devin to analyze any new log files added to the repository.
+This workflow automatically triggers Devin to analyze any new log files added to the repository.
 
 ### Step 6: Add New Log (First Instance)
 
@@ -191,66 +145,9 @@ See `playbook/PLAYBOOK.md` for the complete playbook definition and execution in
 
 ### Step 8: GitHub Action for Playbook
 
-Create a GitHub Action that triggers the playbook for automated analysis. The action is defined in `github_actions/analyze-logs-playbook.yml`:
+A separate GitHub Actions workflow triggers the Devin playbook for automated analysis. The workflow is defined in `.github/workflows/analyze-logs-playbook.yml`.
 
-```yaml
-name: Analyze Logs with Devin Playbook
-
-on:
-  push:
-    paths:
-      - 'logs/**'
-
-jobs:
-  trigger-playbook:
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-      - name: Get changed log file
-        id: changed-file
-        run: |
-          files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^logs/' | head -n1)
-          echo "file=${files}" >> $GITHUB_OUTPUT
-      
-      - name: Trigger Devin playbook
-        env:
-          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
-        run: |
-          python3 << 'EOF'
-          import json
-          import os
-          from urllib.request import Request, urlopen
-          
-          api_key = os.environ.get("DEVIN_API_KEY")
-          log_file = "${{ steps.changed-file.outputs.file }}"
-          
-          # Trigger playbook with log file as input
-          payload = {
-              "prompt": f"Run playbook !logs_analysis on {log_file}",
-              "playbook_id": "logs_analysis"
-          }
-          
-          data = json.dumps(payload).encode('utf-8')
-          request = Request(
-              "https://api.devin.ai/v1/sessions",
-              data=data,
-              headers={
-                  "Authorization": f"Bearer {api_key}",
-                  "Content-Type": "application/json",
-              },
-              method="POST"
-          )
-          
-          with urlopen(request, timeout=30) as response:
-              result = json.loads(response.read().decode('utf-8'))
-              print(f"Playbook session created")
-              print(f"  Session ID: {result['session_id']}")
-              print(f"  Session URL: {result['url']}")
-          EOF
-```
+It triggers on pushes to `logs/**`, detects changed JSON files using `tj-actions/changed-files`, and calls the Devin API with a playbook prompt for each file. Retry logic with exponential backoff is included for resilience.
 
 This workflow triggers the Devin playbook whenever new log files are added, providing a consistent and automated analysis process.
 
@@ -285,9 +182,9 @@ elastic_logs/
 │   └── analyze_logs.py                     # Main log analysis script
 ├── playbook/                                # Playbook definitions
 │   └── PLAYBOOK.md                         # Log analysis playbook
-├── github_actions/                          # GitHub Action configurations
-│   ├── analyze-logs-on-new-file.yml        # Trigger on new log files
-│   └── analyze-logs-playbook.yml           # Trigger playbook on new logs
+├── .github/workflows/                       # GitHub Actions workflows
+│   ├── analyze-logs.yml                    # Main analysis workflow (trigger on new log files)
+│   └── analyze-logs-playbook.yml           # Playbook-based analysis workflow
 ├── analysis/                                # Generated analysis reports
 └── DEMO_GUIDE.md                           # This guide
 ```

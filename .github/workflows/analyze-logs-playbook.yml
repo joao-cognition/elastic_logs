@@ -1,0 +1,85 @@
+name: Analyze Logs with Devin Playbook
+
+on:
+  push:
+    paths:
+      - 'logs/**'
+
+jobs:
+  trigger-playbook:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v41
+        with:
+          files: |
+            logs/*.json
+          diff_relative: true
+
+      - name: Trigger Devin playbook for each file
+        if: steps.changed-files.outputs.all_changed_files != ''
+        env:
+          DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+        run: |
+          python3 << 'EOF'
+          import json
+          import os
+          import time
+          from urllib.request import Request, urlopen
+          from urllib.error import HTTPError, URLError
+
+          api_key = os.environ.get("DEVIN_API_KEY")
+          files_str = '${{ steps.changed-files.outputs.all_changed_files }}'
+
+          if not files_str or files_str == '':
+              print("No files to process")
+              exit(0)
+
+          log_files = files_str.split()
+
+          for log_file in log_files:
+              print(f"\n=== Processing {log_file} with playbook ===")
+
+              payload = {
+                  "prompt": (
+                      f"@elastic_logs Run playbook !logs_analysis on {log_file}. "
+                      "Follow coding guidelines !coding-guidelines. "
+                      "Save all HTML reports to analysis/ folder."
+                  )
+              }
+
+              data = json.dumps(payload).encode("utf-8")
+              request = Request(
+                  "https://api.devin.ai/v1/sessions",
+                  data=data,
+                  headers={
+                      "Authorization": f"Bearer {api_key}",
+                      "Content-Type": "application/json",
+                  },
+                  method="POST",
+              )
+
+              max_retries = 3
+              for attempt in range(max_retries):
+                  try:
+                      with urlopen(request, timeout=60) as response:
+                          result = json.loads(response.read().decode("utf-8"))
+                          print(f"  Playbook session: {result['url']}")
+                          break
+                  except (HTTPError, URLError) as e:
+                      if attempt < max_retries - 1:
+                          wait = 2 ** attempt
+                          print(f"  Retry {attempt + 1}/{max_retries} after error: {e}")
+                          time.sleep(wait)
+                      else:
+                          print(f"  Failed after {max_retries} attempts: {e}")
+                          raise
+          EOF
