@@ -22,9 +22,10 @@ jobs:
           files: |
             logs/*.json
           diff_relative: true
+          include_all_old_new_renamed_files: true
       
       - name: Trigger Devin sessions for each file
-        if: steps.changed-files.outputs.all_changed_files != ''
+        if: steps.changed-files.outputs.any_changed == 'true'
         env:
           DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
         run: |
@@ -37,7 +38,7 @@ jobs:
           from datetime import datetime, timezone
           
           api_key = os.environ.get("DEVIN_API_KEY")
-          files_str = '${{ steps.changed-files.outputs.all_changed_files }}'
+          files_str = '${{ steps.changed-files.outputs.all_changed_and_modified_files }}'
           
           if not files_str or files_str == '':
               print("No files to process")
