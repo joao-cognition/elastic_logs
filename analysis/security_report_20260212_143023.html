@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Report - 2026-02-12 14:30:23</title>
+<style>
+  :root {
+    --bg: #0f172a; --surface: #1e293b; --border: #334155;
+    --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8;
+    --red: #f87171; --orange: #fb923c; --yellow: #fbbf24; --green: #4ade80;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); padding: 2rem; line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 { color: var(--accent); font-size: 1.8rem; margin-bottom: 0.25rem; }
+  .subtitle { color: var(--muted); margin-bottom: 2rem; font-size: 0.95rem; }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; }
+  .card-label { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  .card-value { font-size: 2rem; font-weight: 700; margin-top: 0.25rem; }
+  .card-value.red { color: var(--red); }
+  .card-value.orange { color: var(--orange); }
+  .card-value.yellow { color: var(--yellow); }
+  .card-value.green { color: var(--green); }
+  section { margin-bottom: 2rem; }
+  h2 { color: var(--accent); font-size: 1.3rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+  th { background: var(--surface); color: var(--muted); text-align: left; padding: 0.6rem 0.75rem; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.04em; border-bottom: 2px solid var(--border); }
+  td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: rgba(56,189,248,0.04); }
+  .badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+  .badge-401 { background: rgba(248,113,113,0.15); color: var(--red); }
+  .badge-403 { background: rgba(251,146,60,0.15); color: var(--orange); }
+  .badge-429 { background: rgba(251,191,36,0.15); color: var(--yellow); }
+  .badge-sql { background: rgba(248,113,113,0.15); color: var(--red); }
+  .badge-xss { background: rgba(168,85,247,0.15); color: #c084fc; }
+  .badge-none { background: rgba(74,222,128,0.15); color: var(--green); }
+  .ip { font-family: 'Cascadia Code', 'Fira Code', monospace; color: var(--accent); }
+  .payload { font-family: 'Cascadia Code', monospace; background: rgba(248,113,113,0.1); color: var(--red); padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.8rem; }
+  .note { background: var(--surface); border-left: 3px solid var(--accent); padding: 0.75rem 1rem; border-radius: 0 4px 4px 0; margin-bottom: 1rem; font-size: 0.9rem; }
+  footer { color: var(--muted); font-size: 0.8rem; margin-top: 2rem; text-align: center; padding-top: 1rem; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Security Analysis Report</h1>
+<p class="subtitle">Log file: <strong>logs/elastic_logs_28_11_25.json</strong> &mdash; Generated: 2026-02-12 14:30:23 UTC</p>
+<div class="summary-grid">
+  <div class="card"><div class="card-label">Total Log Entries</div><div class="card-value">100</div></div>
+  <div class="card"><div class="card-label">401/403 Entries</div><div class="card-value red">10</div></div>
+  <div class="card"><div class="card-label">IPs with &gt;10 Failures</div><div class="card-value green">None</div></div>
+  <div class="card"><div class="card-label">SQL/XSS Patterns</div><div class="card-value orange">5</div></div>
+  <div class="card"><div class="card-label">Total Security Events</div><div class="card-value yellow">17</div></div>
+  <div class="card"><div class="card-label">Total Failed Requests</div><div class="card-value red">36</div></div>
+</div>
+<section>
+<h2>1. Unauthorized/Forbidden Entries (401/403)</h2>
+<table>
+<thead><tr><th>Log ID</th><th>Timestamp</th><th>Status</th><th>Service</th><th>IP Address</th><th>User-Agent</th><th>Security Event</th><th>Message</th></tr></thead>
+<tbody>
+<tr><td>log-0014</td><td>2025-12-01T11:05:00Z</td><td><span class="badge badge-403">403</span></td><td>security-monitor</td><td class="ip">10.0.0.99</td><td>curl/7.68.0</td><td>SQL_INJECTION_ATTEMPT</td><td>Suspicious request pattern detected - possible SQL injection</td></tr>
+<tr><td>log-0017</td><td>2025-12-01T11:20:00Z</td><td><span class="badge badge-403">403</span></td><td>security-monitor</td><td class="ip">185.220.101.1</td><td>curl/7.68.0</td><td>UNAUTHORIZED_ACCESS</td><td>Unauthorized access attempt to admin endpoint</td></tr>
+<tr><td>log-0035</td><td>2025-12-01T12:50:00Z</td><td><span class="badge badge-401">401</span></td><td>api-gateway</td><td class="ip">45.33.32.156</td><td>python-requests/2.25.1</td><td>SQL_INJECTION_ATTEMPT</td><td>Suspicious request pattern detected - possible SQL injection</td></tr>
+<tr><td>log-0043</td><td>2025-12-01T13:30:00Z</td><td><span class="badge badge-401">401</span></td><td>security-monitor</td><td class="ip">10.0.0.99</td><td>python-requests/2.25.1</td><td>UNAUTHORIZED_ACCESS</td><td>Unauthorized access attempt to admin endpoint</td></tr>
+<tr><td>log-0046</td><td>2025-12-01T13:45:00Z</td><td><span class="badge badge-403">403</span></td><td>api-gateway</td><td class="ip">91.121.87.10</td><td>sqlmap/1.5.2</td><td>UNAUTHORIZED_ACCESS</td><td>Unauthorized access attempt to admin endpoint</td></tr>
+<tr><td>log-0055</td><td>2025-12-01T14:30:00Z</td><td><span class="badge badge-401">401</span></td><td>auth-service</td><td class="ip">10.0.0.99</td><td>curl/7.68.0</td><td>AUTH_FAILURE</td><td>Failed authentication attempt - invalid credentials</td></tr>
+<tr><td>log-0073</td><td>2025-12-01T16:00:00Z</td><td><span class="badge badge-401">401</span></td><td>api-gateway</td><td class="ip">185.220.101.1</td><td>python-requests/2.25.1</td><td>XSS_ATTEMPT</td><td>Potential XSS attack detected in request body</td></tr>
+<tr><td>log-0075</td><td>2025-12-01T16:10:00Z</td><td><span class="badge badge-403">403</span></td><td>api-gateway</td><td class="ip">10.0.0.99</td><td>curl/7.68.0</td><td>AUTH_FAILURE</td><td>Failed authentication attempt - invalid credentials</td></tr>
+<tr><td>log-0087</td><td>2025-12-01T17:10:00Z</td><td><span class="badge badge-401">401</span></td><td>api-gateway</td><td class="ip">91.121.87.10</td><td>python-requests/2.25.1</td><td>UNAUTHORIZED_ACCESS</td><td>Unauthorized access attempt to admin endpoint</td></tr>
+<tr><td>log-0098</td><td>2025-12-01T18:05:00Z</td><td><span class="badge badge-403">403</span></td><td>security-monitor</td><td class="ip">45.33.32.156</td><td>sqlmap/1.5.2</td><td>SQL_INJECTION_ATTEMPT</td><td>Suspicious request pattern detected - possible SQL injection</td></tr>
+</tbody></table>
+</section>
+<section>
+<h2>2. IPs with &gt;10 Failed Requests</h2>
+<div class="note">No single IP exceeded 10 failed requests in this dataset. The highest failure counts by IP are shown below for reference.</div>
+<table>
+<thead><tr><th>IP Address</th><th>Failed Requests</th><th>Status Codes</th><th>User-Agents</th></tr></thead>
+<tbody>
+<tr><td class="ip">185.220.101.1</td><td><strong>5</strong></td><td>401: 1, 403: 1, 429: 3</td><td style="font-size:0.8rem">curl/7.68.0<br>python-requests/2.25.1<br>sqlmap/1.5.2</td></tr>
+<tr><td class="ip">10.0.0.99</td><td><strong>5</strong></td><td>401: 2, 403: 2, 429: 1</td><td style="font-size:0.8rem">curl/7.68.0<br>python-requests/2.25.1</td></tr>
+<tr><td class="ip">45.33.32.156</td><td><strong>4</strong></td><td>401: 1, 403: 1, 429: 2</td><td style="font-size:0.8rem">python-requests/2.25.1<br>sqlmap/1.5.2</td></tr>
+<tr><td class="ip">91.121.87.10</td><td><strong>3</strong></td><td>401: 1, 403: 1, 429: 1</td><td style="font-size:0.8rem">python-requests/2.25.1<br>sqlmap/1.5.2</td></tr>
+<tr><td class="ip">192.168.190.229</td><td><strong>1</strong></td><td>500: 1</td><td style="font-size:0.8rem">Mozilla/5.0 (Windows NT 10.0; Win64; x64)</td></tr>
+<tr><td class="ip">192.168.195.207</td><td><strong>1</strong></td><td>500: 1</td><td style="font-size:0.8rem">Mozilla/5.0 (Windows NT 10.0; Win64; x64)</td></tr>
+<tr><td class="ip">192.168.189.139</td><td><strong>1</strong></td><td>500: 1</td><td style="font-size:0.8rem">Mozilla/5.0 (Windows NT 10.0; Win64; x64)</td></tr>
+<tr><td class="ip">192.168.159.21</td><td><strong>1</strong></td><td>502: 1</td><td style="font-size:0.8rem">Mozilla/5.0 (Windows NT 10.0; Win64; x64)</td></tr>
+<tr><td class="ip">192.168.68.30</td><td><strong>1</strong></td><td>500: 1</td><td style="font-size:0.8rem">Mozilla/5.0 (Windows NT 10.0; Win64; x64)</td></tr>
+<tr><td class="ip">192.168.190.114</td><td><strong>1</strong></td><td>503: 1</td><td style="font-size:0.8rem">Mozilla/5.0 (Windows NT 10.0; Win64; x64)</td></tr>
+</tbody></table>
+</section>
+<section>
+<h2>3. Suspicious IP Activity Summary</h2>
+<table>
+<thead><tr><th>IP Address</th><th>Total Security Events</th><th>Failed Requests</th><th>Event Types</th><th>User-Agents</th></tr></thead>
+<tbody>
+<tr><td class="ip">185.220.101.1</td><td><strong>5</strong></td><td>5</td><td>AUTH_FAILURE: 1, SQL_INJECTION_ATTEMPT: 1, UNAUTHORIZED_ACCESS: 2, XSS_ATTEMPT: 1</td><td style="font-size:0.8rem">curl/7.68.0<br>python-requests/2.25.1<br>sqlmap/1.5.2</td></tr>
+<tr><td class="ip">10.0.0.99</td><td><strong>5</strong></td><td>5</td><td>AUTH_FAILURE: 2, RATE_LIMIT_EXCEEDED: 1, SQL_INJECTION_ATTEMPT: 1, UNAUTHORIZED_ACCESS: 1</td><td style="font-size:0.8rem">curl/7.68.0<br>python-requests/2.25.1</td></tr>
+<tr><td class="ip">45.33.32.156</td><td><strong>4</strong></td><td>4</td><td>RATE_LIMIT_EXCEEDED: 1, SQL_INJECTION_ATTEMPT: 2, UNAUTHORIZED_ACCESS: 1</td><td style="font-size:0.8rem">python-requests/2.25.1<br>sqlmap/1.5.2</td></tr>
+<tr><td class="ip">91.121.87.10</td><td><strong>3</strong></td><td>3</td><td>AUTH_FAILURE: 1, UNAUTHORIZED_ACCESS: 2</td><td style="font-size:0.8rem">python-requests/2.25.1<br>sqlmap/1.5.2</td></tr>
+</tbody></table>
+</section>
+<section>
+<h2>4. SQL Injection / XSS Patterns Detected</h2>
+<table>
+<thead><tr><th>Log ID</th><th>Timestamp</th><th>Type</th><th>IP Address</th><th>Endpoint</th><th>Payload</th><th>Security Event</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>log-0014</td><td>2025-12-01T11:05:00Z</td><td><span class="badge badge-sql">SQL Injection</span></td><td class="ip">10.0.0.99</td><td>/api/users</td><td><span class="payload">&#x27; OR &#x27;1&#x27;=&#x27;1</span></td><td>SQL_INJECTION_ATTEMPT</td><td><span class="badge badge-403">403</span></td></tr>
+<tr><td>log-0035</td><td>2025-12-01T12:50:00Z</td><td><span class="badge badge-sql">SQL Injection</span></td><td class="ip">45.33.32.156</td><td>/api/login</td><td><span class="payload">&#x27; OR &#x27;1&#x27;=&#x27;1</span></td><td>SQL_INJECTION_ATTEMPT</td><td><span class="badge badge-401">401</span></td></tr>
+<tr><td>log-0073</td><td>2025-12-01T16:00:00Z</td><td><span class="badge badge-xss">XSS</span></td><td class="ip">185.220.101.1</td><td>/api/login</td><td><span class="payload">&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;</span></td><td>XSS_ATTEMPT</td><td><span class="badge badge-401">401</span></td></tr>
+<tr><td>log-0095</td><td>2025-12-01T17:50:00Z</td><td><span class="badge badge-sql">SQL Injection</span></td><td class="ip">185.220.101.1</td><td>/api/users</td><td><span class="payload">&#x27; OR &#x27;1&#x27;=&#x27;1</span></td><td>SQL_INJECTION_ATTEMPT</td><td><span class="badge badge-429">429</span></td></tr>
+<tr><td>log-0098</td><td>2025-12-01T18:05:00Z</td><td><span class="badge badge-sql">SQL Injection</span></td><td class="ip">45.33.32.156</td><td>/api/login</td><td><span class="payload">&#x27; OR &#x27;1&#x27;=&#x27;1</span></td><td>SQL_INJECTION_ATTEMPT</td><td><span class="badge badge-403">403</span></td></tr>
+</tbody></table>
+</section>
+<section>
+<h2>5. All Security Events Timeline</h2>
+<table>
+<thead><tr><th>Log ID</th><th>Timestamp</th><th>Status</th><th>Service</th><th>Event Type</th><th>IP Address</th><th>Payload</th><th>Message</th></tr></thead>
+<tbody>
+<tr><td>log-0005</td><td>2025-12-01T10:20:00Z</td><td><span class="badge badge-429">429</span></td><td>api-gateway</td><td>UNAUTHORIZED_ACCESS</td><td class="ip">45.33.32.156</td><td>&mdash;</td><td>Unauthorized access attempt to admin endpoint</td></tr>
+<tr><td>log-0013</td><td>2025-12-01T11:00:00Z</td><td><span class="badge badge-429">429</span></td><td>api-gateway</td><td>UNAUTHORIZED_ACCESS</td><td class="ip">185.220.101.1</td><td>&mdash;</td><td>Unauthorized access attempt to admin endpoint</td></tr>
+<tr><td>log-0014</td><td>2025-12-01T11:05:00Z</td><td><span class="badge badge-403">403</span></td><td>security-monitor</td><td>SQL_INJECTION_ATTEMPT</td><td class="ip">10.0.0.99</td><td><span class="payload">&#x27; OR &#x27;1&#x27;=&#x27;1</span></td><td>Suspicious request pattern detected - possible SQL injection</td></tr>
+<tr><td>log-0017</td><td>2025-12-01T11:20:00Z</td><td><span class="badge badge-403">403</span></td><td>security-monitor</td><td>UNAUTHORIZED_ACCESS</td><td class="ip">185.220.101.1</td><td>&mdash;</td><td>Unauthorized access attempt to admin endpoint</td></tr>
+<tr><td>log-0035</td><td>2025-12-01T12:50:00Z</td><td><span class="badge badge-401">401</span></td><td>api-gateway</td><td>SQL_INJECTION_ATTEMPT</td><td class="ip">45.33.32.156</td><td><span class="payload">&#x27; OR &#x27;1&#x27;=&#x27;1</span></td><td>Suspicious request pattern detected - possible SQL injection</td></tr>
+<tr><td>log-0043</td><td>2025-12-01T13:30:00Z</td><td><span class="badge badge-401">401</span></td><td>security-monitor</td><td>UNAUTHORIZED_ACCESS</td><td class="ip">10.0.0.99</td><td>&mdash;</td><td>Unauthorized access attempt to admin endpoint</td></tr>
+<tr><td>log-0046</td><td>2025-12-01T13:45:00Z</td><td><span class="badge badge-403">403</span></td><td>api-gateway</td><td>UNAUTHORIZED_ACCESS</td><td class="ip">91.121.87.10</td><td>&mdash;</td><td>Unauthorized access attempt to admin endpoint</td></tr>
+<tr><td>log-0053</td><td>2025-12-01T14:20:00Z</td><td><span class="badge badge-429">429</span></td><td>auth-service</td><td>AUTH_FAILURE</td><td class="ip">185.220.101.1</td><td>&mdash;</td><td>Failed authentication attempt - invalid credentials</td></tr>
+<tr><td>log-0055</td><td>2025-12-01T14:30:00Z</td><td><span class="badge badge-401">401</span></td><td>auth-service</td><td>AUTH_FAILURE</td><td class="ip">10.0.0.99</td><td>&mdash;</td><td>Failed authentication attempt - invalid credentials</td></tr>
+<tr><td>log-0061</td><td>2025-12-01T15:00:00Z</td><td><span class="badge badge-429">429</span></td><td>auth-service</td><td>AUTH_FAILURE</td><td class="ip">91.121.87.10</td><td>&mdash;</td><td>Failed authentication attempt - invalid credentials</td></tr>
+<tr><td>log-0062</td><td>2025-12-01T15:05:00Z</td><td><span class="badge badge-429">429</span></td><td>auth-service</td><td>RATE_LIMIT_EXCEEDED</td><td class="ip">45.33.32.156</td><td>&mdash;</td><td>Rate limit exceeded from suspicious IP</td></tr>
+<tr><td>log-0070</td><td>2025-12-01T15:45:00Z</td><td><span class="badge badge-429">429</span></td><td>security-monitor</td><td>RATE_LIMIT_EXCEEDED</td><td class="ip">10.0.0.99</td><td>&mdash;</td><td>Rate limit exceeded from suspicious IP</td></tr>
+<tr><td>log-0073</td><td>2025-12-01T16:00:00Z</td><td><span class="badge badge-401">401</span></td><td>api-gateway</td><td>XSS_ATTEMPT</td><td class="ip">185.220.101.1</td><td><span class="payload">&lt;script&gt;alert(&#x27;xss&#x27;)&lt;/script&gt;</span></td><td>Potential XSS attack detected in request body</td></tr>
+<tr><td>log-0075</td><td>2025-12-01T16:10:00Z</td><td><span class="badge badge-403">403</span></td><td>api-gateway</td><td>AUTH_FAILURE</td><td class="ip">10.0.0.99</td><td>&mdash;</td><td>Failed authentication attempt - invalid credentials</td></tr>
+<tr><td>log-0087</td><td>2025-12-01T17:10:00Z</td><td><span class="badge badge-401">401</span></td><td>api-gateway</td><td>UNAUTHORIZED_ACCESS</td><td class="ip">91.121.87.10</td><td>&mdash;</td><td>Unauthorized access attempt to admin endpoint</td></tr>
+<tr><td>log-0095</td><td>2025-12-01T17:50:00Z</td><td><span class="badge badge-429">429</span></td><td>security-monitor</td><td>SQL_INJECTION_ATTEMPT</td><td class="ip">185.220.101.1</td><td><span class="payload">&#x27; OR &#x27;1&#x27;=&#x27;1</span></td><td>Suspicious request pattern detected - possible SQL injection</td></tr>
+<tr><td>log-0098</td><td>2025-12-01T18:05:00Z</td><td><span class="badge badge-403">403</span></td><td>security-monitor</td><td>SQL_INJECTION_ATTEMPT</td><td class="ip">45.33.32.156</td><td><span class="payload">&#x27; OR &#x27;1&#x27;=&#x27;1</span></td><td>Suspicious request pattern detected - possible SQL injection</td></tr>
+</tbody></table>
+</section>
+<footer>
+  Security Report generated from <strong>logs/elastic_logs_28_11_25.json</strong> (100 entries) &mdash; Report ID: security_report_20260212_143023
+</footer>
+</div>
+</body>
+</html>
