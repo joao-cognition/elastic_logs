@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  GoCD Server Configuration (Legacy)
+  Exported from GoCD server at gocd.internal.example.com
+  Last modified: 2024-08-14T09:32:17Z by admin
+
+  This configuration has been migrated to GitHub Actions.
+  See: .github/workflows/analyze-logs-on-new-file.yml
+       .github/workflows_to_be/analyze-logs-playbook.yml
+
+  DEPRECATED — Do not modify. Retained for reference only.
+-->
+<cruise schemaVersion="136">
+
+  <server
+    serverId="elastic-logs-gocd-01"
+    agentAutoRegisterKey="aabb1122-3344-5566-7788-99aabbccddee"
+    webhookSecret="encrypted:abcdef1234567890"
+    commandRepositoryLocation="default"
+    tokenGenerationKey="encrypted:0987654321fedcba">
+    <security>
+      <ldap uri="ldap://ldap.internal.example.com"
+            managerDn="cn=gocd,ou=services,dc=example,dc=com"
+            encryptedManagerPassword="AES:aabbccdd:encrypted-ldap-password"
+            searchFilter="(uid={0})"
+            searchBase="ou=people,dc=example,dc=com" />
+      <roles>
+        <role name="admins">
+          <users>
+            <user>admin</user>
+            <user>j.ops</user>
+          </users>
+        </role>
+        <role name="viewers">
+          <users>
+            <user>dev-team</user>
+          </users>
+        </role>
+      </roles>
+      <admins>
+        <user>admin</user>
+      </admins>
+    </security>
+    <mailhost hostname="smtp.internal.example.com"
+              port="587"
+              tls="true"
+              from="gocd@example.com"
+              admin="ops-alerts@example.com" />
+    <artifacts>
+      <artifactsDir>artifacts</artifactsDir>
+      <purgeSettings>
+        <purgeStartDiskSpace>10.0</purgeStartDiskSpace>
+        <purgeUptoDiskSpace>50.0</purgeUptoDiskSpace>
+      </purgeSettings>
+    </artifacts>
+    <backup schedule="0 0 2 * * ?" postBackupScript="/opt/gocd/scripts/backup-to-s3.sh" />
+  </server>
+
+  <!-- ================================================================== -->
+  <!-- Agent Resources                                                     -->
+  <!-- ================================================================== -->
+  <agents>
+    <agent hostname="gocd-agent-linux-01" ipaddress="10.0.1.50" uuid="agent-uuid-001">
+      <resources>
+        <resource>linux</resource>
+        <resource>python3</resource>
+        <resource>docker</resource>
+      </resources>
+    </agent>
+    <agent hostname="gocd-agent-linux-02" ipaddress="10.0.1.51" uuid="agent-uuid-002">
+      <resources>
+        <resource>linux</resource>
+        <resource>python3</resource>
+      </resources>
+    </agent>
+  </agents>
+
+  <!-- ================================================================== -->
+  <!-- Environments                                                        -->
+  <!-- ================================================================== -->
+  <environments>
+    <environment name="production">
+      <environmentvariables>
+        <variable name="ENV">
+          <value>production</value>
+        </variable>
+      </environmentvariables>
+      <agents>
+        <physical uuid="agent-uuid-001" />
+        <physical uuid="agent-uuid-002" />
+      </agents>
+      <pipelines>
+        <pipeline name="analyze-logs-on-new-file" />
+        <pipeline name="analyze-logs-playbook" />
+      </pipelines>
+    </environment>
+  </environments>
+
+  <!-- ================================================================== -->
+  <!-- Pipeline Group: elastic-logs                                        -->
+  <!-- ================================================================== -->
+  <pipelines group="elastic-logs">
+
+    <!-- ============================================================== -->
+    <!-- Pipeline 1: analyze-logs-on-new-file                           -->
+    <!--                                                                -->
+    <!-- Detects new/changed JSON log files in logs/ and triggers       -->
+    <!-- error, performance, and security analysis via the Devin API.   -->
+    <!-- Stages run sequentially; each analysis type is a separate      -->
+    <!-- stage because GoCD does not support parallel jobs within a     -->
+    <!-- single stage on our agent configuration.                       -->
+    <!-- ============================================================== -->
+    <pipeline name="analyze-logs-on-new-file" labeltemplate="${COUNT}-${git[:8]}" isLocked="false">
+
+      <params>
+        <param name="DEVIN_API_URL">https://api.devin.ai/v1/sessions</param>
+        <param name="REPORTS_DIR">analysis</param>
+        <param name="LOGS_DIR">logs</param>
+      </params>
+
+      <trackingtool link="https://jira.internal.example.com/browse/${ID}" regex="EL-(\d+)" />
+
+      <timer>0 0/5 * * * ?</timer>
+
+      <environmentvariables>
+        <variable name="REPORTS_DIR">
+          <value>analysis</value>
+        </variable>
+        <variable name="LOGS_DIR">
+          <value>logs</value>
+        </variable>
+        <variable name="DEVIN_API_URL">
+          <value>https://api.devin.ai/v1/sessions</value>
+        </variable>
+        <variable name="DEVIN_API_KEY" secure="true">
+          <encryptedValue>AES:abc123def456:encrypted-api-key-placeholder</encryptedValue>
+        </variable>
+      </environmentvariables>
+
+      <materials>
+        <git url="https://github.com/your-org/elastic_logs.git"
+             branch="main"
+             materialName="git"
+             autoUpdate="true">
+          <filter>
+            <include pattern="logs/**/*.json" />
+          </filter>
+        </git>
+      </materials>
+
+      <!-- Stage 1: Detect which log files changed in the latest commit -->
+      <stage name="detect-changed-logs" cleanWorkingDir="true">
+        <approval type="success" />
+        <jobs>
+          <job name="detect">
+            <resources>
+              <resource>linux</resource>
+            </resources>
+            <tasks>
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>
+echo "=== Detecting changed log files ==="
+CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- 'logs/*.json' || true)
+if [ -z "$CHANGED_FILES" ]; then
+  echo "No changed log files detected"
+  echo "" > changed_files.txt
+else
+  echo "$CHANGED_FILES" > changed_files.txt
+  echo "Changed files:"
+  cat changed_files.txt
+fi
+                </arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+            <artifacts>
+              <artifact type="build" src="changed_files.txt" dest="metadata" />
+            </artifacts>
+          </job>
+        </jobs>
+      </stage>
+
+      <!-- Stage 2: Validate that log files are well-formed JSON -->
+      <stage name="validate-logs" fetchMaterials="false">
+        <approval type="success" />
+        <jobs>
+          <job name="validate">
+            <resources>
+              <resource>linux</resource>
+              <resource>python3</resource>
+            </resources>
+            <tasks>
+              <fetchartifact pipeline="analyze-logs-on-new-file"
+                             stage="detect-changed-logs"
+                             job="detect"
+                             srcdir="metadata">
+                <runif status="passed" />
+              </fetchartifact>
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>
+CHANGED_FILES=$(cat metadata/changed_files.txt)
+if [ -z "$CHANGED_FILES" ]; then
+  echo "No files to validate, skipping"
+  exit 0
+fi
+echo "=== Validating JSON log files ==="
+for file in $CHANGED_FILES; do
+  if [ ! -f "$file" ]; then
+    echo "ERROR: File not found: $file"
+    exit 1
+  fi
+  python3 -c "import json; json.load(open('$file'))" || exit 1
+  echo "Validated: $file"
+done
+                </arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+
+      <!-- Stage 3: Run error analysis via Devin API -->
+      <stage name="analyze-errors" fetchMaterials="false">
+        <approval type="success" />
+        <jobs>
+          <job name="error-analysis" timeout="20">
+            <resources>
+              <resource>linux</resource>
+              <resource>python3</resource>
+            </resources>
+            <tasks>
+              <fetchartifact pipeline="analyze-logs-on-new-file"
+                             stage="detect-changed-logs"
+                             job="detect"
+                             srcdir="metadata">
+                <runif status="passed" />
+              </fetchartifact>
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>
+CHANGED_FILES=$(cat metadata/changed_files.txt)
+if [ -z "$CHANGED_FILES" ]; then
+  echo "No files to analyze, skipping"
+  exit 0
+fi
+TIMESTAMP=$(date -u +"%Y%m%d_%H%M%S")
+for LOG_FILE in $CHANGED_FILES; do
+  echo "=== Error analysis on $LOG_FILE ==="
+  export LOG_FILE TIMESTAMP
+  python3 &lt;&lt; 'PYEOF'
+import json, os, time
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
+
+api_key = os.environ.get("DEVIN_API_KEY")
+log_file = os.environ.get("LOG_FILE", "")
+timestamp = os.environ.get("TIMESTAMP", "")
+
+prompt = f"@elastic_logs Read {log_file}. Count all entries with level='ERROR'. Group by: status_code, service_name, error_message. List top 10 most frequent errors. Save as error_report_{timestamp}.html in analysis/"
+
+payload = {"prompt": prompt}
+data = json.dumps(payload).encode('utf-8')
+request = Request(
+    os.environ["DEVIN_API_URL"],
+    data=data,
+    headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+    method="POST"
+)
+
+max_retries = 3
+for attempt in range(max_retries):
+    try:
+        with urlopen(request, timeout=60) as response:
+            result = json.loads(response.read().decode('utf-8'))
+            print(f"  error: {result['url']}")
+            break
+    except (HTTPError, URLError) as e:
+        if attempt &lt; max_retries - 1:
+            print(f"  Retry {attempt + 1}/{max_retries}: {e}")
+            time.sleep(2 ** attempt)
+        else:
+            raise
+PYEOF
+done
+                </arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+
+      <!-- Stage 4: Run performance analysis via Devin API -->
+      <stage name="analyze-performance" fetchMaterials="false">
+        <approval type="success" />
+        <jobs>
+          <job name="performance-analysis" timeout="20">
+            <resources>
+              <resource>linux</resource>
+              <resource>python3</resource>
+            </resources>
+            <tasks>
+              <fetchartifact pipeline="analyze-logs-on-new-file"
+                             stage="detect-changed-logs"
+                             job="detect"
+                             srcdir="metadata">
+                <runif status="passed" />
+              </fetchartifact>
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>
+CHANGED_FILES=$(cat metadata/changed_files.txt)
+if [ -z "$CHANGED_FILES" ]; then
+  echo "No files to analyze, skipping"
+  exit 0
+fi
+TIMESTAMP=$(date -u +"%Y%m%d_%H%M%S")
+for LOG_FILE in $CHANGED_FILES; do
+  echo "=== Performance analysis on $LOG_FILE ==="
+  export LOG_FILE TIMESTAMP
+  python3 &lt;&lt; 'PYEOF'
+import json, os, time
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
+
+api_key = os.environ.get("DEVIN_API_KEY")
+log_file = os.environ.get("LOG_FILE", "")
+timestamp = os.environ.get("TIMESTAMP", "")
+
+prompt = f"@elastic_logs Read {log_file}. Calculate response_time stats: min, max, avg, p95, p99. List slowest 10 endpoints. Identify any response_time > 1000ms. Save as performance_report_{timestamp}.html in analysis/"
+
+payload = {"prompt": prompt}
+data = json.dumps(payload).encode('utf-8')
+request = Request(
+    os.environ["DEVIN_API_URL"],
+    data=data,
+    headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+    method="POST"
+)
+
+max_retries = 3
+for attempt in range(max_retries):
+    try:
+        with urlopen(request, timeout=60) as response:
+            result = json.loads(response.read().decode('utf-8'))
+            print(f"  performance: {result['url']}")
+            break
+    except (HTTPError, URLError) as e:
+        if attempt &lt; max_retries - 1:
+            print(f"  Retry {attempt + 1}/{max_retries}: {e}")
+            time.sleep(2 ** attempt)
+        else:
+            raise
+PYEOF
+done
+                </arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+
+      <!-- Stage 5: Run security analysis via Devin API -->
+      <stage name="analyze-security" fetchMaterials="false">
+        <approval type="success" />
+        <jobs>
+          <job name="security-analysis" timeout="20">
+            <resources>
+              <resource>linux</resource>
+              <resource>python3</resource>
+            </resources>
+            <tasks>
+              <fetchartifact pipeline="analyze-logs-on-new-file"
+                             stage="detect-changed-logs"
+                             job="detect"
+                             srcdir="metadata">
+                <runif status="passed" />
+              </fetchartifact>
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>
+CHANGED_FILES=$(cat metadata/changed_files.txt)
+if [ -z "$CHANGED_FILES" ]; then
+  echo "No files to analyze, skipping"
+  exit 0
+fi
+TIMESTAMP=$(date -u +"%Y%m%d_%H%M%S")
+for LOG_FILE in $CHANGED_FILES; do
+  echo "=== Security analysis on $LOG_FILE ==="
+  export LOG_FILE TIMESTAMP
+  python3 &lt;&lt; 'PYEOF'
+import json, os, time
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
+
+api_key = os.environ.get("DEVIN_API_KEY")
+log_file = os.environ.get("LOG_FILE", "")
+timestamp = os.environ.get("TIMESTAMP", "")
+
+prompt = f"@elastic_logs Read {log_file}. Find: status_code=401/403 entries, unique IPs with >10 failed requests, any SQL/XSS patterns in request_path. Save as security_report_{timestamp}.html in analysis/"
+
+payload = {"prompt": prompt}
+data = json.dumps(payload).encode('utf-8')
+request = Request(
+    os.environ["DEVIN_API_URL"],
+    data=data,
+    headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+    method="POST"
+)
+
+max_retries = 3
+for attempt in range(max_retries):
+    try:
+        with urlopen(request, timeout=60) as response:
+            result = json.loads(response.read().decode('utf-8'))
+            print(f"  security: {result['url']}")
+            break
+    except (HTTPError, URLError) as e:
+        if attempt &lt; max_retries - 1:
+            print(f"  Retry {attempt + 1}/{max_retries}: {e}")
+            time.sleep(2 ** attempt)
+        else:
+            raise
+PYEOF
+done
+                </arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+
+    </pipeline>
+
+    <!-- ============================================================== -->
+    <!-- Pipeline 2: analyze-logs-playbook                              -->
+    <!--                                                                -->
+    <!-- Detects new/changed JSON log files and triggers the Devin      -->
+    <!-- playbook for consolidated analysis. Simpler than the per-type  -->
+    <!-- pipeline above — delegates all analysis to the playbook.       -->
+    <!-- ============================================================== -->
+    <pipeline name="analyze-logs-playbook" labeltemplate="${COUNT}-${git[:8]}" isLocked="false">
+
+      <params>
+        <param name="DEVIN_API_URL">https://api.devin.ai/v1/sessions</param>
+        <param name="REPORTS_DIR">analysis</param>
+      </params>
+
+      <trackingtool link="https://jira.internal.example.com/browse/${ID}" regex="EL-(\d+)" />
+
+      <timer>0 0/5 * * * ?</timer>
+
+      <environmentvariables>
+        <variable name="REPORTS_DIR">
+          <value>analysis</value>
+        </variable>
+        <variable name="DEVIN_API_URL">
+          <value>https://api.devin.ai/v1/sessions</value>
+        </variable>
+        <variable name="DEVIN_API_KEY" secure="true">
+          <encryptedValue>AES:abc123def456:encrypted-api-key-placeholder</encryptedValue>
+        </variable>
+      </environmentvariables>
+
+      <materials>
+        <git url="https://github.com/your-org/elastic_logs.git"
+             branch="main"
+             materialName="git"
+             autoUpdate="true">
+          <filter>
+            <include pattern="logs/**/*.json" />
+          </filter>
+        </git>
+      </materials>
+
+      <!-- Stage 1: Detect which log files changed -->
+      <stage name="detect-changed-logs" cleanWorkingDir="true">
+        <approval type="success" />
+        <jobs>
+          <job name="detect">
+            <resources>
+              <resource>linux</resource>
+            </resources>
+            <tasks>
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>
+echo "=== Detecting changed log files ==="
+CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- 'logs/*.json' || true)
+if [ -z "$CHANGED_FILES" ]; then
+  echo "No changed log files detected"
+  echo "" > changed_files.txt
+else
+  echo "$CHANGED_FILES" > changed_files.txt
+  echo "Changed files:"
+  cat changed_files.txt
+fi
+                </arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+            <artifacts>
+              <artifact type="build" src="changed_files.txt" dest="metadata" />
+            </artifacts>
+          </job>
+        </jobs>
+      </stage>
+
+      <!-- Stage 2: Trigger Devin playbook for each changed log file -->
+      <stage name="trigger-playbook" fetchMaterials="false">
+        <approval type="success" />
+        <jobs>
+          <job name="playbook" timeout="15">
+            <resources>
+              <resource>linux</resource>
+              <resource>python3</resource>
+            </resources>
+            <tasks>
+              <fetchartifact pipeline="analyze-logs-playbook"
+                             stage="detect-changed-logs"
+                             job="detect"
+                             srcdir="metadata">
+                <runif status="passed" />
+              </fetchartifact>
+              <exec command="/bin/bash">
+                <arg>-c</arg>
+                <arg>
+CHANGED_FILES=$(cat metadata/changed_files.txt)
+if [ -z "$CHANGED_FILES" ]; then
+  echo "No files to process, skipping"
+  exit 0
+fi
+for LOG_FILE in $CHANGED_FILES; do
+  echo "=== Processing $LOG_FILE with playbook ==="
+  export LOG_FILE
+  python3 &lt;&lt; 'PYEOF'
+import json, os
+from urllib.request import Request, urlopen
+
+api_key = os.environ.get("DEVIN_API_KEY")
+log_file = os.environ.get("LOG_FILE", "")
+
+payload = {
+    "prompt": f"@elastic_logs Run playbook !logs_analysis on {log_file}. Follow coding guidelines !coding-guidelines. Save all HTML reports to analysis/ folder."
+}
+
+data = json.dumps(payload).encode('utf-8')
+request = Request(
+    os.environ["DEVIN_API_URL"],
+    data=data,
+    headers={
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    },
+    method="POST"
+)
+
+with urlopen(request, timeout=30) as response:
+    result = json.loads(response.read().decode('utf-8'))
+    print(f"  Playbook session: {result['url']}")
+PYEOF
+done
+                </arg>
+                <runif status="passed" />
+              </exec>
+            </tasks>
+          </job>
+        </jobs>
+      </stage>
+
+    </pipeline>
+
+  </pipelines>
+</cruise>
