@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Performance Report — elastic_logs_29_11_25.json</title>
+<style>
+  :root {
+    --bg: #0f172a; --surface: #1e293b; --border: #334155;
+    --text: #e2e8f0; --muted: #94a3b8; --accent: #38bdf8;
+    --green: #22c55e; --yellow: #eab308; --orange: #f97316; --red: #ef4444;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+  h1 { font-size: 1.75rem; margin-bottom: 0.25rem; }
+  .subtitle { color: var(--muted); margin-bottom: 2rem; font-size: 0.95rem; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.25rem; }
+  .card .label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+  .card .value { font-size: 1.6rem; font-weight: 700; margin-top: 0.25rem; }
+  .card .value.green { color: var(--green); }
+  .card .value.red { color: var(--red); }
+  .card .value.orange { color: var(--orange); }
+  .card .value.accent { color: var(--accent); }
+  section { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; }
+  section h2 { font-size: 1.15rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 2px solid var(--border); color: var(--muted); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  td { padding: 0.55rem 0.75rem; border-bottom: 1px solid var(--border); }
+  tr:hover td { background: rgba(56,189,248,0.04); }
+  .badge { display: inline-block; padding: 0.15rem 0.55rem; border-radius: 9999px; font-size: 0.72rem; font-weight: 600; }
+  .badge.critical { background: rgba(239,68,68,0.15); color: var(--red); }
+  .badge.warning { background: rgba(249,115,22,0.15); color: var(--orange); }
+  .badge.elevated { background: rgba(234,179,8,0.15); color: var(--yellow); }
+  .badge.normal { background: rgba(34,197,94,0.12); color: var(--green); }
+  .bar-wrap { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .bar { height: 100%; border-radius: 4px; background: var(--accent); }
+  .mono { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85rem; }
+  footer { text-align: center; color: var(--muted); font-size: 0.78rem; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Performance Analysis Report</h1>
+  <p class="subtitle">Source: <strong>logs/elastic_logs_29_11_25.json</strong> &middot; Generated: 2026-02-12 14:32:07 UTC &middot; Entries analysed: 100</p>
+
+  <div class="cards">
+    <div class="card"><div class="label">Min</div><div class="value green">51ms</div></div>
+    <div class="card"><div class="label">Max</div><div class="value red">29435ms</div></div>
+    <div class="card"><div class="label">Average</div><div class="value orange">3077.0ms</div></div>
+    <div class="card"><div class="label">P95</div><div class="value orange">20609.75ms</div></div>
+    <div class="card"><div class="label">P99</div><div class="value red">27579.74ms</div></div>
+    <div class="card"><div class="label">Slow (&gt;1s)</div><div class="value red">18</div></div>
+  </div>
+
+  <section>
+    <h2>Response Time Distribution</h2>
+    <table>
+      <thead><tr><th>Bucket</th><th style="width:50%">Distribution</th><th>Count</th><th>%</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">0-100ms</td><td><div class="bar-wrap"><div class="bar" style="width:26.0%"></div></div></td><td>26</td><td>26.0%</td></tr>
+        <tr><td class="mono">101-500ms</td><td><div class="bar-wrap"><div class="bar" style="width:56.0%"></div></div></td><td>56</td><td>56.0%</td></tr>
+        <tr><td class="mono">501-1000ms</td><td><div class="bar-wrap"><div class="bar" style="width:0.0%"></div></div></td><td>0</td><td>0.0%</td></tr>
+        <tr><td class="mono">1001-5000ms</td><td><div class="bar-wrap"><div class="bar" style="width:0.0%"></div></div></td><td>0</td><td>0.0%</td></tr>
+        <tr><td class="mono">5001-10000ms</td><td><div class="bar-wrap"><div class="bar" style="width:2.0%"></div></div></td><td>2</td><td>2.0%</td></tr>
+        <tr><td class="mono">10001-20000ms</td><td><div class="bar-wrap"><div class="bar" style="width:10.0%"></div></div></td><td>10</td><td>10.0%</td></tr>
+        <tr><td class="mono">20001ms+</td><td><div class="bar-wrap"><div class="bar" style="width:6.0%"></div></div></td><td>6</td><td>6.0%</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Slowest 10 Endpoints</h2>
+    <table>
+      <thead><tr><th>#</th><th>Method</th><th>Endpoint</th><th>Service</th><th>Response Time</th><th>Status</th><th>Severity</th><th>Log ID</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="mono">DELETE</td><td class="mono">/api/reports</td><td>security-monitor</td><td class="mono"><strong>29435ms</strong></td><td class="mono">503</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0057</td></tr>
+        <tr><td>2</td><td class="mono">GET</td><td class="mono">/api/orders</td><td>order-service</td><td class="mono"><strong>27561ms</strong></td><td class="mono">502</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0038</td></tr>
+        <tr><td>3</td><td class="mono">POST</td><td class="mono">/api/search</td><td>security-monitor</td><td class="mono"><strong>23008ms</strong></td><td class="mono">504</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0020</td></tr>
+        <tr><td>4</td><td class="mono">PUT</td><td class="mono">/api/users</td><td>order-service</td><td class="mono"><strong>22108ms</strong></td><td class="mono">503</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0056</td></tr>
+        <tr><td>5</td><td class="mono">GET</td><td class="mono">/api/users</td><td>product-service</td><td class="mono"><strong>21802ms</strong></td><td class="mono">503</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0060</td></tr>
+        <tr><td>6</td><td class="mono">DELETE</td><td class="mono">/api/health</td><td>cache-service</td><td class="mono"><strong>20547ms</strong></td><td class="mono">503</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0097</td></tr>
+        <tr><td>7</td><td class="mono">GET</td><td class="mono">/api/products</td><td>cache-service</td><td class="mono"><strong>18462ms</strong></td><td class="mono">503</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0059</td></tr>
+        <tr><td>8</td><td class="mono">POST</td><td class="mono">/api/users</td><td>product-service</td><td class="mono"><strong>15896ms</strong></td><td class="mono">503</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0048</td></tr>
+        <tr><td>9</td><td class="mono">DELETE</td><td class="mono">/api/orders</td><td>order-service</td><td class="mono"><strong>15652ms</strong></td><td class="mono">500</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0039</td></tr>
+        <tr><td>10</td><td class="mono">DELETE</td><td class="mono">/api/products</td><td>security-monitor</td><td class="mono"><strong>14644ms</strong></td><td class="mono">502</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0013</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>All Requests with Response Time &gt; 1000ms</h2>
+    <table>
+      <thead><tr><th>#</th><th>Timestamp</th><th>Method</th><th>Endpoint</th><th>Service</th><th>Response Time</th><th>Status</th><th>Severity</th><th>Log ID</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="mono">2025-11-29T14:40:00Z</td><td class="mono">DELETE</td><td class="mono">/api/reports</td><td>security-monitor</td><td class="mono"><strong>29435ms</strong></td><td class="mono">503</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0057</td></tr>
+        <tr><td>2</td><td class="mono">2025-11-29T13:05:00Z</td><td class="mono">GET</td><td class="mono">/api/orders</td><td>order-service</td><td class="mono"><strong>27561ms</strong></td><td class="mono">502</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0038</td></tr>
+        <tr><td>3</td><td class="mono">2025-11-29T11:35:00Z</td><td class="mono">POST</td><td class="mono">/api/search</td><td>security-monitor</td><td class="mono"><strong>23008ms</strong></td><td class="mono">504</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0020</td></tr>
+        <tr><td>4</td><td class="mono">2025-11-29T14:35:00Z</td><td class="mono">PUT</td><td class="mono">/api/users</td><td>order-service</td><td class="mono"><strong>22108ms</strong></td><td class="mono">503</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0056</td></tr>
+        <tr><td>5</td><td class="mono">2025-11-29T14:55:00Z</td><td class="mono">GET</td><td class="mono">/api/users</td><td>product-service</td><td class="mono"><strong>21802ms</strong></td><td class="mono">503</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0060</td></tr>
+        <tr><td>6</td><td class="mono">2025-11-29T18:00:00Z</td><td class="mono">DELETE</td><td class="mono">/api/health</td><td>cache-service</td><td class="mono"><strong>20547ms</strong></td><td class="mono">503</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0097</td></tr>
+        <tr><td>7</td><td class="mono">2025-11-29T14:50:00Z</td><td class="mono">GET</td><td class="mono">/api/products</td><td>cache-service</td><td class="mono"><strong>18462ms</strong></td><td class="mono">503</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0059</td></tr>
+        <tr><td>8</td><td class="mono">2025-11-29T13:55:00Z</td><td class="mono">POST</td><td class="mono">/api/users</td><td>product-service</td><td class="mono"><strong>15896ms</strong></td><td class="mono">503</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0048</td></tr>
+        <tr><td>9</td><td class="mono">2025-11-29T13:10:00Z</td><td class="mono">DELETE</td><td class="mono">/api/orders</td><td>order-service</td><td class="mono"><strong>15652ms</strong></td><td class="mono">500</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0039</td></tr>
+        <tr><td>10</td><td class="mono">2025-11-29T11:00:00Z</td><td class="mono">DELETE</td><td class="mono">/api/products</td><td>security-monitor</td><td class="mono"><strong>14644ms</strong></td><td class="mono">502</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0013</td></tr>
+        <tr><td>11</td><td class="mono">2025-11-29T13:15:00Z</td><td class="mono">DELETE</td><td class="mono">/api/reports</td><td>order-service</td><td class="mono"><strong>14298ms</strong></td><td class="mono">200</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0040</td></tr>
+        <tr><td>12</td><td class="mono">2025-11-29T11:20:00Z</td><td class="mono">POST</td><td class="mono">/api/checkout</td><td>api-gateway</td><td class="mono"><strong>13090ms</strong></td><td class="mono">200</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0017</td></tr>
+        <tr><td>13</td><td class="mono">2025-11-29T13:45:00Z</td><td class="mono">POST</td><td class="mono">/api/users</td><td>user-service</td><td class="mono"><strong>12452ms</strong></td><td class="mono">200</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0046</td></tr>
+        <tr><td>14</td><td class="mono">2025-11-29T13:50:00Z</td><td class="mono">PUT</td><td class="mono">/api/reports</td><td>api-gateway</td><td class="mono"><strong>12194ms</strong></td><td class="mono">504</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0047</td></tr>
+        <tr><td>15</td><td class="mono">2025-11-29T15:05:00Z</td><td class="mono">PUT</td><td class="mono">/api/users</td><td>product-service</td><td class="mono"><strong>11031ms</strong></td><td class="mono">200</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0062</td></tr>
+        <tr><td>16</td><td class="mono">2025-11-29T10:30:00Z</td><td class="mono">DELETE</td><td class="mono">/api/users</td><td>user-service</td><td class="mono"><strong>10527ms</strong></td><td class="mono">200</td><td><span class="badge critical">Critical</span></td><td class="mono">log-0007</td></tr>
+        <tr><td>17</td><td class="mono">2025-11-29T12:15:00Z</td><td class="mono">PUT</td><td class="mono">/api/reports</td><td>product-service</td><td class="mono"><strong>5721ms</strong></td><td class="mono">200</td><td><span class="badge warning">Warning</span></td><td class="mono">log-0028</td></tr>
+        <tr><td>18</td><td class="mono">2025-11-29T18:10:00Z</td><td class="mono">PUT</td><td class="mono">/api/health</td><td>security-monitor</td><td class="mono"><strong>5611ms</strong></td><td class="mono">200</td><td><span class="badge warning">Warning</span></td><td class="mono">log-0099</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Service Breakdown</h2>
+    <table>
+      <thead><tr><th>Service</th><th>Requests</th><th>Min</th><th>Avg</th><th>P95</th><th>Max</th></tr></thead>
+      <tbody>
+        <tr><td>api-gateway</td><td>16</td><td class="mono">70ms</td><td class="mono">1716.31ms</td><td class="mono">12418.0ms</td><td class="mono">13090ms</td></tr>
+        <tr><td>cache-service</td><td>12</td><td class="mono">51ms</td><td class="mono">3386.67ms</td><td class="mono">19400.25ms</td><td class="mono">20547ms</td></tr>
+        <tr><td>order-service</td><td>17</td><td class="mono">67ms</td><td class="mono">4792.65ms</td><td class="mono">23198.6ms</td><td class="mono">27561ms</td></tr>
+        <tr><td>product-service</td><td>22</td><td class="mono">57ms</td><td class="mono">2625.23ms</td><td class="mono">15652.75ms</td><td class="mono">21802ms</td></tr>
+        <tr><td>security-monitor</td><td>21</td><td class="mono">55ms</td><td class="mono">3628.62ms</td><td class="mono">23008ms</td><td class="mono">29435ms</td></tr>
+        <tr><td>user-service</td><td>12</td><td class="mono">63ms</td><td class="mono">2014.0ms</td><td class="mono">11393.25ms</td><td class="mono">12452ms</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>
+    Performance report auto-generated by Devin AI &middot; Data source: elastic_logs_29_11_25.json &middot; Report ID: performance_report_20260212_143207
+  </footer>
+</div>
+</body>
+</html>
