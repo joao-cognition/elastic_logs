@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Error Report - elastic_logs_28_11_25.json</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f172a; color: #e2e8f0; line-height: 1.6; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+  h1 { font-size: 1.8rem; margin-bottom: 4px; color: #f8fafc; }
+  .subtitle { color: #94a3b8; margin-bottom: 24px; font-size: 0.95rem; }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .card { background: #1e293b; border-radius: 10px; padding: 20px; border: 1px solid #334155; }
+  .card-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; margin-bottom: 4px; }
+  .card-value { font-size: 2rem; font-weight: 700; }
+  .card-value.red { color: #f87171; }
+  .card-value.amber { color: #fbbf24; }
+  .card-value.blue { color: #60a5fa; }
+  .card-value.green { color: #34d399; }
+  h2 { font-size: 1.3rem; margin: 32px 0 16px; color: #f8fafc; border-bottom: 1px solid #334155; padding-bottom: 8px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 0.9rem; }
+  th { background: #1e293b; color: #94a3b8; text-align: left; padding: 10px 12px; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.05em; border-bottom: 2px solid #334155; }
+  td { padding: 10px 12px; border-bottom: 1px solid #1e293b; }
+  tr:hover td { background: #1e293b; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 9999px; font-size: 0.8rem; font-weight: 600; }
+  .badge-500 { background: #7f1d1d; color: #fca5a5; }
+  .badge-502 { background: #78350f; color: #fcd34d; }
+  .badge-503 { background: #713f12; color: #fde68a; }
+  .badge-504 { background: #1e3a5f; color: #93c5fd; }
+  .bar-container { background: #334155; border-radius: 4px; height: 22px; position: relative; }
+  .bar { border-radius: 4px; height: 100%; display: flex; align-items: center; padding-left: 8px; font-size: 0.75rem; font-weight: 600; color: #fff; min-width: 32px; }
+  .bar.red { background: #ef4444; }
+  .bar.amber { background: #f59e0b; }
+  .bar.blue { background: #3b82f6; }
+  .bar.green { background: #10b981; }
+  .bar.purple { background: #8b5cf6; }
+  .chart-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+  .chart-label { width: 180px; text-align: right; font-size: 0.85rem; color: #cbd5e1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0; }
+  .chart-bar { flex: 1; }
+  .chart-count { width: 36px; text-align: right; font-size: 0.85rem; color: #94a3b8; flex-shrink: 0; }
+  .footer { text-align: center; color: #475569; font-size: 0.8rem; margin-top: 48px; padding-top: 16px; border-top: 1px solid #1e293b; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Error Analysis Report</h1>
+  <p class="subtitle">Source: <strong>logs/elastic_logs_28_11_25.json</strong> &nbsp;|&nbsp; Generated: 2026-02-12 14:30:23 UTC</p>
+
+  <div class="summary-grid">
+    <div class="card"><div class="card-label">Total Log Entries</div><div class="card-value blue">100</div></div>
+    <div class="card"><div class="card-label">Total Errors</div><div class="card-value red">19</div></div>
+    <div class="card"><div class="card-label">Error Rate</div><div class="card-value amber">19.0%</div></div>
+    <div class="card"><div class="card-label">Unique Error Types</div><div class="card-value green">12</div></div>
+  </div>
+
+  <h2>Top 10 Most Frequent Errors</h2>
+  <table>
+    <thead><tr><th>#</th><th>Status</th><th>Service</th><th>Error Message</th><th>Count</th><th>% of Errors</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><span class="badge badge-503">503</span></td>
+        <td>product-service</td>
+        <td>Service unavailable: circuit breaker open</td>
+        <td><strong>3</strong></td>
+        <td>15.8%</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><span class="badge badge-500">500</span></td>
+        <td>order-service</td>
+        <td>Internal server error: database connection pool exhausted</td>
+        <td><strong>2</strong></td>
+        <td>10.5%</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><span class="badge badge-500">500</span></td>
+        <td>product-service</td>
+        <td>Internal server error: out of memory exception</td>
+        <td><strong>2</strong></td>
+        <td>10.5%</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><span class="badge badge-500">500</span></td>
+        <td>api-gateway</td>
+        <td>Internal server error: out of memory exception</td>
+        <td><strong>2</strong></td>
+        <td>10.5%</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><span class="badge badge-503">503</span></td>
+        <td>api-gateway</td>
+        <td>Service unavailable: circuit breaker open</td>
+        <td><strong>2</strong></td>
+        <td>10.5%</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><span class="badge badge-503">503</span></td>
+        <td>user-service</td>
+        <td>Service unavailable: circuit breaker open</td>
+        <td><strong>2</strong></td>
+        <td>10.5%</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><span class="badge badge-502">502</span></td>
+        <td>product-service</td>
+        <td>Bad gateway: upstream service unavailable</td>
+        <td><strong>1</strong></td>
+        <td>5.3%</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td><span class="badge badge-502">502</span></td>
+        <td>user-service</td>
+        <td>Bad gateway: upstream service unavailable</td>
+        <td><strong>1</strong></td>
+        <td>5.3%</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td><span class="badge badge-504">504</span></td>
+        <td>user-service</td>
+        <td>Gateway timeout: request exceeded 30s limit</td>
+        <td><strong>1</strong></td>
+        <td>5.3%</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td><span class="badge badge-504">504</span></td>
+        <td>order-service</td>
+        <td>Gateway timeout: request exceeded 30s limit</td>
+        <td><strong>1</strong></td>
+        <td>5.3%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Errors by Status Code</h2>
+  <div class="chart-row">
+    <div class="chart-label">500</div>
+    <div class="chart-bar"><div class="bar-container"><div class="bar red" style="width:100.0%">7</div></div></div>
+    <div class="chart-count">7</div>
+  </div>
+  <div class="chart-row">
+    <div class="chart-label">503</div>
+    <div class="chart-bar"><div class="bar-container"><div class="bar amber" style="width:100.0%">7</div></div></div>
+    <div class="chart-count">7</div>
+  </div>
+  <div class="chart-row">
+    <div class="chart-label">502</div>
+    <div class="chart-bar"><div class="bar-container"><div class="bar amber" style="width:42.857142857142854%">3</div></div></div>
+    <div class="chart-count">3</div>
+  </div>
+  <div class="chart-row">
+    <div class="chart-label">504</div>
+    <div class="chart-bar"><div class="bar-container"><div class="bar blue" style="width:28.57142857142857%">2</div></div></div>
+    <div class="chart-count">2</div>
+  </div>
+
+  <h2>Errors by Service</h2>
+  <div class="chart-row">
+    <div class="chart-label">product-service</div>
+    <div class="chart-bar"><div class="bar-container"><div class="bar red" style="width:100.0%">7</div></div></div>
+    <div class="chart-count">7</div>
+  </div>
+  <div class="chart-row">
+    <div class="chart-label">order-service</div>
+    <div class="chart-bar"><div class="bar-container"><div class="bar blue" style="width:57.14285714285714%">4</div></div></div>
+    <div class="chart-count">4</div>
+  </div>
+  <div class="chart-row">
+    <div class="chart-label">api-gateway</div>
+    <div class="chart-bar"><div class="bar-container"><div class="bar amber" style="width:57.14285714285714%">4</div></div></div>
+    <div class="chart-count">4</div>
+  </div>
+  <div class="chart-row">
+    <div class="chart-label">user-service</div>
+    <div class="chart-bar"><div class="bar-container"><div class="bar green" style="width:57.14285714285714%">4</div></div></div>
+    <div class="chart-count">4</div>
+  </div>
+
+  <h2>Errors by Message</h2>
+  <div class="chart-row">
+    <div class="chart-label" title="Service unavailable: circuit breaker open">Service unavailable: circuit breaker open</div>
+    <div class="chart-bar"><div class="bar-container"><div class="bar red" style="width:100.0%">7</div></div></div>
+    <div class="chart-count">7</div>
+  </div>
+  <div class="chart-row">
+    <div class="chart-label" title="Internal server error: out of memory exception">Internal server error: out of memory exception</div>
+    <div class="chart-bar"><div class="bar-container"><div class="bar blue" style="width:57.14285714285714%">4</div></div></div>
+    <div class="chart-count">4</div>
+  </div>
+  <div class="chart-row">
+    <div class="chart-label" title="Bad gateway: upstream service unavailable">Bad gateway: upstream service unavailable</div>
+    <div class="chart-bar"><div class="bar-container"><div class="bar amber" style="width:42.857142857142854%">3</div></div></div>
+    <div class="chart-count">3</div>
+  </div>
+  <div class="chart-row">
+    <div class="chart-label" title="Internal server error: database connection pool exhausted">Internal server error: database connection pool...</div>
+    <div class="chart-bar"><div class="bar-container"><div class="bar green" style="width:28.57142857142857%">2</div></div></div>
+    <div class="chart-count">2</div>
+  </div>
+  <div class="chart-row">
+    <div class="chart-label" title="Gateway timeout: request exceeded 30s limit">Gateway timeout: request exceeded 30s limit</div>
+    <div class="chart-bar"><div class="bar-container"><div class="bar purple" style="width:28.57142857142857%">2</div></div></div>
+    <div class="chart-count">2</div>
+  </div>
+  <div class="chart-row">
+    <div class="chart-label" title="Internal server error: null pointer exception in OrderProcessor">Internal server error: null pointer exception i...</div>
+    <div class="chart-bar"><div class="bar-container"><div class="bar red" style="width:14.285714285714285%">1</div></div></div>
+    <div class="chart-count">1</div>
+  </div>
+
+  <h2>All Error Entries (Detail)</h2>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th>Timestamp</th><th>Log ID</th><th>Service</th><th>Status</th><th>Endpoint</th><th>Message</th><th>Response Time</th><th>Trace ID</th></tr></thead>
+    <tbody>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 10:00:00</td>
+        <td>log-0001</td>
+        <td>order-service</td>
+        <td><span class="badge badge-500">500</span></td>
+        <td>/api/users</td>
+        <td>Internal server error: database connection pool exhausted</td>
+        <td>29132 ms</td>
+        <td>trace-81482</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 10:10:00</td>
+        <td>log-0003</td>
+        <td>product-service</td>
+        <td><span class="badge badge-500">500</span></td>
+        <td>/api/checkout</td>
+        <td>Internal server error: out of memory exception</td>
+        <td>14115 ms</td>
+        <td>trace-30926</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 11:55:00</td>
+        <td>log-0024</td>
+        <td>product-service</td>
+        <td><span class="badge badge-500">500</span></td>
+        <td>/api/orders</td>
+        <td>Internal server error: out of memory exception</td>
+        <td>12133 ms</td>
+        <td>trace-17989</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 12:05:00</td>
+        <td>log-0026</td>
+        <td>product-service</td>
+        <td><span class="badge badge-502">502</span></td>
+        <td>/api/users</td>
+        <td>Bad gateway: upstream service unavailable</td>
+        <td>23970 ms</td>
+        <td>trace-64948</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 12:25:00</td>
+        <td>log-0030</td>
+        <td>api-gateway</td>
+        <td><span class="badge badge-500">500</span></td>
+        <td>/api/checkout</td>
+        <td>Internal server error: out of memory exception</td>
+        <td>8394 ms</td>
+        <td>trace-24029</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 12:35:00</td>
+        <td>log-0032</td>
+        <td>api-gateway</td>
+        <td><span class="badge badge-503">503</span></td>
+        <td>/api/users</td>
+        <td>Service unavailable: circuit breaker open</td>
+        <td>25876 ms</td>
+        <td>trace-82309</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 13:20:00</td>
+        <td>log-0041</td>
+        <td>order-service</td>
+        <td><span class="badge badge-500">500</span></td>
+        <td>/api/checkout</td>
+        <td>Internal server error: database connection pool exhausted</td>
+        <td>18382 ms</td>
+        <td>trace-82667</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 13:55:00</td>
+        <td>log-0048</td>
+        <td>product-service</td>
+        <td><span class="badge badge-503">503</span></td>
+        <td>/api/orders</td>
+        <td>Service unavailable: circuit breaker open</td>
+        <td>12683 ms</td>
+        <td>trace-80798</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 14:35:00</td>
+        <td>log-0056</td>
+        <td>user-service</td>
+        <td><span class="badge badge-502">502</span></td>
+        <td>/api/users</td>
+        <td>Bad gateway: upstream service unavailable</td>
+        <td>23480 ms</td>
+        <td>trace-58351</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 14:40:00</td>
+        <td>log-0057</td>
+        <td>api-gateway</td>
+        <td><span class="badge badge-500">500</span></td>
+        <td>/api/users</td>
+        <td>Internal server error: out of memory exception</td>
+        <td>23962 ms</td>
+        <td>trace-59192</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 14:55:00</td>
+        <td>log-0060</td>
+        <td>user-service</td>
+        <td><span class="badge badge-504">504</span></td>
+        <td>/api/orders</td>
+        <td>Gateway timeout: request exceeded 30s limit</td>
+        <td>25182 ms</td>
+        <td>trace-70931</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 15:15:00</td>
+        <td>log-0064</td>
+        <td>product-service</td>
+        <td><span class="badge badge-503">503</span></td>
+        <td>/api/orders</td>
+        <td>Service unavailable: circuit breaker open</td>
+        <td>18942 ms</td>
+        <td>trace-69473</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 15:55:00</td>
+        <td>log-0072</td>
+        <td>order-service</td>
+        <td><span class="badge badge-504">504</span></td>
+        <td>/api/orders</td>
+        <td>Gateway timeout: request exceeded 30s limit</td>
+        <td>28165 ms</td>
+        <td>trace-40595</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 16:15:00</td>
+        <td>log-0076</td>
+        <td>user-service</td>
+        <td><span class="badge badge-503">503</span></td>
+        <td>/api/checkout</td>
+        <td>Service unavailable: circuit breaker open</td>
+        <td>21112 ms</td>
+        <td>trace-53687</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 16:20:00</td>
+        <td>log-0077</td>
+        <td>order-service</td>
+        <td><span class="badge badge-502">502</span></td>
+        <td>/api/orders</td>
+        <td>Bad gateway: upstream service unavailable</td>
+        <td>14444 ms</td>
+        <td>trace-82102</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 16:40:00</td>
+        <td>log-0081</td>
+        <td>api-gateway</td>
+        <td><span class="badge badge-503">503</span></td>
+        <td>/api/users</td>
+        <td>Service unavailable: circuit breaker open</td>
+        <td>12362 ms</td>
+        <td>trace-25396</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 16:55:00</td>
+        <td>log-0084</td>
+        <td>product-service</td>
+        <td><span class="badge badge-500">500</span></td>
+        <td>/api/checkout</td>
+        <td>Internal server error: null pointer exception in OrderProcessor</td>
+        <td>20870 ms</td>
+        <td>trace-81228</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 17:15:00</td>
+        <td>log-0088</td>
+        <td>product-service</td>
+        <td><span class="badge badge-503">503</span></td>
+        <td>/api/checkout</td>
+        <td>Service unavailable: circuit breaker open</td>
+        <td>29884 ms</td>
+        <td>trace-18968</td>
+      </tr>
+      <tr>
+        <td style="white-space:nowrap">2025-12-01 17:20:00</td>
+        <td>log-0089</td>
+        <td>user-service</td>
+        <td><span class="badge badge-503">503</span></td>
+        <td>/api/users</td>
+        <td>Service unavailable: circuit breaker open</td>
+        <td>29915 ms</td>
+        <td>trace-49251</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="footer">
+    Generated by Elastic Logs Analyzer &mdash; 2026-02-12 14:30:23 UTC
+  </div>
+</div>
+</body>
+</html>
