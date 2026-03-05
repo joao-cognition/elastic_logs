@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error Report - elastic_logs_30_11_25</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --border: #334155;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --accent: #f43f5e;
+      --accent-light: #fb7185;
+      --success: #10b981;
+      --warn: #f59e0b;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 2rem;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    header {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    h1 { font-size: 1.75rem; color: var(--accent-light); }
+    .meta { color: var(--text-muted); font-size: 0.875rem; margin-top: 0.5rem; }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .card-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+    .card-value { font-size: 2rem; font-weight: 700; color: var(--accent-light); margin-top: 0.25rem; }
+    .card-value.green { color: var(--success); }
+    .card-value.yellow { color: var(--warn); }
+    section { margin-bottom: 2.5rem; }
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.875rem;
+    }
+    th {
+      background: #0f172a;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+    tr:hover { background: rgba(248, 113, 113, 0.05); }
+    .badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .badge-error { background: rgba(244, 63, 94, 0.2); color: var(--accent-light); }
+    footer {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Error Report</h1>
+      <div class="meta">
+        Source: <strong>logs/elastic_logs_30_11_25.json</strong> |
+        Generated: <strong>2026-02-12 14:32:07 UTC</strong> |
+        Log Date: <strong>2025-11-30</strong>
+      </div>
+    </header>
+
+    <div class="summary-grid">
+      <div class="card">
+        <div class="card-label">Total Log Entries</div>
+        <div class="card-value green">100</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Error Entries</div>
+        <div class="card-value">15</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Error Rate</div>
+        <div class="card-value yellow">15.0%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Unique Error Groups</div>
+        <div class="card-value">14</div>
+      </div>
+    </div>
+
+    <section>
+      <h2>Top 10 Most Frequent Errors</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Count</th>
+            <th>Status Code</th>
+            <th>Service</th>
+            <th>Error Message</th>
+            <th>% of Errors</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>1</td>
+          <td>2</td>
+          <td><span class="badge badge-error">502</span></td>
+          <td>api-gateway</td>
+          <td>Request timeout: upstream service unavailable</td>
+          <td>13.3%</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>1</td>
+          <td><span class="badge badge-error">502</span></td>
+          <td>cache-service</td>
+          <td>Connection refused: service unreachable</td>
+          <td>6.7%</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>1</td>
+          <td><span class="badge badge-error">503</span></td>
+          <td>cache-service</td>
+          <td>Internal server error: out of memory exception</td>
+          <td>6.7%</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>1</td>
+          <td><span class="badge badge-error">504</span></td>
+          <td>user-service</td>
+          <td>Internal server error: out of memory exception</td>
+          <td>6.7%</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>1</td>
+          <td><span class="badge badge-error">503</span></td>
+          <td>security-monitor</td>
+          <td>Connection refused: service unreachable</td>
+          <td>6.7%</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>1</td>
+          <td><span class="badge badge-error">503</span></td>
+          <td>api-gateway</td>
+          <td>Internal server error: database connection pool exhausted</td>
+          <td>6.7%</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>1</td>
+          <td><span class="badge badge-error">504</span></td>
+          <td>user-service</td>
+          <td>Request timeout: upstream service unavailable</td>
+          <td>6.7%</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>1</td>
+          <td><span class="badge badge-error">504</span></td>
+          <td>order-service</td>
+          <td>Internal server error: database connection pool exhausted</td>
+          <td>6.7%</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>1</td>
+          <td><span class="badge badge-error">504</span></td>
+          <td>cache-service</td>
+          <td>Connection refused: service unreachable</td>
+          <td>6.7%</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>1</td>
+          <td><span class="badge badge-error">503</span></td>
+          <td>product-service</td>
+          <td>Internal server error: out of memory exception</td>
+          <td>6.7%</td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Errors by Status Code</h2>
+      <table>
+        <thead><tr><th>Status Code</th><th>Count</th><th>% of Errors</th></tr></thead>
+        <tbody>
+        <tr><td><span class="badge badge-error">503</span></td><td>6</td><td>40.0%</td></tr>
+        <tr><td><span class="badge badge-error">504</span></td><td>5</td><td>33.3%</td></tr>
+        <tr><td><span class="badge badge-error">502</span></td><td>3</td><td>20.0%</td></tr>
+        <tr><td><span class="badge badge-error">500</span></td><td>1</td><td>6.7%</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Errors by Service</h2>
+      <table>
+        <thead><tr><th>Service</th><th>Count</th><th>% of Errors</th></tr></thead>
+        <tbody>
+        <tr><td>user-service</td><td>4</td><td>26.7%</td></tr>
+        <tr><td>api-gateway</td><td>4</td><td>26.7%</td></tr>
+        <tr><td>cache-service</td><td>3</td><td>20.0%</td></tr>
+        <tr><td>security-monitor</td><td>2</td><td>13.3%</td></tr>
+        <tr><td>order-service</td><td>1</td><td>6.7%</td></tr>
+        <tr><td>product-service</td><td>1</td><td>6.7%</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Errors by Message</h2>
+      <table>
+        <thead><tr><th>Error Message</th><th>Count</th><th>% of Errors</th></tr></thead>
+        <tbody>
+        <tr><td>Connection refused: service unreachable</td><td>5</td><td>33.3%</td></tr>
+        <tr><td>Request timeout: upstream service unavailable</td><td>4</td><td>26.7%</td></tr>
+        <tr><td>Internal server error: out of memory exception</td><td>3</td><td>20.0%</td></tr>
+        <tr><td>Internal server error: database connection pool exhausted</td><td>3</td><td>20.0%</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>All Error Entries (Detail)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Log ID</th>
+            <th>Timestamp</th>
+            <th>Status Code</th>
+            <th>Service</th>
+            <th>Error Message</th>
+            <th>Endpoint</th>
+            <th>Correlation ID</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>log-0004</td>
+          <td>2025-11-30T10:15:00Z</td>
+          <td><span class="badge badge-error">502</span></td>
+          <td>cache-service</td>
+          <td>Connection refused: service unreachable</td>
+          <td>/api/health</td>
+          <td>err-98147</td>
+        </tr>
+        <tr>
+          <td>log-0007</td>
+          <td>2025-11-30T10:30:00Z</td>
+          <td><span class="badge badge-error">503</span></td>
+          <td>cache-service</td>
+          <td>Internal server error: out of memory exception</td>
+          <td>/api/search</td>
+          <td>err-37082</td>
+        </tr>
+        <tr>
+          <td>log-0010</td>
+          <td>2025-11-30T10:45:00Z</td>
+          <td><span class="badge badge-error">504</span></td>
+          <td>user-service</td>
+          <td>Internal server error: out of memory exception</td>
+          <td>/api/users</td>
+          <td>err-20461</td>
+        </tr>
+        <tr>
+          <td>log-0017</td>
+          <td>2025-11-30T11:20:00Z</td>
+          <td><span class="badge badge-error">503</span></td>
+          <td>security-monitor</td>
+          <td>Connection refused: service unreachable</td>
+          <td>/api/products</td>
+          <td>err-79160</td>
+        </tr>
+        <tr>
+          <td>log-0024</td>
+          <td>2025-11-30T11:55:00Z</td>
+          <td><span class="badge badge-error">503</span></td>
+          <td>api-gateway</td>
+          <td>Internal server error: database connection pool exhausted</td>
+          <td>/api/products</td>
+          <td>err-34596</td>
+        </tr>
+        <tr>
+          <td>log-0032</td>
+          <td>2025-11-30T12:35:00Z</td>
+          <td><span class="badge badge-error">504</span></td>
+          <td>user-service</td>
+          <td>Request timeout: upstream service unavailable</td>
+          <td>/api/reports</td>
+          <td>err-88885</td>
+        </tr>
+        <tr>
+          <td>log-0045</td>
+          <td>2025-11-30T13:40:00Z</td>
+          <td><span class="badge badge-error">504</span></td>
+          <td>order-service</td>
+          <td>Internal server error: database connection pool exhausted</td>
+          <td>/api/reports</td>
+          <td>err-19022</td>
+        </tr>
+        <tr>
+          <td>log-0062</td>
+          <td>2025-11-30T15:05:00Z</td>
+          <td><span class="badge badge-error">502</span></td>
+          <td>api-gateway</td>
+          <td>Request timeout: upstream service unavailable</td>
+          <td>/api/orders</td>
+          <td>err-55406</td>
+        </tr>
+        <tr>
+          <td>log-0063</td>
+          <td>2025-11-30T15:10:00Z</td>
+          <td><span class="badge badge-error">504</span></td>
+          <td>cache-service</td>
+          <td>Connection refused: service unreachable</td>
+          <td>/api/orders</td>
+          <td>err-93208</td>
+        </tr>
+        <tr>
+          <td>log-0065</td>
+          <td>2025-11-30T15:20:00Z</td>
+          <td><span class="badge badge-error">503</span></td>
+          <td>product-service</td>
+          <td>Internal server error: out of memory exception</td>
+          <td>/api/reports</td>
+          <td>err-24165</td>
+        </tr>
+        <tr>
+          <td>log-0069</td>
+          <td>2025-11-30T15:40:00Z</td>
+          <td><span class="badge badge-error">500</span></td>
+          <td>security-monitor</td>
+          <td>Connection refused: service unreachable</td>
+          <td>/api/search</td>
+          <td>err-99659</td>
+        </tr>
+        <tr>
+          <td>log-0084</td>
+          <td>2025-11-30T16:55:00Z</td>
+          <td><span class="badge badge-error">504</span></td>
+          <td>api-gateway</td>
+          <td>Internal server error: database connection pool exhausted</td>
+          <td>/api/users</td>
+          <td>err-26764</td>
+        </tr>
+        <tr>
+          <td>log-0087</td>
+          <td>2025-11-30T17:10:00Z</td>
+          <td><span class="badge badge-error">503</span></td>
+          <td>user-service</td>
+          <td>Connection refused: service unreachable</td>
+          <td>/api/reports</td>
+          <td>err-77745</td>
+        </tr>
+        <tr>
+          <td>log-0090</td>
+          <td>2025-11-30T17:25:00Z</td>
+          <td><span class="badge badge-error">503</span></td>
+          <td>user-service</td>
+          <td>Request timeout: upstream service unavailable</td>
+          <td>/api/reports</td>
+          <td>err-64657</td>
+        </tr>
+        <tr>
+          <td>log-0091</td>
+          <td>2025-11-30T17:30:00Z</td>
+          <td><span class="badge badge-error">502</span></td>
+          <td>api-gateway</td>
+          <td>Request timeout: upstream service unavailable</td>
+          <td>/api/checkout</td>
+          <td>err-64972</td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <footer>
+      <p>Generated by Devin AI | Log Analysis Report | 2026-02-12 14:32:07 UTC</p>
+    </footer>
+  </div>
+</body>
+</html>
