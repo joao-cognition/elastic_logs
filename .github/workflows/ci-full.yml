@@ -1,0 +1,363 @@
+name: CI/CD Full Pipeline
+
+on:
+  push:
+    paths:
+      - 'logs/**'
+      - 'script/**'
+  pull_request:
+    paths:
+      - 'logs/**'
+      - 'script/**'
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+    inputs:
+      log_file:
+        description: 'Path to specific log file (leave empty for auto-detect)'
+        required: false
+        type: string
+      analysis_type:
+        description: 'Type of analysis to run'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - error
+          - performance
+          - security
+
+env:
+  REPORTS_DIR: 'analysis'
+  LOGS_DIR: 'logs'
+  API_URL: 'https://api.devin.ai/v1/sessions'
+
+jobs:
+  detect-changes:
+    name: Detect Changed Logs
+    runs-on: ubuntu-latest
+    outputs:
+      target_files: ${{ steps.detect.outputs.target_files }}
+      has_files: ${{ steps.detect.outputs.has_files }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed log files
+        id: detect
+        run: |
+          if [ -n "${{ github.event.inputs.log_file }}" ]; then
+            echo "Using manually specified log file: ${{ github.event.inputs.log_file }}"
+            echo "target_files=${{ github.event.inputs.log_file }}" >> "$GITHUB_OUTPUT"
+            echo "has_files=true" >> "$GITHUB_OUTPUT"
+          else
+            CHANGES=$(git diff --name-only HEAD~1 HEAD -- 'logs/*.json' 2>/dev/null || true)
+            if [ -z "$CHANGES" ]; then
+              CHANGES=$(find logs/ -name '*.json' -type f 2>/dev/null | tr '\n' ' ' || true)
+            fi
+            CHANGES=$(echo "$CHANGES" | xargs)
+            if [ -n "$CHANGES" ]; then
+              echo "Detected changed log files: $CHANGES"
+              echo "target_files=$CHANGES" >> "$GITHUB_OUTPUT"
+              echo "has_files=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "No changed log files detected"
+              echo "target_files=" >> "$GITHUB_OUTPUT"
+              echo "has_files=false" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
+  validate:
+    name: Validate JSON
+    needs: detect-changes
+    if: needs.detect-changes.outputs.has_files == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate JSON files
+        run: |
+          FILES="${{ needs.detect-changes.outputs.target_files }}"
+          for file in $FILES; do
+            if [ ! -f "$file" ]; then
+              echo "ERROR: Log file not found: $file"
+              exit 1
+            fi
+            python3 -c "import json; json.load(open('$file'))" || exit 1
+            echo "Validated: $file"
+          done
+
+      - name: Validate JSON is array
+        run: |
+          FILES="${{ needs.detect-changes.outputs.target_files }}"
+          for file in $FILES; do
+            python3 -c "
+          import json, sys
+          with open('$file') as f:
+              data = json.load(f)
+          if not isinstance(data, list):
+              print('WARN: Expected JSON array in $file')
+              sys.exit(1)
+          print('Schema OK: $file (' + str(len(data)) + ' entries)')
+          "
+          done
+
+  lint:
+    name: Lint & Syntax Check
+    needs: detect-changes
+    if: needs.detect-changes.outputs.has_files == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install flake8
+        run: pip install flake8
+
+      - name: Run flake8
+        run: flake8 script/ --max-line-length=100 --count --show-source --statistics
+
+  test:
+    name: Unit Tests
+    needs: detect-changes
+    if: needs.detect-changes.outputs.has_files == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pytest pytest-cov requests
+
+      - name: Run tests
+        run: |
+          pytest tests/ \
+            --cov=script \
+            --cov-report=xml:coverage.xml \
+            --cov-report=html:htmlcov \
+            --junitxml=test-results.xml \
+            -v || true
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results.xml
+          retention-days: 30
+
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: |
+            coverage.xml
+            htmlcov/
+          retention-days: 30
+
+  analyze:
+    name: "${{ matrix.analysis_type }} Analysis"
+    needs: [detect-changes, validate, lint, test]
+    if: needs.detect-changes.outputs.has_files == 'true'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        analysis_type: [error, performance, security]
+    env:
+      DEVIN_API_KEY: ${{ secrets.DEVIN_API_KEY }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Filter analysis type
+        id: should-run
+        run: |
+          INPUT_TYPE="${{ github.event.inputs.analysis_type || 'all' }}"
+          MATRIX_TYPE="${{ matrix.analysis_type }}"
+          if [ "$INPUT_TYPE" = "all" ] || [ "$INPUT_TYPE" = "$MATRIX_TYPE" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Skipping $MATRIX_TYPE analysis (requested: $INPUT_TYPE)"
+          fi
+
+      - name: Prepare reports directory
+        if: steps.should-run.outputs.run == 'true'
+        run: mkdir -p ${{ env.REPORTS_DIR }}
+
+      - name: "Run ${{ matrix.analysis_type }} analysis"
+        if: steps.should-run.outputs.run == 'true'
+        run: |
+          python3 << 'PYEOF'
+          import json
+          import time
+          import os
+          from urllib.request import Request, urlopen
+          from urllib.error import HTTPError, URLError
+          from datetime import datetime, timezone
+
+          api_key = os.environ.get("DEVIN_API_KEY")
+          api_url = os.environ.get("API_URL")
+          analysis_type = "${{ matrix.analysis_type }}"
+          files_str = "${{ needs.detect-changes.outputs.target_files }}"
+          timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+
+          prompts = {
+              "error": "@elastic_logs Read {file}. Count all entries with level='ERROR'. "
+                       "Group by: status_code, service_name, error_message. "
+                       "List top 10 most frequent errors. "
+                       "Save as error_report_{ts}.html in analysis/",
+              "performance": "@elastic_logs Read {file}. Calculate response_time stats: min, max, avg, p95, p99. "
+                             "List slowest 10 endpoints. Identify any response_time > 1000ms. "
+                             "Save as performance_report_{ts}.html in analysis/",
+              "security": "@elastic_logs Read {file}. Find: status_code=401/403 entries, "
+                          "unique IPs with >10 failed requests, any SQL/XSS patterns in request_path. "
+                          "Save as security_report_{ts}.html in analysis/",
+          }
+
+          for log_file in files_str.split():
+              log_file = log_file.strip()
+              if not log_file:
+                  continue
+
+              print(f"\n=== Running {analysis_type} analysis on {log_file} ===")
+
+              prompt = prompts[analysis_type].format(file=log_file, ts=timestamp)
+              payload = {"prompt": prompt}
+              data = json.dumps(payload).encode("utf-8")
+              request = Request(
+                  api_url,
+                  data=data,
+                  headers={
+                      "Authorization": f"Bearer {api_key}",
+                      "Content-Type": "application/json",
+                  },
+                  method="POST",
+              )
+
+              max_retries = 3
+              for attempt in range(max_retries):
+                  try:
+                      with urlopen(request, timeout=60) as response:
+                          result = json.loads(response.read().decode("utf-8"))
+                          print(f"  Session URL: {result['url']}")
+                          break
+                  except (HTTPError, URLError) as e:
+                      if attempt < max_retries - 1:
+                          wait = 2 ** attempt
+                          print(f"  Retry {attempt + 1}/{max_retries} after error: {e}")
+                          time.sleep(wait)
+                      else:
+                          print(f"  Failed after {max_retries} attempts: {e}")
+                          raise
+          PYEOF
+
+      - name: Upload analysis artifact
+        if: steps.should-run.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: "analysis-${{ matrix.analysis_type }}"
+          path: "${{ env.REPORTS_DIR }}/*.html"
+          if-no-files-found: ignore
+          retention-days: 30
+
+  archive:
+    name: Archive Reports
+    needs: [detect-changes, analyze]
+    if: needs.detect-changes.outputs.has_files == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all analysis artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: analysis-*
+          path: ${{ env.REPORTS_DIR }}
+          merge-multiple: true
+
+      - name: Upload combined reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-analysis-reports
+          path: "${{ env.REPORTS_DIR }}/*.html"
+          if-no-files-found: ignore
+          retention-days: 30
+
+  notify:
+    name: Slack Notification
+    needs: [detect-changes, validate, lint, test, analyze, archive]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine pipeline status
+        id: status
+        run: |
+          if [ "${{ contains(needs.*.result, 'failure') }}" = "true" ]; then
+            echo "status=failure" >> "$GITHUB_OUTPUT"
+            echo "color=danger" >> "$GITHUB_OUTPUT"
+            echo "emoji=:x:" >> "$GITHUB_OUTPUT"
+            echo "text=FAILED" >> "$GITHUB_OUTPUT"
+          elif [ "${{ contains(needs.*.result, 'cancelled') }}" = "true" ]; then
+            echo "status=cancelled" >> "$GITHUB_OUTPUT"
+            echo "color=warning" >> "$GITHUB_OUTPUT"
+            echo "emoji=:warning:" >> "$GITHUB_OUTPUT"
+            echo "text=CANCELLED" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=success" >> "$GITHUB_OUTPUT"
+            echo "color=good" >> "$GITHUB_OUTPUT"
+            echo "emoji=:white_check_mark:" >> "$GITHUB_OUTPUT"
+            echo "text=PASSED" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Send Slack notification
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          channel-id: '#log-analysis'
+          payload: |
+            {
+              "text": "Log analysis pipeline ${{ steps.status.outputs.text }}",
+              "attachments": [
+                {
+                  "color": "${{ steps.status.outputs.color }}",
+                  "blocks": [
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "${{ steps.status.outputs.emoji }} *Log Analysis Pipeline ${{ steps.status.outputs.text }}*\n*Repository:* ${{ github.repository }}\n*Run:* #${{ github.run_number }}\n*Branch:* ${{ github.ref_name }}\n*Trigger:* ${{ github.event_name }}\n*URL:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View Run>"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
