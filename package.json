@@ -1,0 +1,16 @@
+{
+  "name": "elastic_logs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No unit tests configured\" && exit 0",
+    "test:e2e": "playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Automated log analysis system using Devin AI",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0"
+  }
+}
