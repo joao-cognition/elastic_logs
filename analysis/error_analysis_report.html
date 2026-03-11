@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Pattern Analysis Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #1a1a2e;
+            border-bottom: 3px solid #4a90d9;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #16213e;
+            margin-top: 30px;
+            border-left: 4px solid #4a90d9;
+            padding-left: 10px;
+        }
+        h3 {
+            color: #0f3460;
+        }
+        .summary-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .metric-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4a90d9;
+        }
+        .metric-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4a90d9;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .severity-critical {
+            background-color: #ff4757;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .severity-high {
+            background-color: #ff6b35;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .severity-medium {
+            background-color: #ffa502;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .severity-low {
+            background-color: #2ed573;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .recommendation {
+            background: #e8f4f8;
+            border-left: 4px solid #4a90d9;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .error-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Error Pattern Analysis Report</h1>
+    <p class="timestamp">Generated: 2025-12-09 13:31:28 UTC</p>
+    
+    <div class="summary-box">
+        <h2 style="color: white; border: none; margin-top: 0;">Executive Summary</h2>
+        <p>Analysis of 100 log entries identified 15 
+        errors, representing an error rate of 15.0%.</p>
+    </div>
+    
+    <div class="metric-grid">
+        <div class="metric-card">
+            <div class="metric-value">15</div>
+            <div class="metric-label">Total Errors</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">15.0%</div>
+            <div class="metric-label">Error Rate</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">6</div>
+            <div class="metric-label">Affected Services</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">4</div>
+            <div class="metric-label">Error Status Codes</div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>1. Error Frequency by HTTP Status Code</h2>
+        <table>
+            <tr><th>Status Code</th><th>Count</th><th>Percentage</th><th>Description</th></tr>
+    <tr><td>503</td><td>6</td><td>40.0%</td><td>Service Unavailable</td></tr><tr><td>504</td><td>5</td><td>33.3%</td><td>Gateway Timeout</td></tr><tr><td>502</td><td>3</td><td>20.0%</td><td>Bad Gateway</td></tr><tr><td>500</td><td>1</td><td>6.7%</td><td>Internal Server Error</td></tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>2. Errors by Service</h2>
+        <table>
+            <tr><th>Service</th><th>Error Count</th><th>Percentage</th></tr>
+    <tr><td>user-service</td><td>4</td><td>26.7%</td></tr><tr><td>api-gateway</td><td>4</td><td>26.7%</td></tr><tr><td>cache-service</td><td>3</td><td>20.0%</td></tr><tr><td>security-monitor</td><td>2</td><td>13.3%</td></tr><tr><td>order-service</td><td>1</td><td>6.7%</td></tr><tr><td>product-service</td><td>1</td><td>6.7%</td></tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>3. Top Error Messages</h2>
+        <table>
+            <tr><th>Error Message</th><th>Count</th></tr>
+    <tr><td>Connection refused: service unreachable</td><td>5</td></tr><tr><td>Request timeout: upstream service unavailable</td><td>4</td></tr><tr><td>Internal server error: out of memory exception</td><td>3</td></tr><tr><td>Internal server error: database connection pool exhausted</td><td>3</td></tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>4. Endpoints with Highest Error Rates</h2>
+        <table>
+            <tr><th>Endpoint</th><th>Error Count</th></tr>
+    <tr><td>/api/reports</td><td>5</td></tr><tr><td>/api/search</td><td>2</td></tr><tr><td>/api/users</td><td>2</td></tr><tr><td>/api/products</td><td>2</td></tr><tr><td>/api/orders</td><td>2</td></tr><tr><td>/api/health</td><td>1</td></tr><tr><td>/api/checkout</td><td>1</td></tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>5. Root Cause Analysis & Remediation</h2>
+    
+        <div class="error-box">
+            <h3>Service Connectivity Issues (5 occurrences)</h3>
+            <p><strong>Root Cause:</strong> Downstream services unavailable or network connectivity problems</p>
+            <div class="recommendation">
+                <strong>Recommended Actions:</strong>
+                <ul>
+        <li>Implement circuit breaker pattern</li><li>Add retry logic with exponential backoff</li><li>Set up health checks for dependent services</li><li>Configure proper timeouts</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="error-box">
+            <h3>Request Timeout / Upstream Failure (4 occurrences)</h3>
+            <p><strong>Root Cause:</strong> Upstream services taking too long to respond or failing</p>
+            <div class="recommendation">
+                <strong>Recommended Actions:</strong>
+                <ul>
+        <li>Increase timeout thresholds appropriately</li><li>Implement async processing for long operations</li><li>Add caching layer to reduce upstream calls</li><li>Scale upstream services horizontally</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="error-box">
+            <h3>Out of Memory Exception (3 occurrences)</h3>
+            <p><strong>Root Cause:</strong> JVM heap exhaustion due to memory leaks or insufficient allocation</p>
+            <div class="recommendation">
+                <strong>Recommended Actions:</strong>
+                <ul>
+        <li>Increase JVM heap size (-Xmx)</li><li>Profile application for memory leaks</li><li>Implement proper garbage collection tuning</li><li>Add memory monitoring and alerts</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="error-box">
+            <h3>Database Connection Pool Exhaustion (3 occurrences)</h3>
+            <p><strong>Root Cause:</strong> Too many concurrent database connections exceeding pool capacity</p>
+            <div class="recommendation">
+                <strong>Recommended Actions:</strong>
+                <ul>
+        <li>Increase connection pool size</li><li>Implement connection pooling with proper timeout settings</li><li>Add circuit breaker pattern for database calls</li><li>Review and optimize long-running queries</li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="section">
+        <h2>6. Error Timeline Analysis</h2>
+        <table>
+            <tr><th>Time Period</th><th>Error Count</th><th>Trend</th></tr>
+    <tr><td>2025-11-30T10</td><td>3</td>
+                    <td><span class="severity-low">Normal</span></td></tr><tr><td>2025-11-30T11</td><td>2</td>
+                    <td><span class="severity-low">Normal</span></td></tr><tr><td>2025-11-30T12</td><td>1</td>
+                    <td><span class="severity-low">Normal</span></td></tr><tr><td>2025-11-30T13</td><td>1</td>
+                    <td><span class="severity-low">Normal</span></td></tr><tr><td>2025-11-30T15</td><td>4</td>
+                    <td><span class="severity-high">Spike</span></td></tr><tr><td>2025-11-30T16</td><td>1</td>
+                    <td><span class="severity-low">Normal</span></td></tr><tr><td>2025-11-30T17</td><td>3</td>
+                    <td><span class="severity-low">Normal</span></td></tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>7. Impact Assessment</h2>
+        <div class="warning">
+            <h3>Service Impact Summary</h3>
+            <ul>
+    <li><strong>user-service</strong>: 4 errors - High impact on service reliability</li><li><strong>api-gateway</strong>: 4 errors - High impact on service reliability</li><li><strong>cache-service</strong>: 3 errors - High impact on service reliability</li><li><strong>security-monitor</strong>: 2 errors - High impact on service reliability</li><li><strong>order-service</strong>: 1 errors - High impact on service reliability</li>
+            </ul>
+        </div>
+        <div class="recommendation">
+            <h3>Recommendations</h3>
+            <ol>
+                <li>Prioritize fixing database connection pool issues</li>
+                <li>Implement circuit breakers for service-to-service calls</li>
+                <li>Add comprehensive monitoring and alerting</li>
+                <li>Review and optimize slow database queries</li>
+                <li>Consider horizontal scaling for high-traffic services</li>
+            </ol>
+        </div>
+    </div>
+    
+</body>
+</html>

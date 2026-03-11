@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Issue Detection Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #1a1a2e;
+            border-bottom: 3px solid #4a90d9;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #16213e;
+            margin-top: 30px;
+            border-left: 4px solid #4a90d9;
+            padding-left: 10px;
+        }
+        h3 {
+            color: #0f3460;
+        }
+        .summary-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .metric-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4a90d9;
+        }
+        .metric-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4a90d9;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .severity-critical {
+            background-color: #ff4757;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .severity-high {
+            background-color: #ff6b35;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .severity-medium {
+            background-color: #ffa502;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .severity-low {
+            background-color: #2ed573;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .recommendation {
+            background: #e8f4f8;
+            border-left: 4px solid #4a90d9;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .error-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Security Issue Detection Report</h1>
+    <p class="timestamp">Generated: 2025-12-09 13:31:28 UTC</p>
+    
+    <div class="summary-box">
+        <h2 style="color: white; border: none; margin-top: 0;">Security Summary</h2>
+        <p>Analysis identified 3 security findings across 
+        100 log entries. 
+        <strong>2 Critical</strong> and <strong>0 High</strong> 
+        severity issues require immediate attention.</p>
+    </div>
+    
+    <div class="metric-grid">
+        <div class="metric-card">
+            <div class="metric-value" style="color: #ff4757;">2</div>
+            <div class="metric-label">Critical Issues</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value" style="color: #ff6b35;">0</div>
+            <div class="metric-label">High Severity</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">12</div>
+            <div class="metric-label">Auth Failures</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">8</div>
+            <div class="metric-label">Injection Attempts</div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>1. Security Findings Summary</h2>
+        <table>
+            <tr><th>Category</th><th>Severity</th><th>Count</th>
+                <th>Description</th><th>Recommendation</th></tr>
+    <tr>
+            <td>SQL Injection Attempts</td>
+            <td><span class="severity-critical">Critical</span></td>
+            <td>8</td>
+            <td>Active SQL injection attacks detected</td>
+            <td>Block offending IPs immediately, review WAF rules</td>
+        </tr><tr>
+            <td>Attack Tool Detection</td>
+            <td><span class="severity-critical">Critical</span></td>
+            <td>29</td>
+            <td>SQLMap scanning tool detected (29 requests)</td>
+            <td>Block IPs using attack tools, enhance rate limiting</td>
+        </tr><tr>
+            <td>Rate Limit Violations</td>
+            <td><span class="severity-medium">Medium</span></td>
+            <td>13</td>
+            <td>Multiple IPs exceeding rate limits</td>
+            <td>Review rate limit thresholds, consider IP blocking</td>
+        </tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>2. SQL Injection Attempts</h2>
+    
+        <div class="error-box">
+            <strong>CRITICAL:</strong> Active SQL injection attacks detected!
+        </div>
+        <table>
+            <tr><th>Timestamp</th><th>IP Address</th><th>Endpoint</th>
+                <th>Payload</th><th>User Agent</th></tr>
+        <tr>
+                <td>2025-11-30T12:45:00Z</td>
+                <td>185.220.101.1</td>
+                <td>/api/search</td>
+                <td><code>' OR '1'='1</code></td>
+                <td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb...</td>
+            </tr><tr>
+                <td>2025-11-30T13:20:00Z</td>
+                <td>192.168.150.2</td>
+                <td>/api/orders</td>
+                <td><code>Detected in message</code></td>
+                <td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb...</td>
+            </tr><tr>
+                <td>2025-11-30T14:30:00Z</td>
+                <td>192.168.95.249</td>
+                <td>/api/reports</td>
+                <td><code>Detected in message</code></td>
+                <td>Mozilla/5.0 (Windows NT 10.0; Win64; x64)...</td>
+            </tr><tr>
+                <td>2025-11-30T14:35:00Z</td>
+                <td>192.168.172.13</td>
+                <td>/api/checkout</td>
+                <td><code>' OR '1'='1</code></td>
+                <td>sqlmap/1.5.2...</td>
+            </tr><tr>
+                <td>2025-11-30T16:15:00Z</td>
+                <td>192.168.63.127</td>
+                <td>/api/reports</td>
+                <td><code>' OR '1'='1</code></td>
+                <td>sqlmap/1.5.2...</td>
+            </tr><tr>
+                <td>2025-11-30T16:20:00Z</td>
+                <td>192.168.19.53</td>
+                <td>/api/health</td>
+                <td><code>' OR '1'='1</code></td>
+                <td>sqlmap/1.5.2...</td>
+            </tr><tr>
+                <td>2025-11-30T17:40:00Z</td>
+                <td>192.168.201.98</td>
+                <td>/api/users</td>
+                <td><code>' OR '1'='1</code></td>
+                <td>curl/7.68.0...</td>
+            </tr><tr>
+                <td>2025-11-30T18:00:00Z</td>
+                <td>192.168.62.38</td>
+                <td>/api/orders</td>
+                <td><code>Detected in message</code></td>
+                <td>sqlmap/1.5.2...</td>
+            </tr></table>
+    </div>
+    
+    <div class="section">
+        <h2>3. High-Risk IP Addresses</h2>
+        <table>
+            <tr><th>IP Address</th><th>Risk Score</th><th>Severity</th>
+                <th>Total Requests</th><th>Failures</th><th>Risk Factors</th></tr>
+    <tr>
+            <td>185.220.101.1</td>
+            <td>140</td>
+            <td><span class="severity-critical">Critical</span></td>
+            <td>6</td>
+            <td>2</td>
+            <td>SQL injection attempt detected; Known attack tool detected; Rate limit exceeded; Known malicious IP</td>
+        </tr><tr>
+            <td>192.168.63.127</td>
+            <td>110</td>
+            <td><span class="severity-critical">Critical</span></td>
+            <td>1</td>
+            <td>0</td>
+            <td>SQL injection attempt detected; Known attack tool detected; Rate limit exceeded</td>
+        </tr><tr>
+            <td>192.168.19.53</td>
+            <td>110</td>
+            <td><span class="severity-critical">Critical</span></td>
+            <td>1</td>
+            <td>0</td>
+            <td>SQL injection attempt detected; Known attack tool detected; Rate limit exceeded</td>
+        </tr><tr>
+            <td>45.33.32.156</td>
+            <td>90</td>
+            <td><span class="severity-critical">Critical</span></td>
+            <td>4</td>
+            <td>1</td>
+            <td>Known attack tool detected; Rate limit exceeded; Known malicious IP</td>
+        </tr><tr>
+            <td>192.168.172.13</td>
+            <td>90</td>
+            <td><span class="severity-critical">Critical</span></td>
+            <td>1</td>
+            <td>1</td>
+            <td>SQL injection attempt detected; Known attack tool detected</td>
+        </tr><tr>
+            <td>192.168.62.38</td>
+            <td>60</td>
+            <td><span class="severity-critical">Critical</span></td>
+            <td>1</td>
+            <td>0</td>
+            <td>Known attack tool detected; Rate limit exceeded</td>
+        </tr><tr>
+            <td>192.168.201.98</td>
+            <td>50</td>
+            <td><span class="severity-critical">Critical</span></td>
+            <td>1</td>
+            <td>1</td>
+            <td>SQL injection attempt detected</td>
+        </tr><tr>
+            <td>192.168.247.78</td>
+            <td>40</td>
+            <td><span class="severity-high">High</span></td>
+            <td>1</td>
+            <td>0</td>
+            <td>Known attack tool detected</td>
+        </tr><tr>
+            <td>192.168.171.171</td>
+            <td>40</td>
+            <td><span class="severity-high">High</span></td>
+            <td>1</td>
+            <td>0</td>
+            <td>Known attack tool detected</td>
+        </tr><tr>
+            <td>192.168.62.242</td>
+            <td>40</td>
+            <td><span class="severity-high">High</span></td>
+            <td>1</td>
+            <td>0</td>
+            <td>Known attack tool detected</td>
+        </tr><tr>
+            <td>192.168.148.106</td>
+            <td>40</td>
+            <td><span class="severity-high">High</span></td>
+            <td>1</td>
+            <td>0</td>
+            <td>Known attack tool detected</td>
+        </tr><tr>
+            <td>10.0.0.99</td>
+            <td>40</td>
+            <td><span class="severity-high">High</span></td>
+            <td>4</td>
+            <td>0</td>
+            <td>Known attack tool detected</td>
+        </tr><tr>
+            <td>192.168.178.60</td>
+            <td>40</td>
+            <td><span class="severity-high">High</span></td>
+            <td>1</td>
+            <td>0</td>
+            <td>Known attack tool detected</td>
+        </tr><tr>
+            <td>192.168.184.18</td>
+            <td>40</td>
+            <td><span class="severity-high">High</span></td>
+            <td>1</td>
+            <td>0</td>
+            <td>Known attack tool detected</td>
+        </tr><tr>
+            <td>192.168.1.241</td>
+            <td>40</td>
+            <td><span class="severity-high">High</span></td>
+            <td>1</td>
+            <td>0</td>
+            <td>Known attack tool detected</td>
+        </tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>4. Attack Tool Detection</h2>
+    
+        <div class="warning">
+            <strong>Warning:</strong> Known attack tools detected in user agents!
+        </div>
+        <table>
+            <tr><th>Timestamp</th><th>IP Address</th><th>Tool Detected</th>
+                <th>Endpoint</th></tr>
+        <tr>
+                <td>2025-11-30T10:15:00Z</td>
+                <td>192.168.247.78</td>
+                <td><span class="severity-critical">sqlmap</span></td>
+                <td>/api/health</td>
+            </tr><tr>
+                <td>2025-11-30T10:40:00Z</td>
+                <td>45.33.32.156</td>
+                <td><span class="severity-critical">sqlmap</span></td>
+                <td>/api/orders</td>
+            </tr><tr>
+                <td>2025-11-30T11:00:00Z</td>
+                <td>192.168.171.171</td>
+                <td><span class="severity-critical">sqlmap</span></td>
+                <td>/api/search</td>
+            </tr><tr>
+                <td>2025-11-30T11:40:00Z</td>
+                <td>192.168.62.242</td>
+                <td><span class="severity-critical">sqlmap</span></td>
+                <td>/api/orders</td>
+            </tr><tr>
+                <td>2025-11-30T11:45:00Z</td>
+                <td>192.168.148.106</td>
+                <td><span class="severity-critical">sqlmap</span></td>
+                <td>/api/products</td>
+            </tr><tr>
+                <td>2025-11-30T12:50:00Z</td>
+                <td>185.220.101.1</td>
+                <td><span class="severity-critical">sqlmap</span></td>
+                <td>/api/search</td>
+            </tr><tr>
+                <td>2025-11-30T13:05:00Z</td>
+                <td>185.220.101.1</td>
+                <td><span class="severity-critical">sqlmap</span></td>
+                <td>/api/users</td>
+            </tr><tr>
+                <td>2025-11-30T13:25:00Z</td>
+                <td>192.168.178.60</td>
+                <td><span class="severity-critical">sqlmap</span></td>
+                <td>/api/orders</td>
+            </tr><tr>
+                <td>2025-11-30T13:45:00Z</td>
+                <td>185.220.101.1</td>
+                <td><span class="severity-critical">sqlmap</span></td>
+                <td>/api/checkout</td>
+            </tr><tr>
+                <td>2025-11-30T13:55:00Z</td>
+                <td>45.33.32.156</td>
+                <td><span class="severity-critical">sqlmap</span></td>
+                <td>/api/search</td>
+            </tr></table>
+    </div>
+    
+    <div class="section">
+        <h2>5. Authentication Failures</h2>
+        <table>
+            <tr><th>Timestamp</th><th>IP Address</th><th>Endpoint</th>
+                <th>Status Code</th><th>Message</th></tr>
+    <tr>
+            <td>2025-11-30T10:20:00Z</td>
+            <td>192.168.59.194</td>
+            <td>/api/checkout</td>
+            <td>401</td>
+            <td>Unauthorized access attempt to admin endpoint...</td>
+        </tr><tr>
+            <td>2025-11-30T12:45:00Z</td>
+            <td>185.220.101.1</td>
+            <td>/api/search</td>
+            <td>401</td>
+            <td>Unauthorized access attempt to admin endpoint...</td>
+        </tr><tr>
+            <td>2025-11-30T12:55:00Z</td>
+            <td>192.168.155.56</td>
+            <td>/api/checkout</td>
+            <td>401</td>
+            <td>Unauthorized access attempt to admin endpoint...</td>
+        </tr><tr>
+            <td>2025-11-30T13:45:00Z</td>
+            <td>185.220.101.1</td>
+            <td>/api/checkout</td>
+            <td>401</td>
+            <td>Unauthorized access attempt to admin endpoint...</td>
+        </tr><tr>
+            <td>2025-11-30T13:55:00Z</td>
+            <td>45.33.32.156</td>
+            <td>/api/search</td>
+            <td>403</td>
+            <td>Unauthorized access attempt to admin endpoint...</td>
+        </tr><tr>
+            <td>2025-11-30T14:35:00Z</td>
+            <td>192.168.172.13</td>
+            <td>/api/checkout</td>
+            <td>401</td>
+            <td>Unauthorized access attempt to admin endpoint...</td>
+        </tr><tr>
+            <td>2025-11-30T15:25:00Z</td>
+            <td>192.168.253.42</td>
+            <td>/api/orders</td>
+            <td>403</td>
+            <td>Rate limit exceeded for IP...</td>
+        </tr><tr>
+            <td>2025-11-30T16:05:00Z</td>
+            <td>192.168.173.34</td>
+            <td>/api/search</td>
+            <td>403</td>
+            <td>Unauthorized access attempt to admin endpoint...</td>
+        </tr><tr>
+            <td>2025-11-30T17:00:00Z</td>
+            <td>192.168.7.219</td>
+            <td>/api/reports</td>
+            <td>403</td>
+            <td>Unauthorized access attempt to admin endpoint...</td>
+        </tr><tr>
+            <td>2025-11-30T17:35:00Z</td>
+            <td>192.168.32.52</td>
+            <td>/api/health</td>
+            <td>401</td>
+            <td>Unauthorized access attempt to admin endpoint...</td>
+        </tr><tr>
+            <td>2025-11-30T17:40:00Z</td>
+            <td>192.168.201.98</td>
+            <td>/api/users</td>
+            <td>403</td>
+            <td>Rate limit exceeded for IP...</td>
+        </tr><tr>
+            <td>2025-11-30T18:10:00Z</td>
+            <td>192.168.169.112</td>
+            <td>/api/users</td>
+            <td>403</td>
+            <td>Rate limit exceeded for IP...</td>
+        </tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>6. Rate Limit Violations</h2>
+        <table>
+            <tr><th>Timestamp</th><th>IP Address</th><th>Endpoint</th>
+                <th>Requests/Min</th></tr>
+    <tr>
+            <td>2025-11-30T10:20:00Z</td>
+            <td>192.168.59.194</td>
+            <td>/api/checkout</td>
+            <td>150</td>
+        </tr><tr>
+            <td>2025-11-30T11:30:00Z</td>
+            <td>192.168.222.217</td>
+            <td>/api/reports</td>
+            <td>150</td>
+        </tr><tr>
+            <td>2025-11-30T12:50:00Z</td>
+            <td>185.220.101.1</td>
+            <td>/api/search</td>
+            <td>Unknown</td>
+        </tr><tr>
+            <td>2025-11-30T13:20:00Z</td>
+            <td>192.168.150.2</td>
+            <td>/api/orders</td>
+            <td>Unknown</td>
+        </tr><tr>
+            <td>2025-11-30T13:45:00Z</td>
+            <td>185.220.101.1</td>
+            <td>/api/checkout</td>
+            <td>150</td>
+        </tr><tr>
+            <td>2025-11-30T13:55:00Z</td>
+            <td>45.33.32.156</td>
+            <td>/api/search</td>
+            <td>150</td>
+        </tr><tr>
+            <td>2025-11-30T14:30:00Z</td>
+            <td>192.168.95.249</td>
+            <td>/api/reports</td>
+            <td>Unknown</td>
+        </tr><tr>
+            <td>2025-11-30T15:25:00Z</td>
+            <td>192.168.253.42</td>
+            <td>/api/orders</td>
+            <td>150</td>
+        </tr><tr>
+            <td>2025-11-30T16:15:00Z</td>
+            <td>192.168.63.127</td>
+            <td>/api/reports</td>
+            <td>Unknown</td>
+        </tr><tr>
+            <td>2025-11-30T16:20:00Z</td>
+            <td>192.168.19.53</td>
+            <td>/api/health</td>
+            <td>Unknown</td>
+        </tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>7. Recommended Actions</h2>
+        <div class="recommendation">
+            <h3>Immediate Actions (Critical)</h3>
+            <ol>
+                <li>Block IPs identified with SQL injection attempts</li>
+                <li>Review and strengthen WAF rules for injection patterns</li>
+                <li>Implement IP-based rate limiting for suspicious sources</li>
+            </ol>
+        </div>
+        <div class="recommendation">
+            <h3>Short-term Actions (High Priority)</h3>
+            <ol>
+                <li>Implement account lockout after failed login attempts</li>
+                <li>Add CAPTCHA for authentication endpoints</li>
+                <li>Review access control policies for admin endpoints</li>
+                <li>Enable detailed logging for security events</li>
+            </ol>
+        </div>
+        <div class="recommendation">
+            <h3>Long-term Improvements</h3>
+            <ol>
+                <li>Deploy a Web Application Firewall (WAF)</li>
+                <li>Implement threat intelligence feed integration</li>
+                <li>Set up automated security alerting</li>
+                <li>Conduct regular security assessments</li>
+            </ol>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Anomaly Analysis Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #1a1a2e;
+            border-bottom: 3px solid #4a90d9;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #16213e;
+            margin-top: 30px;
+            border-left: 4px solid #4a90d9;
+            padding-left: 10px;
+        }
+        h3 {
+            color: #0f3460;
+        }
+        .summary-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .metric-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4a90d9;
+        }
+        .metric-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4a90d9;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .severity-critical {
+            background-color: #ff4757;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .severity-high {
+            background-color: #ff6b35;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .severity-medium {
+            background-color: #ffa502;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .severity-low {
+            background-color: #2ed573;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        .recommendation {
+            background: #e8f4f8;
+            border-left: 4px solid #4a90d9;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .error-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .timestamp {
+            color: #666;
+            font-size: 0.9em;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Performance Anomaly Analysis Report</h1>
+    <p class="timestamp">Generated: 2025-12-09 13:31:28 UTC</p>
+    
+    <div class="summary-box">
+        <h2 style="color: white; border: none; margin-top: 0;">Performance Summary</h2>
+        <p>Analyzed 100 requests. Average response time: 
+        <strong>3490.17ms</strong>. 
+        22 requests exceeded 1000ms threshold.</p>
+    </div>
+    
+    <div class="metric-grid">
+        <div class="metric-card">
+            <div class="metric-value">3490.17</div>
+            <div class="metric-label">Avg Response (ms)</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">25703</div>
+            <div class="metric-label">P95 Response (ms)</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">27017</div>
+            <div class="metric-label">P99 Response (ms)</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-value">22</div>
+            <div class="metric-label">Slow Requests (&gt;1s)</div>
+        </div>
+    </div>
+    
+    <div class="section">
+        <h2>1. Overall Response Time Statistics</h2>
+        <table>
+            <tr><th>Metric</th><th>Value (ms)</th></tr>
+            <tr><td>Minimum</td><td>53</td></tr>
+            <tr><td>Maximum</td><td>27017</td></tr>
+            <tr><td>Average</td><td>3490.17</td></tr>
+            <tr><td>Median</td><td>181.0</td></tr>
+            <tr><td>95th Percentile</td><td>25703</td></tr>
+            <tr><td>99th Percentile</td><td>27017</td></tr>
+            <tr><td>Standard Deviation</td><td>7125.64</td></tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>2. Endpoint Performance Analysis</h2>
+        <table>
+            <tr><th>Endpoint</th><th>Request Count</th><th>Avg (ms)</th>
+                <th>P95 (ms)</th><th>Max (ms)</th><th>Slow Requests</th></tr>
+    <tr>
+            <td>/api/reports</td>
+            <td>13</td>
+            <td>8524.08</td>
+            <td>27017</td>
+            <td>27017</td>
+            <td><span class="severity-high">6</span></td>
+        </tr><tr>
+            <td>/api/products</td>
+            <td>12</td>
+            <td>5708.75</td>
+            <td>17528</td>
+            <td>17528</td>
+            <td><span class="">5</span></td>
+        </tr><tr>
+            <td>/api/search</td>
+            <td>17</td>
+            <td>3232.35</td>
+            <td>26656</td>
+            <td>26656</td>
+            <td><span class="">2</span></td>
+        </tr><tr>
+            <td>/api/users</td>
+            <td>17</td>
+            <td>2714.06</td>
+            <td>14833</td>
+            <td>14833</td>
+            <td><span class="">5</span></td>
+        </tr><tr>
+            <td>/api/orders</td>
+            <td>15</td>
+            <td>1870.07</td>
+            <td>13369</td>
+            <td>13369</td>
+            <td><span class="">2</span></td>
+        </tr><tr>
+            <td>/api/checkout</td>
+            <td>12</td>
+            <td>1816.33</td>
+            <td>19655</td>
+            <td>19655</td>
+            <td><span class="">1</span></td>
+        </tr><tr>
+            <td>/api/health</td>
+            <td>14</td>
+            <td>1340.21</td>
+            <td>17017</td>
+            <td>17017</td>
+            <td><span class="">1</span></td>
+        </tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>3. Service Performance Analysis</h2>
+        <table>
+            <tr><th>Service</th><th>Request Count</th><th>Avg (ms)</th>
+                <th>P95 (ms)</th><th>Max (ms)</th><th>Error-Prone</th></tr>
+    <tr>
+            <td>order-service</td>
+            <td>19</td>
+            <td>3228</td>
+            <td>13685</td>
+            <td>13685</td>
+            <td><span class="severity-high">6</span></td>
+        </tr><tr>
+            <td>user-service</td>
+            <td>19</td>
+            <td>3937.89</td>
+            <td>27017</td>
+            <td>27017</td>
+            <td><span class="severity-high">4</span></td>
+        </tr><tr>
+            <td>cache-service</td>
+            <td>23</td>
+            <td>3576.26</td>
+            <td>17017</td>
+            <td>25703</td>
+            <td><span class="severity-high">5</span></td>
+        </tr><tr>
+            <td>product-service</td>
+            <td>10</td>
+            <td>2768.3</td>
+            <td>26354</td>
+            <td>26354</td>
+            <td><span class="">1</span></td>
+        </tr><tr>
+            <td>api-gateway</td>
+            <td>19</td>
+            <td>3031.05</td>
+            <td>19655</td>
+            <td>19655</td>
+            <td><span class="severity-high">4</span></td>
+        </tr><tr>
+            <td>security-monitor</td>
+            <td>10</td>
+            <td>4533.8</td>
+            <td>26656</td>
+            <td>26656</td>
+            <td><span class="">2</span></td>
+        </tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>4. Slowest Requests</h2>
+        <table>
+            <tr><th>Timestamp</th><th>Service</th><th>Endpoint</th>
+                <th>Method</th><th>Response Time (ms)</th><th>Status</th></tr>
+    <tr>
+            <td>2025-11-30T17:10:00Z</td>
+            <td>user-service</td>
+            <td>/api/reports</td>
+            <td>GET</td>
+            <td><span class="severity-critical">27017</span></td>
+            <td>503</td>
+        </tr><tr>
+            <td>2025-11-30T15:40:00Z</td>
+            <td>security-monitor</td>
+            <td>/api/search</td>
+            <td>PUT</td>
+            <td><span class="severity-critical">26656</span></td>
+            <td>500</td>
+        </tr><tr>
+            <td>2025-11-30T15:20:00Z</td>
+            <td>product-service</td>
+            <td>/api/reports</td>
+            <td>POST</td>
+            <td><span class="severity-critical">26354</span></td>
+            <td>503</td>
+        </tr><tr>
+            <td>2025-11-30T17:25:00Z</td>
+            <td>user-service</td>
+            <td>/api/reports</td>
+            <td>POST</td>
+            <td><span class="severity-critical">26248</span></td>
+            <td>503</td>
+        </tr><tr>
+            <td>2025-11-30T10:30:00Z</td>
+            <td>cache-service</td>
+            <td>/api/search</td>
+            <td>PUT</td>
+            <td><span class="severity-critical">25703</span></td>
+            <td>503</td>
+        </tr><tr>
+            <td>2025-11-30T17:30:00Z</td>
+            <td>api-gateway</td>
+            <td>/api/checkout</td>
+            <td>GET</td>
+            <td><span class="severity-critical">19655</span></td>
+            <td>502</td>
+        </tr><tr>
+            <td>2025-11-30T11:20:00Z</td>
+            <td>security-monitor</td>
+            <td>/api/products</td>
+            <td>DELETE</td>
+            <td><span class="severity-critical">17528</span></td>
+            <td>503</td>
+        </tr><tr>
+            <td>2025-11-30T11:55:00Z</td>
+            <td>api-gateway</td>
+            <td>/api/products</td>
+            <td>DELETE</td>
+            <td><span class="severity-critical">17470</span></td>
+            <td>503</td>
+        </tr><tr>
+            <td>2025-11-30T10:15:00Z</td>
+            <td>cache-service</td>
+            <td>/api/health</td>
+            <td>GET</td>
+            <td><span class="severity-critical">17017</span></td>
+            <td>502</td>
+        </tr><tr>
+            <td>2025-11-30T10:50:00Z</td>
+            <td>cache-service</td>
+            <td>/api/users</td>
+            <td>PUT</td>
+            <td><span class="severity-critical">14833</span></td>
+            <td>200</td>
+        </tr><tr>
+            <td>2025-11-30T10:00:00Z</td>
+            <td>order-service</td>
+            <td>/api/products</td>
+            <td>GET</td>
+            <td><span class="severity-critical">13685</span></td>
+            <td>200</td>
+        </tr><tr>
+            <td>2025-11-30T15:10:00Z</td>
+            <td>cache-service</td>
+            <td>/api/orders</td>
+            <td>POST</td>
+            <td><span class="severity-critical">13369</span></td>
+            <td>504</td>
+        </tr><tr>
+            <td>2025-11-30T16:40:00Z</td>
+            <td>order-service</td>
+            <td>/api/reports</td>
+            <td>GET</td>
+            <td><span class="severity-critical">12595</span></td>
+            <td>200</td>
+        </tr><tr>
+            <td>2025-11-30T15:05:00Z</td>
+            <td>api-gateway</td>
+            <td>/api/orders</td>
+            <td>GET</td>
+            <td><span class="severity-critical">12543</span></td>
+            <td>502</td>
+        </tr><tr>
+            <td>2025-11-30T15:50:00Z</td>
+            <td>order-service</td>
+            <td>/api/products</td>
+            <td>PUT</td>
+            <td><span class="severity-critical">11602</span></td>
+            <td>200</td>
+        </tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>5. Performance Timeline</h2>
+        <table>
+            <tr><th>Time Period</th><th>Avg Response (ms)</th>
+                <th>Max Response (ms)</th><th>Request Count</th></tr>
+    <tr>
+            <td>2025-11-30T10</td>
+            <td>6653.17</td>
+            <td>25703</td>
+            <td>12</td>
+        </tr><tr>
+            <td>2025-11-30T11</td>
+            <td>3030.08</td>
+            <td>17528</td>
+            <td>12</td>
+        </tr><tr>
+            <td>2025-11-30T12</td>
+            <td>1107.08</td>
+            <td>11198</td>
+            <td>12</td>
+        </tr><tr>
+            <td>2025-11-30T13</td>
+            <td>1297</td>
+            <td>7937</td>
+            <td>12</td>
+        </tr><tr>
+            <td>2025-11-30T14</td>
+            <td>751.75</td>
+            <td>7402</td>
+            <td>12</td>
+        </tr><tr>
+            <td>2025-11-30T15</td>
+            <td>7630.08</td>
+            <td>26656</td>
+            <td>12</td>
+        </tr><tr>
+            <td>2025-11-30T16</td>
+            <td>1652.92</td>
+            <td>12595</td>
+            <td>12</td>
+        </tr><tr>
+            <td>2025-11-30T17</td>
+            <td>6893.75</td>
+            <td>27017</td>
+            <td>12</td>
+        </tr><tr>
+            <td>2025-11-30T18</td>
+            <td>206.75</td>
+            <td>379</td>
+            <td>4</td>
+        </tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>6. Performance Warnings</h2>
+        <table>
+            <tr><th>Timestamp</th><th>Service</th><th>Message</th>
+                <th>Read Latency</th><th>Write Latency</th><th>IOPS</th></tr>
+    <tr>
+            <td>2025-11-30T10:00:00Z</td>
+            <td>order-service</td>
+            <td>Slow database query detected...</td>
+            <td>447</td>
+            <td>292</td>
+            <td>131</td>
+        </tr><tr>
+            <td>2025-11-30T10:30:00Z</td>
+            <td>cache-service</td>
+            <td>Internal server error: out of memory exception...</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+        </tr><tr>
+            <td>2025-11-30T10:45:00Z</td>
+            <td>user-service</td>
+            <td>Internal server error: out of memory exception...</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+        </tr><tr>
+            <td>2025-11-30T10:50:00Z</td>
+            <td>cache-service</td>
+            <td>High memory usage detected...</td>
+            <td>185</td>
+            <td>653</td>
+            <td>166</td>
+        </tr><tr>
+            <td>2025-11-30T13:50:00Z</td>
+            <td>order-service</td>
+            <td>Slow database query detected...</td>
+            <td>320</td>
+            <td>488</td>
+            <td>66</td>
+        </tr><tr>
+            <td>2025-11-30T14:55:00Z</td>
+            <td>order-service</td>
+            <td>Disk I/O latency spike...</td>
+            <td>352</td>
+            <td>740</td>
+            <td>170</td>
+        </tr><tr>
+            <td>2025-11-30T15:20:00Z</td>
+            <td>product-service</td>
+            <td>Internal server error: out of memory exception...</td>
+            <td>N/A</td>
+            <td>N/A</td>
+            <td>N/A</td>
+        </tr><tr>
+            <td>2025-11-30T15:50:00Z</td>
+            <td>order-service</td>
+            <td>Disk I/O latency spike...</td>
+            <td>246</td>
+            <td>737</td>
+            <td>79</td>
+        </tr><tr>
+            <td>2025-11-30T16:40:00Z</td>
+            <td>order-service</td>
+            <td>High memory usage detected...</td>
+            <td>210</td>
+            <td>730</td>
+            <td>74</td>
+        </tr><tr>
+            <td>2025-11-30T17:20:00Z</td>
+            <td>cache-service</td>
+            <td>High memory usage detected...</td>
+            <td>335</td>
+            <td>736</td>
+            <td>180</td>
+        </tr>
+        </table>
+    </div>
+    
+    <div class="section">
+        <h2>7. Identified Bottlenecks</h2>
+    
+        <div class="warning">
+            <h3>Slow Endpoint: /api/reports</h3>
+            <p><strong>Issue:</strong> 
+            Average response time: 8524.08ms</p>
+            <p><strong>Recommendation:</strong> Optimize database queries, add caching, or scale horizontally</p>
+        </div>
+        
+        <div class="warning">
+            <h3>Slow Endpoint: /api/products</h3>
+            <p><strong>Issue:</strong> 
+            Average response time: 5708.75ms</p>
+            <p><strong>Recommendation:</strong> Optimize database queries, add caching, or scale horizontally</p>
+        </div>
+        
+        <div class="warning">
+            <h3>Slow Endpoint: /api/search</h3>
+            <p><strong>Issue:</strong> 
+            Average response time: 3232.35ms</p>
+            <p><strong>Recommendation:</strong> Optimize database queries, add caching, or scale horizontally</p>
+        </div>
+        
+        <div class="warning">
+            <h3>Slow Endpoint: /api/users</h3>
+            <p><strong>Issue:</strong> 
+            Average response time: 2714.06ms</p>
+            <p><strong>Recommendation:</strong> Optimize database queries, add caching, or scale horizontally</p>
+        </div>
+        
+        <div class="warning">
+            <h3>Slow Endpoint: /api/orders</h3>
+            <p><strong>Issue:</strong> 
+            Average response time: 1870.07ms</p>
+            <p><strong>Recommendation:</strong> Optimize database queries, add caching, or scale horizontally</p>
+        </div>
+        
+        <div class="warning">
+            <h3>Service Degradation: order-service</h3>
+            <p><strong>Issue:</strong> 
+            Error-prone requests: 6</p>
+            <p><strong>Recommendation:</strong> Review service health, check resource utilization</p>
+        </div>
+        
+    </div>
+    
+    <div class="section">
+        <h2>8. Capacity Planning Recommendations</h2>
+        <div class="recommendation">
+            <h3>Scaling Recommendations</h3>
+            <ol>
+                <li>Consider horizontal scaling for services with high P95 latency</li>
+                <li>Implement caching for frequently accessed endpoints</li>
+                <li>Optimize database queries for slow endpoints</li>
+                <li>Add connection pooling for database-heavy services</li>
+                <li>Consider async processing for long-running operations</li>
+            </ol>
+        </div>
+        <div class="recommendation">
+            <h3>Monitoring Improvements</h3>
+            <ol>
+                <li>Set up alerts for P95 latency exceeding thresholds</li>
+                <li>Monitor database connection pool utilization</li>
+                <li>Track memory and CPU usage per service</li>
+                <li>Implement distributed tracing for request flow analysis</li>
+            </ol>
+        </div>
+    </div>
+    
+</body>
+</html>
